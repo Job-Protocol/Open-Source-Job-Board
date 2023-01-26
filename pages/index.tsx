@@ -1,20 +1,12 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
-import FormData from 'form-data';
+import Head from "next/head";
+import Image from "next/image";
+import { Inter } from "@next/font/google";
+import styles from "@/styles/Home.module.css";
+import Joblist from "components/joblist";
 
-import React, { useState } from 'react'; 
-import { useEffect } from 'react';
-
-import Joblist from 'components/joblist'; 'components/NameList' 
-
-const inter = Inter({ subsets: ['latin'] })
-
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-
-
   return (
     <>
       <Head>
@@ -24,7 +16,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <Joblist/>
+        <Joblist />
 
         <div className={styles.grid}>
           <a

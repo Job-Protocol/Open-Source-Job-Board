@@ -1,40 +1,47 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from "next";
+import config from "../../config.json";
 
-
-type Role  = {
-    title: string;
-    company_name: string;
-  }
-
-type Data = {
-  name: string
-}
+type Role = {
+  title: string;
+  company_name: string;
+};
 
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Role[]>
 ) {
+  var constraints = JSON.stringify([
+    { key: "_id", constraint_type: "in", value: config["job-ids"] },
+  ]);
 
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer fc6ffa9279edd969ea779ea5edd4c3bc");
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow'
-    };
-    
-    const parsed =  fetch("https://app.jobprotocol.xyz/version-live/api/1.1/obj/role", requestOptions)
-      .then(result => result.json())
-      .then(p => p.response.results.map((role: any) => {
+  var myHeaders = new Headers();
+  myHeaders.append(
+    "Authorization",
+    "Bearer ".concat(process.env.BUBBLE_API_PRIVATE_KEY)
+  );
+  var requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  const endpoint = "https://app.jobprotocol.xyz/version-live/api/1.1/obj/role/";
+  const url = endpoint + "?constraints=" + constraints;
+  fetch(url, requestOptions)
+    .then((result) => {
+      return result.json();
+    })
+    .then((p) =>
+      p.response.results.map((role: any) => {
         const r: Role = {
-            title: role.title,
-            company_name: role.company
-          };
-          return r; 
-      }))
-      .then(r => res.status(200).json(r))
-      .catch(error => {
-        res.status(500);
+          title: role.title,
+          company_name: role.company,
+        };
+        return r;
       })
-    
+    )
+    .then((r) => res.status(200).json(r))
+    .catch((error) => {
+      res.status(500);
+    });
 }
