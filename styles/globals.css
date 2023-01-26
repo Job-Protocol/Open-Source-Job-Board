@@ -8,6 +8,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --ethdenver-pink-hex: #f9548e;
+  --ethdenver-purple-hex: #481f84;
 
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
@@ -90,9 +92,9 @@ body {
   background: linear-gradient(
       to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
+      rgb(255,255,255)
     )
-    rgb(var(--background-start-rgb));
+    var(--ethdenver-purple-hex);
 }
 
 a {
