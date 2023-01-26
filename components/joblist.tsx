@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 
+import styles from "@/styles/Home.module.css";
+import JobCard from "components/jobcard";
+
+import { Inter } from "@next/font/google";
+const inter = Inter({ subsets: ["latin"] });
+
 interface Role {
   title: string;
   company_name: string;
@@ -25,17 +31,14 @@ export default function Joblist() {
   console.log("userlist", userList);
 
   return (
-    <div>
-      <h1>Infinite Loading</h1>
-      <h2>{userList.length}</h2>
-      <ul>
-        {userList.map((role) => (
-          <li key={role.title}>
-            {role.title} - {role.company_name}
-          </li>
-        ))}
-      </ul>
-      ;
+    <div className={styles.grid}>
+      {userList.map((role) => (
+        <JobCard
+          key={role.title}
+          title={role.title}
+          company_name={role.company_name}
+        />
+      ))}
     </div>
   );
 }
