@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import config from "../../config.json";
+import * as http from "http";
 
 type Role = {
   title: string;
@@ -10,6 +11,10 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Role[]>
 ) {
+  if (!process.env.BUBBLE_API_PRIVATE_KEY) {
+    res.status(500);
+    return;
+  }
   var constraints = JSON.stringify([
     { key: "_id", constraint_type: "in", value: config["job-ids"] },
   ]);
@@ -19,7 +24,13 @@ export default function handler(
     "Authorization",
     "Bearer ".concat(process.env.BUBBLE_API_PRIVATE_KEY)
   );
-  var requestOptions = {
+  // var requestOptions = {
+  //   method: "GET",
+  //   headers: myHeaders,
+  //   redirect: "follow",
+  // };
+
+  const requestOptions: RequestInit = {
     method: "GET",
     headers: myHeaders,
     redirect: "follow",
