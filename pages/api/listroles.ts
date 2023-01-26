@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 
@@ -17,7 +16,7 @@ export default function handler(
 ) {
 
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer adc329a06334375d61dbdf6bdf040aeb");
+    myHeaders.append("Authorization", "Bearer fc6ffa9279edd969ea779ea5edd4c3bc");
     var requestOptions = {
       method: 'GET',
       headers: myHeaders,
