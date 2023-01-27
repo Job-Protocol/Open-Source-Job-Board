@@ -61,6 +61,7 @@ export default function Joblist() {
       {cardDataList.map((carddata) => (
         <JobCard
           key={carddata.role_id}
+          role_id={carddata.role_id}
           title={carddata.title}
           company_name={carddata.company_name}
         />

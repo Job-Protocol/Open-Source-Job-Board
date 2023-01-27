@@ -6,7 +6,10 @@ type Company = {
   logo: string;
 };
 
-export async function fetch_company_by_id(id: string, key: string): Company {
+export async function fetch_company_by_id(
+  id: string,
+  key: string
+): Promise<Company> {
   var myHeaders = new Headers();
   myHeaders.append("Authorization", "Bearer ".concat(key));
   const requestOptions: RequestInit = {
