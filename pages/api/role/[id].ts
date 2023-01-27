@@ -5,6 +5,7 @@ type Role = {
   id: string;
   title: string;
   company_id: string;
+  desc: string;
 };
 
 export async function fetch_role_by_id(id: string, key: string): Promise<Role> {
@@ -21,10 +22,12 @@ export async function fetch_role_by_id(id: string, key: string): Promise<Role> {
 
   const response = await fetch(url, requestOptions);
   const result = await response.json();
+  console.log(result);
   return {
     id: result.response._id,
     title: result.response.title,
     company_id: result.response.company,
+    desc: result.response.job_description,
   };
 }
 
