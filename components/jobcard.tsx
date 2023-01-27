@@ -6,13 +6,14 @@ import styles from "@/styles/Home.module.css";
 import { Inter, Titillium_Web } from "@next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
-interface JobCardProps {
+export interface JobCardProps {
   title: string;
   company_name: string;
+  role_id: string;
 }
 
-export default function JobCard({ title, company_name }: JobCardProps) {
-  const link: string = "role/" + title;
+export default function JobCard(carddata: JobCardProps) {
+  const link: string = "role/" + carddata.role_id;
   return (
     <a
       href={link}
@@ -21,9 +22,9 @@ export default function JobCard({ title, company_name }: JobCardProps) {
       rel="noopener noreferrer"
     >
       <h2 className={inter.className}>
-        {title} <span>-&gt;</span>
+        {carddata.title} <span>-&gt;</span>
       </h2>
-      <p className={inter.className}> {company_name} </p>
+      <p className={inter.className}> {carddata.company_name} </p>
     </a>
   );
 }

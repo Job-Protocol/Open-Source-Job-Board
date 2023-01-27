@@ -16,7 +16,7 @@ export default function Home() {
         <link rel="icon" href="/faviconV2.png" />
       </Head>
       <div className={styles.center}>
-        <h1>ETH Denver Job Board</h1>
+        <h1 className={styles.pagetitle}>ETH Denver Job Board</h1>
         <p>Below is the full list of open roles. Open any role for details.</p>
       </div>
 
