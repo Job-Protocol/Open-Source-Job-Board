@@ -8,7 +8,11 @@
 }
 
 .pagetitle {
-  font-size: 64;
+  font-size: 56px;
+  text-shadow:
+  0 0 2px #fff,
+  0 0 8px #f99ebe,
+  0 0 15px #f9548e;
 }
 
 .center {
@@ -18,7 +22,7 @@
 
 .grid {
   display: grid;
-  grid-gap: 10px;
+  grid-gap: 1.0rem;
   /*grid-template-columns: repeat(2, minmax(25%, auto));*/
   width: var(--max-width);
   max-width: 100%;
@@ -46,7 +50,7 @@
 }
 
 .logo{
-  height: 150px;
+  height: 100px;
 }
 
 

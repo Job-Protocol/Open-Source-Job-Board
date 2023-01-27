@@ -74,3 +74,8 @@ ul, li {
   /* color: darkblue; */
   margin: 5px;
 }
+
+body{
+  /* height: 100%;
+  background: linear-gradient(90deg, #481f84 5%, #ffffff 5%); */
+}
