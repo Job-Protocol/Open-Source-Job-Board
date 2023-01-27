@@ -1,33 +1,34 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "@next/font/google";
-import styles from "@/styles/Home.module.css";
+import styles from "@/styles/Roledetailpage.module.css";
 import Joblist from "components/joblist";
 import JdCard from "components/jdcard";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
+import { RoleDetail } from "../api/role_detail/[id]";
+
 const inter = Inter({ subsets: ["latin"] });
 
-async function getRoleData(roleid: string): Promise<string> {
-  console.log("roleid", roleid);
-  const result = await fetch("../api/role/" + roleid);
+async function getRoleData(roleid: string): Promise<RoleDetail> {
+  const result = await fetch("../api/role_detail/" + roleid);
   const parsed = await result.json();
-  console.log("PARSED", parsed);
-  return parsed.desc;
+  return parsed;
 }
 
 export default function Home() {
   const router = useRouter();
   const id = router.query.id;
-
-  const [cardDataList, setCardDataList] = useState<string>();
+  const [jobDetails, setJobDetails] = useState<RoleDetail>();
 
   useEffect(() => {
-    getRoleData(id as string).then((res) => {
-      setCardDataList(res);
-    });
+    if (id) {
+      getRoleData(id as string).then((res) => {
+        setJobDetails(res);
+      });
+    }
   }, [id]);
   return (
     <>
@@ -38,11 +39,12 @@ export default function Home() {
         <link rel="icon" href="/faviconV2.png" />
       </Head>
       <div className={styles.center}>
-        <h1 className={styles.pagetitle}>ETH Denver Job Board</h1>
-        <p>Details for role with ID: {id} </p>
+        <img src={jobDetails?.logo} className={styles.logo} alt="Logo" />
+        <h1 className={styles.pagetitle}>{jobDetails?.title}</h1>
+        <h3> @ {jobDetails?.company_name}</h3>
       </div>
       <main className={styles.main}>
-        <JdCard desc={cardDataList as string} />
+        <JdCard desc={jobDetails?.desc as string} />
       </main>
     </>
   );
