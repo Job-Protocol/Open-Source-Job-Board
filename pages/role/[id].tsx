@@ -41,9 +41,9 @@ export default function Home() {
         <h1 className={styles.pagetitle}>ETH Denver Job Board</h1>
         <p>Details for role with ID: {id} </p>
       </div>
-      <div className={styles.center}>
+      <main className={styles.main}>
         <JdCard desc={cardDataList as string} />
-      </div>
+      </main>
     </>
   );
 }

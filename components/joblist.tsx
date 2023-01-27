@@ -38,6 +38,7 @@ async function GetRoleData() {
         title: k.title,
         company_name: company_data[i].name,
         role_id: k.id,
+        company_logo: company_data[i].logo,
       };
       return carddata;
     });
@@ -64,6 +65,7 @@ export default function Joblist() {
           role_id={carddata.role_id}
           title={carddata.title}
           company_name={carddata.company_name}
+          company_logo={carddata.company_logo}
         />
       ))}
     </div>

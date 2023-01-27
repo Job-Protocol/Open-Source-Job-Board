@@ -1,0 +1,53 @@
+.card {
+    color: rgb(100,100,100);
+    padding: 1rem 1.2rem;
+    border-radius: var(--border-radius);
+    background: rgba(255, 255, 255, 1.0);
+    border: 1px solid rgb(100,100,100);
+    transition: background 200ms, border 200ms;
+  }
+  
+  .card span {
+    color: rgb(100,100,100);
+    display: inline-block;
+    transition: transform 200ms;
+  }
+  
+  .card h2 {
+    color: rgb(100,100,100);
+    font-weight: 600;
+    margin-bottom: 0.7rem;
+  }
+  
+  .card p {
+    margin: 0;
+    opacity: 0.6;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    max-width: 30ch;
+  }
+
+  .main{
+    overflow: hidden;
+  }
+
+  .logo{
+    height: 50px;
+  }
+
+.horizontal_flow {
+   float: left;
+   margin: 2px 10px;
+}
+
+/* Enable hover only on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+    .card:hover {
+      background: rgba(50, 50, 50, 0.1);
+      /* border: 1px solid rgba(var(--card-border-rgb), 0.15); */
+    }
+  
+    .card:hover span {
+      transform: translateX(10px);
+    }
+  }
