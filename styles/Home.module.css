@@ -33,7 +33,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  padding: 4rem 0;
+  padding: 1rem 0;
   background-image: url("https://uploads-ssl.webflow.com/636c2fd57def6f9c4bf33a90/636c2fd57def6f1d66f33d1c_sporke_logo.png");
   background-size: auto 100%;
   background-repeat:no-repeat;
@@ -49,9 +49,9 @@
   transform: translateZ(0);
 }
 
-.logo{
-  height: 100px;
-}
+/* .logo{
+  height: 60px;
+} */
 
 
 

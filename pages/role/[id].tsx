@@ -4,6 +4,7 @@ import { Inter } from "@next/font/google";
 import styles from "@/styles/Roledetailpage.module.css";
 import Joblist from "components/joblist";
 import JdCard from "components/jdcard";
+import ApplyCard from "components/applycard";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
@@ -45,6 +46,7 @@ export default function Home() {
       </div>
       <main className={styles.main}>
         <JdCard desc={jobDetails?.desc as string} />
+        <ApplyCard />
       </main>
     </>
   );
