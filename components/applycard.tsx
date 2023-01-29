@@ -1,21 +1,21 @@
 import React, { SyntheticEvent } from "react";
-import bbobHTML from "@bbob/html";
-import presetHTML5 from "@bbob/preset-html5";
 import { useEffect, useState } from "react";
+import config from "../config.json";
 
 import styles from "@/styles/Applycard.module.css";
-import { Inter, Titillium_Web } from "@next/font/google";
-const inter = Inter({ subsets: ["latin"] });
 
-// export interface FormApplyProps {
-//   desc: string;
-// }
+import Swal from "sweetalert2";
 
-async function storeApplication() {
-  console.log("Success");
-}
+type CandidateData = {
+  first_name: string;
+  last_name: string;
+  email: string;
+  github: string;
+  linkedin: string;
+  role_id: string;
+};
 
-export default function ApplyCard() {
+export default function ApplyCard(roleid: string) {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -24,6 +24,61 @@ export default function ApplyCard() {
   const [walletAddress, setWalletAddress] = useState<string>("");
   const [buttonClicked, setButtonClicked] = useState<boolean>(false);
   const [inputsValid, setInputsValid] = useState<boolean>(false);
+
+  async function storeApplication(data: CandidateData) {
+    var raw = JSON.stringify({
+      first_name: data.first_name,
+      last_name: data.last_name,
+      email: data.email,
+      personal_website_url: data.github,
+      linkedin_url: data.linkedin,
+    });
+
+    var requestOptions = {
+      method: "POST",
+      body: raw,
+      redirect: "follow",
+    };
+
+    const response = await fetch("../api/candidate/create", requestOptions);
+    const result = await response.json();
+    if (result.status !== 201) {
+      Swal.fire({
+        title: "Error!",
+        text: "Something went wrong. Reach out to us if this is a continous issue",
+        icon: "error",
+        iconColor: "#481f84",
+        confirmButtonText: "Close",
+      });
+    }
+    Swal.fire({
+      title: "Success!",
+      text: "You sucessfully submitted an appication. We will be in touch",
+      icon: "success",
+      iconColor: "#481f84",
+      confirmButtonText: "Cool",
+    });
+
+    //Clear the form
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setLinkedIn("");
+    setGithub("");
+    setWalletAddress("");
+  }
+
+  const validateEmail = (email: string): boolean => {
+    const m = String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+    if (!m) {
+      return false;
+    }
+    return true;
+  };
 
   const processInput = (event: any) => {
     if (event.target.id === "input-first-name") {
@@ -45,9 +100,15 @@ export default function ApplyCard() {
 
   const submitApplication = (e: SyntheticEvent) => {
     e.preventDefault();
-    console.log("The link was clicked.");
-    alert("test");
     setButtonClicked(true);
+    storeApplication({
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      linkedin: linkedIn,
+      github: "",
+      role_id: roleid,
+    });
   };
 
   const checkInputsValid = () => {
@@ -55,6 +116,7 @@ export default function ApplyCard() {
       firstName !== "" &&
         lastName !== "" &&
         email !== "" &&
+        validateEmail(email) &&
         linkedIn !== "" &&
         github !== ""
     );
@@ -92,7 +154,9 @@ export default function ApplyCard() {
         </label>
         <input
           type="email"
-          className={styles.input}
+          className={
+            email && validateEmail(email) ? styles.input : styles.input_invalid
+          }
           name="text-1675001343960"
           onChange={processInput}
           id="input-email"
@@ -111,7 +175,7 @@ export default function ApplyCard() {
         />
       </div>
       <div className="formbuilder-file form-group field-file-1675001423592">
-        <label htmlFor="file-1675001423592" className="formbuilder-file-label">
+        <label htmlFor="file-1675001423592" className={styles.label}>
           Resume
         </label>
         <input
@@ -139,6 +203,7 @@ export default function ApplyCard() {
         </label>
         <input
           type="text"
+          value={walletAddress}
           className={styles.input}
           onChange={processInput}
           name="text-1675001555945"
@@ -156,7 +221,7 @@ export default function ApplyCard() {
           onClick={submitApplication}
           id="button-apply"
         >
-          Button
+          Submit
         </button>
       </div>
       <h3> Here is your info</h3>

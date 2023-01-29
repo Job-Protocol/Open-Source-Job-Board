@@ -85,3 +85,21 @@ body{
   /* height: 100%;
   background: linear-gradient(90deg, #481f84 5%, #ffffff 5%); */
 }
+
+
+.swal2-popup .swal2-styled.swal2-confirm {
+	background-color: var(--ethdenver-pink-hex) !important;
+}
+.swal2-popup .swal2-styled:focus {
+	background-color: var(--ethdenver-purple-hex) !important;
+}
+
+.swal2-popup .swal2-actions:not(.swal2-loading) .swal2-styled:hover {
+	background-color: var(--ethdenver-purple-hex) !important;
+}
+
+.swal2-icon.swal2-success {
+  /* border-color: #ef0404 !important;
+  color: yellow !important; */
+  background-color: var(--ethdenver-pink-hex) !important;
+}
