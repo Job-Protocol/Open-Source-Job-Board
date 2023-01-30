@@ -46,7 +46,11 @@ export default function Home() {
       </div>
       <main className={styles.main}>
         <JdCard desc={jobDetails?.desc as string} />
-        <ApplyCard />
+        <ApplyCard
+          roleid={id}
+          company_name={jobDetails?.company_name}
+          role_title={jobDetails?.title}
+        />
       </main>
     </>
   );

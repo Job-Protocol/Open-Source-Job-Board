@@ -4,6 +4,8 @@ import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
 import Joblist from "components/joblist";
 
+import { postMessage } from "utils";
+
 export default function Home() {
   return (
     <>
@@ -13,14 +15,14 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/faviconV2.png" />
       </Head>
-          <div className={styles.center}>
-            <h1 className={styles.pagetitle}>ETH Denver Job Board</h1>
+      <div className={styles.center}>
+        <h1 className={styles.pagetitle}>ETH Denver Job Board</h1>
         <p>Below is the full list of open roles. Open any role for details.</p>
-          </div>
+      </div>
 
-            <main className={styles.main}>
-              <Joblist />
-            </main>
+      <main className={styles.main}>
+        <Joblist />
+      </main>
     </>
   );
 }

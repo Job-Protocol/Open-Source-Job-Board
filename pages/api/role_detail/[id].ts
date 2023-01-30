@@ -22,14 +22,12 @@ export async function fetch_role_by_id(
     redirect: "follow",
   };
 
-  const url: string =
-    "https://app.jobprotocol.xyz/version-live/api/1.1/obj/role/" + id;
+  const url: string = config["dev"]["endpoint"] + "/obj/role/" + id;
   const response = await fetch(url, requestOptions);
   const result_role = await response.json();
 
   const url_company: string =
-    "https://app.jobprotocol.xyz/version-live/api/1.1/obj/company/" +
-    result_role.response.company;
+    config["dev"]["endpoint"] + "/obj/company/" + result_role.response.company;
   const respone_comp = await fetch(url_company, requestOptions);
   const result_comp = await respone_comp.json();
 

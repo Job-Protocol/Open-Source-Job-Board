@@ -15,7 +15,7 @@ import config from "../config.json";
 // }
 
 async function GetRoleData() {
-  const results = config["job-ids"].map(async (roleid) => {
+  const results = config["dev"]["job-ids"].map(async (roleid) => {
     const result = await fetch("api/role/" + roleid);
     const parsed = await result.json();
     return parsed;

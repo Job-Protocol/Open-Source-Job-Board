@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import config from "../../../config.json";
 
 type Company = {
   id: string;
@@ -18,8 +19,7 @@ export async function fetch_company_by_id(
     redirect: "follow",
   };
 
-  const url: string =
-    "https://app.jobprotocol.xyz/version-live/api/1.1/obj/company/" + id;
+  const url: string = config["dev"]["endpoint"] + "/obj/company/" + id;
   const response = await fetch(url, requestOptions);
   const result = await response.json();
   return {

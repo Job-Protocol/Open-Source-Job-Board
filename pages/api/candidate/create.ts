@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import config from "../../../config.json";
 
 export default async function candidate_handler(
   req: NextApiRequest,
@@ -17,7 +18,7 @@ export default async function candidate_handler(
 
   myHeaders.append("Content-Type", "application/json");
 
-  var requestOptions = {
+  const requestOptions: RequestInit = {
     method: "POST",
     headers: myHeaders,
     body: req.body,
@@ -25,7 +26,7 @@ export default async function candidate_handler(
   };
 
   const response = await fetch(
-    "https://app.jobprotocol.xyz/version-test/api/1.1/obj/candidate/",
+    config["dev"]["endpoint"] + "/obj/candidate/",
     requestOptions
   );
 
@@ -34,5 +35,7 @@ export default async function candidate_handler(
     return;
   }
 
-  res.status(201).json("Created");
+  const result = await response.json();
+
+  res.status(201).json({ id: result.id });
 }

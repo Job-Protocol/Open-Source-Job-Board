@@ -1,10 +1,13 @@
 import React, { SyntheticEvent } from "react";
 import { useEffect, useState } from "react";
+import { postMessages } from "@/utils";
 import config from "../config.json";
 
 import styles from "@/styles/Applycard.module.css";
 
 import Swal from "sweetalert2";
+
+import { validateEmail } from "@/utils";
 
 type CandidateData = {
   first_name: string;
@@ -12,10 +15,13 @@ type CandidateData = {
   email: string;
   github: string;
   linkedin: string;
-  role_id: string;
+  role: string;
 };
 
-export default function ApplyCard(roleid: string) {
+export default function ApplyCard(params: any) {
+  const ROLEID: string = params.roleid;
+  const COMPANY_NAME: string = params.company_name;
+  const ROLE_TITLE: string = params.role_title;
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -25,6 +31,11 @@ export default function ApplyCard(roleid: string) {
   const [buttonClicked, setButtonClicked] = useState<boolean>(false);
   const [inputsValid, setInputsValid] = useState<boolean>(false);
 
+  async function sendMail(candidate_id: string) {
+    // const url = "../api/candidate/sendmail?id=" + candidate_id;
+    // const response = await fetch(url);
+  }
+
   async function storeApplication(data: CandidateData) {
     var raw = JSON.stringify({
       first_name: data.first_name,
@@ -32,9 +43,10 @@ export default function ApplyCard(roleid: string) {
       email: data.email,
       personal_website_url: data.github,
       linkedin_url: data.linkedin,
+      role: data.role,
     });
 
-    var requestOptions = {
+    const requestOptions: RequestInit = {
       method: "POST",
       body: raw,
       redirect: "follow",
@@ -42,7 +54,8 @@ export default function ApplyCard(roleid: string) {
 
     const response = await fetch("../api/candidate/create", requestOptions);
     const result = await response.json();
-    if (result.status !== 201) {
+    const candidate_id: string = result.id;
+    if (response.status !== 201) {
       Swal.fire({
         title: "Error!",
         text: "Something went wrong. Reach out to us if this is a continous issue",
@@ -50,7 +63,16 @@ export default function ApplyCard(roleid: string) {
         iconColor: "#481f84",
         confirmButtonText: "Close",
       });
+      return;
     }
+    sendMail(candidate_id);
+    const msg: string[] = [
+      `Candidate ${firstName} ${lastName} (${email}) has applied for ${ROLE_TITLE} at ${COMPANY_NAME}`,
+      `    Link to role: https://frontend-zeta-henna.vercel.app/role${ROLEID}`,
+      `    Link to candidate: https://app.jobprotocol.xyz/version-test/api/1.1/obj/candidate/${candidate_id}`,
+      ` `,
+    ];
+    postMessages(msg);
     Swal.fire({
       title: "Success!",
       text: "You sucessfully submitted an appication. We will be in touch",
@@ -59,26 +81,16 @@ export default function ApplyCard(roleid: string) {
       confirmButtonText: "Cool",
     });
 
-    //Clear the form
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setLinkedIn("");
-    setGithub("");
-    setWalletAddress("");
+    // //Clear the form
+    // setFirstName("");
+    // setLastName("");
+    // setEmail("");
+    // setLinkedIn("");
+    // setGithub("");
+    // setWalletAddress("");
+    // setButtonClicked(false);
+    // setInputsValid(true);
   }
-
-  const validateEmail = (email: string): boolean => {
-    const m = String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-    if (!m) {
-      return false;
-    }
-    return true;
-  };
 
   const processInput = (event: any) => {
     if (event.target.id === "input-first-name") {
@@ -107,7 +119,7 @@ export default function ApplyCard(roleid: string) {
       email: email,
       linkedin: linkedIn,
       github: "",
-      role_id: roleid,
+      role: ROLEID,
     });
   };
 
@@ -134,6 +146,7 @@ export default function ApplyCard(roleid: string) {
           name="text-1675001302437"
           onChange={processInput}
           id="input-first-name"
+          value={firstName}
         />
       </div>
       <div className="formbuilder-text form-group field-text-1675001326031">
@@ -146,6 +159,7 @@ export default function ApplyCard(roleid: string) {
           name="text-1675001326031"
           onChange={processInput}
           id="input-last-name"
+          value={lastName}
         />
       </div>
       <div className="formbuilder-text form-group field-text-1675001343960">
@@ -160,6 +174,7 @@ export default function ApplyCard(roleid: string) {
           name="text-1675001343960"
           onChange={processInput}
           id="input-email"
+          value={email}
         />
       </div>
       <div className="formbuilder-text form-group field-text-1675001387870">
@@ -172,6 +187,7 @@ export default function ApplyCard(roleid: string) {
           name="text-1675001387870"
           onChange={processInput}
           id="input-linkedin"
+          value={linkedIn}
         />
       </div>
       <div className="formbuilder-file form-group field-file-1675001423592">
@@ -195,6 +211,7 @@ export default function ApplyCard(roleid: string) {
           className={styles.input}
           onChange={processInput}
           id="input-github"
+          value={github}
         />
       </div>
       <div className="formbuilder-text form-group field-text-1675001555945">

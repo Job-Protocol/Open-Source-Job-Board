@@ -17,12 +17,10 @@ export async function fetch_role_by_id(id: string, key: string): Promise<Role> {
     redirect: "follow",
   };
 
-  const url: string =
-    "https://app.jobprotocol.xyz/version-live/api/1.1/obj/role/" + id;
+  const url: string = config["dev"]["endpoint"] + "/obj/role/" + id;
 
   const response = await fetch(url, requestOptions);
   const result = await response.json();
-  console.log(result);
   return {
     id: result.response._id,
     title: result.response.title,
