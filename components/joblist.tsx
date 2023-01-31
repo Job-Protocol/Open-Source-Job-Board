@@ -47,6 +47,7 @@ async function GetRoleData() {
 
 export default function Joblist() {
   const [cardDataList, setCardDataList] = useState<JobCardProps[]>([]);
+  const [userLocation, setUserLocation] = useState<string>("");
 
   useEffect(() => {
     GetRoleData().then((res) => {
@@ -54,10 +55,21 @@ export default function Joblist() {
     });
   }, []);
 
+  useEffect(() => {
+    setCardDataList(cardDataList.slice(0, cardDataList.length - 1));
+  }, [userLocation]);
+
   return (
     <div className={styles.grid}>
-      <label className={styles.label}>Filter Location</label>
-      <SearchBox />
+      <label className={styles.label}>
+        Filter Location: {userLocation as string}
+      </label>
+      <SearchBox
+        handleChange={(v: any) => {
+          console.log(v.value);
+          setUserLocation(v.value as string);
+        }}
+      />
       {cardDataList.map((carddata) => (
         <JobCard
           key={carddata.role_id}

@@ -19,20 +19,23 @@ async function getOptions(s: string) {
 
   const url: string =
     "https://cors-anywhere.herokuapp.com/" +
-    "https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyDvuBJf2DyYDzM_vgjL_r2eYr9H0At_H5M&input=" +
+    "https://maps.googleapis.com/maps/api/place/autocomplete/json?key=" +
+    process.env.GOOGLE_API_KEY +
+    "&input=" +
     s;
   const response = await fetch(url);
-  console.log("RESPONSE", response);
   const result = await response.json();
-  console.log("RESULT", result);
   const final = result.predictions.map((r: any) => {
     return { label: r.description, value: r.description };
   });
-  console.log("FINAL", final);
   return final;
 }
 
-export default function SearchBox() {
+export default function SearchBox({
+  handleChange,
+}: {
+  handleChange: (v: string) => void;
+}) {
   const [options, setOptions] = useState<any[]>([{}]);
   const [userInput, setUserInput] = useState<string>("A");
 
@@ -46,8 +49,6 @@ export default function SearchBox() {
     return <p> Loading... </p>;
   }
 
-  console.log("OPTIONS", options);
-
   return (
     <Select
       className="basic-single"
@@ -60,9 +61,18 @@ export default function SearchBox() {
       isSearchable={true}
       name="color"
       options={options}
-      // onChange={(value) => console.log("Change", value)} //actually make selection
+      onChange={(value) => {
+        handleChange(value as string);
+      }} //actually make selection
       // onKeyDown={(value) => console.log("new", value)}
-      onInputChange={(value) => setUserInput(value)}
+      onInputChange={(value) => {
+        setUserInput(value);
+      }}
     />
   );
 }
+
+// TODO comparing the 2 will actually be a fairly complicated endavor
+// We probalby need to compare the address components:
+// https://maps.googleapis.com/maps/api/geocode/json?place_id=<GOOGLE API KEY>
+// https://maps.googleapis.com/maps/api/geocode/json?place_id=<GOOGLE API KEY>
