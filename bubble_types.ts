@@ -1,5 +1,6 @@
 export interface CompanySocials {
   id: string;
+  twitter: string;
   linkedin: string;
   github: string;
   website: string;
@@ -7,17 +8,19 @@ export interface CompanySocials {
 export function getDefaultCompanySocials(): CompanySocials {
   return {
     id: "",
-    linkedin: "",
-    github: "",
-    website: "",
+    twitter: "https://www.twitter.com",
+    linkedin: "www.google.com",
+    github: "www.google.com",
+    website: "www.google.com",
   };
 }
 
 export interface NamedLink {
-  id: string;
+  name: string;
+  link: string;
 }
 export function getDefaultNamedLink(): NamedLink {
-  return { id: "" };
+  return { name: "", link: "" };
 }
 
 export interface Company {

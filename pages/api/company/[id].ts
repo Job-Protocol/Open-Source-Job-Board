@@ -27,6 +27,10 @@ export async function fetch_company_by_id(
   comp.socials.github = "aaa";
   comp.socials.linkedin = "asdasd";
   comp.socials.website = "asd";
+  comp.press_article_links = [
+    { name: "aaa", link: "bbb" },
+    { name: "ccc", link: "ddd" },
+  ];
   return comp;
 }
 

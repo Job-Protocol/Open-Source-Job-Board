@@ -48,7 +48,7 @@ export default function Home() {
         <h3> @ {role?.company?.name}</h3>
       </div>
       <main className={styles.main}>
-        {/* <CompanyCard company={company} /> */}
+        {role?.company && <CompanyCard company={role.company} />}
         <JdCard desc={role?.desc as string} />
         <ApplyCard
           roleid={id}

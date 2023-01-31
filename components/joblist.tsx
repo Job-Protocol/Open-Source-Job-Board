@@ -51,7 +51,7 @@ export default function Joblist() {
         }}
       />
       {roles.map((role) => (
-        <JobCard role={role} />
+        <JobCard role={role} key={role.id} />
       ))}
     </div>
   );
