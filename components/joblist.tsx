@@ -11,7 +11,9 @@ import config from "../config.json";
 
 import SearchBox from "components/searchbox";
 
-async function GetRoleData() {
+import { Role } from "@/bubble_types";
+
+async function GetRoleData(): Promise<Role[]> {
   const results = config["dev"]["job-ids"].map(async (roleid) => {
     const result = await fetch("api/role/" + roleid);
     const parsed = await result.json();
@@ -19,39 +21,18 @@ async function GetRoleData() {
   });
   const role_data = await Promise.all(results);
 
-  // Now resolve the other promises
-  const company_data = await Promise.all(
-    role_data.map(async (rd) => {
-      const result = await fetch("api/company/" + rd.company_id);
-      const parsed = await result.json();
-      return parsed;
-    })
-  );
-
-  //Now zip the two arrays
-  const zip = (role_data: any, company_data: any) =>
-    role_data.map((k: any, i: any) => {
-      const carddata: JobCardProps = {
-        title: k.title,
-        company_name: company_data[i].name,
-        role_id: k.id,
-        company_logo: company_data[i].logo,
-      };
-      return carddata;
-    });
-
-  const card_data = zip(role_data, company_data);
-
-  return card_data;
+  console.log("ROLE DATA", role_data);
+  return role_data;
 }
 
 export default function Joblist() {
   const [cardDataList, setCardDataList] = useState<JobCardProps[]>([]);
   const [userLocation, setUserLocation] = useState<string>("");
+  const [roles, setRoles] = useState<Role[]>([]);
 
   useEffect(() => {
     GetRoleData().then((res) => {
-      setCardDataList(res);
+      setRoles(res);
     });
   }, []);
 
@@ -66,18 +47,11 @@ export default function Joblist() {
       </label>
       <SearchBox
         handleChange={(v: any) => {
-          console.log(v.value);
           setUserLocation(v.value as string);
         }}
       />
-      {cardDataList.map((carddata) => (
-        <JobCard
-          key={carddata.role_id}
-          role_id={carddata.role_id}
-          title={carddata.title}
-          company_name={carddata.company_name}
-          company_logo={carddata.company_logo}
-        />
+      {roles.map((role) => (
+        <JobCard role={role} />
       ))}
     </div>
   );

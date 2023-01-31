@@ -1,11 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import config from "../../../config.json";
 
-type Company = {
-  id: string;
-  name: string;
-  logo: string;
-};
+import { Company, getDefaultCompany } from "@/bubble_types";
 
 export async function fetch_company_by_id(
   id: string,
@@ -22,11 +18,16 @@ export async function fetch_company_by_id(
   const url: string = config["dev"]["endpoint"] + "/obj/company/" + id;
   const response = await fetch(url, requestOptions);
   const result = await response.json();
-  return {
-    id: result.response._id,
-    name: result.response.Name,
-    logo: result.response.Logo,
-  };
+
+  const comp: Company = getDefaultCompany();
+  comp.id = result.response._id;
+  comp.name = result.response.Name;
+  comp.logo = result.response.Logo;
+  comp.tagline = "This is the tagline";
+  comp.socials.github = "aaa";
+  comp.socials.linkedin = "asdasd";
+  comp.socials.website = "asd";
+  return comp;
 }
 
 export default async function company_handler(

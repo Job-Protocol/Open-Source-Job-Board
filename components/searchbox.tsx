@@ -20,7 +20,6 @@ export default function SearchBox({
 
   useEffect(() => {
     getOptions(userInput).then((res) => {
-      console.log("RES", res);
       setOptions(res);
     });
   }, [userInput]);
@@ -42,7 +41,6 @@ export default function SearchBox({
       name="color"
       options={options}
       onChange={(value) => {
-        console.log(value);
         handleChange(value as string);
       }} //actually make selection
       // onKeyDown={(value) => console.log("new", value)}

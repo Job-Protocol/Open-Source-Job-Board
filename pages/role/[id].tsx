@@ -5,16 +5,18 @@ import styles from "@/styles/Roledetailpage.module.css";
 import Joblist from "components/joblist";
 import JdCard from "components/jdcard";
 import ApplyCard from "components/applycard";
+import CompanyCard from "components/companycard";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-import { RoleDetail } from "../api/role_detail/[id]";
+// import { RoleDetail } from "../api/role_detail/[id]";
+import { Role } from "@/bubble_types";
 
 const inter = Inter({ subsets: ["latin"] });
 
-async function getRoleData(roleid: string): Promise<RoleDetail> {
-  const result = await fetch("../api/role_detail/" + roleid);
+async function getRoleData(roleid: string): Promise<Role> {
+  const result = await fetch("../api/role/" + roleid);
   const parsed = await result.json();
   return parsed;
 }
@@ -22,12 +24,13 @@ async function getRoleData(roleid: string): Promise<RoleDetail> {
 export default function Home() {
   const router = useRouter();
   const id = router.query.id;
-  const [jobDetails, setJobDetails] = useState<RoleDetail>();
+  //const [jobDetails, setJobDetails] = useState<Role>();
+  const [role, setRole] = useState<Role>();
 
   useEffect(() => {
     if (id) {
       getRoleData(id as string).then((res) => {
-        setJobDetails(res);
+        setRole(res);
       });
     }
   }, [id]);
@@ -40,16 +43,17 @@ export default function Home() {
         <link rel="icon" href="/faviconV2.png" />
       </Head>
       <div className={styles.center}>
-        <img src={jobDetails?.logo} className={styles.logo} alt="Logo" />
-        <h1 className={styles.pagetitle}>{jobDetails?.title}</h1>
-        <h3> @ {jobDetails?.company_name}</h3>
+        <img src={role?.company?.logo} className={styles.logo} alt="Logo" />
+        <h1 className={styles.pagetitle}>{role?.title}</h1>
+        <h3> @ {role?.company?.name}</h3>
       </div>
       <main className={styles.main}>
-        <JdCard desc={jobDetails?.desc as string} />
+        {/* <CompanyCard company={company} /> */}
+        <JdCard desc={role?.desc as string} />
         <ApplyCard
           roleid={id}
-          company_name={jobDetails?.company_name}
-          role_title={jobDetails?.title}
+          company_name={role?.company.name}
+          role_title={role?.title}
         />
       </main>
     </>

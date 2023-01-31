@@ -1,12 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import config from "../../../config.json";
 
-type Role = {
-  id: string;
-  title: string;
-  company_id: string;
-  desc: string;
-};
+import { Role, getDefaultRole } from "@/bubble_types";
+
+import { fetch_company_by_id } from "../company/[id]";
 
 export async function fetch_role_by_id(id: string, key: string): Promise<Role> {
   var myHeaders = new Headers();
@@ -17,16 +14,21 @@ export async function fetch_role_by_id(id: string, key: string): Promise<Role> {
     redirect: "follow",
   };
 
-  const url: string = config["dev"]["endpoint"] + "/obj/role/" + id;
+  const url_role: string = config["dev"]["endpoint"] + "/obj/role/" + id;
+  const response_role = await fetch(url_role, requestOptions);
+  const result_role = await response_role.json();
 
-  const response = await fetch(url, requestOptions);
-  const result = await response.json();
-  return {
-    id: result.response._id,
-    title: result.response.title,
-    company_id: result.response.company,
-    desc: result.response.job_description,
-  };
+  const result_company = await fetch_company_by_id(
+    result_role.response.company,
+    process.env.BUBBLE_API_PRIVATE_KEY as string
+  );
+
+  const r: Role = getDefaultRole();
+  r.id = result_role.response._id;
+  r.title = result_role.response.title;
+  r.desc = result_role.response.job_description;
+  r.company = result_company;
+  return r;
 }
 
 export default async function role_handler(
