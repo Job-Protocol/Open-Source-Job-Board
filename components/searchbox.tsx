@@ -4,31 +4,10 @@ import { useState, useEffect } from "react";
 import Select from "react-select";
 
 async function getOptions(s: string) {
-  var myHeaders = new Headers();
-  myHeaders.append(
-    "Authorization",
-    "Bearer " + process.env.BUBBLE_API_PRIVATE_KEY
-  );
-  myHeaders.append("Content-Type", "application/json");
-
-  const requestOptions: RequestInit = {
-    method: "GET",
-    headers: myHeaders,
-    redirect: "follow",
-  };
-
-  const url: string =
-    "https://cors-anywhere.herokuapp.com/" +
-    "https://maps.googleapis.com/maps/api/place/autocomplete/json?key=" +
-    process.env.GOOGLE_API_KEY +
-    "&input=" +
-    s;
+  const url: string = "../api/complete?s=" + s;
   const response = await fetch(url);
   const result = await response.json();
-  const final = result.predictions.map((r: any) => {
-    return { label: r.description, value: r.description };
-  });
-  return final;
+  return result;
 }
 
 export default function SearchBox({
@@ -41,6 +20,7 @@ export default function SearchBox({
 
   useEffect(() => {
     getOptions(userInput).then((res) => {
+      console.log("RES", res);
       setOptions(res);
     });
   }, [userInput]);
@@ -62,11 +42,14 @@ export default function SearchBox({
       name="color"
       options={options}
       onChange={(value) => {
+        console.log(value);
         handleChange(value as string);
       }} //actually make selection
       // onKeyDown={(value) => console.log("new", value)}
       onInputChange={(value) => {
-        setUserInput(value);
+        setTimeout(function () {
+          setUserInput(value);
+        }, 1000);
       }}
     />
   );
