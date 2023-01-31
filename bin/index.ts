@@ -6,7 +6,6 @@ import { fetch_company_by_id } from "../pages/api/company/[id]";
 
 async function GetCompany(id: string, key: string) {
   let result = await fetch_company_by_id(id, key);
-  console.log("Company 2222", result);
   return result;
 }
 
@@ -24,7 +23,7 @@ export default async function handler(
     return;
   }
   var constraints = JSON.stringify([
-    { key: "_id", constraint_type: "in", value: config["job-ids"] },
+    { key: "_id", constraint_type: "in", value: config["dev"]["job-ids"] },
   ]);
 
   var myHeaders = new Headers();
@@ -39,14 +38,11 @@ export default async function handler(
     redirect: "follow",
   };
 
-  const endpoint = "https://app.jobprotocol.xyz/version-live/api/1.1/obj/role/";
+  const endpoint = config["dev"]["endpoint"] + "/obj/role/";
   const url = endpoint + "?constraints=" + constraints;
 
   const response = await fetch(url, requestOptions);
   const result = await response.json();
-  // console.log("ZZZZ", result);
-  
-  
 
   const roles: Role[] = result.response.results.map((role: any) => {
     // role.company(id) -> name
@@ -58,12 +54,10 @@ export default async function handler(
         role.company,
         process.env.BUBBLE_API_PRIVATE_KEY as string
       );
-      console.log("GGGGGG", comp_info);
 
       name = comp_info.name;
     };
     fucntion();
-    console.log("COMPINFO", name);
     const r: Role = { title: role.title, company_name: name };
     return r;
   });

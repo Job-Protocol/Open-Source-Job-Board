@@ -9,10 +9,7 @@ import { Inter } from "@next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 import config from "../config.json";
 
-// interface C {
-//   title: string;
-//   company_name: string;
-// }
+import SearchBox from "components/searchbox";
 
 async function GetRoleData() {
   const results = config["dev"]["job-ids"].map(async (roleid) => {
@@ -59,6 +56,8 @@ export default function Joblist() {
 
   return (
     <div className={styles.grid}>
+      <label className={styles.label}>Filter Location</label>
+      <SearchBox />
       {cardDataList.map((carddata) => (
         <JobCard
           key={carddata.role_id}

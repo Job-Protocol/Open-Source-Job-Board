@@ -1,4 +1,4 @@
-import React from "react";
+
 import bbobHTML from "@bbob/html";
 import presetHTML5 from "@bbob/preset-html5";
 
