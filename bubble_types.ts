@@ -1,3 +1,36 @@
+export interface GeographicAddress {
+  address: string;
+  lat: number;
+  lng: number;
+  // {address: 'Montreal, QC, Canada', lat: 45.5018869, lng: -73.5673919}
+}
+
+export interface TimezoneRange {
+  min: number;
+  max: number;
+}
+export enum RoleLocationType {
+  TimezoneRange,
+  LocationList,
+  Remote,
+}
+export interface RoleLocation {
+  id: string;
+  location_type: RoleLocationType | undefined;
+  location_list: GeographicAddress[] | undefined;
+  timezone_range: TimezoneRange | undefined;
+}
+export function getDefaultRoleLocation(): RoleLocation {
+  return {
+    id: "",
+    location_type: undefined,
+    location_list: undefined,
+    timezone_range: undefined,
+  };
+}
+
+///////////////
+
 export interface CompanySocials {
   id: string;
   twitter: string;
@@ -51,6 +84,11 @@ export interface Role {
   title: string;
   company: Company;
   desc: string;
+  location: RoleLocation | undefined;
+  salary_min: number | undefined;
+  salary_max: number | undefined;
+  equity_pct_min: number | undefined;
+  equity_pct_max: number | undefined;
 }
 export function getDefaultRole(): Role {
   return {
@@ -58,5 +96,10 @@ export function getDefaultRole(): Role {
     title: "",
     company: getDefaultCompany(),
     desc: "",
+    location: undefined,
+    salary_min: undefined,
+    salary_max: undefined,
+    equity_pct_min: undefined,
+    equity_pct_max: undefined,
   };
 }

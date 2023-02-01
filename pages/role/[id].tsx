@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 import { Role } from "@/bubble_types";
+import RoleConditions from "@/components/role/detail/roleconditions";
 
 async function getRoleData(roleid: string): Promise<Role> {
   const result = await fetch("../api/role/" + roleid);
@@ -27,6 +28,10 @@ export default function Home() {
       });
     }
   }, [id]);
+
+  if (!role) {
+    return;
+  }
   return (
     <div>
       <a href={"https://app.jobprotocol.xyz/version-test/role/" + id}>
@@ -47,6 +52,7 @@ export default function Home() {
           <div className={styles.flex_child}>
             <h1 className={styles.pagetitle}>{role?.title}</h1>
             <p> @{role?.company.name}</p>
+            <RoleConditions role={role} />
           </div>
         </div>
 

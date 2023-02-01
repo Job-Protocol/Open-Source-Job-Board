@@ -1,4 +1,26 @@
 import config from "config.json";
+import { RoleLocation, RoleLocationType } from "./bubble_types";
+
+export function rolelocation_to_string(rolelocation: RoleLocation): string {
+  console.log("ROLELOCATION", rolelocation);
+  if (rolelocation.location_type == RoleLocationType.Remote) {
+    return "Global(Remote)";
+  }
+  if (rolelocation.location_type == RoleLocationType.TimezoneRange) {
+    return (
+      "GMT-" +
+      rolelocation.timezone_range?.min +
+      " to GMT+" +
+      rolelocation.timezone_range?.max
+    );
+  }
+
+  if (rolelocation.location_list) {
+    return rolelocation.location_list.map((item) => item.address).join("\n");
+  }
+
+  return "";
+}
 
 export function postMessages(msgs: string[]) {
   msgs.forEach((msg) => postMessage(msg));

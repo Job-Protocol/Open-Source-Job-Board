@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "@/styles/Jobcard.module.css";
 import { Role } from "@/bubble_types";
+import RoleConditions from "./detail/roleconditions";
 
 export interface JobCardProps {
   role: Role;
@@ -29,6 +30,21 @@ export default function JobCard(data: JobCardProps) {
             {role.title} <span>-&gt;</span>
           </h2>
           <p> {role.company.name} </p>
+          <div className={styles.role_condidtions}>
+            <RoleConditions role={role} />
+          </div>
+        </div>
+
+        <div id="apply button" className={styles.horizontal_flow}>
+          <button
+            type="submit"
+            className={styles.primary_button}
+            name="button-1675001572178"
+            onClick={() => console.log("Button clicked")}
+            id="button-apply"
+          >
+            Apply Now
+          </button>
         </div>
       </div>
     </a>
