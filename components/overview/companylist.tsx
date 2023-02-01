@@ -31,7 +31,7 @@ export default function Companylist() {
   }, []);
 
   return (
-    <div className={styles.grid}>
+    <div className={styles.gridnew}>
       {companies.map((company: Company) => (<CompanyCard key={company.name} company={company} />))}
     </div>
   );

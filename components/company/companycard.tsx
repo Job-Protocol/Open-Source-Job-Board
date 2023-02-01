@@ -12,7 +12,7 @@ export default function CompanyCard(data: JobCardProps) {
   const company = data.company;
   return (
     <a
-      href={"TODO"}
+      href={"company/" + company.id}
       className={styles.card}
       target="_blank"
       rel="noopener noreferrer"
@@ -28,9 +28,29 @@ export default function CompanyCard(data: JobCardProps) {
           />
         </div>
         <div id="content" className={styles.horizontal_flow}>
-          <p> {company.name} </p>
-        </div>
+          <h2> {company.name} </h2>
+          <p> {company.tagline}</p>
+          <div className={styles.test}>
+            {company.num_employees && <p>{company.num_employees} employees  </p>}
+            {company.headquarters && <p>•</p>}
+            {company.headquarters && <p>{company.headquarters}</p>}
+            {company.founding_year && <p>•</p>}
+            {company.founding_year && <p>{company.founding_year}</p>}
+          </div>
 
+        </div>
+      </div>
+
+      <div id="discover button">
+        <button
+          type="submit"
+          className={styles.secondary_button}
+          name="button-1675001572178"
+          onClick={() => console.log("Button clicked")}
+          id="button-apply"
+        >
+          Disconver
+        </button>
       </div>
     </a>
   );

@@ -65,6 +65,7 @@ export interface Company {
   headquarters: string;
   socials: CompanySocials | undefined;
   press_article_links: NamedLink[] | undefined;
+  founding_year: number | undefined;
 }
 export function getDefaultCompany(): Company {
   return {
@@ -76,6 +77,7 @@ export function getDefaultCompany(): Company {
     headquarters: "",
     socials: getDefaultCompanySocials(),
     press_article_links: undefined,
+    founding_year: undefined
   };
 }
 

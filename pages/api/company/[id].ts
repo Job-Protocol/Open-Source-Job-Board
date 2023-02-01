@@ -52,6 +52,7 @@ export async function fetch_company_by_id(
   comp.socials = socials;
   comp.tagline = result.response.tagline;
   comp.press_article_links = press_article_links;
+  comp.founding_year = result.response.founding_year;
   return comp;
 }
 

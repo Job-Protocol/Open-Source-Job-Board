@@ -28,6 +28,14 @@
   max-width: 100%;
 }
 
+.gridnew {
+  display: grid;
+  grid-gap: 1.0rem;
+  grid-template-columns: 33% 33% 33%;
+  width: 100%;
+  max-width: 100%;
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -59,7 +67,7 @@
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
-    background: rgba(50, 50, 50, 0.1);
+    background: rgba(50, 50, 50, 1.0);
     /* border: 1px solid rgba(var(--card-border-rgb), 0.15); */
   }
 
