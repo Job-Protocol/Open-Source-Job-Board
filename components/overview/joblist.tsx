@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 
 import styles from "@/styles/Home.module.css";
-import JobCard from "components/jobcard";
-import { JobCardProps } from "components/jobcard";
+import JobCard from "@/components/role/jobcard";
+import { JobCardProps } from "@/components/role/jobcard";
 
-import { Inter } from "@next/font/google";
-const inter = Inter({ subsets: ["latin"] });
-import config from "../config.json";
+import config from "../../config.json";
 
-import SearchBox from "components/searchbox";
+import SearchBox from "@/components/overview/searchbox";
 
 import { Role } from "@/bubble_types";
 

@@ -1,8 +1,6 @@
 import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
-import Joblist from "components/joblist";
+import Joblist from "@/components/overview/joblist";
 
 export default function Home() {
   return (

@@ -1,12 +1,8 @@
 import React, { SyntheticEvent } from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { postMessages } from "@/utils";
-import config from "../config.json";
-
 import styles from "@/styles/Applycard.module.css";
-
 import Swal from "sweetalert2";
-
 import { validateEmail } from "@/utils";
 
 type CandidateData = {

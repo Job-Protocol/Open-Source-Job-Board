@@ -1,13 +1,5 @@
-import bbobHTML from "@bbob/html";
-import presetHTML5 from "@bbob/preset-html5";
-import { FaThumbsUp, FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa";
-import { Link } from "react-router-dom";
-
+import { FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa";
 import styles from "@/styles/Companycard.module.css";
-
-import { Inter, Titillium_Web } from "@next/font/google";
-const inter = Inter({ subsets: ["latin"] });
-
 import { Company } from "@/bubble_types";
 
 export interface CompanyCardProps {
@@ -22,8 +14,6 @@ export default function CompanyCard(data: CompanyCardProps) {
   function valid(s: string) {
     return s && s != "";
   }
-  // console.log(data.company);
-  // const text: string = bbobHTML(data.desc, presetHTML5());
   return (
     <div className={styles.card}>
       <h3>About {data.company.name}</h3>

@@ -1,11 +1,5 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-
+import React from "react";
 import styles from "@/styles/Jobcard.module.css";
-
-import { Inter, Titillium_Web } from "@next/font/google";
-const inter = Inter({ subsets: ["latin"] });
-
 import { Role } from "@/bubble_types";
 
 export interface JobCardProps {
@@ -31,10 +25,10 @@ export default function JobCard(data: JobCardProps) {
           />
         </div>
         <div id="content" className={styles.horizontal_flow}>
-          <h2 className={inter.className}>
+          <h2>
             {role.title} <span>-&gt;</span>
           </h2>
-          <p className={inter.className}> {role.company.name} </p>
+          <p> {role.company.name} </p>
         </div>
       </div>
     </a>
