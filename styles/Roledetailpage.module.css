@@ -3,6 +3,7 @@
   }
   .pagetitle {
     font-size: 56px;
+    /* vertical-align: middle; */
     text-shadow:
       0 0 2px #fff,
       0 0 8px #f99ebe,
@@ -29,6 +30,41 @@
     /* border: 3px solid #73AD21;
     padding: 10px; */
   }
+
+  .headercard {
+    /* display: flex; */
+    /* display: grid; */
+    padding: 2rem 1rem;
+    margin: 0px 100px;
+    /* margin-top: 2rem;
+    margin-bottom: 6rem; */
+    border-radius: 1rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+    width: 80%;
+    background-color: var(--ethdenver-purple-hex);
+    /* border: 3px solid #73AD21;
+    padding: 10px; */
+  }
+
+  .headercard p {
+    color: white;
+  }
+
+
+  .flexbox_container {
+    display: flex
+  }
+  .flex_child {
+    /* flex: 1; */
+    /* display: flex; */
+    padding: 0px 0px;
+    border: 2px solid yellow;
+    text-align: center;
+    align-items: center
+}  
   
   /* .center::before,
   .center::after {
