@@ -1,8 +1,16 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import Joblist from "@/components/overview/joblist";
+import Switch from "react-switch";
+import React, { useState, useEffect } from "react";
 
 export default function Home() {
+  const [byCompanies, setByCompanies] = useState<boolean>(false);
+
+  function handleChange(val: boolean) {
+    setByCompanies(val);
+  }
+
   return (
     <>
       <Head>
@@ -17,7 +25,21 @@ export default function Home() {
       </div>
 
       <main className={styles.main}>
-        <Joblist />
+        <label>
+          {/* <span>Show companies</span> */}
+          <Switch
+            onChange={handleChange}
+            checked={byCompanies}
+            offColor="#ff0000"
+            onColor="#00ff00"
+            uncheckedIcon={<p>Roles</p>}
+            checkedIcon={<p>Companies</p>}
+            width={200}
+          />
+          {/* <span>Show roles</span> */}
+        </label>
+        {!byCompanies && <Joblist />}
+        {byCompanies && <p>TODO</p>}
       </main>
     </>
   );
