@@ -29,6 +29,9 @@ export default function Home() {
   }, [id]);
   return (
     <div>
+      <a href={"https://app.jobprotocol.xyz/version-test/role/" + id}>
+        <h1>[Admin] Click here to edit role on jobprotocol</h1>
+      </a>
       <Head>
         <title>ETH Denver Jobs</title>
         <meta name="description" content="Jobboard for ETHDenver 2023" />

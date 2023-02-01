@@ -16,11 +16,11 @@ export function getDefaultCompanySocials(): CompanySocials {
 }
 
 export interface NamedLink {
-  name: string;
+  display_name: string;
   link: string;
 }
 export function getDefaultNamedLink(): NamedLink {
-  return { name: "", link: "" };
+  return { display_name: "", link: "" };
 }
 
 export interface Company {
@@ -28,8 +28,10 @@ export interface Company {
   name: string;
   logo: string;
   tagline: string;
-  socials: CompanySocials;
-  press_article_links: NamedLink[];
+  num_employees: number;
+  headquarters: string;
+  socials: CompanySocials | undefined;
+  press_article_links: NamedLink[] | undefined;
 }
 export function getDefaultCompany(): Company {
   return {
@@ -37,8 +39,10 @@ export function getDefaultCompany(): Company {
     name: "",
     logo: "",
     tagline: "",
+    num_employees: 0,
+    headquarters: "",
     socials: getDefaultCompanySocials(),
-    press_article_links: [],
+    press_article_links: undefined,
   };
 }
 

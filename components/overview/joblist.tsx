@@ -19,7 +19,6 @@ async function GetRoleData(): Promise<Role[]> {
   });
   const role_data = await Promise.all(results);
 
-  console.log("ROLE DATA", role_data);
   return role_data;
 }
 
