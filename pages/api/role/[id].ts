@@ -47,6 +47,7 @@ export default async function role_handler(
   res: NextApiResponse<Role>
 ) {
   const { id } = req.query;
+  res.setHeader('Cache-Control', 's-maxage=86400');
 
   console.log("AAAAA", id);
 
