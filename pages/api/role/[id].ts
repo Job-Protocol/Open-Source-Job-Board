@@ -48,10 +48,13 @@ export default async function role_handler(
 ) {
   const { id } = req.query;
 
+  console.log("AAAAA", id);
+
   if (!process.env.BUBBLE_API_PRIVATE_KEY || typeof id !== "string") {
     res.status(500);
     return;
   }
+
   const role = await fetch_role_by_id(id, process.env.BUBBLE_API_PRIVATE_KEY);
   res.status(200).json(role);
 }

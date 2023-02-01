@@ -11,6 +11,7 @@ import { Role } from "@/bubble_types";
 import RoleConditions from "@/components/role/detail/roleconditions";
 
 async function getRoleData(roleid: string): Promise<Role> {
+
   const result = await fetch("../api/role/" + roleid);
   const parsed = await result.json();
   return parsed;
