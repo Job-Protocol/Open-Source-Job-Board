@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import Joblist from "@/components/overview/joblist";
+import Companylist from "@/components/overview/companylist";
 import Switch from "react-switch";
 import React, { useState, useEffect } from "react";
 
@@ -39,7 +40,7 @@ export default function Home() {
           {/* <span>Show roles</span> */}
         </label>
         {!byCompanies && <Joblist />}
-        {byCompanies && <p>TODO</p>}
+        {byCompanies && <Companylist />}
       </main>
     </>
   );

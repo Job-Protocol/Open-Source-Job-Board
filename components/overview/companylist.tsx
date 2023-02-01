@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 
 import styles from "@/styles/Home.module.css";
-import JobCard from "@/components/role/jobcard";
-import { JobCardProps } from "@/components/role/jobcard";
+import CompanyCard from "../company/companycard";
 
 import config from "../../config.json";
 
@@ -12,8 +11,8 @@ import SearchBox from "@/components/overview/searchbox";
 import { Company, Role } from "@/bubble_types";
 
 async function GetCompanyData(): Promise<Company[]> {
-  const results = config["dev"]["job-ids"].map(async (roleid) => {
-    const result = await fetch("api/role/" + roleid);
+  const results = config["dev"]["company-ids"].map(async (companyid: string) => {
+    const result = await fetch("api/company/" + companyid);
     const parsed = await result.json();
     return parsed;
   });
@@ -23,8 +22,6 @@ async function GetCompanyData(): Promise<Company[]> {
 }
 
 export default function Companylist() {
-  const [cardDataList, setCardDataList] = useState<JobCardProps[]>([]);
-  const [userLocation, setUserLocation] = useState<string>("");
   const [companies, setCompanies] = useState<Company[]>([]);
 
   useEffect(() => {
@@ -33,23 +30,9 @@ export default function Companylist() {
     });
   }, []);
 
-  useEffect(() => {
-    setCardDataList(cardDataList.slice(0, cardDataList.length - 1));
-  }, [userLocation]);
-
   return (
     <div className={styles.grid}>
-      <label className={styles.label}>
-        Filter Location: {userLocation as string}
-      </label>
-      <SearchBox
-        handleChange={(v: any) => {
-          setUserLocation(v.value as string);
-        }}
-      />
-      {/* {roles.map((role) => (
-        <JobCard role={role} key={role.id} />
-      ))} */}
+      {companies.map((company: Company) => (<CompanyCard key={company.name} company={company} />))}
     </div>
   );
 }

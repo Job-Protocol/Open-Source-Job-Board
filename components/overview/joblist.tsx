@@ -13,7 +13,7 @@ import { Role } from "@/bubble_types";
 
 async function GetRoleData(): Promise<Role[]> {
   const results = config["dev"]["job-ids"].map(async (roleid) => {
-    const result = await fetch("api/role/" + roleid);
+    const result = await fetch("/api/role/" + roleid);
     const parsed = await result.json();
     return parsed;
   });
@@ -23,7 +23,6 @@ async function GetRoleData(): Promise<Role[]> {
 }
 
 export default function Joblist() {
-  const [cardDataList, setCardDataList] = useState<JobCardProps[]>([]);
   const [userLocation, setUserLocation] = useState<string>("");
   const [roles, setRoles] = useState<Role[]>([]);
 
@@ -32,10 +31,6 @@ export default function Joblist() {
       setRoles(res);
     });
   }, []);
-
-  useEffect(() => {
-    setCardDataList(cardDataList.slice(0, cardDataList.length - 1));
-  }, [userLocation]);
 
   return (
     <div className={styles.grid}>
