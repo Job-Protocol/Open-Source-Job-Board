@@ -37,10 +37,10 @@ export async function fetch_company_by_id(
   const press_article_links: NamedLink[] | undefined = result.response
     .press_article_links
     ? await Promise.all(
-        result.response.press_article_links.map((id: string) =>
-          fetchNamedLink(id, key)
-        )
+      result.response.press_article_links.map((id: string) =>
+        fetchNamedLink(id, key)
       )
+    )
     : undefined;
 
   const comp: Company = getDefaultCompany();
@@ -60,6 +60,7 @@ export default async function company_handler(
   res: NextApiResponse<Company>
 ) {
   const { id } = req.query;
+  res.setHeader('Cache-Control', 's-maxage=86400');
 
   if (!process.env.BUBBLE_API_PRIVATE_KEY || typeof id !== "string") {
     res.status(500);
