@@ -25,7 +25,6 @@ async function GetRoleData(): Promise<Role[]> {
 async function GetGeographicAddress(s: string): Promise<GeographicAddress> {
   const result = await fetch("/api/places/details/fromstring/" + s);
   const parsed = await result.json();
-  console.log("PARSED", parsed);
   return parsed;
 };
 
@@ -34,6 +33,7 @@ export default function Joblist() {
   const [roles, setRoles] = useState<Role[]>([]);
   const [userAddress, setUserAddress] = useState<GeographicAddress | undefined>(undefined);
   const [filteredRoles, setFilteredRoles] = useState<Role[]>([]);
+  const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
 
   useEffect(() => {
     GetRoleData().then((res) => {
@@ -69,27 +69,64 @@ export default function Joblist() {
       if (!utc_offset) {
         return false;
       }
-      return utc_offset >= timezone_range.min && utc_offset <= timezone_range.max;
+      return utc_offset / 60 >= timezone_range.min && utc_offset / 60 <= timezone_range.max;
     }
 
-    if (userAddress) {
-      roles.forEach((element) => {
-        console.log("ELEMENT", element.location);
-      });
+    function roleFilter(role: Role, userAddress: GeographicAddress | undefined) {
+      function isRemoteMatch(role: Role, userAddress: GeographicAddress | undefined) {
+        if (!role.location) {
+          return true;
+        }
+        if (role.location.location_type == RoleLocationType.LocationList) {
+          return false;
+        }
+        //If role is remote and we want remote role, keep
+        if (role.location?.location_type == RoleLocationType.Remote) {
+          return true;
+        }
+        if (role.location?.location_type == RoleLocationType.TimezoneRange) {
+          return !userAddress || timezoneMatches(userAddress.utc_offset, role.location.timezone_range);
+        }
 
-      setFilteredRoles(roles.filter((role: Role) => {
-        const role_addresses: GeographicAddress[] = role.location?.location_list ? role.location.location_list : [];
-        return role.location?.location_type === RoleLocationType.Remote ||
-          (role.location?.location_type === RoleLocationType.LocationList && addressMatches(userAddress, role_addresses)) ||
-          (role.location?.location_type === RoleLocationType.TimezoneRange && timezoneMatches(userAddress.utc_offset, role.location.timezone_range))
-      }));
+        return true;
+      }
+      function isNonRemoteMatch(role: Role, userAddress: GeographicAddress | undefined) {
+        if (!role.location || !userAddress) {
+          return true;
+        }
+        if (role.location.location_type == RoleLocationType.LocationList) {
+          const role_addresses: GeographicAddress[] = role.location?.location_list ? role.location.location_list : [];
+          return addressMatches(userAddress, role_addresses);
+        }
+        if (role.location.location_type == RoleLocationType.Remote) {
+          return true;
+        }
+        if (role.location.location_type == RoleLocationType.TimezoneRange) {
+          return timezoneMatches(userAddress.utc_offset, role.location.timezone_range);
+        }
+
+        return true;
+      }
+      // If remote only, filter the roles
+      if (remoteOnly) {
+        return isRemoteMatch(role, userAddress);
+      }
+      return isNonRemoteMatch(role, userAddress);
+
     }
-  }, [userAddress, roles]);
+
+    setFilteredRoles(roles.filter((role) => roleFilter(role, userAddress)));
+
+  }, [userAddress, roles, remoteOnly]);
 
   return (
     <div className={styles.grid}>
       <label className={styles.label}>
         Filter Location: {JSON.stringify(userAddress)}
+        Remote Only: {remoteOnly.toString()}
+      </label>
+      <label className={styles.label}>
+        Show remote jobs only<input type="checkbox" onChange={value => setRemoteOnly(!remoteOnly)} />
       </label>
       <SearchBox
         handleChange={(v: any) => {

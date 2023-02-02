@@ -51,7 +51,6 @@ export default async function handler(
 
   if (!process.env.NEXT_PUBLIC_GOOGLE_API_KEY || typeof id !== "string") {
     res.status(500);
-    // console.log("ERROR");
     return;
   }
   const result: GeographicAddress = await fetch_by_inp(id, process.env.NEXT_PUBLIC_GOOGLE_API_KEY);

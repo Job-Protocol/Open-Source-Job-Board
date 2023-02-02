@@ -38,7 +38,6 @@ export default async function handler(
 
     if (!process.env.NEXT_PUBLIC_GOOGLE_API_KEY || typeof s !== "string") {
         res.status(500);
-        console.log("ERROR", s);
         return;
     }
     const result: GeographicAddress = await addressstring_to_type(s);

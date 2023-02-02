@@ -21,14 +21,11 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<string>
 ) {
-    console.log("I WAS CALLED");
 
     const inp: string = JSON.parse(req.body).input;
-    // console.log("INPUT: ", inp);
 
     if (!process.env.NEXT_PUBLIC_GOOGLE_API_KEY || typeof inp !== "string") {
         res.status(500).json("Fail");
-        // console.log("ERROR");
         return;
     }
     const result: string = await fetch_by_inp(inp, process.env.NEXT_PUBLIC_GOOGLE_API_KEY);

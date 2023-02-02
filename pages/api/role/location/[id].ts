@@ -25,7 +25,6 @@ export async function fetch_by_id(
   const url: string = config["dev"]["endpoint"] + "/obj/role_location/" + id;
   const response = await fetch(url, requestOptions);
   const result = await response.json();
-  // console.log("KKK", result);
 
   const res: RoleLocation = getDefaultRoleLocation();
   const timezone_range: TimezoneRange | undefined = result.response
