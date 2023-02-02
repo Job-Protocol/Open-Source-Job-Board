@@ -47,6 +47,9 @@ export default function Joblist() {
         setUserAddress(res);
       });
     }
+    else {
+      setUserAddress(undefined);
+    }
   }, [userLocation]);
 
   //filter the roles based on the user's address
@@ -121,18 +124,16 @@ export default function Joblist() {
 
   return (
     <div className={styles.grid}>
-      <label className={styles.label}>
-        Filter Location: {JSON.stringify(userAddress)}
-        Remote Only: {remoteOnly.toString()}
-      </label>
+      <p> UserLocation {userLocation}</p>
+      <p> UserAddress {userAddress?.address}</p>
+
       <label className={styles.label}>
         Show remote jobs only<input type="checkbox" onChange={value => setRemoteOnly(!remoteOnly)} />
       </label>
       <SearchBox
         handleChange={(v: any) => {
           setUserLocation(v.value as string);
-        }}
-      />
+        }} />
       {filteredRoles.map((role) => (
         <JobCard role={role} key={role.id} />
       ))}

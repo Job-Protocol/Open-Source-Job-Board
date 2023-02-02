@@ -1,11 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import config from "../../../config.json";
 import { useRouter } from "next/router";
 import { Asap_Condensed } from "@next/font/google";
 import { addAbortSignal } from "stream";
 import { GeographicAddress, getDefaultGeographicAddress } from "@/bubble_types";
-
-// import { NamedLink, getDefaultNamedLink } from "@/bubble_types";
 
 
 export async function fetch_by_inp(id: string, key: string): Promise<GeographicAddress> {

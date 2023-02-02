@@ -29,27 +29,43 @@ export default function SearchBox({
   }
 
   return (
-    <Select
-      className="basic-single"
-      classNamePrefix="select"
-      defaultValue="blue"
-      isDisabled={false}
-      isLoading={false}
-      isClearable={false}
-      isRtl={false}
-      isSearchable={true}
-      name="color"
-      options={options}
-      onChange={(value) => {
-        handleChange(value as string);
-      }} //actually make selection
-      // onKeyDown={(value) => console.log("new", value)}
-      onInputChange={(value) => {
-        setTimeout(function () {
-          setUserInput(value);
-        }, 1000);
-      }}
-    />
+    <div>
+      <Select
+        className="basic-single"
+        classNamePrefix="select"
+        defaultValue="blue"
+        isDisabled={false}
+        isLoading={false}
+        isClearable={false}
+        isRtl={false}
+        isSearchable={true}
+        name="color"
+        value={userInput}
+        options={options}
+        onChange={(value) => {
+          handleChange(value as string);
+        }} //actually make selection
+        // onKeyDown={(value) => console.log("new", value)}
+        onInputChange={(value) => {
+          setTimeout(function () {
+            setUserInput(value);
+          }, 1000);
+        }}
+      />
+      <label>
+        Clear:
+        <button
+          type="submit"
+
+          name="button-1675001572178"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={val => { setUserInput(""), console.log("CHANGE handled"); handleChange("London") }}
+          id="button-clear">
+          clear selection
+        </button>
+      </label>
+    </div>
+
   );
 }
 
