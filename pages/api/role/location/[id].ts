@@ -1,11 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import config from "@/config.json";
+import { addressstring_to_type } from "@/utils";
 
 import {
   RoleLocation,
   getDefaultRoleLocation,
   RoleLocationType,
   TimezoneRange,
+  GeographicAddress,
 } from "@/bubble_types";
 
 export async function fetch_by_id(
@@ -29,20 +31,22 @@ export async function fetch_by_id(
   const timezone_range: TimezoneRange | undefined = result.response
     .TimeZoneRange
     ? {
-        min: result.response.TimeZoneRange[0],
-        max: result.response.TimeZoneRange[1],
-      }
+      min: result.response.TimeZoneRange[0],
+      max: result.response.TimeZoneRange[1],
+    }
     : undefined;
 
   const location_type: RoleLocationType | undefined =
     result.response.LocationType == "LocationList"
       ? RoleLocationType.LocationList
       : result.response.LocationType == "TimezoneRange"
-      ? RoleLocationType.TimezoneRange
-      : undefined;
+        ? RoleLocationType.TimezoneRange
+        : undefined;
+
+  const location_list = await Promise.all(result.response.LocationList.map((loc: any) => addressstring_to_type(loc.address)));
 
   res.id = result.response._id;
-  res.location_list = result.response.LocationList;
+  res.location_list = location_list;
   res.location_type = location_type;
   res.timezone_range = timezone_range;
   return res;

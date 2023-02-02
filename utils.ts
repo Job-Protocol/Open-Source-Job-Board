@@ -1,8 +1,26 @@
 import config from "config.json";
-import { RoleLocation, RoleLocationType } from "./bubble_types";
+import { GeographicAddress, getDefaultCompany, RoleLocation, RoleLocationType, getDefaultGeographicAddress } from "./bubble_types";
+import { fetch_by_inp as fetch_place_id } from "./pages/api/places/get_id";
+import { fetch_by_inp as fetch_place_details } from "./pages/api/places/details/[id]";
+
+
+export async function addressstring_to_type(address: string): Promise<GeographicAddress> {
+  //DEBUG
+  const params = {
+    input: address,
+  };
+  const options = {
+    method: 'POST',
+    body: JSON.stringify(params)
+  };
+  const place_id = await fetch_place_id(address, process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string)
+
+  const place_details = await fetch_place_details(place_id, process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string);
+
+  return place_details;
+}
 
 export function rolelocation_to_string(rolelocation: RoleLocation): string {
-  console.log("ROLELOCATION", rolelocation);
   if (rolelocation.location_type == RoleLocationType.Remote) {
     return "Global(Remote)";
   }
@@ -52,7 +70,7 @@ export function postMessage(msg: string) {
 
   fetch(
     config["dev"]["endpoint"] +
-      "/wf/slack_message_forward?message={msg}&channel=C04MRCGRZ7S",
+    "/wf/slack_message_forward?message={msg}&channel=C04MRCGRZ7S",
     requestOptions
   )
     .then((response) => response.text())

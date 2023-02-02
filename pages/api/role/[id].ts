@@ -48,9 +48,6 @@ export default async function role_handler(
 ) {
   const { id } = req.query;
   res.setHeader('Cache-Control', 's-maxage=86400');
-
-  console.log("AAAAA", id);
-
   if (!process.env.BUBBLE_API_PRIVATE_KEY || typeof id !== "string") {
     res.status(500);
     return;

@@ -1,8 +1,21 @@
 export interface GeographicAddress {
-  address: string;
-  lat: number;
-  lng: number;
+  address: string | undefined;
+  lat: number | undefined;
+  lng: number | undefined;
+  country: string | undefined;
+  city: string | undefined;
+  utc_offset: number | undefined;
   // {address: 'Montreal, QC, Canada', lat: 45.5018869, lng: -73.5673919}
+}
+export function getDefaultGeographicAddress(): GeographicAddress {
+  return {
+    address: undefined,
+    lat: undefined,
+    lng: undefined,
+    country: undefined,
+    city: undefined,
+    utc_offset: undefined,
+  };
 }
 
 export interface TimezoneRange {
@@ -10,8 +23,8 @@ export interface TimezoneRange {
   max: number;
 }
 export enum RoleLocationType {
-  TimezoneRange,
   LocationList,
+  TimezoneRange,
   Remote,
 }
 export interface RoleLocation {
