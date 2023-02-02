@@ -12,15 +12,15 @@ import SearchBox from "@/components/overview/searchbox";
 
 import { GeographicAddress, Role, RoleLocation, RoleLocationType, TimezoneRange } from "@/bubble_types";
 
-async function GetRoleData(): Promise<Role[]> {
-  const results = config["dev"]["job-ids"].map(async (roleid) => {
-    const result = await fetch("/api/role/" + roleid);
-    const parsed = await result.json();
-    return parsed;
-  });
-  const role_data = await Promise.all(results);
-  return role_data;
-};
+// async function GetRoleData(): Promise<Role[]> {
+//   const results = config["dev"]["job-ids"].map(async (roleid) => {
+//     const result = await fetch("/api/role/" + roleid);
+//     const parsed = await result.json();
+//     return parsed;
+//   });
+//   const role_data = await Promise.all(results);
+//   return role_data;
+// };
 
 async function GetGeographicAddress(s: string): Promise<GeographicAddress> {
   const result = await fetch("/api/places/details/fromstring/" + s);
@@ -28,18 +28,25 @@ async function GetGeographicAddress(s: string): Promise<GeographicAddress> {
   return parsed;
 };
 
-export default function Joblist() {
+export interface Props {
+  roles: Role[];
+}
+
+export default function Joblist(data: Props) {
+
+
   const [userLocation, setUserLocation] = useState<string>("");
-  const [roles, setRoles] = useState<Role[]>([]);
+  // const [roles, setRoles] = useState<Role[]>([]);
   const [userAddress, setUserAddress] = useState<GeographicAddress | undefined>(undefined);
   const [filteredRoles, setFilteredRoles] = useState<Role[]>([]);
   const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
+  const roles: Role[] = data.roles;
 
-  useEffect(() => {
-    GetRoleData().then((res) => {
-      setRoles(res); setFilteredRoles(res);
-    });
-  }, []);
+  // useEffect(() => {
+  //   GetRoleData().then((res) => {
+  //     setFilteredRoles(res);
+  //   });
+  // }, []);
 
   useEffect(() => {
     if (userLocation) {
