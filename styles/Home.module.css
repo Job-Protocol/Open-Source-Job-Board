@@ -1,3 +1,125 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #FFFBFD;
+}
+
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+}
+
+.coverImageContainer {
+  width: 1200px;
+  /* max-width: '1200px'; */
+  height: 194px;
+  /* max-height: '194px'; */
+  position:relative;
+  overflow: hidden;
+  border: none;
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+  /* width: 1200px; */
+  width: 100%;
+  margin-top: -38px;
+  padding-left: 24px;
+}
+
+.logoImageContainer {
+  width: 154px;
+  height: 154px;
+  position:relative;
+  overflow: hidden;
+  background-color: white;
+  border-radius: 8px;
+  border-color: #E2E2E2;
+  border-width: 1px;
+}
+
+.headerTextContainer {
+  align-self: flex-end;
+  margin-left: 24px;
+  padding-bottom: 8px;
+}
+
+.h1 {
+  font-size: 28px;
+}
+
+.subTitle {
+  font-size: 18px;
+  color: #1F2534CC;
+}
+
+.headerIconsContainer {
+  display: flex;
+  margin-top: 12px;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.filtersContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.toggleButton {
+  /* display: flex;
+  flex-direction: row;
+  border-radius: 8px;
+  border: none;
+  background-color: white; */
+  /* border: 1px solid #E2E2E2;
+  box-sizing: border-box; */
+  /* border-color: #E2E2E2; */
+  /* outline: solid 1px #E2E2E2; */
+
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  border: 1px solid #E2E2E2;
+}
+
+.toggleOn {
+  /* background-color: #EE4C83;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  float: left;
+  outline: solid 1px #EE4C83; */
+
+  background-color: #EE4C83;
+  padding: 12px;
+  position: absolute;
+   border: 1px solid red;
+   top: -1px;
+   left: -1px;
+   bottom: -1px;
+}
+
+.toggleOff {
+  /* border-color: #E2E2E2; */
+  /* border-width: 1px; */
+  /* border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-right-width: 1px; */
+  padding: 12px;
+  /* border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px; */
+  /* background-color: #EE4C83; */
+}
+
+/** Before **/
+
 .main {
   display: flex;
   flex-direction: column;
