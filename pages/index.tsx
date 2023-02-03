@@ -2,12 +2,16 @@ import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import Joblist from "@/components/overview/joblist";
 import Companylist from "@/components/overview/companylist";
-import Switch from "react-switch";
+
 import React, { useState, useEffect } from "react";
 
 import { Role } from "@/bubble_types";
 import config from "@/config.json";
+import JobFilters from "@/components/overview/jobfilters";
 
+import { GeographicAddress } from "@/bubble_types";
+import Filter from "../components/overview/filter"
+import Switch from "react-switch";
 
 
 async function GetRoleData(): Promise<Role[]> {
@@ -25,13 +29,32 @@ async function GetRoleData(): Promise<Role[]> {
 export default function Home() {
   const [byCompanies, setByCompanies] = useState<boolean>(false);
   const [roles, setRoles] = useState<Role[]>([]);
+  const [filteredRoles, setFilteredRoles] = useState<Role[]>([]);
+  const [userAddress, setUserAddress] = useState<GeographicAddress | undefined>(undefined);
+  const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
+  const [filter, setFilter] = useState<Filter>();
 
 
   useEffect(() => {
     GetRoleData().then((res) => {
       setRoles(res);
+      setFilteredRoles(res);
     });
   }, []);
+
+  useEffect(() => {
+    if (roles) {
+      setFilter(new Filter(roles));
+    }
+  }, [roles]);
+
+  useEffect(() => {
+    if (filter) {
+      setFilteredRoles(filter.getFilteredRoles(userAddress, remoteOnly))
+    }
+  }, [userAddress, remoteOnly, filter]);
+
+
 
   function handleChange(val: boolean) {
     setByCompanies(val);
@@ -50,11 +73,16 @@ export default function Home() {
         <p>Below is the full list of open roles. Open any role for details.</p>
       </div>
 
+
+
       <main className={styles.main}>
+        {/* <p> User address: {userAddress?.address}</p>
+        <p> Remote only: {remoteOnly}</p> */}
+
         <label>
-          {/* <span>Show companies</span> */}
+          <span>Show companies</span>
           <Switch
-            onChange={handleChange}
+            onChange={(v: any) => setByCompanies(v)}
             checked={byCompanies}
             offColor="#ff0000"
             onColor="#00ff00"
@@ -62,9 +90,13 @@ export default function Home() {
             checkedIcon={<p>Companies</p>}
             width={200}
           />
-          {/* <span>Show roles</span> */}
         </label>
-        {!byCompanies && <Joblist roles={roles} />}
+
+        {!byCompanies && <JobFilters handleChange={(userAddress, remoteOnly) => {
+          setUserAddress(userAddress);
+          setRemoteOnly(remoteOnly == true);
+        }} />}
+        {!byCompanies && <Joblist roles={filteredRoles} />}
         {byCompanies && <Companylist />}
       </main>
     </>

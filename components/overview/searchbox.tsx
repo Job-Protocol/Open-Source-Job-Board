@@ -13,7 +13,7 @@ async function getOptions(s: string) {
 export default function SearchBox({
   handleChange,
 }: {
-  handleChange: (v: string) => void;
+  handleChange: (v: any) => void;
 }) {
   const [options, setOptions] = useState<any[]>([{}]);
   const [userInput, setUserInput] = useState<string>("A");
@@ -43,7 +43,7 @@ export default function SearchBox({
         value={userInput}
         options={options}
         onChange={(value) => {
-          handleChange(value as string);
+          handleChange(!value ? "" : value as string);
         }} //actually make selection
         // onKeyDown={(value) => console.log("new", value)}
         onInputChange={(value) => {
@@ -52,24 +52,17 @@ export default function SearchBox({
           }, 1000);
         }}
       />
-      <label>
-        Clear:
-        <button
-          type="submit"
+      <p> User input {userInput}</p>
+      <button
+        type="submit"
 
-          name="button-1675001572178"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={val => { setUserInput(""), console.log("CHANGE handled"); handleChange("London") }}
-          id="button-clear">
-          clear selection
-        </button>
-      </label>
+        name="button-1675001572178"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        onClick={val => { setUserInput(""), console.log("CHANGE handled"); handleChange("London") }}
+        id="button-clear">
+        clear selection
+      </button>
     </div>
 
   );
 }
-
-// TODO comparing the 2 will actually be a fairly complicated endavor
-// We probalby need to compare the address components:
-// https://maps.googleapis.com/maps/api/geocode/json?place_id=<GOOGLE API KEY>
-// https://maps.googleapis.com/maps/api/geocode/json?place_id=<GOOGLE API KEY>

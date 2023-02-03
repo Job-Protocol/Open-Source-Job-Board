@@ -14,8 +14,8 @@ export default function JobCard(data: JobCardProps) {
     <a
       href={link}
       className={styles.card}
-      target="_blank"
-      rel="noopener noreferrer"
+      // target="_blank"
+      rel="alternate"
     >
       <div id="horizontal" className={styles.main}>
         <div id="logo" className={styles.horizontal_flow}>

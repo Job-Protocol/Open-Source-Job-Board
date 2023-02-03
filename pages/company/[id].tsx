@@ -12,6 +12,11 @@ import { Company, Role } from "@/bubble_types";
 import RoleConditions from "@/components/role/detail/roleconditions";
 import Joblist from "@/components/overview/joblist";
 
+import JobFilters from "@/components/overview/jobfilters";
+import { GeographicAddress } from "@/bubble_types";
+
+import Filter from "@/components/overview/filter"
+
 
 async function getCompanyData(id: string): Promise<Company> {
 
@@ -35,6 +40,10 @@ export default function Home() {
   const id = router.query.id;
   const [company, setCompany] = useState<Company>();
   const [companyroles, setCompanyRoles] = useState<Role[]>([]);
+  const [filteredCompanyroles, setFilteredCompanyRoles] = useState<Role[]>([]);
+  const [userAddress, setUserAddress] = useState<GeographicAddress | undefined>(undefined);
+  const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
+  const [filter, setFilter] = useState<Filter>();
 
   useEffect(() => {
     if (id) {
@@ -42,12 +51,24 @@ export default function Home() {
         setCompany(res);
       });
       GetRoleData().then((res) => {
-        const filtered = res.filter((role) => { console.log(role.company.id, id, role.company.id === id); return role.company.id === id; });
+        const filtered = res.filter((role) => { return role.company.id === id; });
         setCompanyRoles(filtered);
       });
     }
 
   }, [id]);
+
+  useEffect(() => {
+    if (companyroles) {
+      setFilter(new Filter(companyroles));
+    }
+  }, [companyroles]);
+
+  useEffect(() => {
+    if (filter) {
+      setFilteredCompanyRoles(filter.getFilteredRoles(userAddress, remoteOnly))
+    }
+  }, [userAddress, remoteOnly, filter]);
 
   if (!company) {
     return <p> No company {id}</p>;
@@ -77,7 +98,11 @@ export default function Home() {
       </div>
 
       <main className={styles.main}>
-        <Joblist roles={companyroles} />
+        <JobFilters handleChange={(userAddress, remoteOnly) => {
+          setUserAddress(userAddress);
+          setRemoteOnly(remoteOnly == true);
+        }} />
+        <Joblist roles={filteredCompanyroles} />
       </main>
 
 
