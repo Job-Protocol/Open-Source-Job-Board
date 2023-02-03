@@ -18,3 +18,12 @@ In order to run this app, you need to send a few environment variables
 - `GOOGLE_API_KEY`: Put your Gogle API key here. Places API must be enabled.
 - `BUBBLE_API_PRIVATE_KEY`: Private key for jobprotocol API access on bubble
 - `CONFIG_VERSION`: Can be `["dev", "production"]`. If unset or incorrect, defaults to `"dev"`. Determines whether the page connects to the "test" or the "live" version of Bubble database.
+
+### Run page
+Use `npm run dev` for development purposes.
+
+Else, start the app with
+```
+npm run build
+npm run start
+```
