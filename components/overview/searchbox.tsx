@@ -14,7 +14,7 @@ async function getOptions(s: string) {
 export default function SearchBox({
   handleChange,
 }: {
-  handleChange: (v: string) => void;
+  handleChange: (v: any) => void;
 }) {
   const [options, setOptions] = useState<any[]>([{}]);
   const [userInput, setUserInput] = useState<string>("A");
@@ -30,44 +30,40 @@ export default function SearchBox({
   }
 
   return (
-    <Select
-      // Doing it inline to make sure it doesn't get overwritten...
-      styles={{
-        control: (baseStyles, state) => ({
-          ...baseStyles,
-          borderRadius: '32px',
-        }),
-      }}
-      // classNames={{
-      //   control: (state) => styles.select__control,
-      //   valueContainer: (state) => styles.select__valueContainer,
-      //   container: (state) => styles.select__container,
-      //   input: (state) => styles.select__input
-      // }}
-      // classNamePrefix="select"
-      defaultValue="blue"
-      isDisabled={false}
-      isLoading={false}
-      isClearable={false}
-      isRtl={false}
-      isSearchable={true}
-      name="color"
-      options={options}
-      onChange={(value) => {
-        handleChange(value as string);
-      }} //actually make selection
-      // onKeyDown={(value) => console.log("new", value)}
-      onInputChange={(value) => {
-        setTimeout(function () {
-          setUserInput(value);
-        }, 1000);
-      }}
-      components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
-    />
+    <div>
+      <Select
+        className="basic-single"
+        classNamePrefix="select"
+        defaultValue="blue"
+        isDisabled={false}
+        isLoading={false}
+        isClearable={false}
+        isRtl={false}
+        isSearchable={true}
+        name="color"
+        value={userInput}
+        options={options}
+        onChange={(value) => {
+          handleChange(!value ? "" : value as string);
+        }} //actually make selection
+        // onKeyDown={(value) => console.log("new", value)}
+        onInputChange={(value) => {
+          setTimeout(function () {
+            setUserInput(value);
+          }, 1000);
+        }}
+      />
+      <p> User input {userInput}</p>
+      <button
+        type="submit"
+
+        name="button-1675001572178"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        onClick={val => { setUserInput(""), console.log("CHANGE handled"); handleChange("London") }}
+        id="button-clear">
+        clear selection
+      </button>
+    </div>
+
   );
 }
-
-// TODO comparing the 2 will actually be a fairly complicated endavor
-// We probalby need to compare the address components:
-// https://maps.googleapis.com/maps/api/geocode/json?place_id=<GOOGLE API KEY>
-// https://maps.googleapis.com/maps/api/geocode/json?place_id=<GOOGLE API KEY>

@@ -5,46 +5,32 @@ import styles from "@/styles/Home.module.css";
 import JobCard from "@/components/role/jobcard";
 import { JobCardProps } from "@/components/role/jobcard";
 
+import { addressstring_to_type } from "@/utils";
 import config from "../../config.json";
 
 import SearchBox from "@/components/overview/searchbox";
 
-import { Role } from "@/bubble_types";
 
-async function GetRoleData(): Promise<Role[]> {
-  const results = config["dev"]["job-ids"].map(async (roleid) => {
-    const result = await fetch("/api/role/" + roleid);
-    const parsed = await result.json();
-    return parsed;
-  });
-  const role_data = await Promise.all(results);
 
-  return role_data;
+import JobFilters from "./jobfilters";
+
+import { GeographicAddress, Role, RoleLocation, RoleLocationType, TimezoneRange } from "@/bubble_types";
+
+export interface Props {
+  roles: Role[];
 }
 
-export default function Joblist() {
-  const [userLocation, setUserLocation] = useState<string>("");
-  const [roles, setRoles] = useState<Role[]>([]);
+export default function Joblist(data: Props) {
 
-  useEffect(() => {
-    GetRoleData().then((res) => {
-      setRoles(res);
-    });
-  }, []);
+  const roles: Role[] = data.roles;
 
   return (
     <div className={styles.grid}>
-      <label className={styles.label}>
-        Filter Location: {userLocation as string}
-      </label>
-      <SearchBox
-        handleChange={(v: any) => {
-          setUserLocation(v.value as string);
-        }}
-      />
-      {roles.map((role) => (
-        <JobCard role={role} key={role.id} />
-      ))}
+      {
+        roles.map((role) => (
+          <JobCard role={role} key={role.id} />
+        ))
+      }
     </div>
   );
 }

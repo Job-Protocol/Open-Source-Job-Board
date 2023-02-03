@@ -71,6 +71,8 @@
   /* width: 100%; */
   display: flex;
   flex-direction: row;
+  margin-top: 32px;
+  margin-left:24px;
 }
 
 .toggleButton {
@@ -117,6 +119,45 @@
   font-size: 16px;
   font-weight: 400;
   color: #1F2534CC;
+}
+
+.inputContainer {
+  position: relative;
+  display: flex;
+  margin-left: 24px;
+  width: 100%;
+}
+
+.inputIconContainer {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  padding-left: 16px;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  padding-left: 40px;
+  /* padding-top: 8px;
+  padding-bottom: 8px; */
+  border-width:1px;
+  border-color: #E2E2E2;
+  border-radius: 32px;
+  color: #1F2534CC;
+}
+
+.input:hover {
+  border-width: 1px;
+  border-color: #EE4C83;
+}
+
+.input:focus {
+  border-width: 1px;
+  border-color: #EE4C83;
 }
 
 /** Before **/

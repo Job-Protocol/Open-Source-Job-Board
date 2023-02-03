@@ -6,6 +6,9 @@ import { Role, getDefaultRole, RoleLocation } from "@/bubble_types";
 import { fetch_company_by_id } from "../company/[id]";
 import { fetch_by_id as fetchRoleLocation } from "./location/[id]";
 
+var psCache = require('ps-cache');
+var cache = new psCache.Cache();
+
 export async function fetch_role_by_id(id: string, key: string): Promise<Role> {
   var myHeaders = new Headers();
   myHeaders.append("Authorization", "Bearer ".concat(key));
@@ -48,14 +51,26 @@ export default async function role_handler(
 ) {
   const { id } = req.query;
   res.setHeader('Cache-Control', 's-maxage=86400');
-
-  console.log("AAAAA", id);
-
   if (!process.env.BUBBLE_API_PRIVATE_KEY || typeof id !== "string") {
     res.status(500);
     return;
   }
 
-  const role = await fetch_role_by_id(id, process.env.BUBBLE_API_PRIVATE_KEY);
-  res.status(200).json(role);
+
+  // assert(cache.get(key) === undefined);
+  // assert(cache.has(key) === false);
+
+  const cache_id: string = "role_" + id;
+  if (cache.has(cache_id)) {
+    res.status(200).json(cache.get(cache_id));
+    return;
+  }
+  else {
+    const role = await fetch_role_by_id(id, process.env.BUBBLE_API_PRIVATE_KEY);
+    cache.set(cache_id, role, { ttl: 1000 * 60 * 60 * 2 });
+    res.status(200).json(role);
+  }
+
+
+
 }
