@@ -2,7 +2,16 @@ import config from "config.json";
 import { GeographicAddress, getDefaultCompany, RoleLocation, RoleLocationType, getDefaultGeographicAddress } from "./bubble_types";
 import { fetch_by_inp as fetch_place_id } from "./pages/api/places/get_id";
 import { fetch_by_inp as fetch_place_details } from "./pages/api/places/details/[id]";
+// import config from "@/config.json";
 
+
+export function getConfig(): any {
+
+  if (process.env.NEXT_PUBLIC_CONFIG_VERSION && process.env.NEXT_PUBLIC_CONFIG_VERSION == "production") {
+    return config["dev"];
+  }
+  return config["dev"];
+}
 
 export async function addressstring_to_type(address: string): Promise<GeographicAddress> {
   //DEBUG

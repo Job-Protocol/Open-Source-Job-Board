@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import config from "../../../config.json";
+import { getConfig } from "@/utils";
 
 import { NamedLink, getDefaultNamedLink } from "@/bubble_types";
 
@@ -15,7 +15,7 @@ export async function fetch_by_id(id: string, key: string): Promise<NamedLink> {
     redirect: "follow",
   };
 
-  const url: string = config["dev"]["endpoint"] + "/obj/namedlink/" + id;
+  const url: string = getConfig()["endpoint"] + "/obj/namedlink/" + id;
   const response = await fetch(url, requestOptions);
   const result = await response.json();
 

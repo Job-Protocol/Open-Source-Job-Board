@@ -2,10 +2,6 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 
 import styles from "@/styles/Home.module.css";
-import CompanyCard from "../company/companycard";
-
-import config from "../../config.json";
-
 
 import SearchBox from "@/components/overview/searchbox";
 import { GeographicAddress } from "@/bubble_types";

@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import config from "../../../config.json";
+import { getConfig } from "@/utils";
 
 import { CompanySocials, getDefaultCompanySocials } from "@/bubble_types";
 
@@ -19,7 +20,7 @@ export async function fetch_by_id(
     redirect: "follow",
   };
 
-  const url: string = config["dev"]["endpoint"] + "/obj/companysocials/" + id;
+  const url: string = getConfig()["endpoint"] + "/obj/companysocials/" + id;
   const response = await fetch(url, requestOptions);
   const result = await response.json();
 

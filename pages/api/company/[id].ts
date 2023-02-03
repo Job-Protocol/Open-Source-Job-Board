@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import config from "../../../config.json";
+import { getConfig } from "@/utils";
 
 import {
   Company,
@@ -27,7 +27,7 @@ export async function fetch_company_by_id(
   };
 
   // Fetch company, if possible
-  const url: string = config["dev"]["endpoint"] + "/obj/company/" + id;
+  const url: string = getConfig()["endpoint"] + "/obj/company/" + id;
   const response = await fetch(url, requestOptions);
   const result = await response.json();
 
