@@ -12,12 +12,13 @@ import { Company, Role } from "@/bubble_types";
 import RoleConditions from "@/components/role/detail/roleconditions";
 import Joblist from "@/components/overview/joblist";
 
+
 async function getCompanyData(id: string): Promise<Company> {
 
   const result = await fetch("../api/company/" + id);
   const parsed = await result.json();
   return parsed;
-}
+};
 
 async function GetRoleData(): Promise<Role[]> {
   const results = config["dev"]["job-ids"].map(async (roleid) => {

@@ -3,6 +3,10 @@ import config from "../../../config.json";
 
 import { CompanySocials, getDefaultCompanySocials } from "@/bubble_types";
 
+var psCache = require('ps-cache');
+var cache = new psCache.Cache();
+
+
 export async function fetch_by_id(
   id: string,
   key: string
@@ -35,6 +39,15 @@ export default async function company_handler(
     res.status(500);
     return;
   }
-  const role = await fetch_by_id(id, process.env.BUBBLE_API_PRIVATE_KEY);
-  res.status(200).json(role);
+
+  const cache_id: string = "company_socials_" + id;
+  if (cache.has(cache_id)) {
+    res.status(200).json(cache.get(cache_id));
+    return;
+  }
+  else {
+    const role = await fetch_by_id(id, process.env.BUBBLE_API_PRIVATE_KEY);
+    cache.set(cache_id, role, { ttl: cache.D.THIRTY_MINUTES });
+    res.status(200).json(role);
+  }
 }
