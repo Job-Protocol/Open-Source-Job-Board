@@ -14,10 +14,12 @@ Test-data: [frontend-test-beta.vercel.app](https://frontend-test-beta.vercel.app
 
 ## Usage
 ### Environment variables
-In order to run this app, you need to send a few environment variables
+In order to run this app, you need to set a few environment variables
 - `GOOGLE_API_KEY`: Put your Gogle API key here. Places API must be enabled.
 - `BUBBLE_API_PRIVATE_KEY`: Private key for jobprotocol API access on bubble
 - `CONFIG_VERSION`: Can be `["dev", "production"]`. If unset or incorrect, defaults to `"dev"`. Determines whether the page connects to the "test" or the "live" version of Bubble database.
+
+You can set variable wit `export VARIABLE="value"` or put the same command into your .bashrc to load it automatically when you start a terminal.
 
 ### Run page
 Use `npm run dev` for development purposes.
