@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "@/styles/Searchbox.module.css";
 import { useState, useEffect } from "react";
 
 import Select from "react-select";
@@ -30,8 +31,20 @@ export default function SearchBox({
 
   return (
     <Select
-      className="basic-single"
-      classNamePrefix="select"
+      // Doing it inline to make sure it doesn't get overwritten...
+      styles={{
+        control: (baseStyles, state) => ({
+          ...baseStyles,
+          borderRadius: '32px',
+        }),
+      }}
+      // classNames={{
+      //   control: (state) => styles.select__control,
+      //   valueContainer: (state) => styles.select__valueContainer,
+      //   container: (state) => styles.select__container,
+      //   input: (state) => styles.select__input
+      // }}
+      // classNamePrefix="select"
       defaultValue="blue"
       isDisabled={false}
       isLoading={false}
@@ -49,6 +62,7 @@ export default function SearchBox({
           setUserInput(value);
         }, 1000);
       }}
+      components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
     />
   );
 }

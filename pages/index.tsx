@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from 'next/image'
 import styles from "@/styles/Home.module.css";
+import SearchBox from "@/components/overview/searchbox";
 import Joblist from "@/components/overview/joblist";
 import Companylist from "@/components/overview/companylist";
 import Switch from "react-switch";
@@ -99,6 +100,7 @@ export default function Home() {
                 Companies
               </div>
             </div>
+              <SearchBox handleChange={ x => console.log(x) } />
           </div>
 
         </div>
