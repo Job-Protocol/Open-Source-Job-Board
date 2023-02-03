@@ -47,7 +47,7 @@ export default async function company_handler(
   }
   else {
     const role = await fetch_by_id(id, process.env.BUBBLE_API_PRIVATE_KEY);
-    cache.set(cache_id, role, { ttl: cache.D.THIRTY_MINUTES });
+    cache.set(cache_id, role, { ttl: 1000 * 60 * 60 * 2 });
     res.status(200).json(role);
   }
 }
