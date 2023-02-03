@@ -9,8 +9,8 @@ Job Protocol lets companies list open roles with a referral bounty on the blockc
 
 
 ## Deployments
-Live-data: [frontend-zeta-henna.vercel.app](frontend-zeta-henna.vercel.app)  
-Test-data: [https://frontend-test-beta.vercel.app](https://frontend-test-beta.vercel.app/)
+Live-data: [frontend-zeta-henna.vercel.app](https://frontend-zeta-henna.vercel.app)  
+Test-data: [frontend-test-beta.vercel.app](https://frontend-test-beta.vercel.app)
 
 ## Usage
 ### Environment variables
