@@ -2,6 +2,11 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import config from "@/config.json";
 import { addressstring_to_type } from "@/utils";
 
+
+var psCache = require('ps-cache');
+var cache = new psCache.Cache();
+
+
 import {
   RoleLocation,
   getDefaultRoleLocation,
@@ -61,6 +66,17 @@ export default async function company_handler(
     res.status(500);
     return;
   }
-  const role = await fetch_by_id(id, process.env.BUBBLE_API_PRIVATE_KEY);
-  res.status(200).json(role);
+
+  const cache_id: string = "rolelocation_from_id_" + id;
+  if (cache.has(cache_id)) {
+    res.status(200).json(cache.get(cache_id));
+    return;
+  }
+  else {
+    const role = await fetch_by_id(id, process.env.BUBBLE_API_PRIVATE_KEY);
+    cache.set(cache_id, role, { ttl: 1000 * 60 * 60 * 2 });
+    res.status(200).json(role);
+  }
+
+
 }

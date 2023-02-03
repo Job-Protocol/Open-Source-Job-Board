@@ -2,6 +2,9 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import config from "../../../config.json";
 import { useRouter } from "next/router";
 
+var psCache = require('ps-cache');
+var cache = new psCache.Cache();
+
 export async function fetch_by_inp(input: string, key: string): Promise<string> {
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer ".concat(key));
@@ -28,6 +31,16 @@ export default async function handler(
         res.status(500).json("Fail");
         return;
     }
-    const result: string = await fetch_by_inp(inp, process.env.NEXT_PUBLIC_GOOGLE_API_KEY);
-    res.status(200).json(result);
+
+
+    const cache_id: string = "place_id_from_string" + inp;
+    if (cache.has(cache_id)) {
+        res.status(200).json(cache.get(cache_id));
+        return;
+    }
+    else {
+        const role = await fetch_by_inp(inp, process.env.NEXT_PUBLIC_GOOGLE_API_KEY);;
+        cache.set(cache_id, role, { ttl: 1000 * 60 * 60 * 2 });
+        res.status(200).json(role);
+    }
 }

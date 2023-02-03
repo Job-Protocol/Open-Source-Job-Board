@@ -4,6 +4,9 @@ import { Asap_Condensed } from "@next/font/google";
 import { addAbortSignal } from "stream";
 import { GeographicAddress, getDefaultGeographicAddress } from "@/bubble_types";
 
+var psCache = require('ps-cache');
+var cache = new psCache.Cache();
+
 
 export async function fetch_by_inp(id: string, key: string): Promise<GeographicAddress> {
   var myHeaders = new Headers();
@@ -50,6 +53,15 @@ export default async function handler(
     res.status(500);
     return;
   }
-  const result: GeographicAddress = await fetch_by_inp(id, process.env.NEXT_PUBLIC_GOOGLE_API_KEY);
-  res.status(200).json(result);
+
+  const cache_id: string = "address_from_string" + id;
+  if (cache.has(cache_id)) {
+    res.status(200).json(cache.get(cache_id));
+    return;
+  }
+  else {
+    const role = await fetch_by_inp(id, process.env.NEXT_PUBLIC_GOOGLE_API_KEY);;
+    cache.set(cache_id, role, { ttl: 1000 * 60 * 60 * 2 });
+    res.status(200).json(role);
+  }
 }
