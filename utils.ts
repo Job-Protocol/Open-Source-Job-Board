@@ -8,7 +8,7 @@ import { fetch_by_inp as fetch_place_details } from "./pages/api/places/details/
 export function getConfig(): any {
 
   if (process.env.NEXT_PUBLIC_CONFIG_VERSION && process.env.NEXT_PUBLIC_CONFIG_VERSION == "production") {
-    return config["dev"];
+    return config["production"];
   }
   return config["dev"];
 }
