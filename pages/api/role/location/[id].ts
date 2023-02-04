@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import config from "@/config.json";
 import { addressstring_to_type } from "@/utils";
+import { getConfig } from "@/utils";
 
 
 var psCache = require('ps-cache');
@@ -27,7 +28,7 @@ export async function fetch_by_id(
     redirect: "follow",
   };
 
-  const url: string = config["dev"]["endpoint"] + "/obj/role_location/" + id;
+  const url: string = getConfig()["endpoint"] + "/obj/role_location/" + id;
   const response = await fetch(url, requestOptions);
   const result = await response.json();
 

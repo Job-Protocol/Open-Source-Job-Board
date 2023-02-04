@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import config from "../config.json";
 
 export default async function handler(
   req: NextApiRequest,

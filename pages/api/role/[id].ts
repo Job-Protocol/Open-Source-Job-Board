@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import config from "../../../config.json";
+import { getConfig } from "@/utils";
 
 import { Role, getDefaultRole, RoleLocation } from "@/bubble_types";
 
@@ -18,7 +18,7 @@ export async function fetch_role_by_id(id: string, key: string): Promise<Role> {
     redirect: "follow",
   };
 
-  const url_role: string = config["dev"]["endpoint"] + "/obj/role/" + id;
+  const url_role: string = getConfig()["endpoint"] + "/obj/role/" + id;
   const response_role = await fetch(url_role, requestOptions);
   const result_role = await response_role.json();
 

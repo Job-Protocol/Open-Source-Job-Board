@@ -6,7 +6,7 @@ import CompanyCard from "@/components/role/detail/companyinfo";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import config from "@/config.json";
+import { getConfig } from "@/utils";
 
 import { Company, Role } from "@/bubble_types";
 import RoleConditions from "@/components/role/detail/roleconditions";
@@ -26,7 +26,7 @@ async function getCompanyData(id: string): Promise<Company> {
 };
 
 async function GetRoleData(): Promise<Role[]> {
-  const results = config["dev"]["job-ids"].map(async (roleid) => {
+  const results = getConfig()["job-ids"].map(async (roleid: string) => {
     const result = await fetch("/api/role/" + roleid);
     const parsed = await result.json();
     return parsed;

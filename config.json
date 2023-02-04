@@ -35,7 +35,7 @@
             "1648228810605x608245028805151700",
             "1648178940553x863153651027322500"
         ]},
-    "live": {
+    "production": {
         "endpoint": "https://app.jobprotocol.xyz/version-live/api/1.1",
         "job-ids": [
             "1648504382357x375020328790261760",

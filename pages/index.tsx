@@ -8,16 +8,16 @@ import Companylist from "@/components/overview/companylist";
 import React, { useState, useEffect } from "react";
 
 import { Role } from "@/bubble_types";
-import config from "@/config.json";
 import JobFilters from "@/components/overview/jobfilters";
 
 import { GeographicAddress } from "@/bubble_types";
 import Filter from "../components/overview/filter"
 import Switch from "react-switch";
+import { getConfig } from "@/utils";
 
 
 async function GetRoleData(): Promise<Role[]> {
-  const results = config["dev"]["job-ids"].map(async (roleid) => {
+  const results = getConfig()["job-ids"].map(async (roleid: string) => {
     const result = await fetch("/api/role/" + roleid);
     const parsed = await result.json();
     return parsed;

@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import config from "../../../config.json";
+// import config from "../../../config.json";
+import { getConfig } from "@/utils";
 
 export default async function candidate_handler(
   req: NextApiRequest,
@@ -26,7 +27,7 @@ export default async function candidate_handler(
   };
 
   const response = await fetch(
-    config["dev"]["endpoint"] + "/obj/candidate/",
+    getConfig()["endpoint"] + "/obj/candidate/",
     requestOptions
   );
 
