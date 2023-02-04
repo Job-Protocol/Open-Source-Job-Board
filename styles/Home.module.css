@@ -82,52 +82,6 @@
   flex: 1;
 }
 
-.toggleButton {
-  /* display: flex;
-  flex-direction: row;
-  border-radius: 8px;
-  border: none;
-  background-color: white; */
-  /* border: 1px solid #E2E2E2;
-  box-sizing: border-box; */
-  /* border-color: #E2E2E2; */
-  /* outline: solid 1px #E2E2E2; */
-
-  display: flex;
-  flex-direction: row;
-  border: 1px solid #E2E2E2;
-  border-radius: 8px;
-}
-
-.toggleOn {
-  /* background-color: #EE4C83;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  float: left;
-  outline: solid 1px #EE4C83; */
-
-  background-color: #EE4C83;
-  padding: 12px;
-  border: 1px solid #EE4C83;
-  border-radius: 8px;
-  margin-top: -1px;
-  margin-left: -1px;
-  margin-bottom: -1px;
-
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.toggleOff {
-  padding: 12px;
-
-  font-size: 16px;
-  font-weight: 400;
-  color: #1F2534CC;
-}
-
 .inputContainer {
   position: relative;
   display: flex;
