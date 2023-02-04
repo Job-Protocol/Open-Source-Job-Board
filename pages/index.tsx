@@ -141,7 +141,10 @@ export default function Home() {
 
           <div className={styles.filtersContainer}>
             <div className={styles.row}>
-              <SwitchRolesCompanies />
+              <SwitchRolesCompanies
+                onChange={(v: any) => setByCompanies(v)}
+                checked={byCompanies}
+              />
               <div className={styles.inputContainer}>
                 <div className={styles.inputIconContainer}>
                   <svg

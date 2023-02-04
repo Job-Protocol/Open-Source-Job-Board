@@ -3,23 +3,30 @@ import styles from "@/styles/Switch_role_companies.module.css";
 
 import { useState, useEffect } from "react";
 
-export default function SwitchRolesCompanies() {
-  const [isRoles, setIsRoles] = useState<boolean>(true);
+export interface Props {
+  onChange: (v: boolean) => void;
+  checked: boolean;
+}
+
+export default function SwitchRolesCompanies(data: Props) {
+  const [byCompanies, setByCompanies] = useState<boolean>(data.checked);
 
   const toggle = () => {
-    setIsRoles(!isRoles);
+    const newByCompanies = !byCompanies;
+    setByCompanies(newByCompanies);
+    data.onChange(newByCompanies);
   };
 
   return (
     <div className={styles.toggleButton}>
       <div
-        className={isRoles ? styles.toggleOn : styles.toggleOff}
+        className={byCompanies ? styles.toggleOff : styles.toggleOn}
         onClick={toggle}
       >
         Roles
       </div>
       <div
-        className={isRoles ? styles.toggleOff : styles.toggleOn}
+        className={byCompanies ? styles.toggleOn : styles.toggleOff}
         onClick={toggle}
       >
         Companies
