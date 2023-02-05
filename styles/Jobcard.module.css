@@ -76,4 +76,9 @@
   color: #1f2534;
 }
 
+.card:hover .applyButton {
+  /* align-self: flex-end; */
+  background-color: #ee4c83;
+}
+
 /* Old */
