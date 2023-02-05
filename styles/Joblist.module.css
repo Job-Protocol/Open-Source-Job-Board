@@ -1,0 +1,10 @@
+.jobListContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* flex: 1; */
+  /* flex-basis: 100%; */
+  /* background-color: green; */
+  margin-left: 24px;
+  margin-right: 24px;
+}

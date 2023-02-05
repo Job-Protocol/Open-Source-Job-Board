@@ -175,24 +175,10 @@ export default function Home() {
               />
             )}
           </div>
+          {!byCompanies && <Joblist roles={filteredRoles} />}
+          {byCompanies && <Companylist />}
         </div>
       </div>
-
-      <main className={styles.main}>
-        {/* <p> User address: {userAddress?.address}</p>
-        <p> Remote only: {remoteOnly}</p> */}
-
-        {/* {!byCompanies && (
-          <JobFilters
-            handleChange={(userAddress, remoteOnly) => {
-              setUserAddress(userAddress);
-              setRemoteOnly(remoteOnly == true);
-            }}
-          />
-        )} */}
-        {!byCompanies && <Joblist roles={filteredRoles} />}
-        {byCompanies && <Companylist />}
-      </main>
     </>
   );
 }
