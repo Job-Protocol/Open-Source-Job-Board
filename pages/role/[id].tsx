@@ -10,8 +10,10 @@ import { useRouter } from "next/router";
 import { Role } from "@/bubble_types";
 import RoleConditions from "@/components/role/detail/roleconditions";
 
-async function getRoleData(roleid: string): Promise<Role> {
+import Link from "next/link";
+import Image from "next/image";
 
+async function getRoleData(roleid: string): Promise<Role> {
   const result = await fetch("../api/role/" + roleid);
   const parsed = await result.json();
   return parsed;
@@ -35,9 +37,6 @@ export default function Home() {
   }
   return (
     <div>
-      <a href={"https://app.jobprotocol.xyz/version-test/role/" + id}>
-        <h1>[Admin] Click here to edit role on jobprotocol</h1>
-      </a>
       <Head>
         <title>ETH Denver Jobs</title>
         <meta name="description" content="Jobboard for ETHDenver 2023" />
@@ -45,22 +44,110 @@ export default function Home() {
         <link rel="icon" href="/faviconV2.png" />
       </Head>
 
-      <div className={styles.headercard}>
-        <div id="header-top" className={styles.flexbox_container}>
-          <div className={styles.flex_child}>
-            <img src={role?.company?.logo} className={styles.logo} alt="Logo" />
-          </div>
-          <div className={styles.flex_child}>
-            <h1 className={styles.pagetitle}>{role?.title}</h1>
-            <p> @{role?.company.name}</p>
-            <RoleConditions role={role} />
-          </div>
-        </div>
+      <div className="page">
+        <div className="pageContainer">
+          <div className={styles.headerContainer}>
+            <div className={styles.headerLeftContainer}>
+              <Link className={styles.headerLink} href="/">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M12.1918 3.29103C12.5833 3.68032 12.5847 4.3129 12.195 4.70395L7.91604 8.99676L12.207 13.291C12.5977 13.6819 12.5977 14.3158 12.207 14.7068C11.8163 15.0977 11.1829 15.0977 10.7923 14.7068L5.84547 9.75621C5.82811 9.74116 5.81114 9.72541 5.7946 9.70897C5.40305 9.31968 5.40162 8.6871 5.7914 8.29605L10.777 3.29422C11.1668 2.90317 11.8002 2.90175 12.1918 3.29103Z"
+                    fill="#EE4C83"
+                  />
+                </svg>
+                Back to all positions
+              </Link>
+            </div>
 
-        <div id="header-bottom">
-          <h3> @ {role?.company?.name}</h3>
+            <div className={styles.headerRightContainer}>
+              ETHDENVER Job Board
+            </div>
+          </div>
+          <div className={styles.roleDetailHeaderContainer}>
+            <div className={styles.roleInfo}>
+              <Image
+                src={role?.company?.logo}
+                alt="Logo"
+                width={122}
+                height={122}
+              />
+              <div className={styles.roleInfoText}>
+                <p className={styles.companyText}> {role?.company.name}</p>
+                <h1 className={styles.roleTitleText}>{role?.title}</h1>
+                <RoleConditions role={role} isInverted={true} />
+              </div>
+            </div>
+            <div className={styles.roleOptionsContainer}>
+              <div className={styles.roleOptionContainer}>
+                <div className={styles.roleOptionIconContainer}>
+                  <Image
+                    src={"/building.svg"}
+                    alt="BuildingIcon"
+                    width={20}
+                    height={20}
+                  />
+                </div>
+                <div className={styles.roleOptionTextAndInfoContainer}>
+                  Hybrid work environment
+                  <Image
+                    src={"/info.svg"}
+                    alt="InfoIcon"
+                    width={13}
+                    height={13}
+                  />
+                </div>
+              </div>
+              <div className={styles.roleOptionContainer}>
+                <div className={styles.roleOptionIconContainer}>
+                  <Image
+                    src={"/building.svg"}
+                    alt="BuildingIcon"
+                    width={20}
+                    height={20}
+                  />
+                </div>
+                <div className={styles.roleOptionTextAndInfoContainer}>
+                  Hybrid work environment
+                  <Image
+                    src={"/info.svg"}
+                    alt="InfoIcon"
+                    width={13}
+                    height={13}
+                  />
+                </div>
+              </div>
+              <div className={styles.roleOptionContainer}>
+                <div className={styles.roleOptionIconContainer}>
+                  <Image
+                    src={"/building.svg"}
+                    alt="BuildingIcon"
+                    width={20}
+                    height={20}
+                  />
+                </div>
+                <div className={styles.roleOptionTextAndInfoContainer}>
+                  Hybrid work environment
+                  <Image
+                    src={"/info.svg"}
+                    alt="InfoIcon"
+                    width={13}
+                    height={13}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
       <main className={styles.main}>
         {role?.company && <CompanyCard company={role.company} />}
         <JdCard desc={role?.desc as string} />

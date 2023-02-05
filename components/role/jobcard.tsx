@@ -2,6 +2,7 @@ import React from "react";
 import styles from "@/styles/Jobcard.module.css";
 import { Role } from "@/bubble_types";
 import RoleConditions from "./detail/roleconditions";
+import Image from "next/image";
 
 export interface JobCardProps {
   role: Role;
@@ -17,35 +18,34 @@ export default function JobCard(data: JobCardProps) {
       // target="_blank"
       rel="alternate"
     >
-      <div id="horizontal" className={styles.main}>
-        <div id="logo" className={styles.horizontal_flow}>
-          <img
-            src={role.company.logo as string}
-            className={styles.logo}
-            alt="Logo"
-          />
-        </div>
-        <div id="content" className={styles.horizontal_flow}>
-          <h2>
-            {role.title} <span>-&gt;</span>
-          </h2>
-          <p> {role.company.name} </p>
-          <div className={styles.role_condidtions}>
-            <RoleConditions role={role} />
-          </div>
-        </div>
+      <div className={styles.roleInfo}>
+        <Image
+          src={"https:" + (role.company.logo as string)}
+          alt="Logo"
+          width={100}
+          height={100}
+        />
 
-        <div id="apply button" className={styles.horizontal_flow}>
-          <button
-            type="submit"
-            className={styles.primary_button}
-            name="button-1675001572178"
-            onClick={() => console.log("Button clicked")}
-            id="button-apply"
-          >
-            Apply Now
-          </button>
+        <div className={styles.roleInfoText}>
+          <p className={styles.companyText}> {role.company.name} </p>
+          <h2 className={styles.roleTitleText}>{role.title}</h2>
+          <RoleConditions role={role} />
         </div>
+      </div>
+      <div className={styles.applyContainer}>
+        <button
+          type="submit"
+          className={styles.applyButton}
+          name="button-1675001572178"
+          onClick={() => console.log("Button clicked")}
+          id="button-apply"
+        >
+          Apply
+        </button>
+
+        {/* <div id="apply button" className={styles.horizontal_flow}>
+          
+        </div> */}
       </div>
     </a>
   );
