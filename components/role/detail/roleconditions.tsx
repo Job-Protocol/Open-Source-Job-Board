@@ -4,6 +4,7 @@ import { rolelocation_to_string } from "@/utils";
 
 export interface RoleConditionsProps {
   role: Role;
+  isInverted?: boolean;
 }
 
 export default function RoleConditions(data: RoleConditionsProps) {
@@ -11,8 +12,14 @@ export default function RoleConditions(data: RoleConditionsProps) {
     return <div></div>;
   }
 
+  let styleClassName = styles.roleConditionsContainer;
+
+  if (data.isInverted === true) {
+    styleClassName += " " + styles.inverted;
+  }
+
   return (
-    <div className={styles.roleConditionsContainer}>
+    <div className={styleClassName}>
       <p>Full time</p>
       <p>•</p>
       {data.role.location && <p>•</p> && (

@@ -35,8 +35,31 @@
   --main-color: #ee4c83;
   --main-color-15pct-transparency: #ee4c8326;
   --main-color-10pct-transparency: #ee4c831a;
+  --main-color-20pct-transparency: #ee4c8333;
+
+  --main-color-inverse: #28133e;
 
   --border-color: #e2e2e2;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* flex-wrap: wrap; */
+  background-color: #fffbfd;
+}
+
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  flex: auto;
+  width: 100%;
+  /* align-self: center; */
+  /* flex-basis: 100%;
+  min-width: 0; */
 }
 
 /* * {

@@ -1,23 +1,5 @@
-.page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #fffbfd;
-  height: 100%;
-}
-
-.pageContainer {
-  display: flex;
-  flex-direction: column;
-  /* align-items: center; */
-  /* justify-content: center; */
-  max-width: 1200px;
-  min-height: 100%;
-}
-
 .coverImageContainer {
-  width: 1200px;
+  width: 100%;
   /* width: 100%; */
   /* max-width: 1200px; */
   height: 194px;

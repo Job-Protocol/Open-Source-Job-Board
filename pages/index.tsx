@@ -68,8 +68,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/faviconV2.png" />
       </Head>
-      <div className={styles.page}>
-        <div className={styles.pageContainer}>
+      <div className={"page"}>
+        <div className={"pageContainer"}>
           <div className={styles.coverImageContainer}>
             <Image
               src={"/background_eth_3.jpg"}
