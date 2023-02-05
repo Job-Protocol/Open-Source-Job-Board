@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 
 import Select from "react-select";
 
+import { selectStyles } from "./selectStyles";
+
 async function getOptions(s: string) {
   const url: string = "../api/complete?s=" + s;
   const response = await fetch(url);
@@ -39,28 +41,10 @@ export default function SearchBox({
           IndicatorSeparator: () => null,
         }}
         styles={{
+          ...selectStyles,
           control: (baseStyles, state) => ({
-            ...baseStyles,
-            borderColor: state.isFocused ? "#EE4C83" : "#E2E2E2",
-            width: "272px",
-            borderWidth: "1px",
-            borderRadius: "8px",
+            ...selectStyles.control(baseStyles, state),
             cursor: "text",
-            boxShadow: "none",
-            outline: "none",
-            "&:hover": {
-              borderColor: "#EE4C83",
-            },
-          }),
-          placeholder: (baseStyles, state) => ({
-            ...baseStyles,
-            color: "#1F2534CC",
-            fontWeight: 400,
-            fontSize: "16px",
-          }),
-          dropdownIndicator: (baseStyles, state) => ({
-            ...baseStyles,
-            color: "#05192D",
           }),
         }}
         placeholder="Enter a location..."

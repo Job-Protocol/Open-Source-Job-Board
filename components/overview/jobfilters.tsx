@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 
 import styles from "@/styles/Jobfilters.module.css";
+import { selectStyles } from "./selectStyles";
 
 import SearchBox from "@/components/overview/searchbox";
 import { GeographicAddress } from "@/bubble_types";
@@ -54,25 +55,8 @@ export default function JobFilters({
           components={{
             IndicatorSeparator: () => null,
           }}
-          styles={{
-            control: (baseStyles, state) => ({
-              ...baseStyles,
-              borderColor: "#E2E2E2",
-              width: "272px",
-              borderRadius: "8px",
-              boxShadow: "none",
-            }),
-            placeholder: (baseStyles, state) => ({
-              ...baseStyles,
-              color: "#1F2534CC",
-              fontWeight: 400,
-              fontSize: "16px",
-            }),
-            dropdownIndicator: (baseStyles, state) => ({
-              ...baseStyles,
-              color: "#05192D",
-            }),
-          }}
+          placeholder="All roles"
+          styles={selectStyles}
         />
       </div>
       <div className={styles.roleFilterContainer}>
@@ -83,13 +67,14 @@ export default function JobFilters({
               setUserLocation(val.value);
             }}
           />
-          <label className={styles.label}>
+          <div className={styles.includeRemoteContainer}>
             <input
+              className={styles.inputCheckbox}
               type="checkbox"
               onChange={(value) => setRemoteOnly(!remoteOnly)}
             />
             Include Remote
-          </label>
+          </div>
         </div>
       </div>
     </div>

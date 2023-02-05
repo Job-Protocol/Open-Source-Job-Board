@@ -22,3 +22,12 @@
   align-items: center;
   gap: 16px;
 }
+
+.includeRemoteContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  color: #1f2534;
+  font-size: 16px;
+  font-weight: 400;
+}
