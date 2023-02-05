@@ -14,13 +14,17 @@
   padding: 16px;
   /* background-color: green; */
   background-color: white;
-  border-color: #e2e2e2;
+  border-color: var(--border-color);
   border-width: 1px;
   border-radius: 8px;
 }
 
 .card:hover {
-  background-image: linear-gradient(to right, #ffffff00, #ee4c8326);
+  background-image: linear-gradient(
+    to right,
+    #ffffff00,
+    var(--main-color-15pct-transparency)
+  );
 }
 
 .roleInfo {
@@ -64,7 +68,7 @@
 
 .applyButton {
   /* align-self: flex-end; */
-  border-color: #ee4c83;
+  border-color: var(--main-color);
   border-width: 1px;
   border-radius: 8px;
   padding-top: 12px;
@@ -78,7 +82,6 @@
 
 .card:hover .applyButton {
   /* align-self: flex-end; */
-  background-color: #ee4c83;
+  background-color: var(--main-color);
+  color: white;
 }
-
-/* Old */
