@@ -98,6 +98,19 @@
   text-decoration: underline;
 }
 
+.flexbox_container {
+  display: flex
+}
+.flex_child {
+  /* flex: 1; */
+  /* display: flex; */
+  padding: 0px 0px;
+  border: 2px solid yellow;
+  text-align: center;
+  align-items: center
+}
+
+
 
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {

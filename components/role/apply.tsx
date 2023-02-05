@@ -14,6 +14,14 @@ type CandidateData = {
   role: string;
 };
 
+
+export interface ApplyCardProps {
+  role_id: string;
+  company_name: string;
+  tole_title: string;
+  handleChange: (sucess: boolean, candidate_id: string,) => void
+}
+
 export default function ApplyCard(params: any) {
   const ROLEID: string = params.roleid;
   const COMPANY_NAME: string = params.company_name;
@@ -69,23 +77,24 @@ export default function ApplyCard(params: any) {
       ` `,
     ];
     postMessages(msg);
-    Swal.fire({
-      title: "Success!",
-      text: "You sucessfully submitted an appication. We will be in touch",
-      icon: "success",
-      iconColor: "#481f84",
-      confirmButtonText: "Cool",
-    });
+    params.handleChange(true, candidate_id);
+    // Swal.fire({
+    //   title: "Success!",
+    //   text: "You sucessfully submitted an appication. We will be in touch",
+    //   icon: "success",
+    //   iconColor: "#481f84",
+    //   confirmButtonText: "Cool",
+    // });
 
-    // //Clear the form
-    // setFirstName("");
-    // setLastName("");
-    // setEmail("");
-    // setLinkedIn("");
-    // setGithub("");
-    // setWalletAddress("");
-    // setButtonClicked(false);
-    // setInputsValid(true);
+    //Clear the form
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setLinkedIn("");
+    setGithub("");
+    setWalletAddress("");
+    setButtonClicked(false);
+    setInputsValid(true);
   }
 
   const processInput = (event: any) => {
@@ -122,11 +131,11 @@ export default function ApplyCard(params: any) {
   const checkInputsValid = () => {
     setInputsValid(
       firstName !== "" &&
-        lastName !== "" &&
-        email !== "" &&
-        validateEmail(email) &&
-        linkedIn !== "" &&
-        github !== ""
+      lastName !== "" &&
+      email !== "" &&
+      validateEmail(email) &&
+      linkedIn !== "" &&
+      github !== ""
     );
   };
 

@@ -23,9 +23,9 @@ export async function fetch_by_id(
     const url: string = getConfig()["endpoint"] + "/obj/requirement/" + id;
     const response = await fetch(url, requestOptions);
     const result = await response.json();
-    console.log("API RESULT:", result);
 
     const res: Requirement = getDefaultRequirement();
+    res.id = result.response._id;
     res.desc = result.response.description;
     res.is_required = result.response.is_required;
     res.rank_nb = result.response.rank_nb;

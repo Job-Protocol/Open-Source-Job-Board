@@ -64,9 +64,6 @@ export default async function role_handler(
   }
 
 
-  // assert(cache.get(key) === undefined);
-  // assert(cache.has(key) === false);
-
   const cache_id: string = "role_" + id;
   if (cache.has(cache_id)) {
     res.status(200).json(cache.get(cache_id));
@@ -77,7 +74,5 @@ export default async function role_handler(
     cache.set(cache_id, role, { ttl: 1000 * 60 * 60 * 2 });
     res.status(200).json(role);
   }
-
-
 
 }

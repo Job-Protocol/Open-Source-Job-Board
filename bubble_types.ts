@@ -18,6 +18,31 @@ export function getDefaultGeographicAddress(): GeographicAddress {
   };
 }
 
+
+export interface RequirementArgument {
+  argument: string;
+  requirement: Requirement;
+  is_required: boolean;
+  is_requirement_satisfied: boolean;
+  rank_nb: number;
+}
+export interface Requirement {
+  id: string;
+  desc: string;
+  is_required: boolean;
+  rank_nb: number;
+}
+export function getDefaultRequirement(): Requirement {
+  return {
+    id: "",
+    desc: "",
+    is_required: false,
+    rank_nb: 0
+  };
+}
+
+
+
 export interface TimezoneRange {
   min: number;
   max: number;
@@ -104,6 +129,7 @@ export interface Role {
   salary_max: number | undefined;
   equity_pct_min: number | undefined;
   equity_pct_max: number | undefined;
+  requirements: Requirement[] | undefined;
 }
 export function getDefaultRole(): Role {
   return {
@@ -116,5 +142,6 @@ export function getDefaultRole(): Role {
     salary_max: undefined,
     equity_pct_min: undefined,
     equity_pct_max: undefined,
+    requirements: undefined,
   };
 }

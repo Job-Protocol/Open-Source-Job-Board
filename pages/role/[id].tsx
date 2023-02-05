@@ -3,12 +3,17 @@ import styles from "@/styles/Roledetailpage.module.css";
 import JdCard from "@/components/role/detail/jobdesc";
 import ApplyCard from "@/components/role/apply";
 import CompanyCard from "@/components/role/detail/companyinfo";
+import RequirementsCard from "@/components/role/requirements";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-import { Role } from "@/bubble_types";
+import { Role, Requirement } from "@/bubble_types";
 import RoleConditions from "@/components/role/detail/roleconditions";
+
+
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 async function getRoleData(roleid: string): Promise<Role> {
 
@@ -21,6 +26,8 @@ export default function Home() {
   const router = useRouter();
   const id = router.query.id;
   const [role, setRole] = useState<Role>();
+  const [showCandidateDetailModal, setShowCandidateDetailModal] = useState(false);
+  const [candidate_id, setCandidateId] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     if (id) {
@@ -68,8 +75,26 @@ export default function Home() {
           roleid={id}
           company_name={role?.company.name}
           role_title={role?.title}
+          handleChange={(success: boolean, candidate_id: string) => {
+            if (success) {
+              setCandidateId(candidate_id);
+              setShowCandidateDetailModal(true);
+            }
+          }}
         />
-      </main>
-    </div>
+        {/* show only after the initial applicaion has been successfulll */}
+        {showCandidateDetailModal &&
+          < div className={styles.modal}>
+            <div className={styles.modal_content}>
+              <h1>Were already saved your application!</h1>
+              <h2>AAA asdasd aslkdjasd aksdljals dkaj</h2>
+              <RequirementsCard requirements={role.requirements} candidate_id="1675170251217x255982004984656160" />
+            </div>
+          </div>
+        }
+
+      </main >
+
+    </div >
   );
 }
