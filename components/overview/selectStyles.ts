@@ -1,5 +1,5 @@
 const selectStyles = {
-  control: (baseStyles, state) => ({
+  control: (baseStyles: any, state: any) => ({
     ...baseStyles,
     borderColor: state.isFocused ? "var(--main-color)" : "var(--border-color)",
     width: "272px",
@@ -11,17 +11,17 @@ const selectStyles = {
       borderColor: "var(--main-color)",
     },
   }),
-  placeholder: (baseStyles, state) => ({
+  placeholder: (baseStyles: any, state: any) => ({
     ...baseStyles,
     color: "#1F2534CC",
     fontWeight: 400,
     fontSize: "16px",
   }),
-  dropdownIndicator: (baseStyles, state) => ({
+  dropdownIndicator: (baseStyles: any, state: any) => ({
     ...baseStyles,
     color: "#05192D",
   }),
-  menu: (baseStyles, state) => ({
+  menu: (baseStyles: any, state: any) => ({
     ...baseStyles,
     borderColor: "var(--border-color)",
     borderWidth: "1px",
@@ -34,11 +34,11 @@ const selectStyles = {
     outline: "0px",
     padding: "8px",
   }),
-  menuList: (baseStyles, state) => ({
+  menuList: (baseStyles: any, state: any) => ({
     ...baseStyles,
     padding: "0px",
   }),
-  option: (baseStyles, state) => ({
+  option: (baseStyles: any, state: any) => ({
     ...baseStyles,
     borderRadius: "4px",
     backgroundColor: state.isSelected
