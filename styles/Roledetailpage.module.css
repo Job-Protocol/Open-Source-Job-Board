@@ -1,72 +1,174 @@
-.logo{
-    height: 150px;
-  }
-  .pagetitle {
-    font-size: 56px;
-    /* vertical-align: middle; */
-    text-shadow:
-      0 0 2px #fff,
-      0 0 8px #f99ebe,
-      0 0 15px #f9548e;
-  }
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  padding-top: 32px;
+  padding-bottom: 24px;
+}
 
-  .main {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6rem;
-    min-height: 100vh;
-  }
+.headerLink {
+  color: var(--main-color);
+  font-weight: 600;
+  font-size: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
 
-  .center {
-    /* display: flex; */
-    /* display: grid; */
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin: auto;
-    width: 60%;
-    /* border: 3px solid #73AD21;
+.headerLeftContainer {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+.headerRightContainer {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.roleDetailHeaderContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--main-color-inverse);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.roleInfo {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+.roleInfoText {
+  display: flex;
+  flex-direction: column;
+  margin-left: 24px;
+}
+
+.companyText {
+  font-weight: 600;
+  font-size: 12px;
+  color: white;
+  line-height: 16px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.roleTitleText {
+  font-weight: 600;
+  font-size: 28px;
+  color: white;
+}
+
+.roleDescriptionText {
+  font-weight: 400;
+  font-size: 16px;
+  color: white;
+}
+
+.roleOptionsContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+}
+
+.roleOptionContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.roleOptionIconContainer {
+  display: flex;
+  border-radius: 50%;
+  background-color: var(--main-color-20pct-transparency);
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+}
+
+.roleOptionTextAndInfoContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* OlD */
+
+.logo {
+  height: 150px;
+}
+.pagetitle {
+  font-size: 56px;
+  /* vertical-align: middle; */
+  text-shadow: 0 0 2px #fff, 0 0 8px #f99ebe, 0 0 15px #f9548e;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6rem;
+  min-height: 100vh;
+}
+
+.center {
+  /* display: flex; */
+  /* display: grid; */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: auto;
+  width: 60%;
+  /* border: 3px solid #73AD21;
     padding: 10px; */
-  }
+}
 
-  .headercard {
-    /* display: flex; */
-    /* display: grid; */
-    padding: 2rem 1rem;
-    margin: 0px 100px;
-    /* margin-top: 2rem;
+.headercard {
+  /* display: flex; */
+  /* display: grid; */
+  padding: 2rem 1rem;
+  margin: 0px 100px;
+  /* margin-top: 2rem;
     margin-bottom: 6rem; */
-    border-radius: 1rem;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin: auto;
-    width: 80%;
-    background-color: var(--ethdenver-purple-hex);
-    /* border: 3px solid #73AD21;
+  border-radius: 1rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: auto;
+  width: 80%;
+  background-color: var(--ethdenver-purple-hex);
+  /* border: 3px solid #73AD21;
     padding: 10px; */
-  }
+}
 
-  .headercard p {
-    color: white;
-  }
+.headercard p {
+  color: white;
+}
 
+.flexbox_container {
+  display: flex;
+}
+.flex_child {
+  /* flex: 1; */
+  /* display: flex; */
+  padding: 0px 0px;
+  border: 2px solid yellow;
+  text-align: center;
+  align-items: center;
+}
 
-  .flexbox_container {
-    display: flex
-  }
-  .flex_child {
-    /* flex: 1; */
-    /* display: flex; */
-    padding: 0px 0px;
-    border: 2px solid yellow;
-    text-align: center;
-    align-items: center
-}  
-  
-  /* .center::before,
+/* .center::before,
   .center::after {
     content: '';
     left: 50%;
@@ -74,26 +176,3 @@
     filter: blur(45px);
     transform: translateZ(0);
   } */
-  
-  /* The Modal (background) */
-.modal {
-  display: block; /* Hidden by default with none */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content/Box */
-.modal_content {
-  background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-}
