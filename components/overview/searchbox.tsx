@@ -32,8 +32,38 @@ export default function SearchBox({
   return (
     <div>
       <Select
-        className="basic-single"
-        classNamePrefix="select"
+        // className="basic-single"
+        // classNamePrefix="select"
+        components={{
+          DropdownIndicator: () => null,
+          IndicatorSeparator: () => null,
+        }}
+        styles={{
+          control: (baseStyles, state) => ({
+            ...baseStyles,
+            borderColor: state.isFocused ? "#EE4C83" : "#E2E2E2",
+            width: "272px",
+            borderWidth: "1px",
+            borderRadius: "8px",
+            cursor: "text",
+            boxShadow: "none",
+            outline: "none",
+            "&:hover": {
+              borderColor: "#EE4C83",
+            },
+          }),
+          placeholder: (baseStyles, state) => ({
+            ...baseStyles,
+            color: "#1F2534CC",
+            fontWeight: 400,
+            fontSize: "16px",
+          }),
+          dropdownIndicator: (baseStyles, state) => ({
+            ...baseStyles,
+            color: "#05192D",
+          }),
+        }}
+        placeholder="Enter a location..."
         defaultValue="blue"
         isDisabled={false}
         isLoading={false}
@@ -44,7 +74,7 @@ export default function SearchBox({
         value={userInput}
         options={options}
         onChange={(value) => {
-          handleChange(!value ? "" : value as string);
+          handleChange(!value ? "" : (value as string));
         }} //actually make selection
         // onKeyDown={(value) => console.log("new", value)}
         onInputChange={(value) => {
@@ -53,7 +83,7 @@ export default function SearchBox({
           }, 1000);
         }}
       />
-      <p> User input {userInput}</p>
+      {/* <p> User input {userInput}</p>
       <button
         type="submit"
 
@@ -62,8 +92,7 @@ export default function SearchBox({
         onClick={val => { setUserInput(""), console.log("CHANGE handled"); handleChange("London") }}
         id="button-clear">
         clear selection
-      </button>
+      </button> */}
     </div>
-
   );
 }

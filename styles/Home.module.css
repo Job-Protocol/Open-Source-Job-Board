@@ -74,6 +74,7 @@
   margin-top: 32px;
   margin-left:24px;
   margin-right:24px;
+  gap:24px;
 }
 
 .row {
@@ -124,8 +125,6 @@
   outline: none !important;
   box-shadow: 0;
 }
-
-
 
 /** Before **/
 

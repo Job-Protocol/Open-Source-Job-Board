@@ -5,6 +5,7 @@ import SearchBox from "@/components/overview/searchbox";
 import Joblist from "@/components/overview/joblist";
 import Companylist from "@/components/overview/companylist";
 import SwitchRolesCompanies from "@/components/overview/switch_roles_companies";
+import Select from "react-select";
 
 import React, { useState, useEffect } from "react";
 
@@ -165,7 +166,14 @@ export default function Home() {
                 <input className={styles.input} placeholder="Search"></input>
               </div>
             </div>
-            <div className={styles.row}>Role:</div>
+            {!byCompanies && (
+              <JobFilters
+                handleChange={(userAddress, remoteOnly) => {
+                  setUserAddress(userAddress);
+                  setRemoteOnly(remoteOnly == true);
+                }}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -174,27 +182,14 @@ export default function Home() {
         {/* <p> User address: {userAddress?.address}</p>
         <p> Remote only: {remoteOnly}</p> */}
 
-        <label>
-          <span>Show companies</span>
-          <Switch
-            onChange={(v: any) => setByCompanies(v)}
-            checked={byCompanies}
-            offColor="#ff0000"
-            onColor="#00ff00"
-            uncheckedIcon={<p>Roles</p>}
-            checkedIcon={<p>Companies</p>}
-            width={200}
-          />
-        </label>
-
-        {!byCompanies && (
+        {/* {!byCompanies && (
           <JobFilters
             handleChange={(userAddress, remoteOnly) => {
               setUserAddress(userAddress);
               setRemoteOnly(remoteOnly == true);
             }}
           />
-        )}
+        )} */}
         {!byCompanies && <Joblist roles={filteredRoles} />}
         {byCompanies && <Companylist />}
       </main>
