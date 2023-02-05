@@ -1,10 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getConfig } from "@/utils";
 
-import { Role, getDefaultRole, RoleLocation } from "@/bubble_types";
+import { Role, getDefaultRole, RoleLocation, Requirement } from "@/bubble_types";
 
 import { fetch_company_by_id } from "../company/[id]";
 import { fetch_by_id as fetchRoleLocation } from "./location/[id]";
+import { fetch_by_id as fetchRequirement } from "../requirement/[id]";
 
 var psCache = require('ps-cache');
 var cache = new psCache.Cache();
@@ -32,6 +33,11 @@ export async function fetch_role_by_id(id: string, key: string): Promise<Role> {
     ? await fetchRoleLocation(result_role.response.location_new as string, key)
     : undefined;
 
+  //fetch role requirement od set undefined
+  const reqs: Requirement[] | undefined = result_role.response.requirements ?
+    await Promise.all(result_role.response.requirements.map((req: string) => fetchRequirement(req as string, key))) :
+    undefined;
+
   const r: Role = getDefaultRole();
   r.id = result_role.response._id;
   r.title = result_role.response.title;
@@ -42,6 +48,7 @@ export async function fetch_role_by_id(id: string, key: string): Promise<Role> {
   r.equity_pct_max = result_role.response.equity_pct_max;
   r.company = result_company;
   r.location = loc;
+  r.requirements = reqs;
   return r;
 }
 
