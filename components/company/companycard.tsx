@@ -19,11 +19,10 @@ export default function CompanyCard(data: JobCardProps) {
     >
       <div id="horizontal" className={styles.main}>
         <div id="logo" className={styles.horizontal_flow}>
-          <img
-            // width={150}
-            // height={150}
-            src={company.logo as string}
-            className={styles.logo}
+          <Image
+            width={100}
+            height={100}
+            src={company.logo.replace("//", "https://")}
             alt="Logo"
           />
         </div>

@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { getConfig } from "@/utils";
+import Image from "next/image";
 
 import { Company, Role } from "@/bubble_types";
 import RoleConditions from "@/components/role/detail/roleconditions";
@@ -44,6 +45,8 @@ export default function Home() {
   const [userAddress, setUserAddress] = useState<GeographicAddress | undefined>(undefined);
   const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
   const [filter, setFilter] = useState<Filter>();
+
+
 
   useEffect(() => {
     if (id) {
@@ -88,7 +91,10 @@ export default function Home() {
       <div className={styles.headercard}>
         <div id="header-top" className={styles.flexbox_container}>
           <div className={styles.flex_child}>
-            <img src={company.logo} className={styles.logo} alt="Logo" />
+            <Image
+              src={company.logo}
+              className={styles.logo}
+              alt="Logo" />
           </div>
           <div className={styles.flex_child}>
             <h1 className={styles.pagetitle}>{company.name}</h1>
