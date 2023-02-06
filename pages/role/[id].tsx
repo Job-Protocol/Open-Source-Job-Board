@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styles from "@/styles/Roledetailpage.module.css";
+import styles_req from "@/styles/Requirements.module.css";
 import JdCard from "@/components/role/detail/jobdesc";
 import ApplyCard from "@/components/role/apply";
 import CompanyCard from "@/components/role/detail/companyinfo";
@@ -27,7 +28,7 @@ export default function Home() {
   const id = router.query.id;
   const [role, setRole] = useState<Role>();
   const [showCandidateDetailModal, setShowCandidateDetailModal] = useState(false);
-  const [candidate_id, setCandidateId] = useState<string | undefined>(undefined);
+  const [candidateId, setCandidateId] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     if (id) {
@@ -167,13 +168,19 @@ export default function Home() {
             }
           }}
         />
-        {/* show only after the initial applicaion has been successfulll */}
+        {/* show only  after the initial applicaion has been successfulll */}
         {showCandidateDetailModal &&
-          < div className={styles.modal}>
-            <div className={styles.modal_content}>
-              <h1>Were already saved your application!</h1>
-              <h2>AAA asdasd aslkdjasd aksdljals dkaj</h2>
-              <RequirementsCard requirements={role.requirements} candidate_id="1675170251217x255982004984656160" />
+          < div className={styles_req.modal}>
+            <div className={styles_req.modal_content}>
+              <h1>We have already saved your application!</h1>
+              <h3>In order to better match you with the role, please answer a few more questions...</h3>
+              <h3>Tick the checkboxes of the requirements you meet (leave open the ones you do not), and give a short explanation. </h3>
+              <RequirementsCard
+                requirements={role.requirements}
+                candidateId={candidateId as string}
+                handleChange={(success: boolean) => { setShowCandidateDetailModal(false) }}
+              />
+              {/* TODO(scheuclu): replace with candidate_id */}
             </div>
           </div>
         }

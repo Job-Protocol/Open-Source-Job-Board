@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "@/styles/Jobcard.module.css";
+import styles from "@/styles/Requirements.module.css";
 import { Role, Requirement, RequirementArgument } from "@/bubble_types";
 import RequirementCheck, { Answer } from "./requirementcheck";
 import Swal from "sweetalert2";
@@ -12,12 +12,13 @@ export interface RequirementArgumentData {
 
 async function storeRequirementArgument(data: RequirementArgumentData) {
     var raw = JSON.stringify({
+        // author: "ethdenver", //TODO(scheuclu): Should we hardcode the ETH-DENVER user here?
         argument: data.answer.argument,
-        // author: "unknown", //TODO
         candidate: data.candidate_id,
-        // is_author_candidate_itself: true, //TODO
         is_requirement_satisfied: data.answer.answer,
-    });
+        is_required: data.requirement.is_required,
+        requirement: data.requirement.id,
+    }); //TODO(scheuclu): Check if other fields are needed.
 
     const requestOptions: RequestInit = {
         method: "POST",
@@ -60,7 +61,8 @@ async function storeRequirementArgument(data: RequirementArgumentData) {
 
 export interface CardProps {
     requirements: Requirement[] | undefined;
-    candidate_id: string;
+    candidateId: string;
+    handleChange: (success: boolean) => void;
 }
 export default function RequirementsCard(data: CardProps) {
 
@@ -76,7 +78,7 @@ export default function RequirementsCard(data: CardProps) {
             // requirements?.forEach((req: Requirement) => { r2a.set(req.id, { argument: "asdasd", answer: false }) });
             // setReq2answer(r2a);
             setReqIDs(requirements.map((req, index) => req.id));
-            setAnswers(requirements.map((req, index) => { return { argument: "asdasd", answer: false } }));
+            setAnswers(requirements.map((req, index) => { return { argument: "", answer: false } }));//TODO(scheuclu): Default answers should be "undefined"
         }
     }, [requirements]);
 
@@ -84,9 +86,49 @@ export default function RequirementsCard(data: CardProps) {
 
     if (!requirements) {
         return (<p>No data on requirements</p>)
+        //TODO(scheuclu): Log errors.
+    }
+    if (!data.candidateId) {
+        return (<p>No candidate ID provided</p>)
+        //TODO(scheuclu): Log errors.
     }
     return (
         <div>
+            <div className={styles.rowgap}>
+                {
+                    requirements.map((req, index) => <RequirementCheck
+                        key={req.desc + "_req_list"}
+                        requirement={req}
+                        handleChange={a => {
+                            const newAnswers = [...answers];
+                            newAnswers[index] = a;
+                            setAnswers(newAnswers);
+                        }}
+                    />)
+                }
+            </div>
+            < button
+                type="submit"
+                className={styles.primary_button}
+                name="button-1675001572178"
+                onClick={() => {
+                    requirements.forEach((req, index) => {
+                        storeRequirementArgument({
+                            answer: answers[index],
+                            requirement: req,
+                            candidate_id: data.candidateId
+                        });
+                    });
+                    // Reset the state, just in case a user sends multiple applications
+                    setAnswers([]);
+                    data.handleChange(true);
+                }}
+                id="button-apply"
+            >
+                Finish application
+            </button>
+
+
             <h3>Recorded answers:</h3>
             {
                 answers.map((answer: Answer, index: number) =>
@@ -94,35 +136,6 @@ export default function RequirementsCard(data: CardProps) {
                         {answer.answer.toString()} {answer.argument}
                     </p>)
             }
-
-            <h3>Tick the checkboxes of the requirements you meet (leave open the ones you do not), and give a short explanation. </h3>
-            {
-                requirements.map((req, index) => <RequirementCheck
-                    key={req.desc + "_req_list"}
-                    requirement={req}
-                    handleChange={a => {
-                        const newAnswers = [...answers];
-                        newAnswers[index] = a;
-                        setAnswers(newAnswers);
-                    }}
-                />)
-            }
-            < button
-                type="submit"
-                className={styles.primary_button}
-                name="button-1675001572178"
-                onClick={() => {
-                    console.log("Button clicked");
-                    storeRequirementArgument({
-                        answer: answers[0],
-                        requirement: requirements[0],
-                        candidate_id: data.candidate_id//TODO
-                    });
-                }}//TODO this is where we should update the candidate
-                id="button-apply"
-            >
-                Finish application
-            </button>
         </div >
     );
 }

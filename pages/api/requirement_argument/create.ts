@@ -25,7 +25,6 @@ export default async function handler(
         body: req.body,
         redirect: "follow",
     };
-    console.log("REQ BODY", req.body);
 
     const response = await fetch(
         getConfig()["endpoint"] + "/obj/requirementargument/",

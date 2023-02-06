@@ -1,6 +1,6 @@
 import React, { SyntheticEvent } from "react";
 import { useState } from "react";
-import { postMessages } from "@/utils";
+//import { postMessages } from "@/utils"; //TODO(scheuclu): Issue with Slack token.
 import styles from "@/styles/Applycard.module.css";
 import Swal from "sweetalert2";
 import { validateEmail } from "@/utils";
@@ -76,7 +76,7 @@ export default function ApplyCard(params: any) {
       `    Link to candidate: https://app.jobprotocol.xyz/version-test/api/1.1/obj/candidate/${candidate_id}`,
       ` `,
     ];
-    postMessages(msg);
+    //postMessages(msg);
     params.handleChange(true, candidate_id);
     // Swal.fire({
     //   title: "Success!",
