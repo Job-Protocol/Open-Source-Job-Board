@@ -80,7 +80,7 @@ export default function Home() {
           <div className={styles.roleDetailHeaderContainer}>
             <div className={styles.roleInfo}>
               <Image
-                src={role?.company?.logo.replace("//", "https://")}
+                src={role?.company?.logo.replace("//s3", "https://s3")}
                 alt="Logo"
                 width={122}
                 height={122}
