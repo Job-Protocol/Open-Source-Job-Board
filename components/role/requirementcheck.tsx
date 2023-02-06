@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "@/styles/Jobcard.module.css";
+import styles from "@/styles/Requirements.module.css";
 import { Role, Requirement } from "@/bubble_types";
 // import Requirement from "./detail/roleconditions";
 
@@ -32,12 +32,15 @@ export default function RequirementCheck(data: CardProps,) {
     }
     return (
         <div key="asdas">
-            <div key={req.desc} className={styles.flexbox_container}>
-                <input type="checkbox" className={styles.flexbox_child} onChange={value => {
-                    setAnswer(!answer);
-                    data.handleChange({ argument: "vvv", answer: !answer });
-                }} />
-                <p key={req.desc}>{req.desc} className={styles.flexbox_child} </p>
+            <div key={req.desc} className={styles.column_container}>
+                <input
+                    type="checkbox"
+                    className={styles.column}
+                    onChange={value => {
+                        setAnswer(!answer);
+                        data.handleChange({ argument: "vvv", answer: !answer });
+                    }} />
+                <p key={req.desc} className={styles.column}> {req.desc}  </p>
             </div>
             <input type="text" />
         </div>

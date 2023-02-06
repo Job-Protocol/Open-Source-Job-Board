@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styles from "@/styles/Roledetailpage.module.css";
+import styles_req from "@/styles/Requirements.module.css";
 import JdCard from "@/components/role/detail/jobdesc";
 import ApplyCard from "@/components/role/apply";
 import CompanyCard from "@/components/role/detail/companyinfo";
@@ -13,9 +14,9 @@ import RoleConditions from "@/components/role/detail/roleconditions";
 
 import Link from "next/link";
 import Image from "next/image";
-// Fails to compile
-// import Popup from 'reactjs-popup';
-// import 'reactjs-popup/dist/index.css';
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+import { FastAverageColor } from "fast-average-color";
 
 async function getRoleData(roleid: string): Promise<Role> {
   const result = await fetch("../api/role/" + roleid);
@@ -29,9 +30,8 @@ export default function Home() {
   const [role, setRole] = useState<Role>();
   const [showCandidateDetailModal, setShowCandidateDetailModal] =
     useState(false);
-  const [candidate_id, setCandidateId] = useState<string | undefined>(
-    undefined
-  );
+  const [candidateId, setCandidateId] = useState<string | undefined>(undefined);
+  const [logoDark, setLogoDark] = useState<boolean>(false);
 
   useEffect(() => {
     if (id) {
@@ -40,6 +40,19 @@ export default function Home() {
       });
     }
   }, [id]);
+
+  useEffect(() => {
+    if (role) {
+      const test = new FastAverageColor();
+      test.getColorAsync(role.company.logo as string).then((res) => {
+        const dist_square: number =
+          (res.value[0] - 72) ** 2 +
+          (res.value[1] - 31) ** 2 +
+          (res.value[2] - 132) ** 2;
+        setLogoDark(dist_square < 20000); //TODO(scheuclu): Find a better heuristic here.
+      });
+    }
+  }, [role]);
 
   if (!role) {
     return;
@@ -82,12 +95,24 @@ export default function Home() {
           </div>
           <div className={styles.roleDetailHeaderContainer}>
             <div className={styles.roleInfo}>
-              <Image
-                src={role?.company?.logo.replace("//", "https://")}
-                alt="Logo"
-                width={122}
-                height={122}
-              />
+              {logoDark && (
+                <Image
+                  className={styles.logo_dark}
+                  src={role?.company?.logo.replace("//s3", "https://s3")}
+                  alt="Logo"
+                  width={122}
+                  height={122}
+                />
+              )}
+              {!logoDark && (
+                <Image
+                  className={styles.logo_standard}
+                  src={role?.company?.logo.replace("//s3", "https://s3")}
+                  alt="Logo"
+                  width={122}
+                  height={122}
+                />
+              )}
               <div className={styles.roleInfoText}>
                 <p className={styles.companyText}> {role?.company.name}</p>
                 <h1 className={styles.roleTitleText}>{role?.title}</h1>
@@ -169,19 +194,30 @@ export default function Home() {
               }
             }}
           />
-          {/* show only after the initial applicaion has been successfulll */}
+          {/* show only  after the initial applicaion has been successfulll */}
           {showCandidateDetailModal && (
-            <div className={styles.modal}>
-              <div className={styles.modal_content}>
-                <h1>Were already saved your application!</h1>
-                <h2>AAA asdasd aslkdjasd aksdljals dkaj</h2>
+            <div className={styles_req.modal}>
+              <div className={styles_req.modal_content}>
+                <h1>We have already saved your application!</h1>
+                <h3>
+                  In order to better match you with the role, please answer a
+                  few more questions...
+                </h3>
+                <h3>
+                  Tick the checkboxes of the requirements you meet (leave open
+                  the ones you do not), and give a short explanation.{" "}
+                </h3>
                 <RequirementsCard
                   requirements={role.requirements}
-                  candidate_id="1675170251217x255982004984656160"
+                  candidateId={candidateId as string}
+                  handleChange={(success: boolean) => {
+                    setShowCandidateDetailModal(false);
+                  }}
                 />
               </div>
             </div>
           )}
+          {/* TODO(scheuclu): replace with candidate_id */}
         </div>
       </div>
 

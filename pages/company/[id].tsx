@@ -1,12 +1,15 @@
 import Head from "next/head";
 import styles from "@/styles/Roledetailpage.module.css";
+import styles_home from "@/styles/Home.module.css";
 import JdCard from "@/components/role/detail/jobdesc";
 import ApplyCard from "@/components/role/apply";
 import CompanyCard from "@/components/role/detail/companyinfo";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { useRouter } from "next/router";
 import { getConfig } from "@/utils";
+import Image from "next/image";
+import Link from "next/link";
+import SwitchRolesCompanies from "@/components/overview/switch_roles_companies";
 
 import { Company, Role } from "@/bubble_types";
 import RoleConditions from "@/components/role/detail/roleconditions";
@@ -16,6 +19,8 @@ import JobFilters from "@/components/overview/jobfilters";
 import { GeographicAddress } from "@/bubble_types";
 
 import Filter from "@/components/overview/filter"
+
+import { useRouter } from "next/router";
 
 
 async function getCompanyData(id: string): Promise<Company> {
@@ -40,7 +45,7 @@ export default function Home() {
   const id = router.query.id;
   const [company, setCompany] = useState<Company>();
   const [companyroles, setCompanyRoles] = useState<Role[]>([]);
-  const [filteredCompanyroles, setFilteredCompanyRoles] = useState<Role[]>([]);
+  const [filteredCompanyRoles, setFilteredCompanyRoles] = useState<Role[]>([]);
   const [userAddress, setUserAddress] = useState<GeographicAddress | undefined>(undefined);
   const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
   const [filter, setFilter] = useState<Filter>();
@@ -51,8 +56,8 @@ export default function Home() {
         setCompany(res);
       });
       GetRoleData().then((res) => {
-        const filtered = res.filter((role) => { return role.company.id === id; });
-        setCompanyRoles(filtered);
+        const roles_this_company = res.filter((role) => { return role.company.id === id; });
+        setCompanyRoles(roles_this_company);
       });
     }
 
@@ -75,9 +80,6 @@ export default function Home() {
   }
   return (
     <div>
-      <a href={"https://app.jobprotocol.xyz/version-test/company/" + id}>
-        <h1>[Admin] Click here to edit role on jobprotocol</h1>
-      </a>
       <Head>
         <title>ETH Denver Jobs</title>
         <meta name="description" content="Jobboard for ETHDenver 2023" />
@@ -85,27 +87,151 @@ export default function Home() {
         <link rel="icon" href="/faviconV2.png" />
       </Head>
 
-      <div className={styles.headercard}>
-        <div id="header-top" className={styles.flexbox_container}>
-          <div className={styles.flex_child}>
-            <img src={company.logo} className={styles.logo} alt="Logo" />
+      <div className="page">
+        <div className="pageContainer">
+          <div className={styles.headerContainer}>
+            <div className={styles.headerLeftContainer}>
+              <Link className={styles.headerLink} href="/">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M12.1918 3.29103C12.5833 3.68032 12.5847 4.3129 12.195 4.70395L7.91604 8.99676L12.207 13.291C12.5977 13.6819 12.5977 14.3158 12.207 14.7068C11.8163 15.0977 11.1829 15.0977 10.7923 14.7068L5.84547 9.75621C5.82811 9.74116 5.81114 9.72541 5.7946 9.70897C5.40305 9.31968 5.40162 8.6871 5.7914 8.29605L10.777 3.29422C11.1668 2.90317 11.8002 2.90175 12.1918 3.29103Z"
+                    fill="#EE4C83"
+                  />
+                </svg>
+                Back to all positions
+              </Link>
+            </div>
+
+            <div className={styles.headerRightContainer}>
+              ETHDENVER Job Board
+            </div>
           </div>
-          <div className={styles.flex_child}>
-            <h1 className={styles.pagetitle}>{company.name}</h1>
-            {/* <RoleConditions role={role} /> */}
+          <div className={styles.roleDetailHeaderContainer}>
+            <div className={styles.roleInfo}>
+              <Image
+                src={company?.logo.replace("//s3", "https://s3")}
+                alt="Logo"
+                width={122}
+                height={122}
+              />
+              <div className={styles.roleInfoText}>
+                <p className={styles.companyText}> {company.tagline}</p>
+                <h1 className={styles.roleTitleText}> {company.name}</h1>
+                {/* <RoleConditions role={role} isInverted={true} /> */}
+              </div>
+            </div>
+            <div className={styles.roleOptionsContainer}>
+              <div className={styles.roleOptionContainer}>
+                <div className={styles.roleOptionIconContainer}>
+                  <Image
+                    src={"/building.svg"}
+                    alt="BuildingIcon"
+                    width={20}
+                    height={20}
+                  />
+                </div>
+                <div className={styles.roleOptionTextAndInfoContainer}>
+                  Hybrid work environment
+                  <Image
+                    src={"/info.svg"}
+                    alt="InfoIcon"
+                    width={13}
+                    height={13}
+                  />
+                </div>
+              </div>
+              <div className={styles.roleOptionContainer}>
+                <div className={styles.roleOptionIconContainer}>
+                  <Image
+                    src={"/building.svg"}
+                    alt="BuildingIcon"
+                    width={20}
+                    height={20}
+                  />
+                </div>
+                <div className={styles.roleOptionTextAndInfoContainer}>
+                  Hybrid work environment
+                  <Image
+                    src={"/info.svg"}
+                    alt="InfoIcon"
+                    width={13}
+                    height={13}
+                  />
+                </div>
+              </div>
+              <div className={styles.roleOptionContainer}>
+                <div className={styles.roleOptionIconContainer}>
+                  <Image
+                    src={"/building.svg"}
+                    alt="BuildingIcon"
+                    width={20}
+                    height={20}
+                  />
+                </div>
+                <div className={styles.roleOptionTextAndInfoContainer}>
+                  Hybrid work environment
+                  <Image
+                    src={"/info.svg"}
+                    alt="InfoIcon"
+                    width={13}
+                    height={13}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
+
+
+          <div className={styles_home.filtersContainer}>
+            <div className={styles_home.row}>
+              <div className={styles_home.inputContainer}>
+                <div className={styles_home.inputIconContainer}>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M14.2356 13.765C14.3658 13.6348 14.3658 13.4237 14.2357 13.2935L10.876 9.93327C11.602 9.0026 12 7.86589 12 6.66659C12 5.24194 11.4447 3.90389 10.4373 2.89591C9.43002 1.88794 8.09132 1.33325 6.66668 1.33325C5.24203 1.33325 3.90268 1.88794 2.89601 2.89591C1.88803 3.90389 1.33334 5.24194 1.33334 6.66659C1.33334 8.09123 1.88803 9.43058 2.89601 10.4373C3.90268 11.4452 5.24203 11.9999 6.66668 11.9999C7.86598 11.9999 9.0027 11.6026 9.93336 10.8765L13.293 14.2362C13.4232 14.3664 13.6342 14.3664 13.7644 14.2362L14.2356 13.765ZM9.49464 9.49528C8.73935 10.2506 7.73471 10.6666 6.66668 10.6666C5.59799 10.6666 4.594 10.2506 3.83871 9.49528C3.08269 8.73991 2.66668 7.73527 2.66668 6.66659C2.66668 5.59855 3.08269 4.59391 3.83871 3.83862C4.594 3.0826 5.59799 2.66659 6.66668 2.66659C7.73471 2.66659 8.73935 3.0826 9.49464 3.83862C10.2507 4.59391 10.6667 5.59855 10.6667 6.66659C10.6667 7.73527 10.2507 8.73991 9.49464 9.49528Z"
+                      fill="#1F2534"
+                    />
+                  </svg>
+                </div>
+                <input className={styles_home.input} placeholder="Search"></input>
+              </div>
+            </div>
+            <JobFilters
+              handleChange={(userAddress, remoteOnly) => {
+                setUserAddress(userAddress);
+                setRemoteOnly(remoteOnly == true);
+              }}
+            />
+          </div>
+
+
+          <Joblist roles={filteredCompanyRoles} />
         </div>
+
+
+
       </div>
 
-      <main className={styles.main}>
-        <JobFilters handleChange={(userAddress, remoteOnly) => {
-          setUserAddress(userAddress);
-          setRemoteOnly(remoteOnly == true);
-        }} />
-        <Joblist roles={filteredCompanyroles} />
-      </main>
 
 
-    </div>
+
+
+    </div >
   );
 }
