@@ -78,8 +78,8 @@ export default function Home() {
               style={{
                 borderBottomLeftRadius: 16,
                 borderBottomRightRadius: 16,
+                objectFit: "cover"
               }}
-              objectFit="cover"
             />
           </div>
           <div className={styles.headerContainer}>
@@ -88,8 +88,8 @@ export default function Home() {
                 src={"/EDEN22Logo_Black.svg"}
                 alt="Header image"
                 fill
-                //style={{borderRadius: 8}}
-                // objectFit="cover"
+              //style={{borderRadius: 8}}
+              // objectFit="cover"
               />
             </div>
             <div className={styles.headerTextContainer}>
@@ -101,40 +101,40 @@ export default function Home() {
                   alt="Globe icon"
                   width={16}
                   height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                //style={{borderRadius: 8}}
+                // objectFit="cover"
                 />
                 <Image
                   src={"/twitter.svg"}
                   alt="Twitter icon"
                   width={16}
                   height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                //style={{borderRadius: 8}}
+                // objectFit="cover"
                 />
                 <Image
                   src={"/facebook.svg"}
                   alt="Twitter icon"
                   width={16}
                   height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                //style={{borderRadius: 8}}
+                // objectFit="cover"
                 />
                 <Image
                   src={"/linkedin-square-colored.svg"}
                   alt="Twitter icon"
                   width={16}
                   height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                //style={{borderRadius: 8}}
+                // objectFit="cover"
                 />
                 <Image
                   src={"/Discord_Logo_sans_texte 1.svg"}
                   alt="Twitter icon"
                   width={16}
                   height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                //style={{borderRadius: 8}}
+                // objectFit="cover"
                 />
               </div>
             </div>

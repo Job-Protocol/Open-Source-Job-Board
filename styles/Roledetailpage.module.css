@@ -104,9 +104,13 @@
 
 /* OlD */
 
-.logo {
-  height: 150px;
+.logo_dark {
+  filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.5));
 }
+.logo_standard {
+  filter: none;
+}
+
 .pagetitle {
   font-size: 56px;
   /* vertical-align: middle; */

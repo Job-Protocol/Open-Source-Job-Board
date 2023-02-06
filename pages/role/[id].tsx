@@ -16,6 +16,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import { FastAverageColor } from "fast-average-color"
 
 async function getRoleData(roleid: string): Promise<Role> {
   const result = await fetch("../api/role/" + roleid);
@@ -29,6 +30,7 @@ export default function Home() {
   const [role, setRole] = useState<Role>();
   const [showCandidateDetailModal, setShowCandidateDetailModal] = useState(false);
   const [candidateId, setCandidateId] = useState<string | undefined>(undefined);
+  const [logoDark, setLogoDark] = useState<boolean>(false);
 
   useEffect(() => {
     if (id) {
@@ -37,6 +39,18 @@ export default function Home() {
       });
     }
   }, [id]);
+
+  useEffect(() => {
+    if (role) {
+      const test = new FastAverageColor();
+      test.getColorAsync(role.company.logo as string).then(res => {
+        const dist_square: number = (res.value[0] - 72) ** 2 + (res.value[1] - 31) ** 2 + (res.value[2] - 132) ** 2;
+        setLogoDark(dist_square < 20000); //TODO(scheuclu): Find a better heuristic here.
+      });
+    }
+  }, [role]);
+
+
 
   if (!role) {
     return;
@@ -79,12 +93,24 @@ export default function Home() {
           </div>
           <div className={styles.roleDetailHeaderContainer}>
             <div className={styles.roleInfo}>
-              <Image
-                src={role?.company?.logo.replace("//s3", "https://s3")}
-                alt="Logo"
-                width={122}
-                height={122}
-              />
+              {logoDark &&
+                <Image
+                  className={styles.logo_dark}
+                  src={role?.company?.logo.replace("//s3", "https://s3")}
+                  alt="Logo"
+                  width={122}
+                  height={122}
+                />
+              }
+              {!logoDark &&
+                <Image
+                  className={styles.logo_standard}
+                  src={role?.company?.logo.replace("//s3", "https://s3")}
+                  alt="Logo"
+                  width={122}
+                  height={122}
+                />
+              }
               <div className={styles.roleInfoText}>
                 <p className={styles.companyText}> {role?.company.name}</p>
                 <h1 className={styles.roleTitleText}>{role?.title}</h1>
