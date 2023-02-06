@@ -3,6 +3,7 @@
   /* width: 100%; */
   /* max-width: 1200px; */
   height: 194px;
+  min-height: 194px;
   /* max-height: '194px'; */
   position: relative;
   overflow: hidden;
