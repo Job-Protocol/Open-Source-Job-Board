@@ -29,6 +29,7 @@ export default function JobCard(data: JobCardProps) {
         <div className={styles.roleInfoText}>
           <p className={styles.companyText}> {role.company.name} </p>
           <h2 className={styles.roleTitleText}>{role.title}</h2>
+          <h3 className={styles.roleCompanyTaglineText}>{role.company.tagline}</h3>
           <RoleConditions role={role} />
         </div>
       </div>
