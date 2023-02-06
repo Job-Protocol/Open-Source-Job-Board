@@ -13,8 +13,9 @@ import RoleConditions from "@/components/role/detail/roleconditions";
 
 import Link from "next/link";
 import Image from "next/image";
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
+// Fails to compile
+// import Popup from 'reactjs-popup';
+// import 'reactjs-popup/dist/index.css';
 
 async function getRoleData(roleid: string): Promise<Role> {
   const result = await fetch("../api/role/" + roleid);
@@ -26,8 +27,11 @@ export default function Home() {
   const router = useRouter();
   const id = router.query.id;
   const [role, setRole] = useState<Role>();
-  const [showCandidateDetailModal, setShowCandidateDetailModal] = useState(false);
-  const [candidate_id, setCandidateId] = useState<string | undefined>(undefined);
+  const [showCandidateDetailModal, setShowCandidateDetailModal] =
+    useState(false);
+  const [candidate_id, setCandidateId] = useState<string | undefined>(
+    undefined
+  );
 
   useEffect(() => {
     if (id) {
@@ -150,36 +154,40 @@ export default function Home() {
               </div>
             </div>
           </div>
+          <div className={styles.JDAndCompanyCardContainer}>
+            <JdCard desc={role?.desc as string} />
+            {role?.company && <CompanyCard company={role.company} />}
+          </div>
+          <ApplyCard
+            roleid={id}
+            company_name={role?.company.name}
+            role_title={role?.title}
+            handleChange={(success: boolean, candidate_id: string) => {
+              if (success) {
+                setCandidateId(candidate_id);
+                setShowCandidateDetailModal(true);
+              }
+            }}
+          />
+          {/* show only after the initial applicaion has been successfulll */}
+          {showCandidateDetailModal && (
+            <div className={styles.modal}>
+              <div className={styles.modal_content}>
+                <h1>Were already saved your application!</h1>
+                <h2>AAA asdasd aslkdjasd aksdljals dkaj</h2>
+                <RequirementsCard
+                  requirements={role.requirements}
+                  candidate_id="1675170251217x255982004984656160"
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
-      <main className={styles.main}>
-        {role?.company && <CompanyCard company={role.company} />}
-        <JdCard desc={role?.desc as string} />
-        <ApplyCard
-          roleid={id}
-          company_name={role?.company.name}
-          role_title={role?.title}
-          handleChange={(success: boolean, candidate_id: string) => {
-            if (success) {
-              setCandidateId(candidate_id);
-              setShowCandidateDetailModal(true);
-            }
-          }}
-        />
-        {/* show only after the initial applicaion has been successfulll */}
-        {showCandidateDetailModal &&
-          < div className={styles.modal}>
-            <div className={styles.modal_content}>
-              <h1>Were already saved your application!</h1>
-              <h2>AAA asdasd aslkdjasd aksdljals dkaj</h2>
-              <RequirementsCard requirements={role.requirements} candidate_id="1675170251217x255982004984656160" />
-            </div>
-          </div>
-        }
-
-      </main >
-
-    </div >
+      {/* <main className={styles.main}>
+        
+      </main> */}
+    </div>
   );
 }
