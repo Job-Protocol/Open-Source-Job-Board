@@ -5,8 +5,10 @@ import {
   FaHome,
   FaUserFriends,
 } from "react-icons/fa";
-import styles from "@/styles/Companycard.module.css";
+import styles from "@/styles/Companyinfo.module.css";
 import { Company } from "@/bubble_types";
+
+import Image from "next/image";
 
 export interface CompanyCardProps {
   company: Company;
@@ -14,7 +16,7 @@ export interface CompanyCardProps {
 
 export default function CompanyCard(data: CompanyCardProps) {
   if (!data.company) {
-    return <p>NOthing</p>;
+    return <p>Nothing</p>;
   }
 
   function valid(s: string | undefined) {
@@ -22,48 +24,61 @@ export default function CompanyCard(data: CompanyCardProps) {
   }
   return (
     <div className={styles.card}>
-      <h3>About {data.company.name}</h3>
-      <h4>Mission</h4>
-      <p>{data.company.tagline}</p>
-
-      <h4>About</h4>
-      <div className={styles.social}>
-        <FaUserFriends />
-        <p>{data.company.num_employees} employees</p>
+      <h3 className={styles.companyAboutTitle}>About {data.company.name}</h3>
+      <div className={styles.section}>
+        <h4 className={styles.companyCardSubtitle}>MISSION</h4>
+        <p className={styles.companyCardBody}>{data.company.tagline}</p>
       </div>
 
-      <div className={styles.social}>
-        <FaHome />
-        <p>{data.company.headquarters}</p>
+      <div className={styles.section}>
+        <h4 className={styles.companyCardSubtitle}>ABOUT</h4>
+        <div className={styles.aboutItem}>
+          <FaUserFriends />
+          <p>{data.company.num_employees} employees</p>
+        </div>
+
+        <div className={styles.aboutItem}>
+          <FaHome />
+          <p>{data.company.headquarters}</p>
+        </div>
       </div>
 
-      <h4>Socials</h4>
-      <div className={styles.social}>
-        {data.company.socials && valid(data.company.socials.twitter) && (
-          <a href={data.company.socials.twitter}>
-            <FaTwitter />
-          </a>
-        )}
-        {data.company.socials && valid(data.company.socials.github) && (
-          <a href={data.company.socials.github}>
-            <FaGithub />
-          </a>
-        )}
-        {data.company.socials && valid(data.company.socials.linkedin) && (
-          <a href={data.company.socials.linkedin}>
-            <FaLinkedin />
-          </a>
-        )}
-      </div>
-
-      <h4>Press</h4>
-      <div className={styles.column}>
-        {data.company.press_article_links &&
-          data.company.press_article_links.map((link) => (
-            <a href={link.link} key={link.display_name}>
-              {link.display_name}
+      <div className={styles.section}>
+        <h4 className={styles.companyCardSubtitle}>SOCIALS</h4>
+        <div className={styles.socials}>
+          {data.company.socials && valid(data.company.socials.twitter) && (
+            <a href={data.company.socials.twitter}>
+              <FaTwitter />
             </a>
-          ))}
+          )}
+          {data.company.socials && valid(data.company.socials.github) && (
+            <a href={data.company.socials.github}>
+              <FaGithub />
+            </a>
+          )}
+          {data.company.socials && valid(data.company.socials.linkedin) && (
+            <a href={data.company.socials.linkedin}>
+              <FaLinkedin />
+            </a>
+          )}
+        </div>
+      </div>
+
+      <div className={styles.section}>
+        <h4 className={styles.companyCardSubtitle}>PRESS</h4>
+        <div className={styles.pressLinksContainer}>
+          {data.company.press_article_links &&
+            data.company.press_article_links.map((link) => (
+              <a
+                className={styles.pressLink}
+                href={link.link}
+                key={link.display_name}
+              >
+                {link.display_name}
+                <Image src={"/external_link.svg"} width={16} height={16} />
+              </a>
+            ))}
+        </div>
       </div>
     </div>
   );

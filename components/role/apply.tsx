@@ -2,6 +2,7 @@ import React, { SyntheticEvent } from "react";
 import { useState } from "react";
 //import { postMessages } from "@/utils"; //TODO(scheuclu): Issue with Slack token.
 import styles from "@/styles/Applycard.module.css";
+import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.css";
 import Swal from "sweetalert2";
 import { validateEmail } from "@/utils";
 
@@ -14,12 +15,11 @@ type CandidateData = {
   role: string;
 };
 
-
 export interface ApplyCardProps {
   role_id: string;
   company_name: string;
   tole_title: string;
-  handleChange: (sucess: boolean, candidate_id: string,) => void
+  handleChange: (sucess: boolean, candidate_id: string) => void;
 }
 
 export default function ApplyCard(params: any) {
@@ -131,94 +131,131 @@ export default function ApplyCard(params: any) {
   const checkInputsValid = () => {
     setInputsValid(
       firstName !== "" &&
-      lastName !== "" &&
-      email !== "" &&
-      validateEmail(email) &&
-      linkedIn !== "" &&
-      github !== ""
+        lastName !== "" &&
+        email !== "" &&
+        validateEmail(email) &&
+        linkedIn !== "" &&
+        github !== ""
     );
   };
 
   return (
     <div className={styles.card}>
-      <div>
-        <label htmlFor="text-1675001302437" className={styles.label}>
-          First Name
-        </label>
-        <input
-          type="text"
-          className={styles.input}
-          name="text-1675001302437"
-          onChange={processInput}
-          id="input-first-name"
-          value={firstName}
-        />
+      <h2 className={styles.cardTitle}>Apply for this position</h2>
+      <div className={styles.formItemGroup}>
+        <h3 className={styles.cardSubtitle}>General</h3>
+        <div className={styles.formItem}>
+          <label htmlFor="text-1675001302437" className={styles.formLabel}>
+            First Name
+          </label>
+          <input
+            type="text"
+            className={
+              stylesGlobalFormElements.input +
+              " " +
+              stylesGlobalFormElements.inputSquare
+            }
+            name="text-1675001302437"
+            onChange={processInput}
+            id="input-first-name"
+            value={firstName}
+          />
+        </div>
+        <div className={styles.formItem}>
+          <label htmlFor="text-1675001326031" className={styles.formLabel}>
+            Last Name
+          </label>
+          <input
+            type="text"
+            className={
+              stylesGlobalFormElements.input +
+              " " +
+              stylesGlobalFormElements.inputSquare
+            }
+            name="text-1675001326031"
+            onChange={processInput}
+            id="input-last-name"
+            value={lastName}
+          />
+        </div>
+        <div className={styles.formItem}>
+          <label htmlFor="text-1675001343960" className={styles.formLabel}>
+            Email
+          </label>
+          <input
+            type="email"
+            className={
+              email && validateEmail(email)
+                ? stylesGlobalFormElements.input +
+                  " " +
+                  stylesGlobalFormElements.inputSquare
+                : stylesGlobalFormElements.input +
+                  " " +
+                  stylesGlobalFormElements.inputSquare +
+                  " " +
+                  stylesGlobalFormElements.inputInvalid
+            }
+            name="text-1675001343960"
+            onChange={processInput}
+            id="input-email"
+            value={email}
+          />
+        </div>
       </div>
-      <div className="formbuilder-text form-group field-text-1675001326031">
-        <label htmlFor="text-1675001326031" className={styles.label}>
-          Last Name
-        </label>
-        <input
-          type="text"
-          className={styles.input}
-          name="text-1675001326031"
-          onChange={processInput}
-          id="input-last-name"
-          value={lastName}
-        />
+
+      <div className={styles.formItemGroup}>
+        <h3 className={styles.cardSubtitle}>Socials</h3>
+        <div className={styles.formItem}>
+          <label htmlFor="text-1675001387870" className={styles.formLabel}>
+            LinkedIn
+          </label>
+          <input
+            type="text"
+            className={
+              stylesGlobalFormElements.input +
+              " " +
+              stylesGlobalFormElements.inputSquare
+            }
+            name="text-1675001387870"
+            onChange={processInput}
+            id="input-linkedin"
+            value={linkedIn}
+          />
+        </div>
+        <div className={styles.formItem}>
+          <label htmlFor="file-1675001423592" className={styles.formLabel}>
+            Resume
+          </label>
+          <input
+            type="file"
+            className={
+              stylesGlobalFormElements.input +
+              " " +
+              stylesGlobalFormElements.inputSquare
+            }
+            name="file-1675001423592"
+            onChange={processInput}
+            id="input-resume"
+          />
+        </div>
+        <div className={styles.formItem}>
+          <label htmlFor="text-github" className={styles.formLabel}>
+            Github
+          </label>
+          <input
+            type="text"
+            className={
+              stylesGlobalFormElements.input +
+              " " +
+              stylesGlobalFormElements.inputSquare
+            }
+            onChange={processInput}
+            id="input-github"
+            value={github}
+          />
+        </div>
       </div>
-      <div className="formbuilder-text form-group field-text-1675001343960">
-        <label htmlFor="text-1675001343960" className={styles.label}>
-          Email
-        </label>
-        <input
-          type="email"
-          className={
-            email && validateEmail(email) ? styles.input : styles.input_invalid
-          }
-          name="text-1675001343960"
-          onChange={processInput}
-          id="input-email"
-          value={email}
-        />
-      </div>
-      <div className="formbuilder-text form-group field-text-1675001387870">
-        <label htmlFor="text-1675001387870" className={styles.label}>
-          LinkedIn
-        </label>
-        <input
-          type="text"
-          className={styles.input}
-          name="text-1675001387870"
-          onChange={processInput}
-          id="input-linkedin"
-          value={linkedIn}
-        />
-      </div>
-      <div className="formbuilder-file form-group field-file-1675001423592">
-        <label htmlFor="file-1675001423592" className={styles.label}>
-          Resume
-        </label>
-        <input
-          type="file"
-          className={styles.input}
-          name="file-1675001423592"
-          onChange={processInput}
-          id="input-resume"
-        />
-      </div>
-      <div className="formbuilder-text form-group field-text-github">
-        <label htmlFor="text-github" className={styles.label}>
-          Github
-        </label>
-        <input
-          type="text"
-          className={styles.input}
-          onChange={processInput}
-          id="input-github"
-          value={github}
-        />
-      </div>
+
       <div className="formbuilder-text form-group field-text-1675001555945">
         <label htmlFor="text-1675001555945" className={styles.label}>
           Wallet Address

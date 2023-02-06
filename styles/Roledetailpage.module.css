@@ -102,6 +102,13 @@
   font-size: 14px;
 }
 
+.JDAndCompanyCardContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 24px;
+  gap: 24px;
+}
+
 /* OlD */
 
 .logo_dark {

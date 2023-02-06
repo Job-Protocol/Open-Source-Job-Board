@@ -14,9 +14,9 @@ import RoleConditions from "@/components/role/detail/roleconditions";
 
 import Link from "next/link";
 import Image from "next/image";
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
-import { FastAverageColor } from "fast-average-color"
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+import { FastAverageColor } from "fast-average-color";
 
 async function getRoleData(roleid: string): Promise<Role> {
   const result = await fetch("../api/role/" + roleid);
@@ -28,7 +28,8 @@ export default function Home() {
   const router = useRouter();
   const id = router.query.id;
   const [role, setRole] = useState<Role>();
-  const [showCandidateDetailModal, setShowCandidateDetailModal] = useState(false);
+  const [showCandidateDetailModal, setShowCandidateDetailModal] =
+    useState(false);
   const [candidateId, setCandidateId] = useState<string | undefined>(undefined);
   const [logoDark, setLogoDark] = useState<boolean>(false);
 
@@ -43,14 +44,15 @@ export default function Home() {
   useEffect(() => {
     if (role) {
       const test = new FastAverageColor();
-      test.getColorAsync(role.company.logo as string).then(res => {
-        const dist_square: number = (res.value[0] - 72) ** 2 + (res.value[1] - 31) ** 2 + (res.value[2] - 132) ** 2;
+      test.getColorAsync(role.company.logo as string).then((res) => {
+        const dist_square: number =
+          (res.value[0] - 72) ** 2 +
+          (res.value[1] - 31) ** 2 +
+          (res.value[2] - 132) ** 2;
         setLogoDark(dist_square < 20000); //TODO(scheuclu): Find a better heuristic here.
       });
     }
   }, [role]);
-
-
 
   if (!role) {
     return;
@@ -93,7 +95,7 @@ export default function Home() {
           </div>
           <div className={styles.roleDetailHeaderContainer}>
             <div className={styles.roleInfo}>
-              {logoDark &&
+              {logoDark && (
                 <Image
                   className={styles.logo_dark}
                   src={role?.company?.logo.replace("//s3", "https://s3")}
@@ -101,8 +103,8 @@ export default function Home() {
                   width={122}
                   height={122}
                 />
-              }
-              {!logoDark &&
+              )}
+              {!logoDark && (
                 <Image
                   className={styles.logo_standard}
                   src={role?.company?.logo.replace("//s3", "https://s3")}
@@ -110,7 +112,7 @@ export default function Home() {
                   width={122}
                   height={122}
                 />
-              }
+              )}
               <div className={styles.roleInfoText}>
                 <p className={styles.companyText}> {role?.company.name}</p>
                 <h1 className={styles.roleTitleText}>{role?.title}</h1>
@@ -177,42 +179,51 @@ export default function Home() {
               </div>
             </div>
           </div>
+          <div className={styles.JDAndCompanyCardContainer}>
+            <JdCard desc={role?.desc as string} />
+            {role?.company && <CompanyCard company={role.company} />}
+          </div>
+          <ApplyCard
+            roleid={id}
+            company_name={role?.company.name}
+            role_title={role?.title}
+            handleChange={(success: boolean, candidate_id: string) => {
+              if (success) {
+                setCandidateId(candidate_id);
+                setShowCandidateDetailModal(true);
+              }
+            }}
+          />
+          {/* show only  after the initial applicaion has been successfulll */}
+          {showCandidateDetailModal && (
+            <div className={styles_req.modal}>
+              <div className={styles_req.modal_content}>
+                <h1>We have already saved your application!</h1>
+                <h3>
+                  In order to better match you with the role, please answer a
+                  few more questions...
+                </h3>
+                <h3>
+                  Tick the checkboxes of the requirements you meet (leave open
+                  the ones you do not), and give a short explanation.{" "}
+                </h3>
+                <RequirementsCard
+                  requirements={role.requirements}
+                  candidateId={candidateId as string}
+                  handleChange={(success: boolean) => {
+                    setShowCandidateDetailModal(false);
+                  }}
+                />
+              </div>
+            </div>
+          )}
+          {/* TODO(scheuclu): replace with candidate_id */}
         </div>
       </div>
 
-      <main className={styles.main}>
-        {role?.company && <CompanyCard company={role.company} />}
-        <JdCard desc={role?.desc as string} />
-        <ApplyCard
-          roleid={id}
-          company_name={role?.company.name}
-          role_title={role?.title}
-          handleChange={(success: boolean, candidate_id: string) => {
-            if (success) {
-              setCandidateId(candidate_id);
-              setShowCandidateDetailModal(true);
-            }
-          }}
-        />
-        {/* show only  after the initial applicaion has been successfulll */}
-        {showCandidateDetailModal &&
-          < div className={styles_req.modal}>
-            <div className={styles_req.modal_content}>
-              <h1>We have already saved your application!</h1>
-              <h3>In order to better match you with the role, please answer a few more questions...</h3>
-              <h3>Tick the checkboxes of the requirements you meet (leave open the ones you do not), and give a short explanation. </h3>
-              <RequirementsCard
-                requirements={role.requirements}
-                candidateId={candidateId as string}
-                handleChange={(success: boolean) => { setShowCandidateDetailModal(false) }}
-              />
-              {/* TODO(scheuclu): replace with candidate_id */}
-            </div>
-          </div>
-        }
-
-      </main >
-
-    </div >
+      {/* <main className={styles.main}>
+        
+      </main> */}
+    </div>
   );
 }

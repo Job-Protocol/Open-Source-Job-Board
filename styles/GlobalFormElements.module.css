@@ -1,0 +1,36 @@
+.input {
+  display: block;
+  flex: 1;
+
+  border-width: 1px;
+  border-color: var(--border-color);
+  color: #1f2534cc;
+}
+
+.inputRound {
+  border-radius: 32px;
+}
+
+.inputSquare {
+  border-radius: 8px;
+  height: 48px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.input:hover {
+  border-width: 1px;
+  border-color: var(--main-color);
+}
+
+.input:focus {
+  border-width: 1px;
+  border-color: var(--main-color);
+  outline: none !important;
+  box-shadow: 0;
+}
+
+.inputInvalid {
+  border-width: 2px;
+  border-color: #fe0000;
+}

@@ -30,13 +30,12 @@ export default function CompanyCard(data: JobCardProps) {
           <h2> {company.name} </h2>
           <p> {company.tagline}</p>
           <div className={styles.test}>
-            {company.num_employees && <p>{company.num_employees} employees  </p>}
+            {company.num_employees && <p>{company.num_employees} employees </p>}
             {company.headquarters && <p>•</p>}
             {company.headquarters && <p>{company.headquarters}</p>}
             {company.founding_year && <p>•</p>}
             {company.founding_year && <p>{company.founding_year}</p>}
           </div>
-
         </div>
       </div>
 
