@@ -22,7 +22,7 @@ export default function CompanyCard(data: JobCardProps) {
           <Image
             width={100}
             height={100}
-            src={company.logo.replace("//", "https://")}
+            src={company.logo.replace("//s3", "https://s3")}
             alt="Logo"
           />
         </div>

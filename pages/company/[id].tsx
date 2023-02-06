@@ -92,6 +92,8 @@ export default function Home() {
         <div id="header-top" className={styles.flexbox_container}>
           <div className={styles.flex_child}>
             <Image
+              width={150}
+              height={150}
               src={company.logo}
               className={styles.logo}
               alt="Logo" />

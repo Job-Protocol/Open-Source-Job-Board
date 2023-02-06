@@ -20,7 +20,7 @@ export default function JobCard(data: JobCardProps) {
     >
       <div className={styles.roleInfo}>
         <Image
-          src={"https:" + (role.company.logo as string)}
+          src={role.company.logo.replace("//s3", "https://s3")}
           alt="Logo"
           width={100}
           height={100}
