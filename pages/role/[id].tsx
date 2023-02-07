@@ -98,7 +98,7 @@ export default function Home() {
             <div className={styles.roleInfo}>
               {logoDark && (
                 <Image
-                  className={styles.logo_dark}
+                  className={styles.logoContainer}
                   src={role?.company?.logo.replace("//s3", "https://s3")}
                   alt="Logo"
                   width={122}
@@ -107,7 +107,7 @@ export default function Home() {
               )}
               {!logoDark && (
                 <Image
-                  className={styles.logo_standard}
+                  className={styles.logoContainer}
                   src={role?.company?.logo.replace("//s3", "https://s3")}
                   alt="Logo"
                   width={122}

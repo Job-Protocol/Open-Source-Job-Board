@@ -121,3 +121,11 @@
   gap: 24px;
   z-index: 1;
 }
+
+.logoContainer {
+  border-width: 2px;
+  border-color: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  background-color: white;
+  /* overflow: hidden; */
+}
