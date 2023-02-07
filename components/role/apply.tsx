@@ -290,29 +290,25 @@ export default function ApplyCard(params: any) {
             />
           </div>
         </div>
+        <div>
+          <button
+            type="submit"
+            className={
+              inputsValid
+                ? stylesGlobalFormElements.primaryButton
+                : stylesGlobalFormElements.primaryButton +
+                  " " +
+                  styles.primaryButtonDisabled
+            }
+            name="button-1675001572178"
+            // style="default"
+            onClick={submitApplication}
+            id="button-apply"
+          >
+            Submit Application
+          </button>
+        </div>
       </div>
-
-      <div className="formbuilder-button form-group field-button-1675001572178">
-        <button
-          type="submit"
-          className={
-            inputsValid ? styles.primary_button : styles.primary_button_disabled
-          }
-          name="button-1675001572178"
-          // style="default"
-          onClick={submitApplication}
-          id="button-apply"
-        >
-          Submit
-        </button>
-      </div>
-      <h3> Here is your info</h3>
-      <p>First Name {firstName}</p>
-      <p>Last Name {lastName}</p>
-      <p>Email {email}</p>
-      <p>FLinkeIn {linkedIn}</p>
-      <p>Github {github}</p>
-      <p>wallet {walletAddress}</p>
     </div>
   );
 }

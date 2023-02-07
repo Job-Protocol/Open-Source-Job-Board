@@ -10,6 +10,8 @@
 
   max-width: 850px;
   flex: 10;
+
+  background-color: white;
 }
 .card h1 {
   font-size: 2rem;

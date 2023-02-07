@@ -1,9 +1,30 @@
+.headerBackgroundGradientContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 421px;
+  background: linear-gradient(
+    to bottom,
+    #ffffff,
+    var(--main-color-15pct-transparency)
+  );
+  /* background-color: green; */
+  /* background: linear-gradient(
+    0deg,
+    rgba(238, 76, 131, 0.15) 0%,
+    rgba(255, 255, 255, 0) 100%
+  ); */
+  z-index: 0;
+}
+
 .headerContainer {
   display: flex;
   flex-direction: row;
   flex: 1;
   padding-top: 32px;
   padding-bottom: 24px;
+  z-index: 1;
 }
 
 .headerLink {
@@ -33,6 +54,7 @@
   background-color: var(--main-color-inverse);
   border-radius: 8px;
   padding: 24px;
+  z-index: 1;
 }
 
 .roleInfo {
@@ -107,6 +129,7 @@
   flex-direction: row;
   margin-top: 24px;
   gap: 24px;
+  z-index: 1;
 }
 
 /* OlD */

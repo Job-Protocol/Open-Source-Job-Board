@@ -5,6 +5,7 @@ import JdCard from "@/components/role/detail/jobdesc";
 import ApplyCard from "@/components/role/apply";
 import CompanyCard from "@/components/role/detail/companyinfo";
 import RequirementsCard from "@/components/role/requirements";
+import Footer from "@/components/overview/footer";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
@@ -218,6 +219,8 @@ export default function Home() {
             </div>
           )}
           {/* TODO(scheuclu): replace with candidate_id */}
+          <div className={styles.headerBackgroundGradientContainer}></div>
+          <Footer />
         </div>
       </div>
 
