@@ -16,6 +16,8 @@
   margin-top: 24px;
 
   gap: 24px;
+
+  background-color: white;
 }
 
 .cardTitle {
@@ -34,6 +36,12 @@
   text-transform: capitalize;
 }
 
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
 .formItemGroup {
   display: flex;
   flex-direction: column;
@@ -47,6 +55,11 @@
 }
 
 .formLabel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+
   font-size: 16;
   font-weight: 400;
   color: #1f2534;
@@ -54,37 +67,35 @@
   min-width: 200px;
 }
 
-.formInput {
+.uploadButtonLabel {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+
+  max-width: 200px;
+  height: 48px;
+
+  align-items: center;
+
+  padding-left: 16px;
+  padding-right: 16px;
+
+  border-color: var(--main-color);
+  border-width: 1px;
+  border-radius: 8px;
+
+  font-weight: 600;
+  font-size: 16px;
+  color: #1f2534;
+
+  cursor: pointer;
 }
 
-.input {
-  border-width: 2px;
-  display: block;
-  border-radius: 1rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  width: 100%;
+.uploadButton {
+  display: none;
 }
 
-.input:focus {
-  /* background-color: #f9548e2e; */
-  outline-color: #f9548e;
-}
-
-.input_invalid {
-  border-width: 2px;
-  display: block;
-  border-radius: 1rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  width: 100%;
-  border-color: rgb(242, 71, 71);
-}
-
-.input_invalid:focus {
-  /* background-color: #f9548e2e; */
-  outline-color: rgb(242, 71, 71);
-}
+/* OLD */
 
 .label {
   display: block;
