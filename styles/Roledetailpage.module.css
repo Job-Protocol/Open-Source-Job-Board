@@ -29,8 +29,6 @@
 
 .headerLink {
   color: var(--main-color);
-  font-weight: 600;
-  font-size: 16px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -70,17 +68,10 @@
 }
 
 .companyText {
-  font-weight: 600;
-  font-size: 12px;
   color: white;
-  line-height: 16px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
 }
 
 .roleTitleText {
-  font-weight: 600;
-  font-size: 28px;
   color: white;
 }
 
@@ -120,93 +111,13 @@
   align-items: center;
   gap: 4px;
   color: white;
-  font-weight: 600;
-  font-size: 14px;
 }
 
 .JDAndCompanyCardContainer {
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
   margin-top: 24px;
   gap: 24px;
   z-index: 1;
 }
-
-/* OlD */
-
-.logo_dark {
-  filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.5));
-}
-.logo_standard {
-  filter: none;
-}
-
-.pagetitle {
-  font-size: 56px;
-  /* vertical-align: middle; */
-  text-shadow: 0 0 2px #fff, 0 0 8px #f99ebe, 0 0 15px #f9548e;
-}
-
-.main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
-}
-
-.center {
-  /* display: flex; */
-  /* display: grid; */
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin: auto;
-  width: 60%;
-  /* border: 3px solid #73AD21;
-    padding: 10px; */
-}
-
-.headercard {
-  /* display: flex; */
-  /* display: grid; */
-  padding: 2rem 1rem;
-  margin: 0px 100px;
-  /* margin-top: 2rem;
-    margin-bottom: 6rem; */
-  border-radius: 1rem;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin: auto;
-  width: 80%;
-  background-color: var(--ethdenver-purple-hex);
-  /* border: 3px solid #73AD21;
-    padding: 10px; */
-}
-
-.headercard p {
-  color: white;
-}
-
-.flexbox_container {
-  display: flex;
-}
-.flex_child {
-  /* flex: 1; */
-  /* display: flex; */
-  padding: 0px 0px;
-  border: 2px solid yellow;
-  text-align: center;
-  align-items: center;
-}
-
-/* .center::before,
-  .center::after {
-    content: '';
-    left: 50%;
-    position: absolute;
-    filter: blur(45px);
-    transform: translateZ(0);
-  } */

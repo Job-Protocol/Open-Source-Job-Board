@@ -141,11 +141,30 @@ body {
   color: var(--text-color-light);
 }
 
+.body14Bold {
+  font-family: "Avenir Next DemiBold";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 19px;
+  letter-spacing: -0.015em;
+  color: var(--text-color-dark);
+}
+
 .chapeau {
   font-family: "Avenir Next DemiBold";
   font-weight: 600;
   font-size: 12px;
   color: var(--text-color-light);
+  line-height: 16px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.chapeauDark {
+  font-family: "Avenir Next DemiBold";
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--text-color-dark);
   line-height: 16px;
   letter-spacing: 0.05em;
   text-transform: uppercase;

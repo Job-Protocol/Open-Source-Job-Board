@@ -150,12 +150,17 @@ export default function ApplyCard(params: any) {
 
   return (
     <div className={styles.card}>
-      <h2 className={styles.cardTitle}>Apply for this position</h2>
+      <h2 className={"body18Bold"}>Apply for this position</h2>
       <div className={styles.formContainer}>
         <div className={styles.formItemGroup}>
-          <h3 className={styles.cardSubtitle}>General</h3>
+          <h3 className={"chapeauDark " + styles.formItemGroupTitle}>
+            General
+          </h3>
           <div className={styles.formItem}>
-            <label htmlFor="text-1675001302437" className={styles.formLabel}>
+            <label
+              htmlFor="text-1675001302437"
+              className={"body16 " + styles.formLabel}
+            >
               First Name
             </label>
             <input
@@ -172,7 +177,10 @@ export default function ApplyCard(params: any) {
             />
           </div>
           <div className={styles.formItem}>
-            <label htmlFor="text-1675001326031" className={styles.formLabel}>
+            <label
+              htmlFor="text-1675001326031"
+              className={"body16 " + styles.formLabel}
+            >
               Last Name
             </label>
             <input
@@ -189,7 +197,10 @@ export default function ApplyCard(params: any) {
             />
           </div>
           <div className={styles.formItem}>
-            <label htmlFor="text-1675001343960" className={styles.formLabel}>
+            <label
+              htmlFor="text-1675001343960"
+              className={"body16 " + styles.formLabel}
+            >
               Email
             </label>
             <input
@@ -214,9 +225,14 @@ export default function ApplyCard(params: any) {
         </div>
 
         <div className={styles.formItemGroup}>
-          <h3 className={styles.cardSubtitle}>Credentials</h3>
+          <h3 className={"chapeauDark " + styles.formItemGroupTitle}>
+            Credentials
+          </h3>
           <div className={styles.formItem}>
-            <label htmlFor="text-1675001387870" className={styles.formLabel}>
+            <label
+              htmlFor="text-1675001387870"
+              className={"body16 " + styles.formLabel}
+            >
               <FaLinkedin />
               LinkedIn
             </label>
@@ -234,7 +250,10 @@ export default function ApplyCard(params: any) {
             />
           </div>
           <div className={styles.formItem}>
-            <label htmlFor="text-github" className={styles.formLabel}>
+            <label
+              htmlFor="text-github"
+              className={"body16 " + styles.formLabel}
+            >
               <FaGithub />
               Github
             </label>
@@ -251,10 +270,16 @@ export default function ApplyCard(params: any) {
             />
           </div>
           <div className={styles.formItem}>
-            <label htmlFor="file-1675001423592" className={styles.formLabel}>
+            <label
+              htmlFor="file-1675001423592"
+              className={"body16 " + styles.formLabel}
+            >
               Resume
             </label>
-            <label htmlFor="input-resume" className={styles.uploadButtonLabel}>
+            <label
+              htmlFor="input-resume"
+              className={"body16Bold " + styles.uploadButtonLabel}
+            >
               <Image
                 src={"/link.svg"}
                 alt="LinkIcon"
@@ -273,7 +298,10 @@ export default function ApplyCard(params: any) {
             </label>
           </div>
           <div className={styles.formItem}>
-            <label htmlFor="text-1675001555945" className={styles.formLabel}>
+            <label
+              htmlFor="text-1675001555945"
+              className={"body16 " + styles.formLabel}
+            >
               Wallet Address
             </label>
             <input

@@ -71,7 +71,7 @@ export default function Home() {
         <div className="pageContainer">
           <div className={styles.headerContainer}>
             <div className={styles.headerLeftContainer}>
-              <Link className={styles.headerLink} href="/">
+              <Link className={"body16Bold " + styles.headerLink} href="/">
                 <svg
                   width="18"
                   height="18"
@@ -90,7 +90,7 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className={styles.headerRightContainer}>
+            <div className={"body14 " + styles.headerRightContainer}>
               ETHDENVER Job Board
             </div>
           </div>
@@ -115,8 +115,11 @@ export default function Home() {
                 />
               )}
               <div className={styles.roleInfoText}>
-                <p className={styles.companyText}> {role?.company.name}</p>
-                <h1 className={styles.roleTitleText}>{role?.title}</h1>
+                <p className={"chapeau " + styles.companyText}>
+                  {" "}
+                  {role?.company.name}
+                </p>
+                <h1 className={"h1 " + styles.roleTitleText}>{role?.title}</h1>
                 <RoleConditions role={role} isInverted={true} />
               </div>
             </div>
@@ -130,7 +133,11 @@ export default function Home() {
                     height={20}
                   />
                 </div>
-                <div className={styles.roleOptionTextAndInfoContainer}>
+                <div
+                  className={
+                    "body14Bold " + styles.roleOptionTextAndInfoContainer
+                  }
+                >
                   Hybrid work environment
                   <Image
                     src={"/info.svg"}
@@ -149,7 +156,11 @@ export default function Home() {
                     height={20}
                   />
                 </div>
-                <div className={styles.roleOptionTextAndInfoContainer}>
+                <div
+                  className={
+                    "body14Bold " + styles.roleOptionTextAndInfoContainer
+                  }
+                >
                   Hybrid work environment
                   <Image
                     src={"/info.svg"}
@@ -168,7 +179,11 @@ export default function Home() {
                     height={20}
                   />
                 </div>
-                <div className={styles.roleOptionTextAndInfoContainer}>
+                <div
+                  className={
+                    "body14Bold " + styles.roleOptionTextAndInfoContainer
+                  }
+                >
                   Hybrid work environment
                   <Image
                     src={"/info.svg"}

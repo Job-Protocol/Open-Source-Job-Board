@@ -24,27 +24,29 @@ export default function CompanyCard(data: CompanyCardProps) {
   }
   return (
     <div className={styles.card}>
-      <h3 className={styles.companyAboutTitle}>About {data.company.name}</h3>
+      <h3 className={"body18Bold"}>About {data.company.name}</h3>
       <div className={styles.section}>
-        <h4 className={styles.companyCardSubtitle}>MISSION</h4>
-        <p className={styles.companyCardBody}>{data.company.tagline}</p>
+        <h4 className={"chapeauDark"}>Mission</h4>
+        <p className={"body16"}>{data.company.tagline}</p>
       </div>
 
       <div className={styles.section}>
-        <h4 className={styles.companyCardSubtitle}>ABOUT</h4>
-        <div className={styles.aboutItem}>
-          <FaUserFriends />
-          <p>{data.company.num_employees} employees</p>
-        </div>
+        <h4 className={"chapeauDark"}>About</h4>
+        <div className={styles.aboutItems}>
+          <div className={"body16 " + styles.aboutItem}>
+            <FaUserFriends />
+            <p>{data.company.num_employees} employees</p>
+          </div>
 
-        <div className={styles.aboutItem}>
-          <FaHome />
-          <p>{data.company.headquarters}</p>
+          <div className={"body16 " + styles.aboutItem}>
+            <FaHome />
+            <p>{data.company.headquarters}</p>
+          </div>
         </div>
       </div>
 
       <div className={styles.section}>
-        <h4 className={styles.companyCardSubtitle}>SOCIALS</h4>
+        <h4 className={"chapeauDark"}>Socials</h4>
         <div className={styles.socials}>
           {data.company.socials && valid(data.company.socials.twitter) && (
             <a href={data.company.socials.twitter}>
@@ -65,17 +67,22 @@ export default function CompanyCard(data: CompanyCardProps) {
       </div>
 
       <div className={styles.section}>
-        <h4 className={styles.companyCardSubtitle}>PRESS</h4>
+        <h4 className={"chapeauDark"}>Press</h4>
         <div className={styles.pressLinksContainer}>
           {data.company.press_article_links &&
             data.company.press_article_links.map((link) => (
               <a
-                className={styles.pressLink}
+                className={"body16 " + styles.pressLink}
                 href={link.link}
                 key={link.display_name}
               >
                 {link.display_name}
-                <Image src={"/external_link.svg"} width={16} height={16} alt="external link" />
+                <Image
+                  src={"/external_link.svg"}
+                  width={16}
+                  height={16}
+                  alt="external link"
+                />
               </a>
             ))}
         </div>
