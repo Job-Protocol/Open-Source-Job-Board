@@ -1,18 +1,7 @@
 .card {
-  /* float: left;
-    color: rgb(100,100,100);
-    padding: 1rem 1.2rem;
-    border-radius: var(--border-radius);
-    background: rgba(255, 255, 255, 1.0);
-    border: 2px solid rgb(100,100,100);
-    transition: background 200ms, border 200ms;
-    box-shadow:  10px 10px 5px rgb(89, 89, 89); */
   display: flex;
-  /* flex: 1; */
-  /* flex-basis: 100%; */
   flex-direction: row;
   padding: 16px;
-  /* background-color: green; */
   background-color: white;
   border-color: var(--border-color);
   border-width: 1px;
@@ -37,27 +26,13 @@
   display: flex;
   flex-direction: column;
   margin-left: 24px;
+  gap: 4px;
 }
 
-.companyText {
-  font-weight: 600;
-  font-size: 12px;
-  color: #1f2534cc;
-  line-height: 16px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.roleTitleText {
-  font-weight: 600;
-  font-size: 18px;
-  color: #1f2534;
-}
-
-.roleDescriptionText {
-  font-weight: 400;
-  font-size: 16px;
-  color: #1f2534;
+.roleInfoCompanyAndRoleTitleContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .applyContainer {
@@ -75,9 +50,6 @@
   padding-bottom: 12px;
   padding-left: 16px;
   padding-right: 16px;
-  font-weight: 600;
-  font-size: 16px;
-  color: #1f2534;
 }
 .card:hover .applyButton {
   /* align-self: flex-end; */

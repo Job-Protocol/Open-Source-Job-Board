@@ -12,10 +12,10 @@ export default function RoleConditions(data: RoleConditionsProps) {
     return <div></div>;
   }
 
-  let styleClassName = styles.roleConditionsContainer;
+  let styleClassName = "body14 " + styles.roleConditionsContainer;
 
   if (data.isInverted === true) {
-    styleClassName += " " + styles.inverted;
+    styleClassName += " " + "body16 " + styles.inverted;
   }
 
   return (
@@ -35,7 +35,8 @@ export default function RoleConditions(data: RoleConditionsProps) {
       )}
 
       {data.role.equity_pct_min && data.role.equity_pct_max && (
-        <p>&nbsp; • &nbsp;
+        <p>
+          &nbsp; • &nbsp;
           {data.role.equity_pct_min * 100}%-{data.role.equity_pct_max * 100}%
           equity
         </p>

@@ -47,6 +47,10 @@ export default function SearchBox({
             cursor: "text",
           }),
         }}
+        classNames={{
+          placeholder: (state) => "body16",
+          option: (state) => "body16",
+        }}
         placeholder="Enter a location..."
         defaultValue="blue"
         isDisabled={false}

@@ -27,16 +27,19 @@ export default function JobCard(data: JobCardProps) {
         />
 
         <div className={styles.roleInfoText}>
-          <p className={styles.companyText}> {role.company.name} </p>
-          <h2 className={styles.roleTitleText}>{role.title}</h2>
-          <h3 className={styles.roleCompanyTaglineText}>{role.company.tagline}</h3>
+          <div className={styles.roleInfoCompanyAndRoleTitleContainer}>
+            <p className={"chapeau"}> {role.company.name} </p>
+            <h2 className={"body18Bold"}>{role.title}</h2>
+          </div>
+
+          <h3 className={"body16"}>{role.company.tagline}</h3>
           <RoleConditions role={role} />
         </div>
       </div>
       <div className={styles.applyContainer}>
         <button
           type="submit"
-          className={styles.applyButton}
+          className={"body16Bold " + styles.applyButton}
           name="button-1675001572178"
           onClick={() => console.log("Button clicked")}
           id="button-apply"

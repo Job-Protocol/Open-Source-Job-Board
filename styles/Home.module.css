@@ -1,10 +1,7 @@
 .coverImageContainer {
   width: 100%;
-  /* width: 100%; */
-  /* max-width: 1200px; */
   height: 194px;
   min-height: 194px;
-  /* max-height: '194px'; */
   position: relative;
   overflow: hidden;
   border: none;
@@ -13,8 +10,6 @@
 .headerContainer {
   display: flex;
   flex-direction: row;
-  /* width: 1200px; */
-  /* width: 100%; */
   margin-top: -38px;
   padding-left: 24px;
 }
@@ -43,17 +38,7 @@
   align-self: center;
   align-items: center;
   gap: 6px;
-  font-weight: 400;
-  font-size: 14px;
-}
-
-.h1 {
-  font-size: 28px;
-}
-
-.subTitle {
-  font-size: 18px;
-  color: #1f2534cc;
+  height: 32px;
 }
 
 .headerIconsContainer {
@@ -108,7 +93,7 @@
   border-width: 1px;
   border-color: var(--border-color);
   border-radius: 32px;
-  color: #1f2534cc;
+  /* color: #1f2534cc; */
 }
 
 .input:hover {

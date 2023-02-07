@@ -20,13 +20,21 @@ export default function SwitchRolesCompanies(data: Props) {
   return (
     <div className={styles.toggleButton}>
       <div
-        className={byCompanies ? styles.toggleOff : styles.toggleOn}
+        className={
+          byCompanies
+            ? "body16 " + styles.toggleOff
+            : "body16Bold " + styles.toggleOn
+        }
         onClick={toggle}
       >
         Roles
       </div>
       <div
-        className={byCompanies ? styles.toggleOn : styles.toggleOff}
+        className={
+          byCompanies
+            ? "body16Bold " + styles.toggleOn
+            : "body16 " + styles.toggleOff
+        }
         onClick={toggle}
       >
         Companies

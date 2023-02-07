@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <div className={styles.footerPoweredBy}>
+    <div className={"body14 " + styles.footerPoweredBy}>
       <svg
         width="12"
         height="15"

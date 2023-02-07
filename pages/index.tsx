@@ -18,6 +18,10 @@ import Filter from "../components/overview/filter";
 import Switch from "react-switch";
 import { getConfig } from "@/utils";
 
+// import localFont from "@next/font/local";
+
+// const avenirFont = localFont({ src: "/fonts/AvenirNext-Regular.otf" });
+
 async function GetRoleData(): Promise<Role[]> {
   const results = getConfig()["job-ids"].map(async (roleid: string) => {
     const result = await fetch("/api/role/" + roleid);
@@ -94,8 +98,8 @@ export default function Home() {
               />
             </div>
             <div className={styles.headerTextContainer}>
-              <h1 className={styles.h1}>ETH Denver Job Board</h1>
-              <h2 className={styles.subTitle}>The best jobs in crypto</h2>
+              <h1 className={"h1"}>ETH Denver Job Board</h1>
+              <h2 className={"body18"}>The best jobs in crypto</h2>
               <div className={styles.headerIconsContainer}>
                 <Image
                   src={"/globe.svg"}
@@ -140,7 +144,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className={styles.headerPoweredByContainer}>
+            <div className={"body14 " + styles.headerPoweredByContainer}>
               <svg
                 width="12"
                 height="15"
@@ -193,7 +197,10 @@ export default function Home() {
                     />
                   </svg>
                 </div>
-                <input className={styles.input} placeholder="Search"></input>
+                <input
+                  className={"body16 " + styles.input}
+                  placeholder="Search"
+                ></input>
               </div>
             </div>
             {!byCompanies && (
