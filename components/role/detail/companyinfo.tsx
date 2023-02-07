@@ -75,7 +75,7 @@ export default function CompanyCard(data: CompanyCardProps) {
                 key={link.display_name}
               >
                 {link.display_name}
-                <Image src={"/external_link.svg"} width={16} height={16} />
+                <Image src={"/external_link.svg"} width={16} height={16} alt="external link" />
               </a>
             ))}
         </div>
