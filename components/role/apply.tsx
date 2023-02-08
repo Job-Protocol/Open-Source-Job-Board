@@ -206,15 +206,18 @@ export default function ApplyCard(params: any) {
             <input
               type="email"
               className={
-                email && validateEmail(email)
-                  ? stylesGlobalFormElements.input +
-                    " " +
-                    stylesGlobalFormElements.inputSquare
-                  : stylesGlobalFormElements.input +
-                    " " +
-                    stylesGlobalFormElements.inputSquare +
-                    " " +
-                    stylesGlobalFormElements.inputInvalid
+                stylesGlobalFormElements.input +
+                " " +
+                stylesGlobalFormElements.inputSquare
+                // email && validateEmail(email)
+                //   ? stylesGlobalFormElements.input +
+                //     " " +
+                //     stylesGlobalFormElements.inputSquare
+                //   : stylesGlobalFormElements.input +
+                //     " " +
+                //     stylesGlobalFormElements.inputSquare +
+                //     " " +
+                //     stylesGlobalFormElements.inputInvalid
               }
               name="text-1675001343960"
               onChange={processInput}
