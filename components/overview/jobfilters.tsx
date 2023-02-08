@@ -67,6 +67,7 @@ export default function JobFilters({
         Location
         <div className={styles.locationInputsContainer}>
           <SearchBox
+            disabled={remoteOnly}
             handleChange={(val) => {
               setUserLocation(val.value);
             }}

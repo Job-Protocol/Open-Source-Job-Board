@@ -13,11 +13,14 @@ async function getOptions(s: string) {
   return result;
 }
 
-export default function SearchBox({
-  handleChange,
-}: {
+
+export interface Props {
   handleChange: (v: any) => void;
-}) {
+  disabled: boolean;
+}
+
+
+export default function SearchBox(data: Props) {
   const [options, setOptions] = useState<any[]>([{}]);
   const [userInput, setUserInput] = useState<string>("A");
 
@@ -53,7 +56,7 @@ export default function SearchBox({
         }}
         placeholder="Enter a location..."
         defaultValue="blue"
-        isDisabled={false}
+        isDisabled={data.disabled}
         isLoading={false}
         isClearable={false}
         isRtl={false}
@@ -62,7 +65,7 @@ export default function SearchBox({
         value={userInput}
         options={options}
         onChange={(value) => {
-          handleChange(!value ? "" : (value as string));
+          data.handleChange(!value ? "" : (value as string));
         }} //actually make selection
         // onKeyDown={(value) => console.log("new", value)}
         onInputChange={(value) => {
