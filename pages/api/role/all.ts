@@ -80,7 +80,7 @@ export default async function role_handler(
   const company_ids = await fetch_companies_by_partner("ETH_Denver", process.env.BUBBLE_API_PRIVATE_KEY);//TODO(scheuclu): make this dynamic
   const role_ids = await fetch_roleIDs_by_companyIDs(company_ids, process.env.BUBBLE_API_PRIVATE_KEY);
 
-  cache.set(cache_id, [company_ids, role_ids], { ttl: 1000 * 60 * 60 * 2 });
+  cache.set(cache_id, [company_ids, role_ids], { ttl: 1000 * 60 * 2 });
   res.status(200).json([company_ids, role_ids]);
 
 
