@@ -18,7 +18,8 @@ export async function fetch_roleIDs_by_companyIDs(company_ids: string[], key: st
 
 
   const params = [
-    { key: "company", constraint_type: "in", value: company_ids }
+    { key: "company", constraint_type: "in", value: company_ids },
+    { key: "state", constraint_type: "equals", value: "Live" }
   ];
   var requestOptions: RequestInit = {
     method: 'GET',
