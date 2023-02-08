@@ -41,12 +41,14 @@ export async function fetch_by_id(
     }
     : undefined;
 
+
   const location_type: RoleLocationType | undefined =
     result.response.LocationType == "LocationList"
       ? RoleLocationType.LocationList
       : result.response.LocationType == "TimezoneRange"
         ? RoleLocationType.TimezoneRange
-        : undefined;
+        : result.response.LocationType == "Global"
+          ? RoleLocationType.Remote : undefined;
 
   const location_list = await Promise.all(result.response.LocationList.map((loc: any) => addressstring_to_type(loc.address)));
 
