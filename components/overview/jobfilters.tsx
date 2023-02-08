@@ -44,7 +44,7 @@ export default function JobFilters({
 
   return (
     <div className={styles.row}>
-      <div className={styles.roleFilterContainer}>
+      <div className={"body16 " + styles.roleFilterContainer}>
         Role
         <Select
           options={[
@@ -57,9 +57,13 @@ export default function JobFilters({
           }}
           placeholder="All roles"
           styles={selectStyles}
+          classNames={{
+            placeholder: (state) => "body16",
+            option: (state) => "body16",
+          }}
         />
       </div>
-      <div className={styles.roleFilterContainer}>
+      <div className={"body16 " + styles.roleFilterContainer}>
         Location
         <div className={styles.locationInputsContainer}>
           <SearchBox
@@ -67,7 +71,7 @@ export default function JobFilters({
               setUserLocation(val.value);
             }}
           />
-          <div className={styles.includeRemoteContainer}>
+          <div className={"body16 " + styles.includeRemoteContainer}>
             <input
               className={styles.inputCheckbox}
               type="checkbox"

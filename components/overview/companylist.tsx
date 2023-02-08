@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 
-import styles from "@/styles/Home.module.css";
+import styles from "@/styles/Companylist.module.css";
 import CompanyCard from "../company/companycard";
 
 // import config from "../../config.json";
@@ -30,8 +30,10 @@ export interface Props {
 export default function Companylist(data: Props) {
 
   return (
-    <div className={styles.gridnew}>
-      {data.companies.map((company: Company) => (<CompanyCard key={company.name} company={company} />))}
+    <div className={styles.companyListContainer}>
+      {data.companies.map((company: Company) => (
+        <CompanyCard key={company.name} company={company} />
+      ))}
     </div>
   );
 }

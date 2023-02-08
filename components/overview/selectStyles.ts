@@ -11,12 +11,12 @@ const selectStyles = {
       borderColor: "var(--main-color)",
     },
   }),
-  placeholder: (baseStyles: any, state: any) => ({
-    ...baseStyles,
-    color: "#1F2534CC",
-    fontWeight: 400,
-    fontSize: "16px",
-  }),
+  // placeholder: (baseStyles: any, state: any) => ({
+  //   ...baseStyles,
+  //   color: "#1F2534CC",
+  //   fontWeight: 400,
+  //   fontSize: "16px",
+  // }),
   dropdownIndicator: (baseStyles: any, state: any) => ({
     ...baseStyles,
     color: "#05192D",
@@ -26,9 +26,6 @@ const selectStyles = {
     borderColor: "var(--border-color)",
     borderWidth: "1px",
     borderRadius: "8px",
-    color: "#1F2534",
-    fontWeight: 400,
-    fontSize: "16px",
     marginTop: "4px",
     boxShadow: "0px",
     outline: "0px",
@@ -40,6 +37,8 @@ const selectStyles = {
   }),
   option: (baseStyles: any, state: any) => ({
     ...baseStyles,
+    paddingTop: "8px",
+    paddingBottom: "8px",
     borderRadius: "4px",
     backgroundColor: state.isSelected
       ? "var(--main-color-10pct-transparency)"

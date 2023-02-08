@@ -7,37 +7,29 @@
   border-color: var(--border-color);
   padding: 24px;
 
-  font-weight: 400;
-  font-size: 16px;
-  color: #1f2534cc;
-
   max-width: 850px;
 
   margin-top: 24px;
 
   gap: 24px;
+
+  background-color: white;
 }
 
-.cardTitle {
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 24.59px;
-  margin-bottom: 4px;
-  color: #1f2534;
-}
-
-.cardSubtitle {
-  font-weight: 600;
-  font-size: 12px;
-  color: #1f2534;
-  margin-bottom: 16px;
-  text-transform: capitalize;
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
 .formItemGroup {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.formItemGroupTitle {
+  margin-bottom: 4px;
 }
 
 .formItem {
@@ -47,81 +39,34 @@
 }
 
 .formLabel {
-  font-size: 16;
-  font-weight: 400;
-  color: #1f2534;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
 
   min-width: 200px;
 }
 
-.formInput {
-}
+.uploadButtonLabel {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
 
-.input {
-  border-width: 2px;
-  display: block;
-  border-radius: 1rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  width: 100%;
-}
+  max-width: 200px;
+  height: 48px;
 
-.input:focus {
-  /* background-color: #f9548e2e; */
-  outline-color: #f9548e;
-}
+  align-items: center;
 
-.input_invalid {
-  border-width: 2px;
-  display: block;
-  border-radius: 1rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  width: 100%;
-  border-color: rgb(242, 71, 71);
-}
+  padding-left: 16px;
+  padding-right: 16px;
 
-.input_invalid:focus {
-  /* background-color: #f9548e2e; */
-  outline-color: rgb(242, 71, 71);
-}
+  border-color: var(--main-color);
+  border-width: 1px;
+  border-radius: 8px;
 
-.label {
-  display: block;
-  font-weight: bold;
-}
-
-.primary_button {
-  background-color: #f9548e;
-  border-radius: 20px;
-  border: 0px solid #481f84;
-  display: inline-block;
   cursor: pointer;
-  color: #ffffff;
-  /* font-family:Arial;
-	font-size:17px; */
-  padding: 6px 30px;
-  text-decoration: none;
-  outline-width: 0px;
 }
-.primary_button:hover {
-  background-color: #481f84;
-}
-.primary_button:active {
-  position: relative;
-  top: 1px;
-  color: aqua;
-}
-.primary_button_disabled {
-  background-color: #f9548e76;
-  border-radius: 20px;
-  border: 1px solid #0404047a;
-  display: inline-block;
-  cursor: pointer;
-  color: #ffffff;
-  /* font-family:Arial;
-	font-size:17px; */
-  padding: 6px 30px;
-  text-decoration: none;
-  pointer-events: none;
+
+.uploadButton {
+  display: none;
 }

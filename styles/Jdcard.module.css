@@ -4,27 +4,22 @@
   border-color: var(--border-color);
   padding: 24px;
 
-  font-weight: 400;
-  font-size: 16px;
-  color: #1f2534cc;
-
   max-width: 850px;
-  flex: 10;
+  flex: 9;
+
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+  /* gap: 24px; */
 }
-.card h1 {
-  font-size: 2rem;
-  /* margin-top: 20px; */
-  /* margin-bottom: 5px; */
+
+.JDTitle {
+  margin-top: 24px;
+  margin-bottom: 16px;
 }
-.card h2 {
-  font-size: 1.5rem;
-  /* margin-top: 10px; */
-}
-.card h3 {
-  /* font-size: 1.3rem; */
-  /* margin-top: 5px; */
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 24.59px;
-  margin-bottom: 4px;
+
+.card ul {
+  list-style-type: disc;
+  margin-left: 24px;
 }
