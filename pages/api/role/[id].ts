@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getConfig } from "@/utils";
 
-import { Role, getDefaultRole, RoleLocation, Requirement } from "@/bubble_types";
+import { Role, getDefaultRole, RoleLocation, Requirement, RoleState } from "@/bubble_types";
 
 import { fetch_company_by_id } from "../company/[id]";
 import { fetch_by_id as fetchRoleLocation } from "./location/[id]";
@@ -49,6 +49,7 @@ export async function fetch_role_by_id(id: string, key: string): Promise<Role> {
   r.company = result_company;
   r.location = loc;
   r.requirements = reqs;
+  r.state = result_role.response.state == "Live" ? RoleState.Live : RoleState.Hidden;
   return r;
 }
 

@@ -72,7 +72,7 @@ export default function Home() {
   useEffect(() => {
     GetRolesByRoleIDs(roleIDs).then((res) => {
       setRoles(res);
-      setFilteredRoles(res)
+      setFilteredRoles(res);
     });
   }, [companyIDs, roleIDs]);
 

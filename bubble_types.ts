@@ -119,6 +119,12 @@ export function getDefaultCompany(): Company {
   };
 }
 
+
+export enum RoleState {
+  Live,
+  Hidden,
+  Closed,
+}
 export interface Role {
   id: string;
   title: string;
@@ -130,6 +136,7 @@ export interface Role {
   equity_pct_min: number | undefined;
   equity_pct_max: number | undefined;
   requirements: Requirement[] | undefined;
+  state: RoleState;
 }
 export function getDefaultRole(): Role {
   return {
@@ -143,5 +150,6 @@ export function getDefaultRole(): Role {
     equity_pct_min: undefined,
     equity_pct_max: undefined,
     requirements: undefined,
+    state: RoleState.Hidden,
   };
 }

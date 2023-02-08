@@ -27,8 +27,8 @@ export async function fetch_roleIDs_by_companyIDs(company_ids: string[], key: st
     redirect: 'follow'
   };
 
-  //const response = await fetch("https://app.jobprotocol.xyz/version-test/api/1.1/obj/company/?constraints=[{ \"key\": \"via_partner\", \"constraint_type\": \"text contains\", \"value\": \"ETH_Denver\" }]", requestOptions);
-  const response = await fetch("https://app.jobprotocol.xyz/version-test/api/1.1/obj/role/?constraints=" + JSON.stringify(params), requestOptions);
+  const url: string = getConfig()["endpoint"] + "/obj/role/?constraints=" + JSON.stringify(params);
+  const response = await fetch(url, requestOptions);
   const result = await response.json()
   const role_ids = result.response.results.map((company: any) => company._id);
   return role_ids;
@@ -42,7 +42,7 @@ export async function fetch_companies_by_partner(partner: string, key: string): 
 
 
   const params = [
-    { key: "via_partner", constraint_type: "text contains", value: partner }
+    { key: "via_partner", constraint_type: "equals", value: partner }
   ];
   var requestOptions: RequestInit = {
     method: 'GET',
@@ -50,12 +50,11 @@ export async function fetch_companies_by_partner(partner: string, key: string): 
     redirect: 'follow'
   };
 
-  var url: string = "https://app.jobprotocol.xyz/version-test/api/1.1/obj/company/?constraints=" + JSON.stringify(params);
+  var url: string = getConfig()["endpoint"] + "/obj/company/?constraints=" + JSON.stringify(params);
   const response = await fetch(url, requestOptions);
 
   const result = await response.json();
   const company_ids = result.response.results.map((company: any) => company._id);
-
   return company_ids;
 
 }
