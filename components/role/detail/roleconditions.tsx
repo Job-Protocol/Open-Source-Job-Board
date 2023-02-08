@@ -31,7 +31,7 @@ export default function RoleConditions(data: RoleConditionsProps) {
           {data.role.salary_min / 1000}-{data.role.salary_max / 1000}K USD/y
         </p>
       ) : (
-        <p>Competitive Package</p>
+        <p>&nbsp; • &nbsp;Competitive Package</p>
       )}
 
       {data.role.equity_pct_min && data.role.equity_pct_max && (
