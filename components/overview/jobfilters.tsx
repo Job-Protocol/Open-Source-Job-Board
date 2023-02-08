@@ -77,7 +77,7 @@ export default function JobFilters({
               type="checkbox"
               onChange={(value) => setRemoteOnly(!remoteOnly)}
             />
-            Include Remote
+            Remote Only
           </div>
         </div>
       </div>
