@@ -31,7 +31,7 @@ export async function addressstring_to_type(address: string): Promise<Geographic
 
 export function rolelocation_to_string(rolelocation: RoleLocation): string {
   if (rolelocation.location_type == RoleLocationType.Remote) {
-    return "Global(Remote)";
+    return "Remote(Global)";
   }
   if (rolelocation.location_type == RoleLocationType.TimezoneRange) {
     return (
