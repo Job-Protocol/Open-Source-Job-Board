@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getConfig } from "@/utils";
 
-import { Role, getDefaultRole, RoleLocation, Requirement, RoleState } from "@/bubble_types";
+import { Role, getDefaultRole, RoleLocation, Requirement, RoleState, RoleType } from "@/bubble_types";
 
 import { fetch_company_by_id } from "../company/[id]";
 import { fetch_by_id as fetchRoleLocation } from "./location/[id]";
@@ -38,6 +38,15 @@ export async function fetch_role_by_id(id: string, key: string): Promise<Role> {
     await Promise.all(result_role.response.requirements.map((req: string) => fetchRequirement(req as string, key))) :
     undefined;
 
+  const rtype: RoleType | undefined = result_role.response.role_type ?
+    result_role.response.role_type == 'Egineering' ? RoleType.Engineering :
+      result_role.response.role_type == 'Product' ? RoleType.Product :
+        result_role.response.role_type == 'Design' ? RoleType.Design :
+          result_role.response.role_type == 'Marketing' ? RoleType.Marketing :
+            result_role.response.role_type == 'Sales/BD' ? RoleType.SalesBD :
+              result_role.response.role_type == 'Operations' ? RoleType.Operations : undefined
+    : undefined;
+
   const r: Role = getDefaultRole();
   r.id = result_role.response._id;
   r.title = result_role.response.title;
@@ -50,6 +59,8 @@ export async function fetch_role_by_id(id: string, key: string): Promise<Role> {
   r.location = loc;
   r.requirements = reqs;
   r.state = result_role.response.state == "Live" ? RoleState.Live : RoleState.Hidden;
+  r.type = rtype;
+
   return r;
 }
 

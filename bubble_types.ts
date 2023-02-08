@@ -47,6 +47,18 @@ export interface TimezoneRange {
   min: number;
   max: number;
 }
+
+
+
+export enum RoleType {
+  Engineering,
+  Design,
+  Marketing,
+  SalesBD,
+  Operations,
+  Product
+}
+
 export enum RoleLocationType {
   LocationList,
   TimezoneRange,
@@ -137,6 +149,7 @@ export interface Role {
   equity_pct_max: number | undefined;
   requirements: Requirement[] | undefined;
   state: RoleState;
+  type: RoleType | undefined;
 }
 export function getDefaultRole(): Role {
   return {
@@ -151,5 +164,6 @@ export function getDefaultRole(): Role {
     equity_pct_max: undefined,
     requirements: undefined,
     state: RoleState.Hidden,
+    type: undefined,
   };
 }

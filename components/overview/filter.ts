@@ -1,5 +1,5 @@
 import { GeographicAddress } from "@/bubble_types";
-import { Role, RoleLocationType, TimezoneRange } from "@/bubble_types";
+import { Role, RoleLocationType, TimezoneRange, RoleType } from "@/bubble_types";
 
 
 class Filter {
@@ -69,17 +69,31 @@ class Filter {
         return true;
     }
 
-    private roleFilter(role: Role, userAddress: GeographicAddress | undefined, remoteOnly: boolean | undefined) {
+    private isRoleTypeMatch(role: Role, roleType: RoleType | undefined) {
+        if (!roleType) {
+            return true;
+        }
+        return role.type == roleType;
+    }
+
+    private roleFilter(
+        role: Role,
+        userAddress: GeographicAddress | undefined,
+        remoteOnly: boolean | undefined,
+        roleType: RoleType | undefined) {
         // If remote only, filter the roles
         if (remoteOnly) {
-            return this.isRemoteMatch(role, userAddress);
+            return this.isRemoteMatch(role, userAddress) && this.isRoleTypeMatch(role, roleType);
         }
-        return this.isNonRemoteMatch(role, userAddress);
+        return this.isNonRemoteMatch(role, userAddress) && this.isRoleTypeMatch(role, roleType);
     }
 
 
-    getFilteredRoles(userAddress: GeographicAddress | undefined, remoteOnly: boolean | undefined) {
-        return this.roles.filter((role) => this.roleFilter(role, userAddress, remoteOnly));
+    getFilteredRoles(
+        userAddress: GeographicAddress | undefined,
+        remoteOnly: boolean | undefined,
+        roleType: RoleType | undefined) {
+        return this.roles.filter((role) => this.roleFilter(role, userAddress, remoteOnly, roleType));
     }
 
 }

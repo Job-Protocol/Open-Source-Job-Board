@@ -5,7 +5,7 @@ import styles from "@/styles/Jobfilters.module.css";
 import { selectStyles } from "./selectStyles";
 
 import SearchBox from "@/components/overview/searchbox";
-import { GeographicAddress } from "@/bubble_types";
+import { GeographicAddress, RoleType } from "@/bubble_types";
 import Select from "react-select";
 
 async function GetGeographicAddress(s: string): Promise<GeographicAddress> {
@@ -19,11 +19,13 @@ export default function JobFilters({
 }: {
   handleChange: (
     userAddress: GeographicAddress | undefined,
-    remoteOnly: boolean | undefined
+    remoteOnly: boolean | undefined,
+    roleType: RoleType | undefined
   ) => void;
 }) {
   const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
   const [userLocation, setUserLocation] = useState<string>("");
+  const [roleType, setRoleType] = useState<RoleType | undefined>(undefined);
   const [userAddress, setUserAddress] = useState<GeographicAddress | undefined>(
     undefined
   );
@@ -39,8 +41,8 @@ export default function JobFilters({
   }, [userLocation]);
 
   useEffect(() => {
-    handleChange(userAddress, remoteOnly);
-  }, [userAddress, remoteOnly, handleChange]);
+    handleChange(userAddress, remoteOnly, roleType);
+  }, [userAddress, remoteOnly, roleType, handleChange]);
 
   return (
     <div className={styles.row}>
@@ -48,9 +50,13 @@ export default function JobFilters({
         Role
         <Select
           options={[
-            { value: "chocolate", label: "Chocolate" },
-            { value: "strawberry", label: "Strawberry" },
-            { value: "vanilla", label: "Vanilla" },
+            { value: undefined, label: "All" },
+            { value: RoleType.Design, label: "Design" },
+            { value: RoleType.Engineering, label: "Engineering" },
+            { value: RoleType.Marketing, label: "Marketing" },
+            { value: RoleType.Operations, label: "Operations" },
+            { value: RoleType.SalesBD, label: "Sales / BD" },
+            { value: RoleType.Product, label: "Product" },
           ]}
           components={{
             IndicatorSeparator: () => null,
@@ -61,6 +67,7 @@ export default function JobFilters({
             placeholder: (state) => "body16",
             option: (state) => "body16",
           }}
+          onChange={(value) => { console.log(value), setRoleType(value.value); }}
         />
       </div>
       <div className={"body16 " + styles.roleFilterContainer}>

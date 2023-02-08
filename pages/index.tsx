@@ -17,6 +17,7 @@ import { GeographicAddress } from "@/bubble_types";
 import Filter from "../components/overview/filter";
 import Switch from "react-switch";
 import { getConfig } from "@/utils";
+import { RoleType } from "@/bubble_types";
 
 // import localFont from "@next/font/local";
 
@@ -65,11 +66,13 @@ export default function Home() {
   );
   const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
   const [filter, setFilter] = useState<Filter>();
+  const [roleType, setRoleType] = useState<RoleType | undefined>(undefined);
 
   useEffect(() => {
     GetAllIDs().then((res) => {
       setCompanyIDs(res[0]);
       setRoleIDs(res[1]);
+      setRoleType(undefined);
     });
   }, []);
 
@@ -94,9 +97,9 @@ export default function Home() {
 
   useEffect(() => {
     if (filter) {
-      setFilteredRoles(filter.getFilteredRoles(userAddress, remoteOnly));
+      setFilteredRoles(filter.getFilteredRoles(userAddress, remoteOnly, roleType));
     }
-  }, [userAddress, remoteOnly, filter]);
+  }, [userAddress, remoteOnly, filter, roleType]);
 
   function handleChange(val: boolean) {
     setByCompanies(val);
@@ -130,8 +133,8 @@ export default function Home() {
                 src={"/EDEN22Logo_Black.svg"}
                 alt="Header image"
                 fill
-                //style={{borderRadius: 8}}
-                // objectFit="cover"
+              //style={{borderRadius: 8}}
+              // objectFit="cover"
               />
             </div>
             <div className={styles.headerTextContainer}>
@@ -143,40 +146,40 @@ export default function Home() {
                   alt="Globe icon"
                   width={16}
                   height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                //style={{borderRadius: 8}}
+                // objectFit="cover"
                 />
                 <Image
                   src={"/twitter.svg"}
                   alt="Twitter icon"
                   width={16}
                   height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                //style={{borderRadius: 8}}
+                // objectFit="cover"
                 />
                 <Image
                   src={"/facebook.svg"}
                   alt="Twitter icon"
                   width={16}
                   height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                //style={{borderRadius: 8}}
+                // objectFit="cover"
                 />
                 <Image
                   src={"/linkedin-square-colored.svg"}
                   alt="Twitter icon"
                   width={16}
                   height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                //style={{borderRadius: 8}}
+                // objectFit="cover"
                 />
                 <Image
                   src={"/Discord_Logo_sans_texte 1.svg"}
                   alt="Twitter icon"
                   width={16}
                   height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                //style={{borderRadius: 8}}
+                // objectFit="cover"
                 />
               </div>
             </div>
@@ -242,9 +245,10 @@ export default function Home() {
             </div>
             {!byCompanies && (
               <JobFilters
-                handleChange={(userAddress, remoteOnly) => {
+                handleChange={(userAddress, remoteOnly, roleType) => {
                   setUserAddress(userAddress);
                   setRemoteOnly(remoteOnly == true);
+                  setRoleType(roleType);
                 }}
               />
             )}
