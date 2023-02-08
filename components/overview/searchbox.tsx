@@ -23,6 +23,7 @@ export interface Props {
 export default function SearchBox(data: Props) {
   const [options, setOptions] = useState<any[]>([{}]);
   const [userInput, setUserInput] = useState<string>("A");
+  const [selectedValue, setSelectedValue] = useState<string>("");
 
   useEffect(() => {
     getOptions(userInput).then((res) => {
@@ -58,16 +59,15 @@ export default function SearchBox(data: Props) {
         defaultValue="blue"
         isDisabled={data.disabled}
         isLoading={false}
-        isClearable={false}
+        isClearable={true}
         isRtl={false}
         isSearchable={true}
-        name="color"
-        value={userInput}
+        value={selectedValue}
         options={options}
         onChange={(value) => {
           data.handleChange(!value ? "" : (value as string));
+          setSelectedValue(value as string);
         }} //actually make selection
-        // onKeyDown={(value) => console.log("new", value)}
         onInputChange={(value) => {
           setTimeout(function () {
             setUserInput(value);
