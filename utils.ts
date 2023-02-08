@@ -30,6 +30,9 @@ export async function addressstring_to_type(address: string): Promise<Geographic
 }
 
 export function rolelocation_to_string(rolelocation: RoleLocation): string {
+  if (!rolelocation.location_type) {
+    return "Global(Remote)"; //TODO(scheuclu) Quick fix
+  }
   if (rolelocation.location_type == RoleLocationType.Remote) {
     return "Global(Remote)";
   }
@@ -46,7 +49,7 @@ export function rolelocation_to_string(rolelocation: RoleLocation): string {
     return rolelocation.location_list.map((item) => item.address).join("\n");
   }
 
-  return "";
+  return "Unknown location";
 }
 
 export function postMessages(msgs: string[]) {
