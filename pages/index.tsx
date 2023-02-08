@@ -9,7 +9,7 @@ import Select from "react-select";
 
 import React, { useState, useEffect } from "react";
 
-import { Role } from "@/bubble_types";
+import { Company, Role } from "@/bubble_types";
 import JobFilters from "@/components/overview/jobfilters";
 
 import { GeographicAddress } from "@/bubble_types";
@@ -17,17 +17,37 @@ import Filter from "../components/overview/filter";
 import Switch from "react-switch";
 import { getConfig } from "@/utils";
 
-async function GetRoleData(): Promise<Role[]> {
-  const results = getConfig()["job-ids"].map(async (roleid: string) => {
-    const result = await fetch("/api/role/" + roleid);
-    const parsed = await result.json();
-    return parsed;
-  });
-  const role_data = await Promise.all(results);
-  return role_data;
+export async function GetAllIDs(): Promise<string[][]> {
+  const result = await fetch("../api/role/all");
+  const parsed = await result.json();
+  return parsed;
 }
 
+export async function GetCompaniesByCompanyIDs(ids: string[]): Promise<Company[]> {
+  const response: Promise<Response>[] = ids.map(id => fetch(`../api/company/${id}`));
+  const reponses: Response[] = await Promise.all(response);
+  const roles = reponses.map(result => result.json());
+  const final = await Promise.all(roles);
+  return final;
+}
+
+export async function GetRolesByRoleIDs(ids: string[]): Promise<Role[]> {
+  const response: Promise<Response>[] = ids.map(id => fetch(`../api/role/${id}`));
+  const reponses: Response[] = await Promise.all(response);
+
+  const roles = reponses.map(result => result.json());
+  const final = await Promise.all(roles);
+  return final;
+}
+
+
+
 export default function Home() {
+  const [companyIDs, setCompanyIDs] = useState<string[]>([]);
+  const [roleIDs, setRoleIDs] = useState<string[]>([]);
+
+  const [companies, setCompanies] = useState<Company[]>([]);
+
   const [byCompanies, setByCompanies] = useState<boolean>(false);
   const [roles, setRoles] = useState<Role[]>([]);
   const [filteredRoles, setFilteredRoles] = useState<Role[]>([]);
@@ -38,11 +58,24 @@ export default function Home() {
   const [filter, setFilter] = useState<Filter>();
 
   useEffect(() => {
-    GetRoleData().then((res) => {
-      setRoles(res);
-      setFilteredRoles(res);
+    GetAllIDs().then((res) => {
+      setCompanyIDs(res[0]);
+      setRoleIDs(res[1]);
     });
   }, []);
+
+  useEffect(() => {
+    GetRolesByRoleIDs(roleIDs).then((res) => {
+      setRoles(res);
+      setFilteredRoles(res)
+    });
+  }, [companyIDs, roleIDs]);
+
+  useEffect(() => {
+    GetCompaniesByCompanyIDs(companyIDs).then((res) => {
+      setCompanies(res);
+    });
+  }, [companyIDs]);
 
   useEffect(() => {
     if (roles) {
@@ -205,7 +238,7 @@ export default function Home() {
             )}
           </div>
           {!byCompanies && <Joblist roles={filteredRoles} />}
-          {byCompanies && <Companylist />}
+          {byCompanies && <Companylist companies={companies} />}
           <div className={styles.footerPoweredBy}>
             <svg
               width="12"

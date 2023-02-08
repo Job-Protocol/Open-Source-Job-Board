@@ -23,18 +23,15 @@ async function GetCompanyData(): Promise<Company[]> {
   return role_data;
 }
 
-export default function Companylist() {
-  const [companies, setCompanies] = useState<Company[]>([]);
+export interface Props {
+  companies: Company[];
+}
 
-  useEffect(() => {
-    GetCompanyData().then((res) => {
-      setCompanies(res);
-    });
-  }, []);
+export default function Companylist(data: Props) {
 
   return (
     <div className={styles.gridnew}>
-      {companies.map((company: Company) => (<CompanyCard key={company.name} company={company} />))}
+      {data.companies.map((company: Company) => (<CompanyCard key={company.name} company={company} />))}
     </div>
   );
 }

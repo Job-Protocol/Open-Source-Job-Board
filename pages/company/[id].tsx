@@ -23,6 +23,8 @@ import Filter from "@/components/overview/filter"
 import { useRouter } from "next/router";
 
 
+import { GetAllIDs, GetRolesByRoleIDs } from "@/pages/index";
+
 async function getCompanyData(id: string): Promise<Company> {
 
   const result = await fetch("../api/company/" + id);
@@ -30,15 +32,17 @@ async function getCompanyData(id: string): Promise<Company> {
   return parsed;
 };
 
-async function GetRoleData(): Promise<Role[]> {
-  const results = getConfig()["job-ids"].map(async (roleid: string) => {
-    const result = await fetch("/api/role/" + roleid);
-    const parsed = await result.json();
-    return parsed;
-  });
-  const role_data = await Promise.all(results);
-  return role_data;
-};
+
+
+// async function GetRoleData(): Promise<Role[]> {
+//   const results = getConfig()["job-ids"].map(async (roleid: string) => {
+//     const result = await fetch("/api/role/" + roleid);
+//     const parsed = await result.json();
+//     return parsed;
+//   });
+//   const role_data = await Promise.all(results);
+//   return role_data;
+// };
 
 export default function Home() {
   const router = useRouter();
@@ -55,7 +59,7 @@ export default function Home() {
       getCompanyData(id as string).then((res) => {
         setCompany(res);
       });
-      GetRoleData().then((res) => {
+      GetAllIDs().then((res) => GetRolesByRoleIDs(res[1])).then((res) => {
         const roles_this_company = res.filter((role) => { return role.company.id === id; });
         setCompanyRoles(roles_this_company);
       });
