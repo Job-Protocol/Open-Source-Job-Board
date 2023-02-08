@@ -47,7 +47,7 @@ export default function CompanyCard(data: JobCardProps) {
               onClick={() => console.log("Button clicked")}
               id="button-apply"
             >
-              Disconver
+              Discover
             </button>
           </div>
         </div>
