@@ -16,6 +16,10 @@
   );
 }
 
+.logo {
+  border-radius: 8px;
+}
+
 .roleInfo {
   display: flex;
   flex-direction: row;
