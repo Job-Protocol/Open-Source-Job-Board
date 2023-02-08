@@ -28,24 +28,28 @@ export async function GetAllIDs(): Promise<string[][]> {
   return parsed;
 }
 
-export async function GetCompaniesByCompanyIDs(ids: string[]): Promise<Company[]> {
-  const response: Promise<Response>[] = ids.map(id => fetch(`../api/company/${id}`));
+export async function GetCompaniesByCompanyIDs(
+  ids: string[]
+): Promise<Company[]> {
+  const response: Promise<Response>[] = ids.map((id) =>
+    fetch(`../api/company/${id}`)
+  );
   const reponses: Response[] = await Promise.all(response);
-  const roles = reponses.map(result => result.json());
+  const roles = reponses.map((result) => result.json());
   const final = await Promise.all(roles);
   return final;
 }
 
 export async function GetRolesByRoleIDs(ids: string[]): Promise<Role[]> {
-  const response: Promise<Response>[] = ids.map(id => fetch(`../api/role/${id}`));
+  const response: Promise<Response>[] = ids.map((id) =>
+    fetch(`../api/role/${id}`)
+  );
   const reponses: Response[] = await Promise.all(response);
 
-  const roles = reponses.map(result => result.json());
+  const roles = reponses.map((result) => result.json());
   const final = await Promise.all(roles);
   return final;
 }
-
-
 
 export default function Home() {
   const [companyIDs, setCompanyIDs] = useState<string[]>([]);
@@ -126,8 +130,8 @@ export default function Home() {
                 src={"/EDEN22Logo_Black.svg"}
                 alt="Header image"
                 fill
-              //style={{borderRadius: 8}}
-              // objectFit="cover"
+                //style={{borderRadius: 8}}
+                // objectFit="cover"
               />
             </div>
             <div className={styles.headerTextContainer}>
@@ -139,40 +143,40 @@ export default function Home() {
                   alt="Globe icon"
                   width={16}
                   height={16}
-                //style={{borderRadius: 8}}
-                // objectFit="cover"
+                  //style={{borderRadius: 8}}
+                  // objectFit="cover"
                 />
                 <Image
                   src={"/twitter.svg"}
                   alt="Twitter icon"
                   width={16}
                   height={16}
-                //style={{borderRadius: 8}}
-                // objectFit="cover"
+                  //style={{borderRadius: 8}}
+                  // objectFit="cover"
                 />
                 <Image
                   src={"/facebook.svg"}
                   alt="Twitter icon"
                   width={16}
                   height={16}
-                //style={{borderRadius: 8}}
-                // objectFit="cover"
+                  //style={{borderRadius: 8}}
+                  // objectFit="cover"
                 />
                 <Image
                   src={"/linkedin-square-colored.svg"}
                   alt="Twitter icon"
                   width={16}
                   height={16}
-                //style={{borderRadius: 8}}
-                // objectFit="cover"
+                  //style={{borderRadius: 8}}
+                  // objectFit="cover"
                 />
                 <Image
                   src={"/Discord_Logo_sans_texte 1.svg"}
                   alt="Twitter icon"
                   width={16}
                   height={16}
-                //style={{borderRadius: 8}}
-                // objectFit="cover"
+                  //style={{borderRadius: 8}}
+                  // objectFit="cover"
                 />
               </div>
             </div>
