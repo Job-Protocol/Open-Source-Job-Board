@@ -75,7 +75,7 @@ export default function Home() {
 
   useEffect(() => {
     if (filter) {
-      setFilteredCompanyRoles(filter.getFilteredRoles(userAddress, remoteOnly))
+      setFilteredCompanyRoles(filter.getFilteredRoles(userAddress, remoteOnly, undefined))//TODO(scheuclu) Add role type filter
     }
   }, [userAddress, remoteOnly, filter]);
 

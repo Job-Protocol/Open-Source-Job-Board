@@ -67,7 +67,7 @@ export default function JobFilters({
             placeholder: (state) => "body16",
             option: (state) => "body16",
           }}
-          onChange={(value) => { console.log(value), setRoleType(value.value); }}
+          onChange={(value) => { if (value) { setRoleType(value.value) }; }}
         />
       </div>
       <div className={"body16 " + styles.roleFilterContainer}>
