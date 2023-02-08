@@ -71,6 +71,12 @@
   color: white;
 }
 
+.companyTagLine {
+  color: white;
+  margin-top: 4px;
+  margin-bottom: 12px;
+}
+
 .roleTitleText {
   color: white;
 }

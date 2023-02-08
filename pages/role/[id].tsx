@@ -120,6 +120,9 @@ export default function Home() {
                   {role?.company.name}
                 </p>
                 <h1 className={"h1 " + styles.roleTitleText}>{role?.title}</h1>
+                <p className={"body18 " + styles.companyTagLine}>
+                  {role?.company.tagline}
+                </p>
                 <RoleConditions role={role} isInverted={true} />
               </div>
             </div>
