@@ -61,7 +61,7 @@ export default async function handler(
   }
   else {
     const role = await fetch_by_inp(id, process.env.NEXT_PUBLIC_GOOGLE_API_KEY);;
-    cache.set(cache_id, role, { ttl: 1000 * 60 * 60 * 2 });
+    cache.set(cache_id, role, { ttl: 1000 * 60 * 2 });
     res.status(200).json(role);
   }
 }

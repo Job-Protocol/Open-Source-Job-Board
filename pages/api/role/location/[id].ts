@@ -41,12 +41,14 @@ export async function fetch_by_id(
     }
     : undefined;
 
+
   const location_type: RoleLocationType | undefined =
     result.response.LocationType == "LocationList"
       ? RoleLocationType.LocationList
       : result.response.LocationType == "TimezoneRange"
         ? RoleLocationType.TimezoneRange
-        : undefined;
+        : result.response.LocationType == "Global"
+          ? RoleLocationType.Remote : undefined;
 
   const location_list = await Promise.all(result.response.LocationList.map((loc: any) => addressstring_to_type(loc.address)));
 
@@ -75,7 +77,7 @@ export default async function company_handler(
   }
   else {
     const role = await fetch_by_id(id, process.env.BUBBLE_API_PRIVATE_KEY);
-    cache.set(cache_id, role, { ttl: 1000 * 60 * 60 * 2 });
+    cache.set(cache_id, role, { ttl: 1000 * 60 * 2 });
     res.status(200).json(role);
   }
 

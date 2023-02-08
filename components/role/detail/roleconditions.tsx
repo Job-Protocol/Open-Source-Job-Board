@@ -18,6 +18,7 @@ export default function RoleConditions(data: RoleConditionsProps) {
     styleClassName += " " + "body16 " + styles.inverted;
   }
 
+
   return (
     <div className={styleClassName}>
       <p>Full time</p>

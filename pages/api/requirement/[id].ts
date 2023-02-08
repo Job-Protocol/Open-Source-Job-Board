@@ -43,14 +43,14 @@ export default async function company_handler(
         return;
     }
 
-    const cache_id: string = "company_socials_" + id;
+    const cache_id: string = "requirement_" + id;
     if (cache.has(cache_id)) {
         res.status(200).json(cache.get(cache_id));
         return;
     }
     else {
         const result = await fetch_by_id(id, process.env.BUBBLE_API_PRIVATE_KEY);
-        cache.set(cache_id, result, { ttl: 1000 * 60 * 60 * 2 });
+        cache.set(cache_id, result, { ttl: 1000 * 60 * 2 });
         res.status(200).json(result);
     }
 }
