@@ -6,8 +6,6 @@ import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.css";
 import Swal from "sweetalert2";
 import { validateEmail } from "@/utils";
 import Image from "next/image";
-
-//import fs from 'fs';
 import FileReader from '@tanker/file-reader';
 
 
@@ -57,8 +55,12 @@ export default function ApplyCard(params: any) {
 
   async function storeApplication(data: CandidateData) {
 
-    const reader = new FileReader(data.resume);
-    const dataUrl = await reader.readAsDataURL();
+    var content = "";
+    if (data.resume) {
+      const reader = new FileReader(data.resume);
+      const dataUrl = await reader.readAsDataURL();
+      content = dataUrl.split('base64,')[1]
+    }
 
     var raw = JSON.stringify({
       first_name: data.first_name,
@@ -67,11 +69,11 @@ export default function ApplyCard(params: any) {
       personal_website_url: data.github,
       linkedin_url: data.linkedin,
       role: data.role,
-      resume_file: {
+      resume_file: content ? {
         "filename": "resume.pdf",
-        "contents": dataUrl.split('base64,')[1],
+        "contents": content,
         "private": false
-      }
+      } : []
     });
 
     const requestOptions: RequestInit = {
