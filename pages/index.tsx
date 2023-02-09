@@ -19,10 +19,6 @@ import Switch from "react-switch";
 import { getConfig } from "@/utils";
 import { RoleType } from "@/bubble_types";
 
-// import localFont from "@next/font/local";
-
-// const avenirFont = localFont({ src: "/fonts/AvenirNext-Regular.otf" });
-
 export async function GetAllIDs(): Promise<string[][]> {
   const result = await fetch("../api/role/all");
   const parsed = await result.json();
@@ -67,6 +63,9 @@ export default function Home() {
   const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
   const [filter, setFilter] = useState<Filter>();
   const [roleType, setRoleType] = useState<RoleType | undefined>(undefined);
+  const [searchterm, setSearchterm] = useState<string | undefined>(undefined);
+
+  const [searchterms, setSearchterms] = useState<string>("");
 
   useEffect(() => {
     GetAllIDs().then((res) => {
@@ -97,9 +96,9 @@ export default function Home() {
 
   useEffect(() => {
     if (filter) {
-      setFilteredRoles(filter.getFilteredRoles(userAddress, remoteOnly, roleType));
+      setFilteredRoles(filter.getFilteredRoles(userAddress, remoteOnly, roleType, searchterm));
     }
-  }, [userAddress, remoteOnly, filter, roleType]);
+  }, [userAddress, remoteOnly, filter, roleType, searchterm]);
 
   function handleChange(val: boolean) {
     setByCompanies(val);
@@ -237,10 +236,17 @@ export default function Home() {
                     />
                   </svg>
                 </div>
+
                 <input
                   className={"body16 " + styles.input}
                   placeholder="Search"
+                  onChange={(value) =>
+                    setTimeout(function () {
+                      setSearchterm(value.target.value)
+                    }, 1000)
+                  }
                 ></input>
+                <p>Search term: {searchterm}</p>
               </div>
             </div>
             {!byCompanies && (
@@ -249,6 +255,7 @@ export default function Home() {
                   setUserAddress(userAddress);
                   setRemoteOnly(remoteOnly == true);
                   setRoleType(roleType);
+                  setSearchterm(searchterm)
                 }}
               />
             )}

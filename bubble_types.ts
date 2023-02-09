@@ -150,6 +150,7 @@ export interface Role {
   requirements: Requirement[] | undefined;
   state: RoleState;
   type: RoleType | undefined;
+  keywords: string[] | undefined;
 }
 export function getDefaultRole(): Role {
   return {
@@ -165,5 +166,6 @@ export function getDefaultRole(): Role {
     requirements: undefined,
     state: RoleState.Hidden,
     type: undefined,
+    keywords: undefined,
   };
 }

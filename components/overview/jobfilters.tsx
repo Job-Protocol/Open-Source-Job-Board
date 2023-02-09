@@ -20,7 +20,8 @@ export default function JobFilters({
   handleChange: (
     userAddress: GeographicAddress | undefined,
     remoteOnly: boolean | undefined,
-    roleType: RoleType | undefined
+    roleType: RoleType | undefined,
+    searchterm: string | undefined
   ) => void;
 }) {
   const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
@@ -29,6 +30,7 @@ export default function JobFilters({
   const [userAddress, setUserAddress] = useState<GeographicAddress | undefined>(
     undefined
   );
+  const [searchterm, setSearchterm] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     if (userLocation) {
@@ -41,8 +43,8 @@ export default function JobFilters({
   }, [userLocation]);
 
   useEffect(() => {
-    handleChange(userAddress, remoteOnly, roleType);
-  }, [userAddress, remoteOnly, roleType, handleChange]);
+    handleChange(userAddress, remoteOnly, roleType, searchterm);
+  }, [userAddress, remoteOnly, roleType, searchterm, handleChange]);
 
   return (
     <div className={styles.row}>

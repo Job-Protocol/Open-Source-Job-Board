@@ -76,24 +76,43 @@ class Filter {
         return role.type == roleType;
     }
 
+    private isSearchTermMatch(role: Role, searchterm: string | undefined): boolean {
+        if (!searchterm || searchterm.length < 4) {
+            return true;
+        }
+        if (!role.keywords) {
+            return false;
+        }
+        return role.keywords.map(keyword => keyword.toLowerCase().includes(searchterm.toLowerCase())).includes(true);
+    }
+
     private roleFilter(
         role: Role,
         userAddress: GeographicAddress | undefined,
         remoteOnly: boolean | undefined,
-        roleType: RoleType | undefined) {
+        roleType: RoleType | undefined,
+        searchterm: string | undefined) {
         // If remote only, filter the roles
+
+        var result = false;
+
         if (remoteOnly) {
-            return this.isRemoteMatch(role, userAddress) && this.isRoleTypeMatch(role, roleType);
+            return this.isRemoteMatch(role, userAddress) &&
+                this.isRoleTypeMatch(role, roleType) &&
+                this.isSearchTermMatch(role, searchterm);
         }
-        return this.isNonRemoteMatch(role, userAddress) && this.isRoleTypeMatch(role, roleType);
+        return this.isNonRemoteMatch(role, userAddress) &&
+            this.isRoleTypeMatch(role, roleType) &&
+            this.isSearchTermMatch(role, searchterm);
     }
 
 
     getFilteredRoles(
         userAddress: GeographicAddress | undefined,
         remoteOnly: boolean | undefined,
-        roleType: RoleType | undefined) {
-        return this.roles.filter((role) => this.roleFilter(role, userAddress, remoteOnly, roleType));
+        roleType: RoleType | undefined,
+        searchterm: string | undefined) {
+        return this.roles.filter((role) => this.roleFilter(role, userAddress, remoteOnly, roleType, searchterm));
     }
 
 }

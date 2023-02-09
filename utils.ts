@@ -2,8 +2,8 @@ import config from "config.json";
 import { GeographicAddress, getDefaultCompany, RoleLocation, RoleLocationType, getDefaultGeographicAddress } from "./bubble_types";
 import { fetch_by_inp as fetch_place_id } from "./pages/api/places/get_id";
 import { fetch_by_inp as fetch_place_details } from "./pages/api/places/details/[id]";
-// import config from "@/config.json";
 
+import { Role } from "./bubble_types";
 
 export function getConfig(): any {
 
@@ -98,3 +98,8 @@ export const validateEmail = (email: string): boolean => {
   }
   return true;
 };
+
+//TODO(scheuclu) We need more keywords here. Possible location or from the jobdescription
+export function extractKeywordsFromRole(role: Role): string[] {
+  return [role.title, role.company.name];
+}

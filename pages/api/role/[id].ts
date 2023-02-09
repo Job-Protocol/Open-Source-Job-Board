@@ -60,6 +60,7 @@ export async function fetch_role_by_id(id: string, key: string): Promise<Role> {
   r.requirements = reqs;
   r.state = result_role.response.state == "Live" ? RoleState.Live : RoleState.Hidden;
   r.type = rtype;
+  r.keywords = [r.title, r.company.name]//TODO(scheuclu) Improve this
 
   return r;
 }
