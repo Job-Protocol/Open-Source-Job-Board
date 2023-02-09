@@ -246,7 +246,6 @@ export default function Home() {
                     }, 1000)
                   }
                 ></input>
-                <p>Search term: {searchterm}</p>
               </div>
             </div>
             {!byCompanies && (
