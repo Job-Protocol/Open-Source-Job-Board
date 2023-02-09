@@ -7,6 +7,10 @@ import Swal from "sweetalert2";
 import { validateEmail } from "@/utils";
 import Image from "next/image";
 
+//import fs from 'fs';
+import FileReader from '@tanker/file-reader';
+
+
 import {
   FaGithub,
   FaTwitter,
@@ -22,6 +26,7 @@ type CandidateData = {
   github: string;
   linkedin: string;
   role: string;
+  resume: File | undefined;
 };
 
 export interface ApplyCardProps {
@@ -43,6 +48,7 @@ export default function ApplyCard(params: any) {
   const [walletAddress, setWalletAddress] = useState<string>("");
   const [buttonClicked, setButtonClicked] = useState<boolean>(false);
   const [inputsValid, setInputsValid] = useState<boolean>(false);
+  const [resume, setResume] = useState<File | undefined>(undefined);
 
   async function sendMail(candidate_id: string) {
     // const url = "../api/candidate/sendmail?id=" + candidate_id;
@@ -50,6 +56,10 @@ export default function ApplyCard(params: any) {
   }
 
   async function storeApplication(data: CandidateData) {
+
+    const reader = new FileReader(data.resume);
+    const dataUrl = await reader.readAsDataURL();
+
     var raw = JSON.stringify({
       first_name: data.first_name,
       last_name: data.last_name,
@@ -57,6 +67,11 @@ export default function ApplyCard(params: any) {
       personal_website_url: data.github,
       linkedin_url: data.linkedin,
       role: data.role,
+      resume_file: {
+        "filename": "resume.pdf",
+        "contents": dataUrl.split('base64,')[1],
+        "private": false
+      }
     });
 
     const requestOptions: RequestInit = {
@@ -120,7 +135,17 @@ export default function ApplyCard(params: any) {
     } else if (event.target.id === "input-wallet-address") {
       setWalletAddress(event.target.value);
     }
-    //throw error message if the target is uncldear
+    else if (event.target.id === "input-resume") {
+      const Tempfile = event.target.files[0]
+      if (!Tempfile) {
+        return
+      }
+      // check file size
+      const size = parseInt(((Tempfile.size / 1024) / 1024).toFixed(4))
+      let file = new File([Tempfile.slice(0, Tempfile.size, 'application/pdf')], event.target.value, { type: 'application/pdf' });
+      setResume(file);
+
+    }
     checkInputsValid();
   };
 
@@ -134,17 +159,19 @@ export default function ApplyCard(params: any) {
       linkedin: linkedIn,
       github: "",
       role: ROLEID,
+      resume: resume,//TODO Lukas
     });
   };
 
   const checkInputsValid = () => {
     setInputsValid(
       firstName !== "" &&
-        lastName !== "" &&
-        email !== "" &&
-        validateEmail(email) &&
-        linkedIn !== "" &&
-        github !== ""
+      lastName !== "" &&
+      email !== "" &&
+      validateEmail(email) &&
+      linkedIn !== "" &&
+      github !== "" &&
+      resume != undefined
     );
   };
 
@@ -328,8 +355,8 @@ export default function ApplyCard(params: any) {
               inputsValid
                 ? stylesGlobalFormElements.primaryButton
                 : stylesGlobalFormElements.primaryButton +
-                  " " +
-                  styles.primaryButtonDisabled
+                " " +
+                styles.primaryButtonDisabled
             }
             name="button-1675001572178"
             // style="default"
