@@ -219,7 +219,7 @@ export default function Home() {
                 onChange={(v: any) => setByCompanies(v)}
                 checked={byCompanies}
               />
-              <div className={styles.inputContainer}>
+              {!byCompanies && <div className={styles.inputContainer}>
                 <div className={styles.inputIconContainer}>
                   <svg
                     width="16"
@@ -246,7 +246,7 @@ export default function Home() {
                     }, 1000)
                   }
                 ></input>
-              </div>
+              </div>}
             </div>
             {!byCompanies && (
               <JobFilters
