@@ -55,12 +55,6 @@ export default function ApplyCard(params: any) {
 
   async function storeApplication(data: CandidateData) {
 
-    var content = "";
-    if (data.resume) {
-      const reader = new FileReader(data.resume);
-      const dataUrl = await reader.readAsDataURL();
-      content = dataUrl.split('base64,')[1]
-    }
 
     var raw = JSON.stringify({
       first_name: data.first_name,
@@ -68,13 +62,28 @@ export default function ApplyCard(params: any) {
       email: data.email,
       personal_website_url: data.github,
       linkedin_url: data.linkedin,
-      role: data.role,
-      resume_file: content ? {
-        "filename": "resume.pdf",
-        "contents": content,
-        "private": false
-      } : []
+      role: data.role
     });
+
+    var content = "";
+    if (data.resume) {
+      const reader = new FileReader(data.resume);
+      const dataUrl = await reader.readAsDataURL();
+      content = dataUrl.split('base64,')[1]
+      raw = JSON.stringify({
+        first_name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+        personal_website_url: data.github,
+        linkedin_url: data.linkedin,
+        role: data.role,
+        resume_file: {
+          "filename": "resume.pdf",
+          "contents": content,
+          "private": false
+        }
+      })
+    }
 
     const requestOptions: RequestInit = {
       method: "POST",
