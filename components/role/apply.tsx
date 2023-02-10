@@ -424,15 +424,23 @@ export default function ApplyCard(params: any) {
       {showCandidateDetailModal && (
         <div className={styles_req.modal}>
           <div className={styles_req.modal_content}>
-            <h1>We have already saved your application!</h1>
-            <h3>
-              In order to better match you with the role, please answer a few
-              more questions...
-            </h3>
-            <h3>
-              Tick the checkboxes of the requirements you meet (leave open the
-              ones you do not), and give a short explanation.{" "}
-            </h3>
+            <div className={styles_req.confirmation_message_container}>
+              <p className="body16">Application submitted successfullly</p>
+              <Image
+                width={24}
+                height={24}
+                src={"/check-circle-fill.svg"}
+                alt="Check icon"
+              />
+            </div>
+
+            <h2 className="h1 center marginTop24">Want to stand out?</h2>
+
+            <p className="body16 marginTop4">
+              To make your application stand out, tick the checkboxes of the
+              requirements you meet and highlight any relevant experience in a
+              few words.
+            </p>
             <RequirementsCard
               requirements={params.requirements}
               candidateId={candidateId as string}
@@ -451,7 +459,7 @@ export default function ApplyCard(params: any) {
             <h1>Thanks for applying! We will be in touch soon.</h1>
             <button
               type="submit"
-              className={"primary_button"}
+              className={stylesGlobalFormElements.primaryButton}
               name="button-1675001572178"
               onClick={() => setShowApplicationSuccessModal(false)}
               id="button-close-success-modal"

@@ -170,23 +170,26 @@ body {
   text-transform: uppercase;
 }
 
-.admin{
-  color: red;
+.center {
+  align-self: center;
 }
 
+.marginTop4 {
+  margin-top: 4px;
+}
+.marginTop24 {
+  margin-top: 24px;
+}
+.marginTop32 {
+  margin-top: 32px;
+}
 
-.primary_button {
-	background-color:#f9548e;
-	border-radius:20px;
-	border:0px solid #481f84;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	/* font-family:Arial;
-	font-size:17px; */
-	padding:6px 30px;
-	text-decoration:none;
-  outline-width: 0px;
+.marginLeft8 {
+  margin-left: 4px;
+}
+
+.admin {
+  color: red;
 }
 
 * {
