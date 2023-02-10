@@ -2,7 +2,7 @@ const selectStyles = {
   control: (baseStyles: any, state: any) => ({
     ...baseStyles,
     borderColor: state.isFocused ? "var(--main-color)" : "var(--border-color)",
-    width: "272px",
+    width: "100%",
     borderWidth: "1px",
     borderRadius: "8px",
     boxShadow: "none",
@@ -10,6 +10,10 @@ const selectStyles = {
     "&:hover": {
       borderColor: "var(--main-color)",
     },
+  }),
+  container: (baseStyles: any, state: any) => ({
+    ...baseStyles,
+    width: "100%",
   }),
   // placeholder: (baseStyles: any, state: any) => ({
   //   ...baseStyles,
@@ -30,10 +34,12 @@ const selectStyles = {
     boxShadow: "0px",
     outline: "0px",
     padding: "8px",
+    // width: "100%"
   }),
   menuList: (baseStyles: any, state: any) => ({
     ...baseStyles,
     padding: "0px",
+    // width: "100%"
   }),
   option: (baseStyles: any, state: any) => ({
     ...baseStyles,

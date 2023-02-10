@@ -128,6 +128,8 @@ export default function Home() {
             />
           </div>
           <div className={styles.headerContainer}>
+
+
             <div className={styles.logoImageContainer}>
               <Image
                 src={"/EDEN22Logo_Black.svg"}
@@ -195,6 +197,8 @@ export default function Home() {
               </div>
             </div>
 
+
+
             <div className={"body14 " + styles.headerPoweredByContainer}>
               <svg
                 width="12"
@@ -226,7 +230,7 @@ export default function Home() {
           </div>
 
           <div className={styles.filtersContainer}>
-            <div className={styles.row}>
+            <div className={styles.sliderAndSearch}>
               <SwitchRolesCompanies
                 onChange={(v: any) => setByCompanies(v)}
                 checked={byCompanies}

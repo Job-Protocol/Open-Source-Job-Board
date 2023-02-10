@@ -10,6 +10,7 @@
   flex-direction: row;
   gap: 16px;
   align-items: center;
+  width: 100%;
 }
 
 .locationInputsContainer {
@@ -17,10 +18,31 @@
   flex-direction: row;
   align-items: center;
   gap: 16px;
+  width: 100%;
 }
 
 .includeRemoteContainer {
   display: flex;
   flex-direction: row;
   gap: 8px;
+}
+
+
+@media only screen and (max-width: 1000px) {
+  .row {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 24px;
+    width: 100%;
+    /* width: 100%; */
+  }
+
+  .roleFilterContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+    width: 100%;
+  }
 }

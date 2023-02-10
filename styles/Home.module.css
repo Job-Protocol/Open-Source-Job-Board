@@ -13,6 +13,7 @@
   margin-top: -38px;
   padding-left: 24px;
   padding-right: 24px;
+  color: green;
 }
 
 .logoImageContainer {
@@ -31,6 +32,8 @@
   margin-left: 24px;
   padding-bottom: 8px;
   flex: 1;
+  color: green;
+  z-index: 10;
 }
 
 .headerPoweredByContainer {
@@ -50,7 +53,7 @@
 }
 
 .filtersContainer {
-  /* width: 100%; */
+  /* width: auto; */
   display: flex;
   flex-direction: column;
   margin-top: 32px;
@@ -60,10 +63,11 @@
   gap: 24px;
 }
 
-.row {
+.sliderAndSearch {
   display: flex;
   flex-direction: row;
   flex: 1;
+  /* width: 100%; */
 }
 
 .inputContainer {
@@ -71,6 +75,7 @@
   display: flex;
   flex: 1;
   margin-left: 24px;
+  width: 100%;
 }
 
 .inputIconContainer {
@@ -94,6 +99,7 @@
   border-width: 1px;
   border-color: var(--border-color);
   border-radius: 32px;
+  min-height: 36px;
   /* color: #1f2534cc; */
 }
 
@@ -107,4 +113,81 @@
   border-color: var(--main-color);
   outline: none !important;
   box-shadow: 0;
+}
+
+
+.alwaysRow{
+  display: flex;
+  flex-direction: row;
+}
+
+@media only screen and (max-width: 1000px) {
+
+  .headerContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: -38px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .logoImageContainer {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+    background-color: white;
+    border-radius: 8px;
+    border-color: var(--border-color);
+    border-width: 1px;
+  }
+
+  .h1 {
+    font-size: 10px;
+  }
+  .logoImageContainer {
+    width: 154px;
+    height: 154px;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, -0%);
+    overflow: hidden;
+    background-color: white;
+    border-radius: 8px;
+    border-color: var(--border-color);
+    border-width: 1px;
+  }
+
+  .headerTextContainer {
+    align-self: center;
+    /* margin-left: 24px; */
+    /* padding-bottom: 8px; */
+    flex: 1;
+    z-index: 10;
+    text-align: center;
+  }
+
+  .headerPoweredByContainer {
+    display: none;
+    visibility: collapse;
+  }
+  .headerIconsContainer {
+    align-self: center;
+    display: flex;
+    margin-top: 12px;
+    flex-direction: row;
+    gap: 16px;
+    align-content: center;
+    justify-content: center;
+  }
+
+  .sliderAndSearch {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    align-items: center;
+    width: 100%;
+  }
+
+
 }

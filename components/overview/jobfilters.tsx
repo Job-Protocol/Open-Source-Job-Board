@@ -81,15 +81,16 @@ export default function JobFilters({
               setUserLocation(val.value);
             }}
           />
-          <div className={"body16 " + styles.includeRemoteContainer}>
-            <input
-              className={styles.inputCheckbox}
-              type="checkbox"
-              onChange={(value) => setRemoteOnly(!remoteOnly)}
-            />
-            Remote Only
-          </div>
         </div>
+
+      </div>
+      <div className={"body16 " + styles.roleFilterContainer}>
+        <input
+          className={styles.inputCheckbox}
+          type="checkbox"
+          onChange={(value) => setRemoteOnly(!remoteOnly)}
+        />
+        Remote Only
       </div>
     </div>
   );

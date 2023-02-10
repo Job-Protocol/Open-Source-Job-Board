@@ -36,7 +36,7 @@ export default function SearchBox(data: Props) {
   }
 
   return (
-    <div>
+    <div className={styles.input}>
       <Select
         // className="basic-single"
         // classNamePrefix="select"
