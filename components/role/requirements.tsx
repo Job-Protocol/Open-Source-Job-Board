@@ -109,7 +109,7 @@ export default function RequirementsCard(data: CardProps) {
             </div>
             < button
                 type="submit"
-                className={styles.primary_button}
+                className={"primary_button"}
                 name="button-1675001572178"
                 onClick={() => {
                     requirements.forEach((req, index) => {

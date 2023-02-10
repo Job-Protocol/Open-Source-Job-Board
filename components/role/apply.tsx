@@ -424,6 +424,15 @@ export default function ApplyCard(params: any) {
         <div className={styles_req.modal}>
           <div className={styles_req.modal_content}>
             <h1>Thanks for applying! We will be in touch soon.</h1>
+            < button
+              type="submit"
+              className={"primary_button"}
+              name="button-1675001572178"
+              onClick={() => setShowApplicationSuccessModal(false)}
+              id="button-close-success-modal"
+            >
+              close
+            </button>
           </div>
         </div>
       )}
