@@ -8,11 +8,12 @@ import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.css";
 import Swal from "sweetalert2";
 import { validateEmail } from "@/utils";
 import Image from "next/image";
-import FileReader from '@tanker/file-reader';
+import FileReader from "@tanker/file-reader";
 import { Requirement, RoleType } from "@/bubble_types";
 
-import RequirementsCard from "@/components/role/requirements";
+import { getConfig } from "@/utils";
 
+import RequirementsCard from "@/components/role/requirements";
 
 import {
   FaGithub,
@@ -53,8 +54,10 @@ export default function ApplyCard(params: any) {
   const [buttonClicked, setButtonClicked] = useState<boolean>(false);
   const [inputsValid, setInputsValid] = useState<boolean>(false);
   const [resume, setResume] = useState<File | undefined>(undefined);
-  const [showApplicationSuccessModal, setShowApplicationSuccessModal] = useState<boolean>(false);
-  const [showCandidateDetailModal, setShowCandidateDetailModal] = useState<boolean>(false);
+  const [showApplicationSuccessModal, setShowApplicationSuccessModal] =
+    useState<boolean>(false);
+  const [showCandidateDetailModal, setShowCandidateDetailModal] =
+    useState<boolean>(false);
   // const [requirements, setRequirements] = useState<Requirement[]>([]);
   const [candidateId, setCandidateId] = useState<string>("");
 
@@ -63,8 +66,12 @@ export default function ApplyCard(params: any) {
     // const response = await fetch(url);
   }
 
-  async function storeApplication(data: CandidateData, checkRequirements: boolean) {
-
+  async function storeApplication(
+    data: CandidateData,
+    checkRequirements: boolean
+  ) {
+    const referred_by = getConfig()["referred_by"];
+    console.log("referred by", referred_by);
 
     var raw = JSON.stringify({
       first_name: data.first_name,
@@ -72,14 +79,18 @@ export default function ApplyCard(params: any) {
       email: data.email,
       personal_website_url: data.github,
       linkedin_url: data.linkedin,
-      role: data.role
+      role: data.role,
+      referred_by: referred_by,
+      referral_type: "Link",
+      state: "New",
+      has_confirmed_interest: true,
     });
 
     var content = "";
     if (data.resume) {
       const reader = new FileReader(data.resume);
       const dataUrl = await reader.readAsDataURL();
-      content = dataUrl.split('base64,')[1]
+      content = dataUrl.split("base64,")[1];
       raw = JSON.stringify({
         first_name: data.first_name,
         last_name: data.last_name,
@@ -87,12 +98,16 @@ export default function ApplyCard(params: any) {
         personal_website_url: data.github,
         linkedin_url: data.linkedin,
         role: data.role,
+        referred_by: referred_by,
+        referral_type: "Link",
+        state: "New",
+        has_confirmed_interest: true,
         resume_file: {
-          "filename": "resume.pdf",
-          "contents": content,
-          "private": false
-        }
-      })
+          filename: "resume.pdf",
+          contents: content,
+          private: false,
+        },
+      });
     }
 
     const requestOptions: RequestInit = {
@@ -123,7 +138,7 @@ export default function ApplyCard(params: any) {
     ];
     //postMessages(msg);
     // params.handleChange(true, candidate_id);
-    setCandidateId(candidate_id)
+    setCandidateId(candidate_id);
     // Swal.fire({
     //   title: "Success!",
     //   text: "You sucessfully submitted an appication. We will be in touch",
@@ -162,17 +177,19 @@ export default function ApplyCard(params: any) {
       setGithub(event.target.value);
     } else if (event.target.id === "input-wallet-address") {
       setWalletAddress(event.target.value);
-    }
-    else if (event.target.id === "input-resume") {
-      const Tempfile = event.target.files[0]
+    } else if (event.target.id === "input-resume") {
+      const Tempfile = event.target.files[0];
       if (!Tempfile) {
-        return
+        return;
       }
       // check file size
-      const size = parseInt(((Tempfile.size / 1024) / 1024).toFixed(4))
-      let file = new File([Tempfile.slice(0, Tempfile.size, 'application/pdf')], event.target.value, { type: 'application/pdf' });
+      const size = parseInt((Tempfile.size / 1024 / 1024).toFixed(4));
+      let file = new File(
+        [Tempfile.slice(0, Tempfile.size, "application/pdf")],
+        event.target.value,
+        { type: "application/pdf" }
+      );
       setResume(file);
-
     }
     checkInputsValid();
   };
@@ -180,26 +197,29 @@ export default function ApplyCard(params: any) {
   const submitApplication = (e: SyntheticEvent) => {
     e.preventDefault();
     setButtonClicked(true);
-    storeApplication({
-      first_name: firstName,
-      last_name: lastName,
-      email: email,
-      linkedin: linkedIn,
-      github: "",
-      role: ROLEID,
-      resume: resume//TODO Lukas
-    }, params.requirements !== undefined);
+    storeApplication(
+      {
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        linkedin: linkedIn,
+        github: "",
+        role: ROLEID,
+        resume: resume, //TODO Lukas
+      },
+      params.requirements !== undefined
+    );
   };
 
   const checkInputsValid = () => {
     setInputsValid(
       firstName !== "" &&
-      lastName !== "" &&
-      email !== "" &&
-      validateEmail(email) &&
-      linkedIn !== "" &&
-      github !== "" &&
-      resume != undefined
+        lastName !== "" &&
+        email !== "" &&
+        validateEmail(email) &&
+        linkedIn !== "" &&
+        github !== "" &&
+        resume != undefined
     );
   };
 
@@ -309,26 +329,29 @@ export default function ApplyCard(params: any) {
               value={linkedIn}
             />
           </div>
-          {(params.role_type === RoleType.Engineering || params.role_type === undefined) && <div className={styles.formItem}>
-            <label
-              htmlFor="text-github"
-              className={"body16 " + styles.formLabel}
-            >
-              <FaGithub />
-              Github
-            </label>
-            <input
-              type="text"
-              className={
-                stylesGlobalFormElements.input +
-                " " +
-                stylesGlobalFormElements.inputSquare
-              }
-              onChange={processInput}
-              id="input-github"
-              value={github}
-            />
-          </div>}
+          {(params.role_type === RoleType.Engineering ||
+            params.role_type === undefined) && (
+            <div className={styles.formItem}>
+              <label
+                htmlFor="text-github"
+                className={"body16 " + styles.formLabel}
+              >
+                <FaGithub />
+                Github
+              </label>
+              <input
+                type="text"
+                className={
+                  stylesGlobalFormElements.input +
+                  " " +
+                  stylesGlobalFormElements.inputSquare
+                }
+                onChange={processInput}
+                id="input-github"
+                value={github}
+              />
+            </div>
+          )}
           <div className={styles.formItem}>
             <label
               htmlFor="file-1675001423592"
@@ -385,8 +408,8 @@ export default function ApplyCard(params: any) {
               inputsValid
                 ? stylesGlobalFormElements.primaryButton
                 : stylesGlobalFormElements.primaryButton +
-                " " +
-                styles.primaryButtonDisabled
+                  " " +
+                  styles.primaryButtonDisabled
             }
             name="button-1675001572178"
             // style="default"
@@ -398,18 +421,17 @@ export default function ApplyCard(params: any) {
         </div>
       </div>
 
-
       {showCandidateDetailModal && (
         <div className={styles_req.modal}>
           <div className={styles_req.modal_content}>
             <h1>We have already saved your application!</h1>
             <h3>
-              In order to better match you with the role, please answer a
-              few more questions...
+              In order to better match you with the role, please answer a few
+              more questions...
             </h3>
             <h3>
-              Tick the checkboxes of the requirements you meet (leave open
-              the ones you do not), and give a short explanation.{" "}
+              Tick the checkboxes of the requirements you meet (leave open the
+              ones you do not), and give a short explanation.{" "}
             </h3>
             <RequirementsCard
               requirements={params.requirements}
@@ -427,7 +449,7 @@ export default function ApplyCard(params: any) {
         <div className={styles_req.modal}>
           <div className={styles_req.modal_content}>
             <h1>Thanks for applying! We will be in touch soon.</h1>
-            < button
+            <button
               type="submit"
               className={"primary_button"}
               name="button-1675001572178"
@@ -439,10 +461,6 @@ export default function ApplyCard(params: any) {
           </div>
         </div>
       )}
-
-
-
-
     </div>
   );
 }

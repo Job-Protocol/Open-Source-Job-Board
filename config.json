@@ -1,8 +1,10 @@
 {
-    "dev":{
-        "endpoint": "https://app.jobprotocol.xyz/version-test/api/1.1"
-    },
-    "production": {
-        "endpoint": "https://app.jobprotocol.xyz/version-live/api/1.1"
-    }
+  "dev": {
+    "endpoint": "https://app.jobprotocol.xyz/version-test/api/1.1",
+    "referred_by": "1676037808717x302708011011547640"
+  },
+  "production": {
+    "endpoint": "https://app.jobprotocol.xyz/version-live/api/1.1",
+    "referred_by": "1676037846312x571281925428177800"
+  }
 }
