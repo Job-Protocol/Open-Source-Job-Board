@@ -5,6 +5,7 @@
   border-width: 1px;
   border-color: var(--border-color);
   color: #1f2534cc;
+  width: 100%;
 }
 
 .inputRound {
@@ -52,4 +53,18 @@
 
 .primaryButtonDisabled {
   opacity: 0.25;
+}
+
+
+@media only screen and (max-width: 1000px) {
+
+  .input {
+    display: block;
+    flex: 1;
+  
+    border-width: 1px;
+    border-color: var(--border-color);
+    color: #1f2534cc;
+    /* width: 100%; */
+  }
 }

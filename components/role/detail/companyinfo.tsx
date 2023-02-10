@@ -6,6 +6,7 @@ import {
   FaUserFriends,
 } from "react-icons/fa";
 import styles from "@/styles/Companyinfo.module.css";
+import styles_role_detail from "@/styles/Roledetailpage.module.css";
 import { Company } from "@/bubble_types";
 
 import Image from "next/image";
@@ -23,7 +24,7 @@ export default function CompanyCard(data: CompanyCardProps) {
     return s && s != "";
   }
   return (
-    <div className={styles.card}>
+    <div className={styles_role_detail.card + " flex-3"}>
       <h3 className={"body18Bold"}>About {data.company.name}</h3>
       <div className={styles.section}>
         <h4 className={"chapeauDark"}>Mission</h4>

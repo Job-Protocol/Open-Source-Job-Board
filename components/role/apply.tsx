@@ -2,6 +2,7 @@ import React, { SyntheticEvent } from "react";
 import { useState } from "react";
 //import { postMessages } from "@/utils"; //TODO(scheuclu): Issue with Slack token.
 import styles from "@/styles/Applycard.module.css";
+import styles_role_detail from "@/styles/Roledetailpage.module.css";
 import styles_req from "@/styles/Requirements.module.css";
 import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.css";
 import Swal from "sweetalert2";
@@ -36,7 +37,6 @@ export interface ApplyCardProps {
   role_type: RoleType;
   company_name: string;
   tole_title: string;
-  handleChange: (sucess: boolean, candidate_id: string) => void;
   requirements: Requirement[];
 }
 
@@ -122,7 +122,7 @@ export default function ApplyCard(params: any) {
       ` `,
     ];
     //postMessages(msg);
-    params.handleChange(true, candidate_id);
+    // params.handleChange(true, candidate_id);
     setCandidateId(candidate_id)
     // Swal.fire({
     //   title: "Success!",
@@ -204,7 +204,7 @@ export default function ApplyCard(params: any) {
   };
 
   return (
-    <div className={styles.card}>
+    <div className={styles_role_detail.card}>
       <h2 className={"body18Bold"}>Apply for this position</h2>
       <div className={styles.formContainer}>
         <div className={styles.formItemGroup}>
@@ -299,7 +299,9 @@ export default function ApplyCard(params: any) {
               className={
                 stylesGlobalFormElements.input +
                 " " +
-                stylesGlobalFormElements.inputSquare
+                stylesGlobalFormElements.inputSquare +
+                " " +
+                styles.fullwidth
               }
               name="text-1675001387870"
               onChange={processInput}

@@ -188,3 +188,7 @@ body {
 	text-decoration:none;
   outline-width: 0px;
 }
+
+* {
+  box-sizing: border-box;
+}
