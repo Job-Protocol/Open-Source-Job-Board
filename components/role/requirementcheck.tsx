@@ -31,7 +31,7 @@ export default function RequirementCheck(data: CardProps) {
   }
   return (
     <div key="asdas">
-      <div key={req.desc} className={styles.requirementCheckboxLabelContainer}>
+      <div key={req.id} className={styles.requirementCheckboxLabelContainer}>
         <input
           type="checkbox"
           className={stylesGlobalFormElements.checkbox}

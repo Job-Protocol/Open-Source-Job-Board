@@ -429,7 +429,10 @@ export default function ApplyCard(params: any) {
             setShowApplicationSuccessModal(true);
           }}
         >
-          <div className={styles_req.modal_content}>
+          <div
+            className={styles_req.modal_content}
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className={styles_req.confirmation_message_container}>
               <p className="body16">Application submitted successfullly</p>
               <Image
@@ -468,6 +471,7 @@ export default function ApplyCard(params: any) {
             className={
               styles_req.modal_content + " " + styles_req.modal_content_success
             }
+            onClick={(e) => e.stopPropagation()}
           >
             <Image
               width={64}

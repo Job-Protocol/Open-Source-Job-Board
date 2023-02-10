@@ -2,6 +2,14 @@ import type { NextApiRequest, NextApiResponse } from "next";
 // import config from "../../../config.json";
 import { getConfig } from "@/utils";
 
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "5mb", // Set desired value here
+    },
+  },
+};
+
 export default async function candidate_handler(
   req: NextApiRequest,
   res: NextApiResponse
