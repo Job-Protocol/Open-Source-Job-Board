@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import { validateEmail } from "@/utils";
 import Image from "next/image";
 import FileReader from '@tanker/file-reader';
-import { Requirement } from "@/bubble_types";
+import { Requirement, RoleType } from "@/bubble_types";
 
 import RequirementsCard from "@/components/role/requirements";
 
@@ -33,6 +33,7 @@ type CandidateData = {
 
 export interface ApplyCardProps {
   role_id: string;
+  role_type: RoleType;
   company_name: string;
   tole_title: string;
   handleChange: (sucess: boolean, candidate_id: string) => void;
@@ -306,7 +307,7 @@ export default function ApplyCard(params: any) {
               value={linkedIn}
             />
           </div>
-          <div className={styles.formItem}>
+          {(params.role_type === RoleType.Engineering || params.role_type === undefined) && <div className={styles.formItem}>
             <label
               htmlFor="text-github"
               className={"body16 " + styles.formLabel}
@@ -325,7 +326,7 @@ export default function ApplyCard(params: any) {
               id="input-github"
               value={github}
             />
-          </div>
+          </div>}
           <div className={styles.formItem}>
             <label
               htmlFor="file-1675001423592"
