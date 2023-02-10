@@ -15,7 +15,7 @@ export default function JobCard(data: JobCardProps) {
   const role = data.role;
   const link: string = "/role/" + role.id;
   return (
-    <Link href={link}>
+    <Link href={link} className={styles.card}>
       <div className={styles.roleInfo}>
         <Image
           src={role.company.logo.replace("//s3", "https://s3")}
