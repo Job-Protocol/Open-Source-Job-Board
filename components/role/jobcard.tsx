@@ -3,6 +3,7 @@ import styles from "@/styles/Jobcard.module.css";
 import { Role } from "@/bubble_types";
 import RoleConditions from "./detail/roleconditions";
 import Image from "next/image";
+import Link from 'next/link'
 
 import { RoleState } from "@/bubble_types";
 
@@ -12,14 +13,9 @@ export interface JobCardProps {
 
 export default function JobCard(data: JobCardProps) {
   const role = data.role;
-  const link: string = "role/" + role.id;
+  const link: string = "/role/" + role.id;
   return (
-    <a
-      href={link}
-      className={styles.card}
-      // target="_blank"
-      rel="alternate"
-    >
+    <Link href={link}>
       <div className={styles.roleInfo}>
         <Image
           src={role.company.logo.replace("//s3", "https://s3")}
@@ -55,6 +51,6 @@ export default function JobCard(data: JobCardProps) {
           
         </div> */}
       </div>
-    </a>
+    </Link>
   );
 }
