@@ -127,7 +127,8 @@ export default function Home() {
                 <RoleConditions role={role} isInverted={true} />
               </div>
             </div>
-            <div className={styles.roleOptionsContainer}>
+            {/* TODO(scheuclu) Role options are disabled until we have the data */}
+            {/* <div className={styles.roleOptionsContainer}>
               <div className={styles.roleOptionContainer}>
                 <div className={styles.roleOptionIconContainer}>
                   <Image
@@ -197,7 +198,7 @@ export default function Home() {
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className={styles.JDAndCompanyCardContainer}>
             <JdCard desc={role?.desc as string} />
