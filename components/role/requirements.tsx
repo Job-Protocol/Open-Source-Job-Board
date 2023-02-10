@@ -47,13 +47,13 @@ async function storeRequirementArgument(data: RequirementArgumentData) {
     //     ` `,
     // ];
     // postMessages(msg);
-    Swal.fire({
-        title: "Success!",
-        text: "You sucessfully answered out questions. We will be in touch",
-        icon: "success",
-        iconColor: "#481f84",
-        confirmButtonText: "Cool",
-    });
+    // Swal.fire({
+    //     title: "Success!",
+    //     text: "You sucessfully answered out questions. We will be in touch",
+    //     icon: "success",
+    //     iconColor: "#481f84",
+    //     confirmButtonText: "Cool",
+    // });
 }
 
 

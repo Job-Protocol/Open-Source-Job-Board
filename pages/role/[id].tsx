@@ -209,18 +209,7 @@ export default function Home() {
             role_type={role?.type}
             company_name={role?.company.name}
             role_title={role?.title}
-            handleChange={(success: boolean, candidate_id: string) => {
-              if (success) {
-                setCandidateId(candidate_id);
-                //If there are role requirements, show the requirements modal.
-                //Else show the success modal
-                if (role.requirements) {
-                  setShowCandidateDetailModal(true);
-                } else {
-                  setShowApplicationSuccessModal(true);
-                }
-              }
-            }}
+            requirements={role?.requirements}
           />
 
           {/* TODO(scheuclu): replace with candidate_id */}
