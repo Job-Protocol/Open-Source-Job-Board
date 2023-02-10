@@ -2,11 +2,15 @@ import React, { SyntheticEvent } from "react";
 import { useState } from "react";
 //import { postMessages } from "@/utils"; //TODO(scheuclu): Issue with Slack token.
 import styles from "@/styles/Applycard.module.css";
+import styles_req from "@/styles/Requirements.module.css";
 import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.css";
 import Swal from "sweetalert2";
 import { validateEmail } from "@/utils";
 import Image from "next/image";
 import FileReader from '@tanker/file-reader';
+import { Requirement } from "@/bubble_types";
+
+import RequirementsCard from "@/components/role/requirements";
 
 
 import {
@@ -32,6 +36,7 @@ export interface ApplyCardProps {
   company_name: string;
   tole_title: string;
   handleChange: (sucess: boolean, candidate_id: string) => void;
+  requirements: Requirement[];
 }
 
 export default function ApplyCard(params: any) {
@@ -47,13 +52,17 @@ export default function ApplyCard(params: any) {
   const [buttonClicked, setButtonClicked] = useState<boolean>(false);
   const [inputsValid, setInputsValid] = useState<boolean>(false);
   const [resume, setResume] = useState<File | undefined>(undefined);
+  const [showApplicationSuccessModal, setShowApplicationSuccessModal] = useState<boolean>(false);
+  const [showCandidateDetailModal, setShowCandidateDetailModal] = useState<boolean>(false);
+  // const [requirements, setRequirements] = useState<Requirement[]>([]);
+  const [candidateId, setCandidateId] = useState<string>("");
 
   async function sendMail(candidate_id: string) {
     // const url = "../api/candidate/sendmail?id=" + candidate_id;
     // const response = await fetch(url);
   }
 
-  async function storeApplication(data: CandidateData) {
+  async function storeApplication(data: CandidateData, checkRequirements: boolean) {
 
 
     var raw = JSON.stringify({
@@ -113,6 +122,7 @@ export default function ApplyCard(params: any) {
     ];
     //postMessages(msg);
     params.handleChange(true, candidate_id);
+    setCandidateId(candidate_id)
     // Swal.fire({
     //   title: "Success!",
     //   text: "You sucessfully submitted an appication. We will be in touch",
@@ -120,6 +130,12 @@ export default function ApplyCard(params: any) {
     //   iconColor: "#481f84",
     //   confirmButtonText: "Cool",
     // });
+
+    if (checkRequirements) {
+      setShowCandidateDetailModal(true);
+    } else {
+      setShowApplicationSuccessModal(true);
+    }
 
     //Clear the form
     setFirstName("");
@@ -170,8 +186,8 @@ export default function ApplyCard(params: any) {
       linkedin: linkedIn,
       github: "",
       role: ROLEID,
-      resume: resume,//TODO Lukas
-    });
+      resume: resume//TODO Lukas
+    }, params.requirements !== undefined);
   };
 
   const checkInputsValid = () => {
@@ -378,6 +394,43 @@ export default function ApplyCard(params: any) {
           </button>
         </div>
       </div>
+
+
+      {showCandidateDetailModal && (
+        <div className={styles_req.modal}>
+          <div className={styles_req.modal_content}>
+            <h1>We have already saved your application!</h1>
+            <h3>
+              In order to better match you with the role, please answer a
+              few more questions...
+            </h3>
+            <h3>
+              Tick the checkboxes of the requirements you meet (leave open
+              the ones you do not), and give a short explanation.{" "}
+            </h3>
+            <RequirementsCard
+              requirements={params.requirements}
+              candidateId={candidateId as string}
+              handleChange={(success: boolean) => {
+                setShowCandidateDetailModal(false);
+                setShowApplicationSuccessModal(true);
+              }}
+            />
+          </div>
+        </div>
+      )}
+
+      {showApplicationSuccessModal && (
+        <div className={styles_req.modal}>
+          <div className={styles_req.modal_content}>
+            <h1>Thanks for applying! We will be in touch soon.</h1>
+          </div>
+        </div>
+      )}
+
+
+
+
     </div>
   );
 }

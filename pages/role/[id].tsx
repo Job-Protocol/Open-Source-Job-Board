@@ -31,6 +31,7 @@ export default function Home() {
   const [role, setRole] = useState<Role>();
   const [showCandidateDetailModal, setShowCandidateDetailModal] =
     useState(false);
+  const [showApplicationSuccessModal, setShowApplicationSuccessModal] = useState<boolean>(false);
   const [candidateId, setCandidateId] = useState<string | undefined>(undefined);
   const [logoDark, setLogoDark] = useState<boolean>(false);
 
@@ -209,42 +210,22 @@ export default function Home() {
             handleChange={(success: boolean, candidate_id: string) => {
               if (success) {
                 setCandidateId(candidate_id);
-                setShowCandidateDetailModal(true);
+                //If there are role requirements, show the requirements modal.
+                //Else show the success modal
+                if (role.requirements) {
+                  setShowCandidateDetailModal(true);
+                } else {
+                  setShowApplicationSuccessModal(true);
+                }
               }
             }}
           />
-          {/* show only  after the initial applicaion has been successfulll */}
-          {showCandidateDetailModal && (
-            <div className={styles_req.modal}>
-              <div className={styles_req.modal_content}>
-                <h1>We have already saved your application!</h1>
-                <h3>
-                  In order to better match you with the role, please answer a
-                  few more questions...
-                </h3>
-                <h3>
-                  Tick the checkboxes of the requirements you meet (leave open
-                  the ones you do not), and give a short explanation.{" "}
-                </h3>
-                <RequirementsCard
-                  requirements={role.requirements}
-                  candidateId={candidateId as string}
-                  handleChange={(success: boolean) => {
-                    setShowCandidateDetailModal(false);
-                  }}
-                />
-              </div>
-            </div>
-          )}
+
           {/* TODO(scheuclu): replace with candidate_id */}
           <div className={styles.headerBackgroundGradientContainer}></div>
           <Footer />
         </div>
       </div>
-
-      {/* <main className={styles.main}>
-        
-      </main> */}
     </div>
   );
 }
