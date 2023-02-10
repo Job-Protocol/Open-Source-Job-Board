@@ -422,7 +422,13 @@ export default function ApplyCard(params: any) {
       </div>
 
       {showCandidateDetailModal && (
-        <div className={styles_req.modal}>
+        <div
+          className={styles_req.modal}
+          onClick={() => {
+            setShowCandidateDetailModal(false);
+            setShowApplicationSuccessModal(true);
+          }}
+        >
           <div className={styles_req.modal_content}>
             <div className={styles_req.confirmation_message_container}>
               <p className="body16">Application submitted successfullly</p>
@@ -454,10 +460,27 @@ export default function ApplyCard(params: any) {
       )}
 
       {showApplicationSuccessModal && (
-        <div className={styles_req.modal}>
-          <div className={styles_req.modal_content}>
-            <h1>Thanks for applying! We will be in touch soon.</h1>
-            <button
+        <div
+          className={styles_req.modal}
+          onClick={() => setShowApplicationSuccessModal(false)}
+        >
+          <div
+            className={
+              styles_req.modal_content + " " + styles_req.modal_content_success
+            }
+          >
+            <Image
+              width={64}
+              height={64}
+              src={"/check-circle-fill.svg"}
+              alt="Check icon"
+            />
+            <h2 className="h1 marginTop16">Application Submitted!</h2>
+
+            <p className="body14 marginTop4">
+              You’ll hear about next steps through email in the next few days.
+            </p>
+            {/* <button
               type="submit"
               className={stylesGlobalFormElements.primaryButton}
               name="button-1675001572178"
@@ -465,7 +488,7 @@ export default function ApplyCard(params: any) {
               id="button-close-success-modal"
             >
               close
-            </button>
+            </button> */}
           </div>
         </div>
       )}
