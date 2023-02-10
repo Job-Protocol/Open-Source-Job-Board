@@ -17,13 +17,17 @@ export default function JobCard(data: JobCardProps) {
   return (
     <Link href={link} className={styles.card}>
       <div className={styles.roleInfo}>
-        <Image
-          src={role.company.logo.replace("//s3", "https://s3")}
-          alt="Logo"
-          width={100}
-          height={100}
-          className={styles.logo}
-        />
+        <div className={styles.roleInfoImage}>
+          <Image
+            src={role.company.logo.replace("//s3", "https://s3")}
+            alt="Logo"
+            width={100}
+            height={100}
+            // layout="fill"
+            style={{ objectFit: 'fill' }}
+            className={styles.logo}
+          />
+        </div>
 
         <div className={styles.roleInfoText}>
           {/* {role.state != RoleState.Live && process.env.NEXT_PUBLIC_ADMIN && <p className="admin">This role is not yet live</p>} */}
@@ -33,8 +37,14 @@ export default function JobCard(data: JobCardProps) {
           </div>
 
           <h3 className={"body16"}>{role.company.tagline}</h3>
-          <RoleConditions role={role} />
+          <div className={styles.roleConditionsDesktop}>
+            <RoleConditions role={role} />
+          </div>
         </div>
+
+      </div>
+      <div className={styles.roleConditionsMobile}>
+        <RoleConditions role={role} />
       </div>
       <div className={styles.applyContainer}>
         <button

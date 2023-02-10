@@ -26,6 +26,15 @@
   flex: 1;
 }
 
+.roleInfoImage {
+  /* background-color: green; */
+  flex-grow: 0;     /* do not grow   - initial value: 0 */
+  flex-shrink: 0;   /* do not shrink - initial value: 1 */
+  flex-basis: 100px; /* width/height  - initial value: auto */
+  vertical-align: middle;
+  align-items: center
+}
+
 .roleInfoText {
   display: flex;
   flex-direction: column;
@@ -59,4 +68,55 @@
   /* align-self: flex-end; */
   background-color: var(--main-color);
   color: white;
+}
+
+.roleConditionsMobile {
+  display: none;
+  visibility: collapse;
+}
+
+.roleConditionsDesktop {
+  visibility: visible;
+}
+
+
+@media only screen and (max-width: 1000px) {
+  .roleInfo {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .applyButton {
+    /* align-self: flex-end; */
+    border-color: var(--main-color);
+    border-width: 1px;
+    border-radius: 8px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 16px;
+    padding-right: 16px;
+    display: none;
+    visibility: collapse;
+  }
+
+  .roleConditionsMobile {
+    display: contents;
+    visibility: visible;
+  }
+  
+  .roleConditionsDesktop {
+    display: none;
+    visibility: collapse;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background-color: white;
+    border-color: var(--border-color);
+    border-width: 1px;
+    border-radius: 8px;
+  }
+
 }
