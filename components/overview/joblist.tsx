@@ -12,6 +12,8 @@ import SearchBox from "@/components/overview/searchbox";
 
 import JobFilters from "./jobfilters";
 
+import Loading from "@/components/loading"
+
 import {
   GeographicAddress,
   Role,
@@ -26,6 +28,8 @@ export interface Props {
 
 export default function Joblist(data: Props) {
   const roles: Role[] = data.roles;
+
+  if (!roles || roles.length == 0) return (<Loading />);
 
   return (
     <div className={styles.jobListContainer}>
