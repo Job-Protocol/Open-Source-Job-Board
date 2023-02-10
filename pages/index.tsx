@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "@/styles/Home.module.css";
 import SearchBox from "@/components/overview/searchbox";
 import Joblist from "@/components/overview/joblist";
@@ -140,46 +141,57 @@ export default function Home() {
               <h1 className={"h1"}>ETH Denver Job Board</h1>
               <h2 className={"body18"}>The best jobs in crypto</h2>
               <div className={styles.headerIconsContainer}>
-                <Image
-                  src={"/globe.svg"}
-                  alt="Globe icon"
-                  width={16}
-                  height={16}
-                //style={{borderRadius: 8}}
-                // objectFit="cover"
-                />
-                <Image
-                  src={"/twitter.svg"}
-                  alt="Twitter icon"
-                  width={16}
-                  height={16}
-                //style={{borderRadius: 8}}
-                // objectFit="cover"
-                />
-                <Image
-                  src={"/facebook.svg"}
-                  alt="Twitter icon"
-                  width={16}
-                  height={16}
-                //style={{borderRadius: 8}}
-                // objectFit="cover"
-                />
-                <Image
-                  src={"/linkedin-square-colored.svg"}
-                  alt="Twitter icon"
-                  width={16}
-                  height={16}
-                //style={{borderRadius: 8}}
-                // objectFit="cover"
-                />
-                <Image
-                  src={"/Discord_Logo_sans_texte 1.svg"}
-                  alt="Twitter icon"
-                  width={16}
-                  height={16}
-                //style={{borderRadius: 8}}
-                // objectFit="cover"
-                />
+                <Link href={"https://www.jobprotocol.xyz"}>
+                  <Image
+                    src={"/globe.svg"}
+                    alt="Globe icon"
+                    width={16}
+                    height={16}
+
+                  //style={{borderRadius: 8}}
+                  // objectFit="cover"
+                  />
+                </Link>
+                <Link href={"https://twitter.com/jobprotocol"}>
+                  <Image
+                    src={"/twitter.svg"}
+                    alt="Twitter icon"
+                    width={16}
+                    height={16}
+                  //style={{borderRadius: 8}}
+                  // objectFit="cover"
+                  />
+                </Link>
+                {/* <Link href={"https://www.google.com"}>
+                  <Image
+                    src={"/facebook.svg"}
+                    alt="Twitter icon"
+                    width={16}
+                    height={16}
+                  //style={{borderRadius: 8}}
+                  // objectFit="cover"
+                  />
+                </Link> */}
+                <Link href={"https://www.linkedin.com/company/jobprotocol/"}>
+                  <Image
+                    src={"/linkedin-square-colored.svg"}
+                    alt="Twitter icon"
+                    width={16}
+                    height={16}
+                  //style={{borderRadius: 8}}
+                  // objectFit="cover"
+                  />
+                </Link>
+                <Link href={"https://discord.gg/GUH7C8GYZq"}>
+                  <Image
+                    src={"/Discord_Logo_sans_texte 1.svg"}
+                    alt="Twitter icon"
+                    width={16}
+                    height={16}
+                  //style={{borderRadius: 8}}
+                  // objectFit="cover"
+                  />
+                </Link>
               </div>
             </div>
 
