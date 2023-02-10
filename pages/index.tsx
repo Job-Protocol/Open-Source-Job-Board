@@ -56,13 +56,13 @@ export default function Home() {
   const [companies, setCompanies] = useState<Company[]>([]);
 
   const [byCompanies, setByCompanies] = useState<boolean>(false);
-  const [roles, setRoles] = useState<Role[]>([]);
-  const [filteredRoles, setFilteredRoles] = useState<Role[]>([]);
+  const [roles, setRoles] = useState<Role[] | undefined>(undefined);
+  const [filteredRoles, setFilteredRoles] = useState<Role[] | undefined>(undefined);
   const [userAddress, setUserAddress] = useState<GeographicAddress | undefined>(
     undefined
   );
   const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
-  const [filter, setFilter] = useState<Filter>();
+  const [filter, setFilter] = useState<Filter | undefined>(undefined);
   const [roleType, setRoleType] = useState<RoleType | undefined>(undefined);
   const [searchterm, setSearchterm] = useState<string | undefined>(undefined);
 
@@ -90,7 +90,8 @@ export default function Home() {
   }, [companyIDs]);
 
   useEffect(() => {
-    if (roles) {
+    if (roles !== undefined) {
+      console.log("Setting filter ");
       setFilter(new Filter(roles));
     }
   }, [roles]);

@@ -23,13 +23,16 @@ import {
 } from "@/bubble_types";
 
 export interface Props {
-  roles: Role[];
+  roles: Role[] | undefined;
 }
 
 export default function Joblist(data: Props) {
-  const roles: Role[] = data.roles;
 
-  if (!roles || roles.length == 0) return (<Loading />);
+
+  if (!data.roles) return (<Loading />);
+  // if (data.roles.length == 0) return (<p>N data</p>);
+
+  const roles: Role[] = data.roles;
 
   return (
     <div className={styles.jobListContainer}>
