@@ -47,6 +47,7 @@ export default function ApplyCard(params: any) {
   const ROLE_TITLE: string = params.role_title;
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
+  const [location, setLocation] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [linkedIn, setLinkedIn] = useState<string>("");
   const [github, setGithub] = useState<string>("");
@@ -60,6 +61,7 @@ export default function ApplyCard(params: any) {
     useState<boolean>(false);
   // const [requirements, setRequirements] = useState<Requirement[]>([]);
   const [candidateId, setCandidateId] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   async function sendMail(candidate_id: string) {
     // const url = "../api/candidate/sendmail?id=" + candidate_id;
@@ -161,7 +163,8 @@ export default function ApplyCard(params: any) {
     setGithub("");
     setWalletAddress("");
     setButtonClicked(false);
-    setInputsValid(true);
+    // setInputsValid(true);
+    setIsSubmitting(false);
   }
 
   const processInput = (event: any) => {
@@ -169,6 +172,8 @@ export default function ApplyCard(params: any) {
       setFirstName(event.target.value);
     } else if (event.target.id === "input-last-name") {
       setLastName(event.target.value);
+    } else if (event.target.id === "input-location") {
+      setLocation(event.target.value);
     } else if (event.target.id === "input-email") {
       setEmail(event.target.value);
     } else if (event.target.id === "input-linkedin") {
@@ -196,6 +201,8 @@ export default function ApplyCard(params: any) {
 
   const submitApplication = (e: SyntheticEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+
     setButtonClicked(true);
     storeApplication(
       {
@@ -217,9 +224,7 @@ export default function ApplyCard(params: any) {
         lastName !== "" &&
         email !== "" &&
         validateEmail(email) &&
-        linkedIn !== "" &&
-        github !== "" &&
-        resume != undefined
+        (linkedIn !== "" || resume != undefined)
     );
   };
 
@@ -228,9 +233,13 @@ export default function ApplyCard(params: any) {
       <h2 className={"body18Bold"}>Apply for this position</h2>
       <div className={styles.formContainer}>
         <div className={styles.formItemGroup}>
-          <h3 className={"chapeauDark " + styles.formItemGroupTitle}>
-            General
-          </h3>
+          <div>
+            <h3 className={"chapeauDark " + styles.formItemGroupTitle}>
+              General
+            </h3>
+            <p className="body14">Required fields</p>
+          </div>
+
           <div className={styles.formItem}>
             <label
               htmlFor="text-1675001302437"
@@ -249,6 +258,7 @@ export default function ApplyCard(params: any) {
               onChange={processInput}
               id="input-first-name"
               value={firstName}
+              // placeholder={"Required, e.g. Vitalik"}
             />
           </div>
           <div className={styles.formItem}>
@@ -269,6 +279,28 @@ export default function ApplyCard(params: any) {
               onChange={processInput}
               id="input-last-name"
               value={lastName}
+              // placeholder={"Required, e.g. Buterin"}
+            />
+          </div>
+          <div className={styles.formItem}>
+            <label
+              htmlFor="input-location"
+              className={"body16 " + styles.formLabel}
+            >
+              Location
+            </label>
+            <input
+              type="text"
+              className={
+                stylesGlobalFormElements.input +
+                " " +
+                stylesGlobalFormElements.inputSquare
+              }
+              name="input-location"
+              onChange={processInput}
+              id="input-location"
+              value={location}
+              // placeholder={"Required, e.g. Buterin"}
             />
           </div>
           <div className={styles.formItem}>
@@ -298,14 +330,21 @@ export default function ApplyCard(params: any) {
               onChange={processInput}
               id="input-email"
               value={email}
+              // placeholder={"Required, e.g. vitalik@ethereum.org"}
             />
           </div>
         </div>
 
         <div className={styles.formItemGroup}>
-          <h3 className={"chapeauDark " + styles.formItemGroupTitle}>
-            Credentials
-          </h3>
+          <div>
+            <h3 className={"chapeauDark " + styles.formItemGroupTitle}>
+              Resume
+            </h3>
+            <p className="body14">
+              Please provide at least one of the following
+            </p>
+          </div>
+
           <div className={styles.formItem}>
             <label
               htmlFor="text-1675001387870"
@@ -329,6 +368,44 @@ export default function ApplyCard(params: any) {
               value={linkedIn}
             />
           </div>
+          <div className={styles.formItem}>
+            <label
+              htmlFor="file-1675001423592"
+              className={"body16 " + styles.formLabel}
+            >
+              Resume
+            </label>
+
+            <label
+              htmlFor="input-resume"
+              className={"body16Bold " + styles.uploadButtonLabel}
+            >
+              <Image
+                src={"/link.svg"}
+                alt="LinkIcon"
+                width={16}
+                height={16}
+                style={{ transform: "rotate(-45deg)" }}
+              />
+              Attach Resume/CV
+              <input
+                type="file"
+                className={styles.uploadButton}
+                name="file-1675001423592"
+                onChange={processInput}
+                id="input-resume"
+              />
+            </label>
+          </div>
+        </div>
+        <div className={styles.formItemGroup}>
+          <div>
+            <h3 className={"chapeauDark " + styles.formItemGroupTitle}>
+              Other Credentials
+            </h3>
+            <p className="body14">Optional</p>
+          </div>
+
           {(params.role_type === RoleType.Engineering ||
             params.role_type === undefined) && (
             <div className={styles.formItem}>
@@ -354,38 +431,10 @@ export default function ApplyCard(params: any) {
           )}
           <div className={styles.formItem}>
             <label
-              htmlFor="file-1675001423592"
-              className={"body16 " + styles.formLabel}
-            >
-              Resume
-            </label>
-            <label
-              htmlFor="input-resume"
-              className={"body16Bold " + styles.uploadButtonLabel}
-            >
-              <Image
-                src={"/link.svg"}
-                alt="LinkIcon"
-                width={16}
-                height={16}
-                style={{ transform: "rotate(-45deg)" }}
-              />
-              Attach Resume/CV
-              <input
-                type="file"
-                className={styles.uploadButton}
-                name="file-1675001423592"
-                onChange={processInput}
-                id="input-resume"
-              />
-            </label>
-          </div>
-          <div className={styles.formItem}>
-            <label
               htmlFor="text-1675001555945"
               className={"body16 " + styles.formLabel}
             >
-              Wallet Address
+              ETH Wallet Address / ENS
             </label>
             <input
               type="text"
@@ -405,18 +454,23 @@ export default function ApplyCard(params: any) {
           <button
             type="submit"
             className={
-              inputsValid
+              isSubmitting
+                ? stylesGlobalFormElements.primaryButton +
+                  " " +
+                  stylesGlobalFormElements.primaryButtonDisabled
+                : inputsValid
                 ? stylesGlobalFormElements.primaryButton
                 : stylesGlobalFormElements.primaryButton +
                   " " +
-                  styles.primaryButtonDisabled
+                  stylesGlobalFormElements.primaryButtonDisabled
             }
             name="button-1675001572178"
             // style="default"
             onClick={submitApplication}
             id="button-apply"
+            disabled={!inputsValid}
           >
-            Submit Application
+            {isSubmitting ? "Submitting..." : "Submit Application"}
           </button>
         </div>
       </div>
