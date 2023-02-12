@@ -13,7 +13,6 @@
   margin-top: -38px;
   padding-left: 24px;
   padding-right: 24px;
-  color: green;
 }
 
 .logoImageContainer {
@@ -32,17 +31,28 @@
   margin-left: 24px;
   padding-bottom: 8px;
   flex: 1;
-  color: green;
   z-index: 10;
+}
+
+.headerRightContainer {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  /* padding-bottom: 8px; */
 }
 
 .headerPoweredByContainer {
   display: flex;
   flex-direction: row;
-  align-self: center;
+  /* align-self: center; */
   align-items: center;
   gap: 6px;
   height: 32px;
+}
+
+.headerListRolesContianer {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .headerIconsContainer {
@@ -66,15 +76,27 @@
 .sliderAndSearch {
   display: flex;
   flex-direction: row;
+  gap: 24px;
   flex: 1;
   /* width: 100%; */
+}
+
+.companySwitchAndFiltersButton {
+  display: flex;
+  flex-direction: row;
+  /* flex: 1; */
+}
+
+.mobileFiltersButton {
+  display: none;
+  visibility: collapse;
 }
 
 .inputContainer {
   position: relative;
   display: flex;
   flex: 1;
-  margin-left: 24px;
+  /* margin-left: 24px; */
   width: 100%;
 }
 
@@ -115,14 +137,12 @@
   box-shadow: 0;
 }
 
-
-.alwaysRow{
+.alwaysRow {
   display: flex;
   flex-direction: row;
 }
 
 @media only screen and (max-width: 1000px) {
-
   .headerContainer {
     display: flex;
     flex-direction: column;
@@ -167,7 +187,7 @@
     text-align: center;
   }
 
-  .headerPoweredByContainer {
+  .headerRightContainer {
     display: none;
     visibility: collapse;
   }
@@ -184,10 +204,19 @@
   .sliderAndSearch {
     display: flex;
     flex-direction: column;
-    row-gap: 10px;
+    row-gap: 24px;
     align-items: center;
     width: 100%;
   }
 
+  .companySwitchAndFiltersButton {
+    flex: 1;
+    justify-content: space-between;
+    width: 100%;
+  }
 
+  .mobileFiltersButton {
+    display: flex;
+    visibility: visible;
+  }
 }
