@@ -12,7 +12,7 @@
   border-radius: 8px;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 10px) {
   .companyCard {
     width: 100%;
   }

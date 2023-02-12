@@ -133,7 +133,12 @@ export default function RequirementsCard(data: CardProps) {
         >
           Finish application
         </button>
-        <p className="body14">Skip</p>
+        <a
+          className={"body14 " + styles.skipLink}
+          onClick={() => data.handleChange(true)}
+        >
+          Skip
+        </a>
       </div>
     </div>
   );

@@ -277,6 +277,8 @@ export default function Home() {
                   className={
                     "marginTop16 " + stylesGlobalFormElements.primaryButton
                   }
+                  href={"https://app.jobprotocol.xyz/ethdenver_onboarding"}
+                  target="_blank"
                 >
                   List your roles
                 </a>
