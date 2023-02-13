@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "@/styles/Searchbox.module.css";
-import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.css";
 import { useState, useEffect } from "react";
 
 import Select from "react-select";
@@ -70,7 +69,9 @@ export default function SearchBox(data: Props) {
         data.handleChange(!value ? "" : (value as string));
         setSelectedValue(value as string);
       }} //actually make selection
+      onFocus={() => { setSelectedValue(""); data.handleChange(""); }}
       onInputChange={(value) => {
+        console.log("onInputChange");
         setTimeout(function () {
           setUserInput(value);
         }, 1000);
