@@ -91,7 +91,7 @@ export default function Home() {
         <title>ETH Denver Jobs</title>
         <meta name="description" content="Jobboard for ETHDenver 2023" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/faviconV2.png" />
+        <link rel="icon" href="/ethdenver-spork-logo-pink2.png" />
       </Head>
 
       <div className="page">
