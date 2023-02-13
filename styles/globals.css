@@ -203,6 +203,10 @@ body {
   color: red;
 }
 
+.link {
+  text-decoration: underline;
+}
+
 * {
   box-sizing: border-box;
 }
