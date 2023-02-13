@@ -25,6 +25,13 @@ const selectStyles = {
     ...baseStyles,
     color: "#05192D",
   }),
+  clearIndicator: (baseStyles: any, state: any) => ({
+    ...baseStyles,
+    cursor: "pointer",
+    ':hover': {
+      color: 'var(--main-color)',
+    },
+  }),
   menu: (baseStyles: any, state: any) => ({
     ...baseStyles,
     borderColor: "var(--border-color)",
