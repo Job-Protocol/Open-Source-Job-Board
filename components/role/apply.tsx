@@ -334,9 +334,10 @@ export default function ApplyCard(params: any) {
             <input
               type="email"
               className={
-                stylesGlobalFormElements.input +
-                " " +
-                stylesGlobalFormElements.inputSquare
+                email && !validateEmail(email) ?
+                  stylesGlobalFormElements.inputInvalid + " " + stylesGlobalFormElements.inputSquare :
+                  stylesGlobalFormElements.input + " " + stylesGlobalFormElements.inputSquare
+
                 // email && validateEmail(email)
                 //   ? stylesGlobalFormElements.input +
                 //     " " +

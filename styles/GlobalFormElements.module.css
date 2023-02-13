@@ -7,6 +7,16 @@
   color: #1f2534cc;
   width: 100%;
 }
+.inputInvalid {
+  display: block;
+  flex: 1;
+
+  border-width: 1px;
+  border-color: #fe0000;
+  color: #1f2534cc;
+  width: 100%;
+  
+}
 
 .inputRound {
   border-radius: 32px;
@@ -31,10 +41,7 @@
   box-shadow: 0;
 }
 
-.inputInvalid {
-  border-width: 2px;
-  border-color: #fe0000;
-}
+
 
 .primaryButton {
   display: flex;
