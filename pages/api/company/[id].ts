@@ -40,9 +40,45 @@ async function process_single_company_response(response_company: any, key: strin
   comp.tagline = response_company.tagline;
   comp.press_article_links = press_article_links;
   comp.founding_year = response_company.founding_year;
+  comp.slug = response_company.Slug;
 
   return comp;
 }
+
+
+export async function fetch_company_by_slug(
+  slug: string,
+  key: string
+): Promise<Company> {
+
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", "Bearer ".concat(key));
+
+  const params = [
+    { key: "Slug", constraint_type: "equals", value: slug }
+  ];
+  var requestOptions: RequestInit = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+  };
+  // console.log("PARAMS", JSON.stringify(params));
+
+  const url: string = getConfig()["endpoint"] + "/obj/company/?constraints=" + JSON.stringify(params);
+  // const url: string = 'https://app.jobprotocol.xyz/version-test/api/1.1/obj/role/?constraints=[{ "key": "Slug", "constraint_type": "equals", "value": "1inch-eth-denver--software-engineer"}]'
+  const response = await fetch(url, requestOptions);
+  // console.log("RESPONSE 1", response);
+  const result = await response.json()
+
+  const c = await process_single_company_response(result.response.results[0], key);
+  return c;
+
+
+}
+
+
+
 
 export async function fetch_company_by_id(
   id: string,
@@ -84,12 +120,23 @@ export default async function company_handler(
     return;
   }
   else {
-    const role = await fetch_company_by_id(
-      id,
-      process.env.BUBBLE_API_PRIVATE_KEY
-    );
-    cache.set(cache_id, role, { ttl: 1000 * 60 * 2 });
-    res.status(200).json(role);
+
+    if (id.length == 32 && id[13] == 'x') {
+      const comp = await fetch_company_by_id(
+        id,
+        process.env.BUBBLE_API_PRIVATE_KEY
+      );
+      cache.set(cache_id, comp, { ttl: 1000 * 60 * 2 });
+      res.status(200).json(comp);
+    }
+    else {
+      const comp = await fetch_company_by_slug(
+        id,
+        process.env.BUBBLE_API_PRIVATE_KEY
+      );
+      cache.set(cache_id, comp, { ttl: 1000 * 60 * 2 });
+      res.status(200).json(comp);
+    }
   }
 
 

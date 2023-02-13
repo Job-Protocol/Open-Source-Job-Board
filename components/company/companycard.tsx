@@ -12,7 +12,7 @@ export default function CompanyCard(data: JobCardProps) {
   const company = data.company;
   return (
     <a
-      href={"company/" + company.id}
+      href={"company/" + company.slug}
       className={styles.companyCard}
       target="_blank"
       rel="noopener noreferrer"

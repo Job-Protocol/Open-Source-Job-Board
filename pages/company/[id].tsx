@@ -57,16 +57,18 @@ export default function Home() {
       getCompanyData(id as string).then((res) => {
         setCompany(res);
       });
-      GetAllIDs()
-        .then((res) => GetRolesByRoleIDs(res[1]))
-        .then((res) => {
-          const roles_this_company = res.filter((role) => {
-            return role.company.id === id;
+      if (company) {
+        GetAllIDs()
+          .then((res) => GetRolesByRoleIDs(res[1]))
+          .then((res) => {
+            const roles_this_company = res.filter((role) => {
+              return role.company.id === company.id;
+            });
+            setCompanyRoles(roles_this_company);
           });
-          setCompanyRoles(roles_this_company);
-        });
+      }
     }
-  }, [id]);
+  }, [id, company]);
 
   useEffect(() => {
     if (companyroles) {
