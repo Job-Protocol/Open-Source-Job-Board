@@ -279,6 +279,7 @@ export default function Home() {
                   }
                   href={"https://app.jobprotocol.xyz/ethdenver_onboarding"}
                   target="_blank"
+                  rel="noreferrer"
                 >
                   List your roles
                 </a>
