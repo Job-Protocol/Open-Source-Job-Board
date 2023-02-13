@@ -18,10 +18,19 @@ export default function Footer() {
           fill="#EE4C83"
         />
       </svg>
-      Powered by
+      {/* Powered by
       <Image src={"/Opolis_textonly.svg"} width={90} height={50} alt="Opolis" />
       &
-      <Image src={"/JP_black.svg"} width={120} height={50} alt="Opolis" />
+      <Image src={"/JP_black.svg"} width={120} height={50} alt="Opolis" /> */}
+      Created using JobProtocol's{" "}
+      <a
+        className="link"
+        href="https://jobprotocol.xyz"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Open Source Job Board
+      </a>
     </div>
   );
 }
