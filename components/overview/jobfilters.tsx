@@ -9,7 +9,7 @@ import SearchBox from "@/components/overview/searchbox";
 import { GeographicAddress, RoleType } from "@/bubble_types";
 import Select from "react-select";
 
-async function GetGeographicAddress(s: string): Promise<GeographicAddress> {
+export async function GetGeographicAddress(s: string): Promise<GeographicAddress> {
   const result = await fetch("/api/places/details/fromstring/" + s);
   const parsed = await result.json();
   return parsed;
@@ -105,6 +105,7 @@ export default function JobFilters({
               Location
               <div className={styles.locationInputsContainer}>
                 <SearchBox
+                  id="searchbox-location"
                   disabled={remoteOnly}
                   handleChange={(val) => {
                     setUserLocation(val.value);

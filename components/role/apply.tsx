@@ -9,11 +9,11 @@ import Swal from "sweetalert2";
 import { validateEmail } from "@/utils";
 import Image from "next/image";
 import FileReader from "@tanker/file-reader";
-import { Requirement, RoleType } from "@/bubble_types";
-
+import { Requirement, RoleType, GeographicAddress } from "@/bubble_types";
 import { getConfig } from "@/utils";
-
 import RequirementsCard from "@/components/role/requirements";
+import SearchBox from "../overview/searchbox";
+import { GetGeographicAddress } from "../overview/jobfilters";
 
 import {
   FaGithub,
@@ -31,6 +31,8 @@ type CandidateData = {
   linkedin: string;
   role: string;
   resume: File | undefined;
+  location: GeographicAddress | undefined;
+  eth_address: string | undefined
 };
 
 export interface ApplyCardProps {
@@ -47,7 +49,7 @@ export default function ApplyCard(params: any) {
   const ROLE_TITLE: string = params.role_title;
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
-  const [location, setLocation] = useState<string>("");
+  const [location, setLocation] = useState<GeographicAddress | undefined>(undefined);
   const [email, setEmail] = useState<string>("");
   const [linkedIn, setLinkedIn] = useState<string>("");
   const [github, setGithub] = useState<string>("");
@@ -73,7 +75,8 @@ export default function ApplyCard(params: any) {
     checkRequirements: boolean
   ) {
     const referred_by = getConfig()["referred_by"];
-    console.log("referred by", referred_by);
+
+    const candidate_location: string | undefined = data.location ? data.location.address : undefined;
 
     var raw = JSON.stringify({
       first_name: data.first_name,
@@ -86,6 +89,7 @@ export default function ApplyCard(params: any) {
       referral_type: "Link",
       state: "New",
       has_confirmed_interest: true,
+      location_new: candidate_location
     });
 
     var content = "";
@@ -104,6 +108,7 @@ export default function ApplyCard(params: any) {
         referral_type: "Link",
         state: "New",
         has_confirmed_interest: true,
+        location_new: candidate_location,
         resume_file: {
           filename: "resume.pdf",
           contents: content,
@@ -212,7 +217,9 @@ export default function ApplyCard(params: any) {
         linkedin: linkedIn,
         github: "",
         role: ROLEID,
-        resume: resume, //TODO Lukas
+        resume: resume,
+        location: location,
+        eth_address: undefined //TODO(scheuclu) change this
       },
       params.requirements !== undefined
     );
@@ -221,10 +228,10 @@ export default function ApplyCard(params: any) {
   const checkInputsValid = () => {
     setInputsValid(
       firstName !== "" &&
-        lastName !== "" &&
-        email !== "" &&
-        validateEmail(email) &&
-        (linkedIn !== "" || resume != undefined)
+      lastName !== "" &&
+      email !== "" &&
+      validateEmail(email) &&
+      (linkedIn !== "" || resume != undefined)
     );
   };
 
@@ -258,7 +265,7 @@ export default function ApplyCard(params: any) {
               onChange={processInput}
               id="input-first-name"
               value={firstName}
-              // placeholder={"Required, e.g. Vitalik"}
+            // placeholder={"Required, e.g. Vitalik"}
             />
           </div>
           <div className={styles.formItem}>
@@ -279,17 +286,27 @@ export default function ApplyCard(params: any) {
               onChange={processInput}
               id="input-last-name"
               value={lastName}
-              // placeholder={"Required, e.g. Buterin"}
+            // placeholder={"Required, e.g. Buterin"}
             />
           </div>
           <div className={styles.formItem}>
             <label
               htmlFor="input-location"
-              className={"body16 " + styles.formLabel}
+              className={"body16 " + styles.formLabel}//TODO
             >
               Location
             </label>
-            <input
+            <SearchBox
+              id="input-location"
+              disabled={false}
+              handleChange={(val) => {
+                GetGeographicAddress(val.value).then((res) => {
+                  setLocation(res);
+                });
+                console.log(val.value);
+              }}
+            />
+            {/* <input
               type="text"
               className={
                 stylesGlobalFormElements.input +
@@ -300,8 +317,8 @@ export default function ApplyCard(params: any) {
               onChange={processInput}
               id="input-location"
               value={location}
-              // placeholder={"Required, e.g. Buterin"}
-            />
+            // placeholder={"Required, e.g. Buterin"}
+            /> */}
           </div>
           <div className={styles.formItem}>
             <label
@@ -330,7 +347,7 @@ export default function ApplyCard(params: any) {
               onChange={processInput}
               id="input-email"
               value={email}
-              // placeholder={"Required, e.g. vitalik@ethereum.org"}
+            // placeholder={"Required, e.g. vitalik@ethereum.org"}
             />
           </div>
         </div>
@@ -408,27 +425,27 @@ export default function ApplyCard(params: any) {
 
           {(params.role_type === RoleType.Engineering ||
             params.role_type === undefined) && (
-            <div className={styles.formItem}>
-              <label
-                htmlFor="text-github"
-                className={"body16 " + styles.formLabel}
-              >
-                <FaGithub />
-                Github
-              </label>
-              <input
-                type="text"
-                className={
-                  stylesGlobalFormElements.input +
-                  " " +
-                  stylesGlobalFormElements.inputSquare
-                }
-                onChange={processInput}
-                id="input-github"
-                value={github}
-              />
-            </div>
-          )}
+              <div className={styles.formItem}>
+                <label
+                  htmlFor="text-github"
+                  className={"body16 " + styles.formLabel}
+                >
+                  <FaGithub />
+                  Github
+                </label>
+                <input
+                  type="text"
+                  className={
+                    stylesGlobalFormElements.input +
+                    " " +
+                    stylesGlobalFormElements.inputSquare
+                  }
+                  onChange={processInput}
+                  id="input-github"
+                  value={github}
+                />
+              </div>
+            )}
           <div className={styles.formItem}>
             <label
               htmlFor="text-1675001555945"
@@ -456,11 +473,11 @@ export default function ApplyCard(params: any) {
             className={
               isSubmitting
                 ? stylesGlobalFormElements.primaryButton +
-                  " " +
-                  stylesGlobalFormElements.primaryButtonDisabled
+                " " +
+                stylesGlobalFormElements.primaryButtonDisabled
                 : inputsValid
-                ? stylesGlobalFormElements.primaryButton
-                : stylesGlobalFormElements.primaryButton +
+                  ? stylesGlobalFormElements.primaryButton
+                  : stylesGlobalFormElements.primaryButton +
                   " " +
                   stylesGlobalFormElements.primaryButtonDisabled
             }

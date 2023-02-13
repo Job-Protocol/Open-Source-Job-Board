@@ -17,6 +17,7 @@ async function getOptions(s: string) {
 export interface Props {
   handleChange: (v: any) => void;
   disabled: boolean;
+  id: string;
 }
 
 export default function SearchBox(data: Props) {
@@ -39,6 +40,7 @@ export default function SearchBox(data: Props) {
     <Select
       // className="basic-single"
       // classNamePrefix="select"
+      id={data.id}
       components={{
         DropdownIndicator: () => null,
         IndicatorSeparator: () => null,
