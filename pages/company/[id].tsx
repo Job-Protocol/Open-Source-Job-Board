@@ -18,21 +18,17 @@ import Joblist from "@/components/overview/joblist";
 import JobFilters from "@/components/overview/jobfilters";
 import { GeographicAddress } from "@/bubble_types";
 
-import Filter from "@/components/overview/filter"
+import Filter from "@/components/overview/filter";
 
 import { useRouter } from "next/router";
-
 
 import { GetAllIDs, GetRolesByRoleIDs } from "@/pages/index";
 
 async function getCompanyData(id: string): Promise<Company> {
-
   const result = await fetch("../api/company/" + id);
   const parsed = await result.json();
   return parsed;
-};
-
-
+}
 
 // async function GetRoleData(): Promise<Role[]> {
 //   const results = getConfig()["job-ids"].map(async (roleid: string) => {
@@ -50,7 +46,9 @@ export default function Home() {
   const [company, setCompany] = useState<Company>();
   const [companyroles, setCompanyRoles] = useState<Role[]>([]);
   const [filteredCompanyRoles, setFilteredCompanyRoles] = useState<Role[]>([]);
-  const [userAddress, setUserAddress] = useState<GeographicAddress | undefined>(undefined);
+  const [userAddress, setUserAddress] = useState<GeographicAddress | undefined>(
+    undefined
+  );
   const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
   const [filter, setFilter] = useState<Filter>();
 
@@ -59,12 +57,15 @@ export default function Home() {
       getCompanyData(id as string).then((res) => {
         setCompany(res);
       });
-      GetAllIDs().then((res) => GetRolesByRoleIDs(res[1])).then((res) => {
-        const roles_this_company = res.filter((role) => { return role.company.id === id; });
-        setCompanyRoles(roles_this_company);
-      });
+      GetAllIDs()
+        .then((res) => GetRolesByRoleIDs(res[1]))
+        .then((res) => {
+          const roles_this_company = res.filter((role) => {
+            return role.company.id === id;
+          });
+          setCompanyRoles(roles_this_company);
+        });
     }
-
   }, [id]);
 
   useEffect(() => {
@@ -75,7 +76,9 @@ export default function Home() {
 
   useEffect(() => {
     if (filter) {
-      setFilteredCompanyRoles(filter.getFilteredRoles(userAddress, remoteOnly, undefined, undefined))//TODO(scheuclu) URGENT. Add role type filter
+      setFilteredCompanyRoles(
+        filter.getFilteredRoles(userAddress, remoteOnly, undefined, undefined)
+      ); //TODO(scheuclu) URGENT. Add role type filter
     }
   }, [userAddress, remoteOnly, filter]);
 
@@ -193,7 +196,6 @@ export default function Home() {
             </div>
           </div>
 
-
           <div className={styles_home.filtersContainer}>
             <div className={styles_home.row}>
               <div className={styles_home.inputContainer}>
@@ -213,7 +215,10 @@ export default function Home() {
                     />
                   </svg>
                 </div>
-                <input className={styles_home.input} placeholder="Search"></input>
+                <input
+                  className={styles_home.input}
+                  placeholder="Search"
+                ></input>
               </div>
             </div>
             <JobFilters
@@ -221,21 +226,15 @@ export default function Home() {
                 setUserAddress(userAddress);
                 setRemoteOnly(remoteOnly == true);
               }}
+              // TODO: also enable mobile filters here, requires the 'filters' button to be present as well (see index)
+              isModalOpen={false}
+              closeModalHandler={() => 1 + 1}
             />
           </div>
 
-
           <Joblist roles={filteredCompanyRoles} />
         </div>
-
-
-
       </div>
-
-
-
-
-
-    </div >
+    </div>
   );
 }
