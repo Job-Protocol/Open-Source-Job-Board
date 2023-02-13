@@ -32,7 +32,7 @@ type CandidateData = {
   role: string;
   resume: File | undefined;
   location: GeographicAddress | undefined;
-  eth_wallet_address: string | undefined
+  eth_wallet_address: string | undefined;
 };
 
 export interface ApplyCardProps {
@@ -49,7 +49,9 @@ export default function ApplyCard(params: any) {
   const ROLE_TITLE: string = params.role_title;
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
-  const [location, setLocation] = useState<GeographicAddress | undefined>(undefined);
+  const [location, setLocation] = useState<GeographicAddress | undefined>(
+    undefined
+  );
   const [email, setEmail] = useState<string>("");
   const [linkedIn, setLinkedIn] = useState<string>("");
   const [github, setGithub] = useState<string>("");
@@ -76,7 +78,9 @@ export default function ApplyCard(params: any) {
   ) {
     const referred_by = getConfig()["referred_by"];
 
-    const candidate_location: string | undefined = data.location ? data.location.address : undefined;
+    const candidate_location: string | undefined = data.location
+      ? data.location.address
+      : undefined;
 
     var raw = JSON.stringify({
       first_name: data.first_name,
@@ -91,7 +95,7 @@ export default function ApplyCard(params: any) {
       has_confirmed_interest: true,
       location_new: candidate_location,
       eth_wallet_address: data.eth_wallet_address,
-      github: data.github
+      github: data.github,
     });
 
     var content = "";
@@ -117,7 +121,7 @@ export default function ApplyCard(params: any) {
           private: false,
         },
         eth_wallet_address: data.eth_wallet_address,
-        github: data.github
+        github: data.github,
       });
     }
 
@@ -223,7 +227,7 @@ export default function ApplyCard(params: any) {
         role: ROLEID,
         resume: resume,
         location: location,
-        eth_wallet_address: walletAddress
+        eth_wallet_address: walletAddress,
       },
       params.requirements !== undefined
     );
@@ -232,10 +236,10 @@ export default function ApplyCard(params: any) {
   const checkInputsValid = () => {
     setInputsValid(
       firstName !== "" &&
-      lastName !== "" &&
-      email !== "" &&
-      validateEmail(email) &&
-      (linkedIn !== "" || resume != undefined)
+        lastName !== "" &&
+        email !== "" &&
+        validateEmail(email) &&
+        (linkedIn !== "" || resume != undefined)
     );
   };
 
@@ -269,7 +273,7 @@ export default function ApplyCard(params: any) {
               onChange={processInput}
               id="input-first-name"
               value={firstName}
-            // placeholder={"Required, e.g. Vitalik"}
+              // placeholder={"Required, e.g. Vitalik"}
             />
           </div>
           <div className={styles.formItem}>
@@ -290,19 +294,20 @@ export default function ApplyCard(params: any) {
               onChange={processInput}
               id="input-last-name"
               value={lastName}
-            // placeholder={"Required, e.g. Buterin"}
+              // placeholder={"Required, e.g. Buterin"}
             />
           </div>
           <div className={styles.formItem}>
             <label
               htmlFor="input-location"
-              className={"body16 " + styles.formLabel}//TODO
+              className={"body16 " + styles.formLabel} //TODO
             >
               Location
             </label>
             <SearchBox
               id="input-location"
               disabled={false}
+              customHeight="48px"
               handleChange={(val) => {
                 GetGeographicAddress(val.value).then((res) => {
                   setLocation(res);
@@ -334,9 +339,13 @@ export default function ApplyCard(params: any) {
             <input
               type="email"
               className={
-                email && !validateEmail(email) ?
-                  stylesGlobalFormElements.inputInvalid + " " + stylesGlobalFormElements.inputSquare :
-                  stylesGlobalFormElements.input + " " + stylesGlobalFormElements.inputSquare
+                email && !validateEmail(email)
+                  ? stylesGlobalFormElements.inputInvalid +
+                    " " +
+                    stylesGlobalFormElements.inputSquare
+                  : stylesGlobalFormElements.input +
+                    " " +
+                    stylesGlobalFormElements.inputSquare
 
                 // email && validateEmail(email)
                 //   ? stylesGlobalFormElements.input +
@@ -352,7 +361,7 @@ export default function ApplyCard(params: any) {
               onChange={processInput}
               id="input-email"
               value={email}
-            // placeholder={"Required, e.g. vitalik@ethereum.org"}
+              // placeholder={"Required, e.g. vitalik@ethereum.org"}
             />
           </div>
         </div>
@@ -430,27 +439,27 @@ export default function ApplyCard(params: any) {
 
           {(params.role_type === RoleType.Engineering ||
             params.role_type === undefined) && (
-              <div className={styles.formItem}>
-                <label
-                  htmlFor="text-github"
-                  className={"body16 " + styles.formLabel}
-                >
-                  <FaGithub />
-                  Github
-                </label>
-                <input
-                  type="text"
-                  className={
-                    stylesGlobalFormElements.input +
-                    " " +
-                    stylesGlobalFormElements.inputSquare
-                  }
-                  onChange={processInput}
-                  id="input-github"
-                  value={github}
-                />
-              </div>
-            )}
+            <div className={styles.formItem}>
+              <label
+                htmlFor="text-github"
+                className={"body16 " + styles.formLabel}
+              >
+                <FaGithub />
+                Github
+              </label>
+              <input
+                type="text"
+                className={
+                  stylesGlobalFormElements.input +
+                  " " +
+                  stylesGlobalFormElements.inputSquare
+                }
+                onChange={processInput}
+                id="input-github"
+                value={github}
+              />
+            </div>
+          )}
           <div className={styles.formItem}>
             <label
               htmlFor="text-1675001555945"
@@ -478,11 +487,11 @@ export default function ApplyCard(params: any) {
             className={
               isSubmitting
                 ? stylesGlobalFormElements.primaryButton +
-                " " +
-                stylesGlobalFormElements.primaryButtonDisabled
+                  " " +
+                  stylesGlobalFormElements.primaryButtonDisabled
                 : inputsValid
-                  ? stylesGlobalFormElements.primaryButton
-                  : stylesGlobalFormElements.primaryButton +
+                ? stylesGlobalFormElements.primaryButton
+                : stylesGlobalFormElements.primaryButton +
                   " " +
                   stylesGlobalFormElements.primaryButtonDisabled
             }
