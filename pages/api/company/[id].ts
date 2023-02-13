@@ -14,6 +14,36 @@ import { fetch_by_id as fetchNamedLink } from "../named_link/[id]";
 var psCache = require('ps-cache');
 var cache = new psCache.Cache();
 
+async function process_single_company_response(response_company: any, key: string): Promise<Company> {
+  // Fetch socials, if possible
+  const socials: CompanySocials | undefined = response_company.socials
+    ? await fetchSocials(response_company.socials, key)
+    : undefined;
+
+  // Fetch named links, if possible
+  const press_article_links: NamedLink[] | undefined = response_company
+    .press_article_links
+    ? await Promise.all(
+      response_company.press_article_links.map((id: string) =>
+        fetchNamedLink(id, key)
+      )
+    )
+    : undefined;
+
+  const comp: Company = getDefaultCompany();
+  comp.id = response_company._id;
+  comp.name = response_company.Name;
+  comp.logo = response_company.Logo;
+  comp.headquarters = response_company.headquarters;
+  comp.num_employees = response_company.num_employees;
+  comp.socials = socials;
+  comp.tagline = response_company.tagline;
+  comp.press_article_links = press_article_links;
+  comp.founding_year = response_company.founding_year;
+
+  return comp;
+}
+
 export async function fetch_company_by_id(
   id: string,
   key: string
@@ -31,31 +61,7 @@ export async function fetch_company_by_id(
   const response = await fetch(url, requestOptions);
   const result = await response.json();
 
-  // Fetch socials, if possible
-  const socials: CompanySocials | undefined = result.response.socials
-    ? await fetchSocials(result.response.socials, key)
-    : undefined;
-
-  // Fetch named links, if possible
-  const press_article_links: NamedLink[] | undefined = result.response
-    .press_article_links
-    ? await Promise.all(
-      result.response.press_article_links.map((id: string) =>
-        fetchNamedLink(id, key)
-      )
-    )
-    : undefined;
-
-  const comp: Company = getDefaultCompany();
-  comp.id = result.response._id;
-  comp.name = result.response.Name;
-  comp.logo = result.response.Logo;
-  comp.headquarters = result.response.headquarters;
-  comp.num_employees = result.response.num_employees;
-  comp.socials = socials;
-  comp.tagline = result.response.tagline;
-  comp.press_article_links = press_article_links;
-  comp.founding_year = result.response.founding_year;
+  const comp: Company = await process_single_company_response(result.response, key);
   return comp;
 }
 
