@@ -32,7 +32,7 @@ type CandidateData = {
   role: string;
   resume: File | undefined;
   location: GeographicAddress | undefined;
-  eth_address: string | undefined
+  eth_wallet_address: string | undefined
 };
 
 export interface ApplyCardProps {
@@ -89,7 +89,9 @@ export default function ApplyCard(params: any) {
       referral_type: "Link",
       state: "New",
       has_confirmed_interest: true,
-      location_new: candidate_location
+      location_new: candidate_location,
+      eth_wallet_address: data.eth_wallet_address,
+      github: data.github
     });
 
     var content = "";
@@ -114,6 +116,8 @@ export default function ApplyCard(params: any) {
           contents: content,
           private: false,
         },
+        eth_wallet_address: data.eth_wallet_address,
+        github: data.github
       });
     }
 
@@ -215,11 +219,11 @@ export default function ApplyCard(params: any) {
         last_name: lastName,
         email: email,
         linkedin: linkedIn,
-        github: "",
+        github: github,
         role: ROLEID,
         resume: resume,
         location: location,
-        eth_address: undefined //TODO(scheuclu) change this
+        eth_wallet_address: walletAddress
       },
       params.requirements !== undefined
     );
