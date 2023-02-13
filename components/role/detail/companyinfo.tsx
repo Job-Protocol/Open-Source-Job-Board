@@ -81,6 +81,8 @@ export default function CompanyCard(data: CompanyCardProps) {
                   className={"body16 " + styles.pressLink}
                   href={link.link}
                   key={link.display_name}
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   <span>
                     {link.display_name}
