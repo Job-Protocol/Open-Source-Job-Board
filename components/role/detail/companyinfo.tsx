@@ -24,14 +24,14 @@ export default function CompanyCard(data: CompanyCardProps) {
     return s && s != "";
   }
   return (
-    <div className={styles_role_detail.card + " flex-3"}>
+    <div className={styles_role_detail.card + " " + styles.gap24}>
       <h3 className={"body18Bold"}>About {data.company.name}</h3>
       <div className={styles.section}>
         <h4 className={"chapeauDark"}>Mission</h4>
         <p className={"body16"}>{data.company.tagline}</p>
       </div>
 
-      {(data.company.num_employees || data.company.headquarters) &&
+      {(data.company.num_employees || data.company.headquarters) && (
         <div className={styles.section}>
           <h4 className={"chapeauDark"}>About</h4>
           <div className={styles.aboutItems}>
@@ -46,9 +46,9 @@ export default function CompanyCard(data: CompanyCardProps) {
             </div>
           </div>
         </div>
-      }
+      )}
 
-      {data.company.socials &&
+      {data.company.socials && (
         <div className={styles.section}>
           <h4 className={"chapeauDark"}>Socials</h4>
           <div className={styles.socials}>
@@ -69,9 +69,9 @@ export default function CompanyCard(data: CompanyCardProps) {
             )}
           </div>
         </div>
-      }
+      )}
 
-      {data.company.press_article_links &&
+      {data.company.press_article_links && (
         <div className={styles.section}>
           <h4 className={"chapeauDark"}>Press</h4>
           <div className={styles.pressLinksContainer}>
@@ -81,19 +81,24 @@ export default function CompanyCard(data: CompanyCardProps) {
                   className={"body16 " + styles.pressLink}
                   href={link.link}
                   key={link.display_name}
+                  target="_blank"
+                  rel="noreferrer"
                 >
-                  {link.display_name}
-                  <Image
-                    src={"/external_link.svg"}
-                    width={16}
-                    height={16}
-                    alt="external link"
-                  />
+                  <span>
+                    {link.display_name}
+                    <Image
+                      src={"/external_link.svg"}
+                      className={styles.pressLinkIcon}
+                      width={16}
+                      height={16}
+                      alt="external link"
+                    />
+                  </span>
                 </a>
               ))}
           </div>
         </div>
-      }
+      )}
     </div>
   );
 }

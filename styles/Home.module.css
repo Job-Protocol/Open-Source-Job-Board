@@ -216,7 +216,7 @@
   }
 
   .mobileFiltersButton {
-    display: flex;
+    display: flex !important;
     visibility: visible;
   }
 }
