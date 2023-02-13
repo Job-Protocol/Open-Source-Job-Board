@@ -13,7 +13,7 @@ export interface JobCardProps {
 
 export default function JobCard(data: JobCardProps) {
   const role = data.role;
-  const link: string = "/role/" + role.id;
+  const link: string = "/role/" + role.slug;
   return (
     <Link href={link} className={styles.card}>
       <div className={styles.roleInfo}>

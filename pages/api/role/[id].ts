@@ -10,6 +10,76 @@ import { fetch_by_id as fetchRequirement } from "../requirement/[id]";
 var psCache = require('ps-cache');
 var cache = new psCache.Cache();
 
+
+async function process_single_role_response(role_response: any, key: string): Promise<Role> {
+  const result_company = await fetch_company_by_id(
+    role_response.company,
+    process.env.BUBBLE_API_PRIVATE_KEY as string
+  );
+
+  //fetch role location or set undefined
+  const loc: RoleLocation | undefined = role_response.location_new
+    ? await fetchRoleLocation(role_response.location_new as string, key)
+    : undefined;
+
+  //fetch role requirement od set undefined
+  const reqs: Requirement[] | undefined = role_response.requirements ?
+    await Promise.all(role_response.requirements.map((req: string) => fetchRequirement(req as string, key))) :
+    undefined;
+
+  const rtype: RoleType | undefined = role_response.role_type ?
+    role_response.role_type == 'Egineering' ? RoleType.Engineering :
+      role_response.role_type == 'Product' ? RoleType.Product :
+        role_response.role_type == 'Design' ? RoleType.Design :
+          role_response.role_type == 'Marketing' ? RoleType.Marketing :
+            role_response.role_type == 'Sales/BD' ? RoleType.SalesBD :
+              role_response.role_type == 'Operations' ? RoleType.Operations : undefined
+    : undefined;
+
+  const r: Role = getDefaultRole();
+  r.id = role_response._id;
+  r.title = role_response.title;
+  r.desc = role_response.job_description;
+  r.salary_min = role_response.salary_min;
+  r.salary_max = role_response.salary_max;
+  r.equity_pct_min = role_response.equity_pct_min;
+  r.equity_pct_max = role_response.equity_pct_max;
+  r.company = result_company;
+  r.location = loc;
+  r.requirements = reqs;
+  r.state = role_response.state == "Live" ? RoleState.Live : RoleState.Hidden;
+  r.type = rtype;
+  r.keywords = [r.title, r.company.name]//TODO(scheuclu) Improve this
+  r.slug = role_response.Slug ? role_response.Slug : role_response._id;
+
+  return r;
+}
+
+export async function fetch_role_by_slug(slug: string, key: string): Promise<Role> {
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", "Bearer ".concat(key));
+
+  const params = [
+    { key: "Slug", constraint_type: "equals", value: slug }
+  ];
+  var requestOptions: RequestInit = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+  };
+  // console.log("PARAMS", JSON.stringify(params));
+
+  const url: string = getConfig()["endpoint"] + "/obj/role/?constraints=" + JSON.stringify(params);
+  // const url: string = 'https://app.jobprotocol.xyz/version-test/api/1.1/obj/role/?constraints=[{ "key": "Slug", "constraint_type": "equals", "value": "1inch-eth-denver--software-engineer"}]'
+  const response = await fetch(url, requestOptions);
+  // console.log("RESPONSE 1", response);
+  const result = await response.json()
+
+  const r = await process_single_role_response(result.response.results[0], key);
+  return r;
+}
+
+
 export async function fetch_role_by_id(id: string, key: string): Promise<Role> {
   var myHeaders = new Headers();
   myHeaders.append("Authorization", "Bearer ".concat(key));
@@ -23,44 +93,7 @@ export async function fetch_role_by_id(id: string, key: string): Promise<Role> {
   const response_role = await fetch(url_role, requestOptions);
   const result_role = await response_role.json();
 
-  const result_company = await fetch_company_by_id(
-    result_role.response.company,
-    process.env.BUBBLE_API_PRIVATE_KEY as string
-  );
-
-  //fetch role location or set undefined
-  const loc: RoleLocation | undefined = result_role.response.location_new
-    ? await fetchRoleLocation(result_role.response.location_new as string, key)
-    : undefined;
-
-  //fetch role requirement od set undefined
-  const reqs: Requirement[] | undefined = result_role.response.requirements ?
-    await Promise.all(result_role.response.requirements.map((req: string) => fetchRequirement(req as string, key))) :
-    undefined;
-
-  const rtype: RoleType | undefined = result_role.response.role_type ?
-    result_role.response.role_type == 'Egineering' ? RoleType.Engineering :
-      result_role.response.role_type == 'Product' ? RoleType.Product :
-        result_role.response.role_type == 'Design' ? RoleType.Design :
-          result_role.response.role_type == 'Marketing' ? RoleType.Marketing :
-            result_role.response.role_type == 'Sales/BD' ? RoleType.SalesBD :
-              result_role.response.role_type == 'Operations' ? RoleType.Operations : undefined
-    : undefined;
-
-  const r: Role = getDefaultRole();
-  r.id = result_role.response._id;
-  r.title = result_role.response.title;
-  r.desc = result_role.response.job_description;
-  r.salary_min = result_role.response.salary_min;
-  r.salary_max = result_role.response.salary_max;
-  r.equity_pct_min = result_role.response.equity_pct_min;
-  r.equity_pct_max = result_role.response.equity_pct_max;
-  r.company = result_company;
-  r.location = loc;
-  r.requirements = reqs;
-  r.state = result_role.response.state == "Live" ? RoleState.Live : RoleState.Hidden;
-  r.type = rtype;
-  r.keywords = [r.title, r.company.name]//TODO(scheuclu) Improve this
+  const r = await process_single_role_response(result_role.response, key);
 
   return r;
 }
@@ -76,16 +109,24 @@ export default async function role_handler(
     return;
   }
 
-
   const cache_id: string = "role_" + id;
   if (cache.has(cache_id)) {
     res.status(200).json(cache.get(cache_id));
     return;
   }
   else {
-    const role = await fetch_role_by_id(id, process.env.BUBBLE_API_PRIVATE_KEY);
-    cache.set(cache_id, role, { ttl: 1000 * 60 * 2 });
-    res.status(200).json(role);
+
+    //Decide whether to fetch by slug or by id
+    if (id.length === 32 && id[13] === 'x') { //TODO(scheuclu) Improve this (maybe use regex
+      const role = await fetch_role_by_id(id, process.env.BUBBLE_API_PRIVATE_KEY);
+      cache.set(cache_id, role, { ttl: 1000 * 60 * 2 });
+      res.status(200).json(role);
+    } else {
+      const role = await fetch_role_by_slug(id, process.env.BUBBLE_API_PRIVATE_KEY);
+      cache.set(cache_id, role, { ttl: 1000 * 60 * 2 });
+      res.status(200).json(role);
+    }
+
   }
 
 }

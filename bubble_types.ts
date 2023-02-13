@@ -116,6 +116,7 @@ export interface Company {
   socials: CompanySocials | undefined;
   press_article_links: NamedLink[] | undefined;
   founding_year: number | undefined;
+  slug: string | undefined;
 }
 export function getDefaultCompany(): Company {
   return {
@@ -127,7 +128,8 @@ export function getDefaultCompany(): Company {
     headquarters: "",
     socials: getDefaultCompanySocials(),
     press_article_links: undefined,
-    founding_year: undefined
+    founding_year: undefined,
+    slug: undefined
   };
 }
 
@@ -151,6 +153,7 @@ export interface Role {
   state: RoleState;
   type: RoleType | undefined;
   keywords: string[] | undefined;
+  slug: string | undefined;
 }
 export function getDefaultRole(): Role {
   return {
@@ -167,5 +170,6 @@ export function getDefaultRole(): Role {
     state: RoleState.Hidden,
     type: undefined,
     keywords: undefined,
+    slug: undefined,
   };
 }
