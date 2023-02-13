@@ -22,7 +22,7 @@ export default function Footer() {
       <Image src={"/Opolis_textonly.svg"} width={90} height={50} alt="Opolis" />
       &
       <Image src={"/JP_black.svg"} width={120} height={50} alt="Opolis" /> */}
-      Created using JobProtocol's{" "}
+      Created using JobProtocol&apos;s{" "}
       <a
         className="link"
         href="https://jobprotocol.xyz"

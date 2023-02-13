@@ -4,6 +4,7 @@ import styles_home from "@/styles/Home.module.css";
 import JdCard from "@/components/role/detail/jobdesc";
 import ApplyCard from "@/components/role/apply";
 import CompanyCard from "@/components/role/detail/companyinfo";
+import Footer from "@/components/overview/footer";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { getConfig } from "@/utils";
@@ -132,12 +133,12 @@ export default function Home() {
                 height={122}
               />
               <div className={styles.roleInfoText}>
-                <p className={styles.companyText}> {company.tagline}</p>
-                <h1 className={styles.roleTitleText}> {company.name}</h1>
+                <h1 className={"h1 " + styles.roleTitleText}> {company.name}</h1>
+                <p className={"body18 " + styles.companyTagLine}> {company.tagline}</p>
                 {/* <RoleConditions role={role} isInverted={true} /> */}
               </div>
             </div>
-            <div className={styles.roleOptionsContainer}>
+            {/* <div className={styles.roleOptionsContainer}>
               <div className={styles.roleOptionContainer}>
                 <div className={styles.roleOptionIconContainer}>
                   <Image
@@ -195,7 +196,7 @@ export default function Home() {
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className={styles_home.filtersContainer}>
@@ -235,6 +236,10 @@ export default function Home() {
           </div>
 
           <Joblist roles={filteredCompanyRoles} />
+
+          <div className={styles.headerBackgroundGradientContainer}></div>
+          <Footer />
+
         </div>
       </div>
     </div>
