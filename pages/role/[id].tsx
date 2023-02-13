@@ -205,7 +205,7 @@ export default function Home() {
             {role?.company && <CompanyCard company={role.company} />}
           </div>
           <ApplyCard
-            roleid={id}
+            roleid={role.id}
             role_type={role?.type}
             company_name={role?.company.name}
             role_title={role?.title}
