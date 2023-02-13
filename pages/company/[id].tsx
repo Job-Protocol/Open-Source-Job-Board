@@ -203,7 +203,9 @@ export default function Home() {
           </div>
 
           <div className={styles_home.filtersContainer}>
-            <div className={styles_home.row}>
+
+            {/* TODO(scheuclu) Disabling Search filters for now */}
+            {/* <div className={styles_home.row}>
               <div className={styles_home.inputContainer}>
                 <div className={styles_home.inputIconContainer}>
                   <svg
@@ -226,7 +228,7 @@ export default function Home() {
                   placeholder="Search"
                 ></input>
               </div>
-            </div>
+            </div> */}
             <JobFilters
               handleChange={(userAddress, remoteOnly) => {
                 setUserAddress(userAddress);
