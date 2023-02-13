@@ -31,7 +31,8 @@ export default function Home() {
   const [role, setRole] = useState<Role>();
   const [showCandidateDetailModal, setShowCandidateDetailModal] =
     useState(false);
-  const [showApplicationSuccessModal, setShowApplicationSuccessModal] = useState<boolean>(false);
+  const [showApplicationSuccessModal, setShowApplicationSuccessModal] =
+    useState<boolean>(false);
   const [candidateId, setCandidateId] = useState<string | undefined>(undefined);
   const [logoDark, setLogoDark] = useState<boolean>(false);
 
