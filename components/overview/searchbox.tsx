@@ -17,12 +17,20 @@ export interface Props {
   handleChange: (v: any) => void;
   disabled: boolean;
   id: string;
+  // Not the cleanest solution, but needed
+  customHeight?: string;
 }
 
 export default function SearchBox(data: Props) {
   const [options, setOptions] = useState<any[]>([{}]);
   const [userInput, setUserInput] = useState<string>("A");
   const [selectedValue, setSelectedValue] = useState<string>("");
+
+  const customHeightStyle = data.customHeight
+    ? {
+        height: data.customHeight,
+      }
+    : {};
 
   useEffect(() => {
     getOptions(userInput).then((res) => {
@@ -50,6 +58,7 @@ export default function SearchBox(data: Props) {
           ...selectStyles.control(baseStyles, state),
           cursor: "text",
           minWidth: "300px",
+          ...customHeightStyle,
         }),
       }}
       classNames={{
@@ -69,7 +78,10 @@ export default function SearchBox(data: Props) {
         data.handleChange(!value ? "" : (value as string));
         setSelectedValue(value as string);
       }} //actually make selection
-      onFocus={() => { setSelectedValue(""); data.handleChange(""); }}
+      onFocus={() => {
+        setSelectedValue("");
+        data.handleChange("");
+      }}
       onInputChange={(value) => {
         console.log("onInputChange");
         setTimeout(function () {
