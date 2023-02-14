@@ -22,26 +22,28 @@ export default function RoleConditions(data: RoleConditionsProps) {
   return (
     <div className={styleClassName}>
       <p>Full time</p>
-      {data.role.location && (
-        <p>&nbsp; • &nbsp;{rolelocation_to_string(data.role.location)}</p>
-      )}
 
-      {data.role.salary_min && data.role.salary_max ? (
-        <p>
-          &nbsp; • &nbsp;
-          {data.role.salary_min / 1000}-{data.role.salary_max / 1000}K USD/y
-        </p>
-      ) : (
-        <p>&nbsp; • &nbsp;Competitive Package</p>
-      )}
+      {data.role.location && (<p>&nbsp; • &nbsp;</p>)}
+      {data.role.location && (<p> {rolelocation_to_string(data.role.location)}</p>)}
 
-      {data.role.equity_pct_min && data.role.equity_pct_max && (
-        <p>
-          &nbsp; • &nbsp;
-          {data.role.equity_pct_min * 100}%-{data.role.equity_pct_max * 100}%
-          equity
-        </p>
-      )}
-    </div>
+      <p>&nbsp; • &nbsp;</p>
+      {
+        data.role.salary_min && data.role.salary_max ? (
+          <p>{data.role.salary_min / 1000}-{data.role.salary_max / 1000}K USD/y</p>
+        ) : (
+          <p>Competitive Package</p>
+        )
+      }
+
+      {data.role.equity_pct_min && data.role.equity_pct_max && (<p>&nbsp; • &nbsp;</p>)}
+      {
+        data.role.equity_pct_min && data.role.equity_pct_max && (
+          <p>
+            {data.role.equity_pct_min * 100}%-{data.role.equity_pct_max * 100}%
+            equity
+          </p>
+        )
+      }
+    </div >
   );
 }

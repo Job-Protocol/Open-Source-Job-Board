@@ -21,11 +21,11 @@ export default function JobCard(data: JobCardProps) {
           <Image
             src={role.company.logo.replace("//s3", "https://s3")}
             alt="Logo"
-            width={100}
-            height={100}
-            // layout="fill"
+            // width={100}
+            // height={100}
+            fill={true}
             style={{ objectFit: 'fill' }}
-            className={styles.logo}
+          // className={styles.logo}
           />
         </div>
 
@@ -36,14 +36,17 @@ export default function JobCard(data: JobCardProps) {
             <h2 className={"body18Bold"}>{role.title}</h2>
           </div>
 
-          <h3 className={"body16"}>{role.company.tagline}</h3>
+
           <div className={styles.roleConditionsDesktop}>
+            <h3 className={"body16"}>{role.company.tagline}</h3>
             <RoleConditions role={role} />
           </div>
         </div>
 
       </div>
+
       <div className={styles.roleConditionsMobile}>
+        <h3 className={"body16"}>{role.company.tagline}</h3>
         <RoleConditions role={role} />
       </div>
       <div className={styles.applyContainer}>
