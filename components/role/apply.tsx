@@ -236,10 +236,11 @@ export default function ApplyCard(params: any) {
   const checkInputsValid = () => {
     setInputsValid(
       firstName !== "" &&
-        lastName !== "" &&
-        email !== "" &&
-        validateEmail(email) &&
-        (linkedIn !== "" || resume != undefined)
+      lastName !== "" &&
+      email !== "" &&
+      location != undefined &&
+      validateEmail(email) &&
+      (linkedIn !== "" || resume != undefined)
     );
   };
 
@@ -273,7 +274,7 @@ export default function ApplyCard(params: any) {
               onChange={processInput}
               id="input-first-name"
               value={firstName}
-              // placeholder={"Required, e.g. Vitalik"}
+            // placeholder={"Required, e.g. Vitalik"}
             />
           </div>
           <div className={styles.formItem}>
@@ -294,7 +295,7 @@ export default function ApplyCard(params: any) {
               onChange={processInput}
               id="input-last-name"
               value={lastName}
-              // placeholder={"Required, e.g. Buterin"}
+            // placeholder={"Required, e.g. Buterin"}
             />
           </div>
           <div className={styles.formItem}>
@@ -341,11 +342,11 @@ export default function ApplyCard(params: any) {
               className={
                 email && !validateEmail(email)
                   ? stylesGlobalFormElements.inputInvalid +
-                    " " +
-                    stylesGlobalFormElements.inputSquare
+                  " " +
+                  stylesGlobalFormElements.inputSquare
                   : stylesGlobalFormElements.input +
-                    " " +
-                    stylesGlobalFormElements.inputSquare
+                  " " +
+                  stylesGlobalFormElements.inputSquare
 
                 // email && validateEmail(email)
                 //   ? stylesGlobalFormElements.input +
@@ -361,7 +362,7 @@ export default function ApplyCard(params: any) {
               onChange={processInput}
               id="input-email"
               value={email}
-              // placeholder={"Required, e.g. vitalik@ethereum.org"}
+            // placeholder={"Required, e.g. vitalik@ethereum.org"}
             />
           </div>
         </div>
@@ -439,27 +440,27 @@ export default function ApplyCard(params: any) {
 
           {(params.role_type === RoleType.Engineering ||
             params.role_type === undefined) && (
-            <div className={styles.formItem}>
-              <label
-                htmlFor="text-github"
-                className={"body16 " + styles.formLabel}
-              >
-                <FaGithub />
-                Github
-              </label>
-              <input
-                type="text"
-                className={
-                  stylesGlobalFormElements.input +
-                  " " +
-                  stylesGlobalFormElements.inputSquare
-                }
-                onChange={processInput}
-                id="input-github"
-                value={github}
-              />
-            </div>
-          )}
+              <div className={styles.formItem}>
+                <label
+                  htmlFor="text-github"
+                  className={"body16 " + styles.formLabel}
+                >
+                  <FaGithub />
+                  Github
+                </label>
+                <input
+                  type="text"
+                  className={
+                    stylesGlobalFormElements.input +
+                    " " +
+                    stylesGlobalFormElements.inputSquare
+                  }
+                  onChange={processInput}
+                  id="input-github"
+                  value={github}
+                />
+              </div>
+            )}
           <div className={styles.formItem}>
             <label
               htmlFor="text-1675001555945"
@@ -487,11 +488,11 @@ export default function ApplyCard(params: any) {
             className={
               isSubmitting
                 ? stylesGlobalFormElements.primaryButton +
-                  " " +
-                  stylesGlobalFormElements.primaryButtonDisabled
+                " " +
+                stylesGlobalFormElements.primaryButtonDisabled
                 : inputsValid
-                ? stylesGlobalFormElements.primaryButton
-                : stylesGlobalFormElements.primaryButton +
+                  ? stylesGlobalFormElements.primaryButton
+                  : stylesGlobalFormElements.primaryButton +
                   " " +
                   stylesGlobalFormElements.primaryButtonDisabled
             }
