@@ -12,6 +12,14 @@
   border-radius: 8px;
 }
 
+.companyCard:hover {
+  background-image: linear-gradient(
+    to right,
+    #ffffff00,
+    var(--main-color-15pct-transparency)
+  );
+}
+
 @media (min-width: 10px) {
   .companyCard {
     width: 100%;
