@@ -1,6 +1,6 @@
 .companyCard {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   /* flex: 0 1 calc(33% - 16px); */
   /* flex-basis: 373px; */
   /* min-width: 373px; */
@@ -10,6 +10,19 @@
   border-color: var(--border-color);
   border-width: 1px;
   border-radius: 8px;
+}
+
+
+.horizontal_flow{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.logoContainer {
+  width: 72px;
+  height: 72px;
+  position: relative;
 }
 
 .companyCard:hover {
