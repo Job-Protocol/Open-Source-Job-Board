@@ -84,7 +84,6 @@ export default async function role_handler(
     res.status(500);
     return;
   }
-  postMessage("This is a test message from the server!");
 
 
   const cache_id: string = "all";
