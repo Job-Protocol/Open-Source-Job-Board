@@ -134,6 +134,10 @@
   border-radius: 8px;
   background-color: white;
   /* overflow: hidden; */
+  width: 122px;
+  height: 122px;
+  position: relative;
+  aspect-ratio: 1 / 1;
 }
 
 .card {
@@ -180,6 +184,18 @@
     margin-right: .5rem; */
     margin: 10px 10px 10px 10px;
     box-sizing: border-box;
+  }
+
+  .logoContainer {
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    background-color: white;
+    /* overflow: hidden; */
+    width: 100px;
+    height: 100px;
+    position: relative;
+    aspect-ratio: 1 / 1;
   }
 }
 
