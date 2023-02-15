@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getConfig } from "@/utils";
+import { postMessage } from "@/utils";
 
 import {
   Company,
@@ -70,6 +71,9 @@ export async function fetch_company_by_slug(
   const url: string = getConfig()["endpoint"] + "/obj/company/?constraints=" + JSON.stringify(params);
   // const url: string = 'https://app.jobprotocol.xyz/version-test/api/1.1/obj/role/?constraints=[{ "key": "Slug", "constraint_type": "equals", "value": "1inch-eth-denver--software-engineer"}]'
   const response = await fetch(url, requestOptions);
+  if (response.status != 200) {
+    postMessage("URGENT: 'fetch_company_by_slug' failed with status code " + response.status.toString());
+  }
   // console.log("RESPONSE 1", response);
   const result = await response.json()
 
@@ -97,6 +101,9 @@ export async function fetch_company_by_id(
   // Fetch company, if possible
   const url: string = getConfig()["endpoint"] + "/obj/company/" + id;
   const response = await fetch(url, requestOptions);
+  if (response.status != 200) {
+    postMessage("URGENT: 'fetch_company_by_id' failed with status code " + response.status.toString());
+  }
   const result = await response.json();
 
   const comp: Company = await process_single_company_response(result.response, key);

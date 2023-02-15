@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getConfig } from "@/utils";
+import { getConfig, postMessage, postMessages } from "@/utils";
 
 import { Role, getDefaultRole, RoleLocation, Requirement, Company, getDefaultCompany } from "@/bubble_types";
 
@@ -20,6 +20,9 @@ export async function fetch_pageinated_bubble(url: string, requestOptions: any):
 
   while (!finished) {
     const response = await fetch(url, requestOptions);
+    if (response.status != 200) {
+      postMessage("URGENT: 'fetch_pageinated_bubble' failed with status code " + response.status.toString());
+    }
     const result = await response.json()
     finals = finals.concat(result.response.results);
     finished = result.response.remaining == 0 || cursor == 10000;
@@ -77,9 +80,11 @@ export default async function role_handler(
 
   res.setHeader('Cache-Control', 's-maxage=86400');
   if (!process.env.BUBBLE_API_PRIVATE_KEY) {
+    postMessage("URGENT: Could not read bubble api key");
     res.status(500);
     return;
   }
+  postMessage("This is a test message from the server!");
 
 
   const cache_id: string = "all";

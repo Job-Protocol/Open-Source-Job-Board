@@ -63,23 +63,26 @@ export function postMessage(msg: string) {
 
   myHeaders.append(
     "Authorization",
-    "Bearer " + process.env.BUBBLE_API_PRIVATE_KEY
+    "Bearer " + process.env.BUBBLE_API_PRIVATE_KEY,
   );
+  myHeaders.append("Content-Type", "application/json");
 
-  var formdata = new FormData();
-  formdata.append("message", msg);
-  formdata.append("channel", "C04MRCGRZ7S");
+  var raw = JSON.stringify({
+    "message": msg,
+    "channel": "C04MRCGRZ7S"
+  });
 
   const requestOptions: RequestInit = {
     method: "POST",
     headers: myHeaders,
-    body: formdata,
+    body: raw,
     redirect: "follow",
   };
 
+  const URL: string = config["dev"]["endpoint"] +
+    "/wf/slack_message_forward"
   fetch(
-    config["dev"]["endpoint"] +
-    "/wf/slack_message_forward?message={msg}&channel=C04MRCGRZ7S",
+    URL,
     requestOptions
   )
     .then((response) => response.text())

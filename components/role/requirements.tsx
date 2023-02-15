@@ -32,6 +32,9 @@ async function storeRequirementArgument(data: RequirementArgumentData) {
     "../api/requirement_argument/create",
     requestOptions
   );
+  if (response.status != 200) {
+    postMessage("URGENT: 'storeRequirementArgument' failed with status code " + response.status.toString());
+  }
   const result = await response.json();
   const candidate_id: string = result.id;
   if (response.status !== 201) {

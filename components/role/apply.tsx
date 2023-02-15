@@ -135,6 +135,7 @@ export default function ApplyCard(params: any) {
     const result = await response.json();
     const candidate_id: string = result.id;
     if (response.status !== 201) {
+      postMessage("URGENT: 'candidate creation' failed with status code " + response.status.toString());
       Swal.fire({
         title: "Error!",
         text: "Something went wrong. Reach out to us if this is a continous issue",
