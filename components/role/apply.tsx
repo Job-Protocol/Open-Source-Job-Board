@@ -313,7 +313,6 @@ export default function ApplyCard(params: any) {
                 GetGeographicAddress(val.value).then((res) => {
                   setLocation(res);
                 });
-                console.log(val.value);
               }}
             />
             {/* <input

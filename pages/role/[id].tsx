@@ -69,9 +69,11 @@ export default function Home() {
       </Head>
 
       <div className="page">
+
         <div className="pageContainer">
           <div className={styles.headerContainer}>
             <div className={styles.headerLeftContainer}>
+
               <Link className={"body16Bold " + styles.headerLink} href="/">
                 <svg
                   width="18"
@@ -94,17 +96,22 @@ export default function Home() {
             <div className={"body14 " + styles.headerRightContainer}>
               ETHDENVER Job Board
             </div>
+
           </div>
+
           <div className={styles.roleDetailHeaderContainer}>
             <div className={styles.roleInfo}>
               {logoDark && (
-                <Image
-                  className={styles.logoContainer}
-                  src={role?.company?.logo.replace("//s3", "https://s3")}
-                  alt="Logo"
-                  width={122}
-                  height={122}
-                />
+                <div className={styles.logoContainer}>
+                  <Image
+                    // className={styles.logoContainer}
+                    src={role?.company?.logo.replace("//s3", "https://s3")}
+                    alt="Logo"
+                    fill={true}
+                  // width={122}
+                  // height={122}
+                  />
+                </div>
               )}
               {!logoDark && (
                 <Image
@@ -124,9 +131,10 @@ export default function Home() {
                 <p className={"body18 " + styles.companyTagLine}>
                   {role?.company.tagline}
                 </p>
-                <RoleConditions role={role} isInverted={true} />
+                {/* <RoleConditions role={role} isInverted={true} /> */}
               </div>
             </div>
+            <RoleConditions role={role} isInverted={true} />
             {/* TODO(scheuclu) Role options are disabled until we have the data */}
             {/* <div className={styles.roleOptionsContainer}>
               <div className={styles.roleOptionContainer}>
