@@ -41,7 +41,8 @@ async function process_single_company_response(response_company: any, key: strin
   comp.press_article_links = press_article_links;
   comp.founding_year = response_company.founding_year;
   comp.slug = response_company.Slug;
-  comp.mission = response_company.mission
+  comp.mission = response_company.mission;
+  comp.priority = response_company.priority;
 
   return comp;
 }

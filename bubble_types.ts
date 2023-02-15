@@ -118,6 +118,7 @@ export interface Company {
   press_article_links: NamedLink[] | undefined;
   founding_year: number | undefined;
   slug: string | undefined;
+  priority: number | undefined;
 }
 export function getDefaultCompany(): Company {
   return {
@@ -131,7 +132,8 @@ export function getDefaultCompany(): Company {
     socials: getDefaultCompanySocials(),
     press_article_links: undefined,
     founding_year: undefined,
-    slug: undefined
+    slug: undefined,
+    priority: undefined
   };
 }
 
