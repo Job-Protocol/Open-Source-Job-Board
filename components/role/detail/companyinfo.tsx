@@ -26,10 +26,12 @@ export default function CompanyCard(data: CompanyCardProps) {
   return (
     <div className={styles_role_detail.card + " " + styles.gap24}>
       <h3 className={"body18Bold"}>About {data.company.name}</h3>
-      <div className={styles.section}>
+
+      {data.company.mission && <div className={styles.section}>
         <h4 className={"chapeauDark"}>Mission</h4>
-        <p className={"body16"}>{data.company.tagline}</p>
+        <p className={"body16"}>{data.company.mission}</p>
       </div>
+      }
 
       {(data.company.num_employees || data.company.headquarters) && (
         <div className={styles.section}>

@@ -111,6 +111,7 @@ export interface Company {
   name: string;
   logo: string;
   tagline: string;
+  mission: string | undefined;
   num_employees: number;
   headquarters: string;
   socials: CompanySocials | undefined;
@@ -124,6 +125,7 @@ export function getDefaultCompany(): Company {
     name: "",
     logo: "",
     tagline: "",
+    mission: undefined,
     num_employees: 0,
     headquarters: "",
     socials: getDefaultCompanySocials(),
