@@ -49,7 +49,7 @@
 .roleDetailHeaderContainer {
   display: flex;
   flex-direction: column;
-  background-color: var(--main-color-inverse);
+  background-color: var(--secondary-color);
   border-radius: 8px;
   padding: 24px;
   z-index: 1;
@@ -158,7 +158,33 @@
 }
 
 
-@media only screen and (max-width: 1000px) {
+.mobileOnly {
+  display: none;
+}
+
+.desktopOnly {
+  display: flex;
+  flex-direction: column;
+}
+
+
+@media only screen and (max-width: 800px) {
+
+  .mobileOnly {
+    display: flex;
+    flex-direction: column;
+    /* gap: 0.5rem; */
+  }
+  .desktopOnly {
+    display: none;
+  }
+
+  .companyTagLine {
+    color: white;
+    margin-top: 4px;
+    /* margin-bottom: 12px; */
+  }
+
   .JDAndCompanyCardContainer {
     display: flex;
     flex-direction: column;

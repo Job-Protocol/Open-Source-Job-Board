@@ -8,7 +8,7 @@
   color: white;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 800px) {
   .roleConditionsContainer {
     display: flex;
     flex-direction: row;
