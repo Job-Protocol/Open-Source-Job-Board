@@ -141,13 +141,13 @@ export default function Home() {
                 src={"/EDEN22Logo_Black.svg"}
                 alt="Header image"
                 fill
-              //style={{borderRadius: 8}}
-              // objectFit="cover"
+                //style={{borderRadius: 8}}
+                // objectFit="cover"
               />
             </div>
             <div className={styles.headerTextContainer}>
-              <h1 className={"h1"}>ETH Denver Job Board</h1>
-              <h2 className={"body18"}>The best jobs in crypto</h2>
+              <h1 className={"h1"}>ETH Denver Opportunity Zone</h1>
+              <h2 className={"body18"}>The best opportunities in crypto</h2>
               <div className={styles.headerIconsContainer}>
                 <Link href={"https://www.ethdenver.com/"}>
                   <Image
@@ -156,8 +156,8 @@ export default function Home() {
                     width={16}
                     height={16}
 
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://twitter.com/EthereumDenver"}>
@@ -166,8 +166,8 @@ export default function Home() {
                     alt="Twitter icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 {/* <Link href={"https://www.google.com"}>
@@ -196,8 +196,8 @@ export default function Home() {
                     alt="Discord icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://medium.com/ethdenver"}>
@@ -206,8 +206,8 @@ export default function Home() {
                     alt="Medium icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://www.youtube.com/c/ETHDenver"}>
@@ -216,8 +216,8 @@ export default function Home() {
                     alt="YouTube icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://www.instagram.com/ethdenver/"}>
@@ -226,8 +226,8 @@ export default function Home() {
                     alt="Instagram icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://www.meetup.com/Ethereum-Denver/"}>
@@ -236,8 +236,8 @@ export default function Home() {
                     alt="Meetup icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
               </div>
