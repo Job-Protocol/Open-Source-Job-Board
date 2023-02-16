@@ -280,7 +280,7 @@ export default function Home() {
                 />
               </div>
               <div className={styles.headerListRolesContianer}>
-                <a
+                <Link
                   className={
                     "marginTop16 " + stylesGlobalFormElements.primaryButton
                   }
@@ -289,7 +289,7 @@ export default function Home() {
                   rel="noreferrer"
                 >
                   List your roles
-                </a>
+                </Link>
               </div>
             </div>
           </div>

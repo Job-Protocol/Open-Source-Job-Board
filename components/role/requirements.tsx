@@ -5,6 +5,7 @@ import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.css";
 import { Role, Requirement, RequirementArgument } from "@/bubble_types";
 import RequirementCheck, { Answer } from "./requirementcheck";
 import Swal from "sweetalert2";
+import Link from "next/link";
 
 export interface RequirementArgumentData {
   answer: Answer;
