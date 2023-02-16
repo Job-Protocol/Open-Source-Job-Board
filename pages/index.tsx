@@ -265,19 +265,23 @@ export default function Home() {
                   />
                 </svg>
                 Powered by
-                <Image
-                  src={"/Opolis_textonly.svg"}
-                  width={90}
-                  height={50}
-                  alt="Opolis"
-                />
+                <Link href={"https://www.google.com"}>
+                  <Image
+                    src={"/Opolis_textonly.svg"}
+                    width={90}
+                    height={50}
+                    alt="Opolis"
+                  />
+                </Link>
                 &
-                <Image
-                  src={"/JP_black.svg"}
-                  width={120}
-                  height={50}
-                  alt="Opolis"
-                />
+                <Link href={"https://app.jobprotocol.xyz"}>
+                  <Image
+                    src={"/JP_black.svg"}
+                    width={120}
+                    height={50}
+                    alt="Opolis"
+                  />
+                </Link>
               </div>
               <div className={styles.headerListRolesContianer}>
                 <a
