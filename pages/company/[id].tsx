@@ -89,7 +89,7 @@ export default function Home() {
   }, [userAddress, remoteOnly, filter]);
 
   if (!company) {
-    return <p> No company {id}</p>;
+    return null;
   }
   return (
     <div>
