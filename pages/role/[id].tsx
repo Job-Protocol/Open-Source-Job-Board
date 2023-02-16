@@ -128,13 +128,21 @@ export default function Home() {
                   {role?.company.name}
                 </p>
                 <h1 className={"h1 " + styles.roleTitleText}>{role?.title}</h1>
-                <p className={"body18 " + styles.companyTagLine}>
-                  {role?.company.tagline}
-                </p>
-                {/* <RoleConditions role={role} isInverted={true} /> */}
+                <div className={styles.desktopOnly}>
+                  <p className={"body18 " + styles.companyTagLine}>
+                    {role?.company.tagline}
+                  </p>
+
+                  <RoleConditions role={role} isInverted={true} />
+                </div>
               </div>
             </div>
-            <RoleConditions role={role} isInverted={true} />
+            <div className={styles.mobileOnly}>
+              <p className={"body18 " + styles.companyTagLine}>
+                {role?.company.tagline}
+              </p>
+              <RoleConditions role={role} isInverted={true} />
+            </div>
             {/* TODO(scheuclu) Role options are disabled until we have the data */}
             {/* <div className={styles.roleOptionsContainer}>
               <div className={styles.roleOptionContainer}>
