@@ -3,44 +3,12 @@
 @tailwind utilities;
 
 :root {
-  /* --max-width: 1100px;
-  --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
-
-  --foreground-rgb: 0, 100, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-  --ethdenver-pink-hex: #f9548e;
-  --ethdenver-purple-hex: #481f84;
-
-  --tile-start-rgb: 239, 245, 249;
-  --tile-end-rgb: 228, 232, 233;
-  --tile-border: conic-gradient(
-    #00000080,
-    #00000040,
-    #00000030,
-    #00000020,
-    #00000010,
-    #00000010,
-    #00000080
-  );
-
-  --callout-rgb: 238, 240, 241;
-  --callout-border-rgb: 172, 175, 176;
-  --card-rgb: 180, 185, 188;
-  --card-border-rgb: 131, 134, 135; */
-
   --main-color: #ee4c83;
   --main-color-15pct-transparency: #ee4c8326;
   --main-color-10pct-transparency: #ee4c831a;
   --main-color-20pct-transparency: #ee4c8333;
-
-  --main-color-inverse: #28133e;
-
+  --secondary-color: #28133e;
   --border-color: #e2e2e2;
-
   --text-color-dark: #1f2534;
   --text-color-light: #1f2534cc;
 }

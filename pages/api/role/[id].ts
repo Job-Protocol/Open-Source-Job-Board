@@ -27,14 +27,14 @@ async function process_single_role_response(role_response: any, key: string): Pr
     await Promise.all(role_response.requirements.map((req: string) => fetchRequirement(req as string, key))) :
     undefined;
 
-  const rtype: RoleType | undefined = role_response.role_type ?
-    role_response.role_type == 'Egineering' ? RoleType.Engineering :
-      role_response.role_type == 'Product' ? RoleType.Product :
-        role_response.role_type == 'Design' ? RoleType.Design :
-          role_response.role_type == 'Marketing' ? RoleType.Marketing :
-            role_response.role_type == 'Sales/BD' ? RoleType.SalesBD :
-              role_response.role_type == 'Operations' ? RoleType.Operations : undefined
-    : undefined;
+
+  const rtype: RoleType | undefined = role_response.type == 'Engineering' ? RoleType.Engineering :
+    role_response.type == 'Product' ? RoleType.Product :
+      role_response.type == 'Design' ? RoleType.Design :
+        role_response.type == 'Marketing' ? RoleType.Marketing :
+          role_response.type == 'Sales/BD' ? RoleType.SalesBD :
+            role_response.type == 'Operations' ? RoleType.Operations : undefined;
+
 
   const r: Role = getDefaultRole();
   r.id = role_response._id;

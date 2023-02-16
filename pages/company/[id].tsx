@@ -58,18 +58,21 @@ export default function Home() {
       getCompanyData(id as string).then((res) => {
         setCompany(res);
       });
-      if (company) {
-        GetAllIDs()
-          .then((res) => GetRolesByRoleIDs(res[1]))
-          .then((res) => {
-            const roles_this_company = res.filter((role) => {
-              return role.company.id === company.id;
-            });
-            setCompanyRoles(roles_this_company);
-          });
-      }
     }
-  }, [id, company]);
+  }, [id]);
+
+  useEffect(() => {
+    if (company) {
+      GetAllIDs()
+        .then((res) => GetRolesByRoleIDs(res[1]))
+        .then((res) => {
+          const roles_this_company = res.filter((role) => {
+            return role.company.id === company?.id;
+          });
+          setCompanyRoles(roles_this_company);
+        });
+    }
+  }, [company]);
 
   useEffect(() => {
     if (companyroles) {
@@ -86,7 +89,7 @@ export default function Home() {
   }, [userAddress, remoteOnly, filter]);
 
   if (!company) {
-    return <p> No company {id}</p>;
+    return null;
   }
   return (
     <div>
@@ -200,7 +203,9 @@ export default function Home() {
           </div>
 
           <div className={styles_home.filtersContainer}>
-            <div className={styles_home.row}>
+
+            {/* TODO(scheuclu) Disabling Search filters for now */}
+            {/* <div className={styles_home.row}>
               <div className={styles_home.inputContainer}>
                 <div className={styles_home.inputIconContainer}>
                   <svg
@@ -223,7 +228,7 @@ export default function Home() {
                   placeholder="Search"
                 ></input>
               </div>
-            </div>
+            </div> */}
             <JobFilters
               handleChange={(userAddress, remoteOnly) => {
                 setUserAddress(userAddress);
@@ -237,7 +242,7 @@ export default function Home() {
 
           <Joblist roles={filteredCompanyRoles} />
 
-          <div className={styles.headerBackgroundGradientContainer}></div>
+          {/* <div className={styles.headerBackgroundGradientContainer}></div> */}
           <Footer />
 
         </div>

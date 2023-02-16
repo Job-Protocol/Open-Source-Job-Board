@@ -19,38 +19,44 @@ export default function CompanyCard(data: JobCardProps) {
     >
       <div id="horizontal" className={styles.cardContainer}>
         <div id="logo" className={styles.horizontal_flow}>
-          <Image
-            width={53}
-            height={53}
-            src={company.logo.replace("//s3", "https://s3")}
-            alt="Logo"
-            className={styles.logo}
-          />
-        </div>
-        <div id="content" className={styles.cardContents}>
-          <h2 className="body18Bold"> {company.name} </h2>
-          <div className={styles.cardMainContents}>
-            <p className="body16"> {company.tagline}</p>
-            <div className={"body14 " + styles.companyFactsContainer}>
-              {company.num_employees && (
-                <p>{company.num_employees} employees </p>
-              )}
-              {company.headquarters && <p>•</p>}
-              {company.headquarters && <p>{company.headquarters}</p>}
-              {company.founding_year && <p>•</p>}
-              {company.founding_year && <p>{company.founding_year}</p>}
+          <div className={styles.logoContainer}>
+            <Image
+              fill={true}
+              src={company.logo.replace("//s3", "https://s3")}
+              alt="Logo"
+              className={styles.logo}
+            />
+          </div>
+
+          <div id="content" className={styles.cardContents}>
+            <h2 className="body18Bold"> {company.name} </h2>
+            <div className={styles.cardMainContents}>
+              <p className="body16"> {company.tagline}</p>
             </div>
-            <button
-              type="submit"
-              className={styles.discoverButton}
-              name="button-1675001572178"
-              onClick={() => console.log("Button clicked")}
-              id="button-apply"
-            >
-              Discover
-            </button>
           </div>
         </div>
+
+        <div className={styles.cardMainContents}>
+          <div className={"body14 " + styles.companyFactsContainer}>
+            {company.num_employees && (
+              <p>{company.num_employees} employees </p>
+            )}
+            {company.headquarters && <p>•</p>}
+            {company.headquarters && <p>{company.headquarters}</p>}
+            {company.founding_year && <p>•</p>}
+            {company.founding_year && <p>{company.founding_year}</p>}
+          </div>
+          <button
+            type="submit"
+            className={styles.discoverButton}
+            name="button-1675001572178"
+            onClick={() => console.log("Button clicked")}
+            id="button-apply"
+          >
+            Discover
+          </button>
+        </div>
+
       </div>
     </a>
   );

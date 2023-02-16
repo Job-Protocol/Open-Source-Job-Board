@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import config from "../../../config.json";
 import { getConfig } from "@/utils";
+import { postMessage } from "@/utils";
 
 import { CompanySocials, getDefaultCompanySocials } from "@/bubble_types";
 
@@ -22,6 +23,9 @@ export async function fetch_by_id(
 
   const url: string = getConfig()["endpoint"] + "/obj/companysocials/" + id;
   const response = await fetch(url, requestOptions);
+  if (response.status != 200) {
+    postMessage("URGENT: 'fetch_by_id' for company socials failed with status code " + response.status.toString());
+  }
   const result = await response.json();
 
   const res: CompanySocials = getDefaultCompanySocials();

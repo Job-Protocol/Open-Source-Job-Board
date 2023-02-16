@@ -37,7 +37,7 @@ export default function RequirementCheck(data: CardProps) {
           className={stylesGlobalFormElements.checkbox}
           onChange={(value) => {
             setAnswer(!answer);
-            data.handleChange({ argument: "vvv", answer: !answer });
+            data.handleChange({ argument: argument, answer: !answer });
           }}
         />
         <p key={req.desc} className={"body16 marginLeft8"}>
@@ -54,6 +54,10 @@ export default function RequirementCheck(data: CardProps) {
         }
         type="text"
         placeholder="A few words on how you meet this requirement"
+        onChange={(event) => {
+          setArgument(event?.target.value);
+          data.handleChange({ argument: argument, answer: answer });
+        }}
       />
     </div>
   );

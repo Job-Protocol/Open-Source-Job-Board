@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { Asap_Condensed } from "@next/font/google";
 import { addAbortSignal } from "stream";
 import { GeographicAddress, getDefaultGeographicAddress } from "@/bubble_types";
+import { postMessage } from "@/utils";
 
 var psCache = require('ps-cache');
 var cache = new psCache.Cache();
@@ -19,6 +20,9 @@ export async function fetch_by_inp(id: string, key: string): Promise<GeographicA
 
   const url: string = "https://maps.googleapis.com/maps/api/place/details/json?place_id=" + id + "&key=" + key
   const response = await fetch(url, requestOptions);
+  if (response.status != 200) {
+    postMessage("URGENT: 'fetch_by_inp' failed with status code " + response.status.toString());
+  }
   const result = await response.json();
   const utc_offset = result.result.utc_offset;
   const formattted_address = result.result.formatted_address;

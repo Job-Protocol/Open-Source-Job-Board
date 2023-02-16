@@ -111,12 +111,14 @@ export interface Company {
   name: string;
   logo: string;
   tagline: string;
+  mission: string | undefined;
   num_employees: number;
   headquarters: string;
   socials: CompanySocials | undefined;
   press_article_links: NamedLink[] | undefined;
   founding_year: number | undefined;
   slug: string | undefined;
+  priority: number | undefined;
 }
 export function getDefaultCompany(): Company {
   return {
@@ -124,12 +126,14 @@ export function getDefaultCompany(): Company {
     name: "",
     logo: "",
     tagline: "",
+    mission: undefined,
     num_employees: 0,
     headquarters: "",
     socials: getDefaultCompanySocials(),
     press_article_links: undefined,
     founding_year: undefined,
-    slug: undefined
+    slug: undefined,
+    priority: undefined
   };
 }
 

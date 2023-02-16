@@ -18,6 +18,8 @@
 
 .logo {
   border-radius: 8px;
+  /* width: 100px;
+  height: 100px; */
 }
 
 .roleInfo {
@@ -30,9 +32,13 @@
   /* background-color: green; */
   flex-grow: 0;     /* do not grow   - initial value: 0 */
   flex-shrink: 0;   /* do not shrink - initial value: 1 */
-  flex-basis: 100px; /* width/height  - initial value: auto */
+  /* flex-basis: 100px; width/height  - initial value: auto */
   vertical-align: middle;
-  align-items: center
+  align-items: center;
+  display: "inline-block";
+  width: 100px;
+  height: 100px;
+  position: relative;
 }
 
 .roleInfoText {
@@ -119,4 +125,26 @@
     border-radius: 8px;
   }
 
+  .roleInfoImage {
+    /* background-color: green; */
+    flex-grow: 0;     /* do not grow   - initial value: 0 */
+    flex-shrink: 0;   /* do not shrink - initial value: 1 */
+    /* flex-basis: 100px; width/height  - initial value: auto */
+    vertical-align: middle;
+    align-items: center;
+    display: "inline-block";
+    width: 48px;
+    height: 48px;
+    position: relative;
+  }
+
+  .roleInfoCompanyAndRoleTitleContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 0.5rem;
+  }
+
 }
+
+/* TODO */

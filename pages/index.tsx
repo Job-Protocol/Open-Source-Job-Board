@@ -83,8 +83,15 @@ export default function Home() {
 
   useEffect(() => {
     GetRolesByRoleIDs(roleIDs).then((res) => {
-      setRoles(res);
-      setFilteredRoles(res);
+
+      const sorted_roles = res.sort((a, b) => {
+        if (!a.company.priority) return 1;
+        if (!b.company.priority) return 1;
+        return a.company.priority < b.company.priority ? 1 : -1
+      })
+
+      setRoles(sorted_roles);
+      setFilteredRoles(sorted_roles);
     });
   }, [companyIDs, roleIDs]);
 
@@ -355,7 +362,7 @@ export default function Home() {
                     placeholder="Search"
                     onChange={(value) =>
                       setTimeout(function () {
-                        setSearchterm(value.target.value);
+                        setSearchterm(value.target.value.replace(/\s+$/, ''));
                       }, 1000)
                     }
                   ></input>
