@@ -362,7 +362,7 @@ export default function Home() {
                     placeholder="Search"
                     onChange={(value) =>
                       setTimeout(function () {
-                        setSearchterm(value.target.value);
+                        setSearchterm(value.target.value.replace(/\s+$/, ''));
                       }, 1000)
                     }
                   ></input>
