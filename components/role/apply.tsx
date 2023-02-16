@@ -428,6 +428,7 @@ export default function ApplyCard(params: any) {
                 id="input-resume"
               />
             </label>
+            <p> &nbsp;{resume?.name.split('\\')[resume?.name.split('\\').length - 1]}</p>
           </div>
         </div>
         <div className={styles.formItemGroup}>
