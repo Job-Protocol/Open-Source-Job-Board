@@ -35,7 +35,6 @@ type CandidateData = {
   eth_wallet_address: string | undefined;
 };
 
-
 function undef(v: any | undefined) {
   return v === undefined;
 }
@@ -161,7 +160,10 @@ export default function ApplyCard(params: any) {
     const result = await response.json();
     const candidate_id: string = result.id;
     if (response.status !== 201) {
-      postMessage("URGENT: 'candidate creation' failed with status code " + response.status.toString());
+      postMessage(
+        "URGENT: 'candidate creation' failed with status code " +
+          response.status.toString()
+      );
       Swal.fire({
         title: "Error!",
         text: "Something went wrong. Reach out to us if this is a continous issue",
@@ -263,11 +265,11 @@ export default function ApplyCard(params: any) {
   const checkInputsValid = () => {
     setInputsValid(
       valueSet(firstName) &&
-      valueSet(lastName) &&
-      valueSet(email) &&
-      location != undefined &&
-      validateEmail(email) &&
-      (valueSet(linkedIn) || resume != undefined)
+        valueSet(lastName) &&
+        valueSet(email) &&
+        location != undefined &&
+        validateEmail(email) &&
+        (valueSet(linkedIn) || resume != undefined)
     );
   };
 
@@ -301,7 +303,7 @@ export default function ApplyCard(params: any) {
               onChange={processInput}
               id="input-first-name"
               value={firstName}
-            // placeholder={"Required, e.g. Vitalik"}
+              // placeholder={"Required, e.g. Vitalik"}
             />
           </div>
           <div className={styles.formItem}>
@@ -322,7 +324,7 @@ export default function ApplyCard(params: any) {
               onChange={processInput}
               id="input-last-name"
               value={lastName}
-            // placeholder={"Required, e.g. Buterin"}
+              // placeholder={"Required, e.g. Buterin"}
             />
           </div>
           <div className={styles.formItem}>
@@ -367,12 +369,14 @@ export default function ApplyCard(params: any) {
               type="email"
               className={
                 email && !validateEmail(email)
-                  ? stylesGlobalFormElements.inputInvalid +
-                  " " +
-                  stylesGlobalFormElements.inputSquare
+                  ? stylesGlobalFormElements.input +
+                    " " +
+                    stylesGlobalFormElements.inputSquare +
+                    " " +
+                    stylesGlobalFormElements.inputInvalid
                   : stylesGlobalFormElements.input +
-                  " " +
-                  stylesGlobalFormElements.inputSquare
+                    " " +
+                    stylesGlobalFormElements.inputSquare
 
                 // email && validateEmail(email)
                 //   ? stylesGlobalFormElements.input +
@@ -388,7 +392,7 @@ export default function ApplyCard(params: any) {
               onChange={processInput}
               id="input-email"
               value={email}
-            // placeholder={"Required, e.g. vitalik@ethereum.org"}
+              // placeholder={"Required, e.g. vitalik@ethereum.org"}
             />
           </div>
         </div>
@@ -421,7 +425,10 @@ export default function ApplyCard(params: any) {
                 styles.fullwidth
               }
               name="text-1675001387870"
-              onChange={value => { console.log("change"); processInput(value) }}
+              onChange={(value) => {
+                console.log("change");
+                processInput(value);
+              }}
               id="input-linkedin"
               value={linkedIn}
             />
@@ -454,7 +461,9 @@ export default function ApplyCard(params: any) {
                 id="input-resume"
               />
             </label>
-            <p> &nbsp;{resume?.name.split('\\')[resume?.name.split('\\').length - 1]}</p>
+            <p className="body14 marginLeft8">
+              {resume?.name.split("\\")[resume?.name.split("\\").length - 1]}
+            </p>
           </div>
         </div>
         <div className={styles.formItemGroup}>
@@ -467,27 +476,27 @@ export default function ApplyCard(params: any) {
 
           {(params.role_type === RoleType.Engineering ||
             params.role_type === undefined) && (
-              <div className={styles.formItem}>
-                <label
-                  htmlFor="text-github"
-                  className={"body16 " + styles.formLabel}
-                >
-                  <FaGithub />
-                  Github
-                </label>
-                <input
-                  type="text"
-                  className={
-                    stylesGlobalFormElements.input +
-                    " " +
-                    stylesGlobalFormElements.inputSquare
-                  }
-                  onChange={processInput}
-                  id="input-github"
-                  value={github}
-                />
-              </div>
-            )}
+            <div className={styles.formItem}>
+              <label
+                htmlFor="text-github"
+                className={"body16 " + styles.formLabel}
+              >
+                <FaGithub />
+                Github
+              </label>
+              <input
+                type="text"
+                className={
+                  stylesGlobalFormElements.input +
+                  " " +
+                  stylesGlobalFormElements.inputSquare
+                }
+                onChange={processInput}
+                id="input-github"
+                value={github}
+              />
+            </div>
+          )}
           <div className={styles.formItem}>
             <label
               htmlFor="text-1675001555945"
@@ -515,11 +524,11 @@ export default function ApplyCard(params: any) {
             className={
               isSubmitting
                 ? stylesGlobalFormElements.primaryButton +
-                " " +
-                stylesGlobalFormElements.primaryButtonDisabled
+                  " " +
+                  stylesGlobalFormElements.primaryButtonDisabled
                 : inputsValid
-                  ? stylesGlobalFormElements.primaryButton
-                  : stylesGlobalFormElements.primaryButton +
+                ? stylesGlobalFormElements.primaryButton
+                : stylesGlobalFormElements.primaryButton +
                   " " +
                   stylesGlobalFormElements.primaryButtonDisabled
             }

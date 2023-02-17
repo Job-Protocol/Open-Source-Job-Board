@@ -6,16 +6,21 @@
   border-color: var(--border-color);
   color: #1f2534cc;
   width: 100%;
+
+  padding-top: 12px;
+  padding-bottom: 12px;
+  line-height: 22px;
+
+  /* height: 48px; */
 }
 .inputInvalid {
-  display: block;
-  flex: 1;
+  /* display: block;
+  flex: 1; */
 
-  border-width: 1px;
-  border-color: #fe0000;
-  color: #1f2534cc;
-  width: 100%;
-  
+  /* border-width: 1px; */
+  border-color: #fe0000 !important;
+  /* color: #1f2534cc; */
+  /* width: 100%; */
 }
 
 .inputRound {
@@ -24,7 +29,7 @@
 
 .inputSquare {
   border-radius: 8px;
-  height: 48px;
+  /* height: 48px; */
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -40,8 +45,6 @@
   outline: none !important;
   box-shadow: 0;
 }
-
-
 
 .primaryButton {
   display: flex;
@@ -98,6 +101,12 @@
     border-width: 1px;
     border-color: var(--border-color);
     color: #1f2534cc;
+
+    padding-top: 12px;
+    padding-bottom: 12px;
+    line-height: 22px;
+
+    /* height: 48px; */
     /* width: 100%; */
   }
 }

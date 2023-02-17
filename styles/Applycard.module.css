@@ -67,6 +67,9 @@
   border-width: 1px;
   border-radius: 8px;
 
+  white-space: nowrap;
+  flex-shrink: 0;
+
   cursor: pointer;
 }
 
@@ -92,7 +95,7 @@
     align-items: flex-start;
     width: 100%;
     float: left;
-    height: 56px;
+    /* min-height: 56px; */
   }
   .formLabel {
     display: flex;
@@ -107,22 +110,22 @@
     display: flex;
     flex-direction: row;
     gap: 4px;
-  
+
     max-width: 100%;
     /* width: 100%; */
     min-width: 200px;
     height: 48px;
     min-height: 36px;
-  
+
     align-items: center;
-  
+
     padding-left: 16px;
     padding-right: 16px;
-  
+
     border-color: var(--main-color);
     border-width: 1px;
     border-radius: 8px;
-  
+
     cursor: pointer;
   }
 }
