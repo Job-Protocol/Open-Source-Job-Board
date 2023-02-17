@@ -101,6 +101,19 @@ export default function ApplyCard(params: any) {
     var content = "";
     if (data.resume) {
       const reader = new FileReader(data.resume);
+
+      if (reader._source.size > 10000000) {
+        Swal.fire({
+          title: "Error!",
+          text: "File size is too large. Please upload a file smaller than 10MB",
+          icon: "error",
+          iconColor: "#481f84",
+          confirmButtonText: "Close",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
       const dataUrl = await reader.readAsDataURL();
       content = dataUrl.split("base64,")[1];
       raw = JSON.stringify({
