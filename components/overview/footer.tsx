@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "@/styles/Footer.module.css";
 
+import Link from "next/link";
+
 import Image from "next/image";
 
 export default function Footer() {
@@ -23,14 +25,14 @@ export default function Footer() {
       &
       <Image src={"/JP_black.svg"} width={120} height={50} alt="Opolis" /> */}
       Created using JobProtocol&apos;s{" "}
-      <a
+      <Link
         className="link"
         href="https://jobprotocol.xyz"
         target="_blank"
         rel="noreferrer"
       >
         Open Source Job Board
-      </a>
+      </Link>
     </div>
   );
 }
