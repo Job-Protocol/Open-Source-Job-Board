@@ -44,17 +44,17 @@ export default function CompanyConditions(data: Props) {
 
       {data.company.socials && <p>&nbsp;•&nbsp;</p>}
 
-      {data.company.socials && valid(data.company.socials.twitter) && (
+      {data.company.socials && data.company.socials.twitter && (
         <Link href={data.company.socials.twitter} rel="noopener noreferrer" target="_blank">
           <FaTwitter />
         </Link>
       )}
-      {data.company.socials && valid(data.company.socials.github) && (
+      {data.company.socials && data.company.socials.github && (
         <Link href={data.company.socials.github} rel="noopener noreferrer" target="_blank">
           <FaGithub />
         </Link>
       )}
-      {data.company.socials && valid(data.company.socials.linkedin) && (
+      {data.company.socials && data.company.socials.linkedin && (
         <Link href={data.company.socials.linkedin} rel="noopener noreferrer" target="_blank">
           <FaLinkedin />
         </Link>
