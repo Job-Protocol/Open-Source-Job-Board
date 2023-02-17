@@ -5,6 +5,7 @@ import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.css";
 import { Role, Requirement, RequirementArgument } from "@/bubble_types";
 import RequirementCheck, { Answer } from "./requirementcheck";
 import Swal from "sweetalert2";
+import Link from "next/link";
 
 export interface RequirementArgumentData {
   answer: Answer;
@@ -32,6 +33,9 @@ async function storeRequirementArgument(data: RequirementArgumentData) {
     "../api/requirement_argument/create",
     requestOptions
   );
+  if (response.status != 200) {
+    postMessage("URGENT: 'storeRequirementArgument' failed with status code " + response.status.toString());
+  }
   const result = await response.json();
   const candidate_id: string = result.id;
   if (response.status !== 201) {

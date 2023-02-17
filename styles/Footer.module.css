@@ -16,3 +16,21 @@
   gap: 6px;
   align-items: center;
 }
+
+
+.footerLinks{
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+}
+
+@media only screen and (max-width: 800px) {
+  .footerLinks{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+  }
+  
+}

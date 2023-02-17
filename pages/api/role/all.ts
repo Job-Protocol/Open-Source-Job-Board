@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getConfig } from "@/utils";
+import { getConfig, postMessage, postMessages } from "@/utils";
 
 import { Role, getDefaultRole, RoleLocation, Requirement, Company, getDefaultCompany } from "@/bubble_types";
 
@@ -12,7 +12,27 @@ var cache = new psCache.Cache();
 
 
 
-export async function fetch_roleIDs_by_companyIDs(company_ids: string[], key: string): Promise<Company> {
+export async function fetch_pageinated_bubble(url: string, requestOptions: any): Promise<any[]> {
+
+  let finals: any[] = [];
+  let finished: boolean = false;
+  let cursor = 0;
+
+  while (!finished) {
+    const response = await fetch(url, requestOptions);
+    if (response.status != 200) {
+      postMessage("URGENT: 'fetch_pageinated_bubble' failed with status code " + response.status.toString());
+    }
+    const result = await response.json()
+    finals = finals.concat(result.response.results);
+    finished = result.response.remaining == 0 || cursor == 10000;
+    cursor = cursor + 100;
+  }
+  return finals;
+};
+
+
+export async function fetch_roleIDs_by_companyIDs(company_ids: string[], key: string): Promise<string[]> {
   var myHeaders = new Headers();
   myHeaders.append("Authorization", "Bearer ".concat(key));
 
@@ -28,12 +48,9 @@ export async function fetch_roleIDs_by_companyIDs(company_ids: string[], key: st
   };
 
   const url: string = getConfig()["endpoint"] + "/obj/role/?constraints=" + JSON.stringify(params);
-  const response = await fetch(url, requestOptions);
-  const result = await response.json()
-  const role_ids = result.response.results.map((company: any) => company._id);
+  const temp = await fetch_pageinated_bubble(url, requestOptions);
+  const role_ids = temp.map((company: any) => company._id);
   return role_ids;
-
-
 }
 
 export async function fetch_companies_by_partner(partner: string, key: string): Promise<string[]> {
@@ -51,12 +68,9 @@ export async function fetch_companies_by_partner(partner: string, key: string): 
   };
 
   var url: string = getConfig()["endpoint"] + "/obj/company/?constraints=" + JSON.stringify(params);
-  const response = await fetch(url, requestOptions);
-
-  const result = await response.json();
-  const company_ids = result.response.results.map((company: any) => company._id);
+  const temp = await fetch_pageinated_bubble(url, requestOptions);
+  const company_ids = temp.map((company: any) => company._id);
   return company_ids;
-
 }
 
 export default async function role_handler(
@@ -66,13 +80,14 @@ export default async function role_handler(
 
   res.setHeader('Cache-Control', 's-maxage=86400');
   if (!process.env.BUBBLE_API_PRIVATE_KEY) {
+    postMessage("URGENT: Could not read bubble api key");
     res.status(500);
     return;
   }
 
 
   const cache_id: string = "all";
-  if (false && cache.has(cache_id)) { //TODO(scheuclu): make this dynamic
+  if (cache.has(cache_id)) { //TODO(scheuclu): make this dynamic
     res.status(200).json(cache.get(cache_id));
     return;
   }

@@ -24,6 +24,7 @@ import Filter from "@/components/overview/filter";
 import { useRouter } from "next/router";
 
 import { GetAllIDs, GetRolesByRoleIDs } from "@/pages/index";
+import CompanyConditions from "@/components/company/companyconditions";
 
 async function getCompanyData(id: string): Promise<Company> {
   const result = await fetch("../api/company/" + id);
@@ -89,7 +90,7 @@ export default function Home() {
   }, [userAddress, remoteOnly, filter]);
 
   if (!company) {
-    return <p> No company {id}</p>;
+    return null;
   }
   return (
     <div>
@@ -139,8 +140,11 @@ export default function Home() {
                 <h1 className={"h1 " + styles.roleTitleText}> {company.name}</h1>
                 <p className={"body18 " + styles.companyTagLine}> {company.tagline}</p>
                 {/* <RoleConditions role={role} isInverted={true} /> */}
+                <CompanyConditions company={company} isInverted={true} />
               </div>
             </div>
+
+            {/* TODO(scheuclu) */}
             {/* <div className={styles.roleOptionsContainer}>
               <div className={styles.roleOptionContainer}>
                 <div className={styles.roleOptionIconContainer}>

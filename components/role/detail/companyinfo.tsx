@@ -10,6 +10,7 @@ import styles_role_detail from "@/styles/Roledetailpage.module.css";
 import { Company } from "@/bubble_types";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export interface CompanyCardProps {
   company: Company;
@@ -26,10 +27,12 @@ export default function CompanyCard(data: CompanyCardProps) {
   return (
     <div className={styles_role_detail.card + " " + styles.gap24}>
       <h3 className={"body18Bold"}>About {data.company.name}</h3>
-      <div className={styles.section}>
+
+      {data.company.mission && <div className={styles.section}>
         <h4 className={"chapeauDark"}>Mission</h4>
-        <p className={"body16"}>{data.company.tagline}</p>
+        <p className={"body16"}>{data.company.mission}</p>
       </div>
+      }
 
       {(data.company.num_employees || data.company.headquarters) && (
         <div className={styles.section}>
@@ -53,19 +56,19 @@ export default function CompanyCard(data: CompanyCardProps) {
           <h4 className={"chapeauDark"}>Socials</h4>
           <div className={styles.socials}>
             {data.company.socials && valid(data.company.socials.twitter) && (
-              <a href={data.company.socials.twitter}>
+              <Link href={data.company.socials.twitter}>
                 <FaTwitter />
-              </a>
+              </Link>
             )}
             {data.company.socials && valid(data.company.socials.github) && (
-              <a href={data.company.socials.github}>
+              <Link href={data.company.socials.github}>
                 <FaGithub />
-              </a>
+              </Link>
             )}
             {data.company.socials && valid(data.company.socials.linkedin) && (
-              <a href={data.company.socials.linkedin}>
+              <Link href={data.company.socials.linkedin}>
                 <FaLinkedin />
-              </a>
+              </Link>
             )}
           </div>
         </div>

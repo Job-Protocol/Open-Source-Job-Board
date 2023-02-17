@@ -5,7 +5,7 @@ import { getConfig } from "@/utils";
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: "5mb", // Set desired value here
+      sizeLimit: "15mb", // Set desired value here
     },
   },
 };

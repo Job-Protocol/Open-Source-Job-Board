@@ -41,6 +41,14 @@
   /* padding-bottom: 8px; */
 }
 
+.headerPoweredByPositioning {
+  position: absolute;
+  /* top: 12px; */
+  bottom: 8px;
+  right: 24px;
+  color: white;
+}
+
 .headerPoweredByContainer {
   display: flex;
   flex-direction: row;
@@ -149,6 +157,15 @@
     margin-top: -38px;
     padding-left: 24px;
     padding-right: 24px;
+  }
+
+  .headerPoweredByPositioning {
+    position: absolute;
+    top: 8px;
+    left: 24px;
+    /* bottom: 8px; */
+    /* right: 24px; */
+    color: white;
   }
 
   .logoImageContainer {

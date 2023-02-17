@@ -28,8 +28,8 @@ export default function SearchBox(data: Props) {
 
   const customHeightStyle = data.customHeight
     ? {
-        height: data.customHeight,
-      }
+      height: data.customHeight,
+    }
     : {};
 
   useEffect(() => {
@@ -83,7 +83,6 @@ export default function SearchBox(data: Props) {
         data.handleChange("");
       }}
       onInputChange={(value) => {
-        console.log("onInputChange");
         setTimeout(function () {
           setUserInput(value);
         }, 1000);

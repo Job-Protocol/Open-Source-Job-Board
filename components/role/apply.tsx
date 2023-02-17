@@ -35,6 +35,19 @@ type CandidateData = {
   eth_wallet_address: string | undefined;
 };
 
+
+function undef(v: any | undefined) {
+  return v === undefined;
+}
+
+function empty(v: any | undefined) {
+  return v === "";
+}
+
+function valueSet(v: any | undefined) {
+  return !undef(v) && !empty(v);
+}
+
 export interface ApplyCardProps {
   role_id: string;
   role_type: RoleType;
@@ -101,6 +114,19 @@ export default function ApplyCard(params: any) {
     var content = "";
     if (data.resume) {
       const reader = new FileReader(data.resume);
+
+      if (reader._source.size > 10000000) {
+        Swal.fire({
+          title: "Error!",
+          text: "File size is too large. Please upload a file smaller than 10MB",
+          icon: "error",
+          iconColor: "#481f84",
+          confirmButtonText: "Close",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
       const dataUrl = await reader.readAsDataURL();
       content = dataUrl.split("base64,")[1];
       raw = JSON.stringify({
@@ -135,6 +161,7 @@ export default function ApplyCard(params: any) {
     const result = await response.json();
     const candidate_id: string = result.id;
     if (response.status !== 201) {
+      postMessage("URGENT: 'candidate creation' failed with status code " + response.status.toString());
       Swal.fire({
         title: "Error!",
         text: "Something went wrong. Reach out to us if this is a continous issue",
@@ -235,12 +262,12 @@ export default function ApplyCard(params: any) {
 
   const checkInputsValid = () => {
     setInputsValid(
-      firstName !== "" &&
-      lastName !== "" &&
-      email !== "" &&
+      valueSet(firstName) &&
+      valueSet(lastName) &&
+      valueSet(email) &&
       location != undefined &&
       validateEmail(email) &&
-      (linkedIn !== "" || resume != undefined)
+      (valueSet(linkedIn) || resume != undefined)
     );
   };
 
@@ -313,7 +340,6 @@ export default function ApplyCard(params: any) {
                 GetGeographicAddress(val.value).then((res) => {
                   setLocation(res);
                 });
-                console.log(val.value);
               }}
             />
             {/* <input
@@ -395,7 +421,7 @@ export default function ApplyCard(params: any) {
                 styles.fullwidth
               }
               name="text-1675001387870"
-              onChange={processInput}
+              onChange={value => { console.log("change"); processInput(value) }}
               id="input-linkedin"
               value={linkedIn}
             />
@@ -428,6 +454,7 @@ export default function ApplyCard(params: any) {
                 id="input-resume"
               />
             </label>
+            <p> &nbsp;{resume?.name.split('\\')[resume?.name.split('\\').length - 1]}</p>
           </div>
         </div>
         <div className={styles.formItemGroup}>

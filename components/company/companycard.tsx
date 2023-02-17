@@ -4,6 +4,8 @@ import { Company } from "@/bubble_types";
 import Image from "next/image";
 // import RoleConditions from "./detail/roleconditions";
 
+import Link from "next/link";
+
 export interface JobCardProps {
   company: Company;
 }
@@ -11,7 +13,7 @@ export interface JobCardProps {
 export default function CompanyCard(data: JobCardProps) {
   const company = data.company;
   return (
-    <a
+    <Link
       href={"company/" + company.slug}
       className={styles.companyCard}
       target="_blank"
@@ -58,6 +60,6 @@ export default function CompanyCard(data: JobCardProps) {
         </div>
 
       </div>
-    </a>
+    </Link>
   );
 }
