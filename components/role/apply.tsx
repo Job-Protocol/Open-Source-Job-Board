@@ -35,6 +35,19 @@ type CandidateData = {
   eth_wallet_address: string | undefined;
 };
 
+
+function undef(v: any | undefined) {
+  return v === undefined;
+}
+
+function empty(v: any | undefined) {
+  return v === "";
+}
+
+function valueSet(v: any | undefined) {
+  return !undef(v) && !empty(v);
+}
+
 export interface ApplyCardProps {
   role_id: string;
   role_type: RoleType;
@@ -249,12 +262,12 @@ export default function ApplyCard(params: any) {
 
   const checkInputsValid = () => {
     setInputsValid(
-      firstName !== "" &&
-      lastName !== "" &&
-      email !== "" &&
+      valueSet(firstName) &&
+      valueSet(lastName) &&
+      valueSet(email) &&
       location != undefined &&
       validateEmail(email) &&
-      (linkedIn !== "" || resume != undefined)
+      (valueSet(linkedIn) || resume != undefined)
     );
   };
 
@@ -408,7 +421,7 @@ export default function ApplyCard(params: any) {
                 styles.fullwidth
               }
               name="text-1675001387870"
-              onChange={processInput}
+              onChange={value => { console.log("change"); processInput(value) }}
               id="input-linkedin"
               value={linkedIn}
             />
