@@ -140,15 +140,11 @@ export default function Home() {
                 <h1 className={"h1 " + styles.roleTitleText}> {company.name}</h1>
                 <p className={"body18 " + styles.companyTagLine}> {company.tagline}</p>
                 {/* <RoleConditions role={role} isInverted={true} /> */}
+                <CompanyConditions company={company} isInverted={true} />
               </div>
             </div>
 
             {/* TODO(scheuclu) */}
-            <div className={styles.roleOptionsContainer}>
-              <div className={styles.roleOptionContainer}>
-                <CompanyConditions company={company} isInverted={false} />
-              </div>
-            </div>
             {/* <div className={styles.roleOptionsContainer}>
               <div className={styles.roleOptionContainer}>
                 <div className={styles.roleOptionIconContainer}>

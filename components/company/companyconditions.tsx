@@ -21,7 +21,7 @@ export default function CompanyConditions(data: Props) {
 
   return (
     <div className={styleClassName}>
-      {data.company.headquarters && (<p> data.company.headquarters</p>)}
+      {data.company.headquarters && (<p> {data.company.headquarters} </p>)}
 
       {data.company.headquarters && data.company.num_employees && <p>&nbsp;•&nbsp;</p>}
       {data.company.num_employees && <p>{data.company.num_employees} employees</p>}
