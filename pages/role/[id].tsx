@@ -65,11 +65,31 @@ export default function Home() {
       <Head>
         <title>{role.company.name + " - " + role.title}</title>
         <meta
+          property="og:title"
+          content={role.company.name + " - " + role.title}
+        />
+        <meta
+          name="twitter:title"
+          content={role.company.name + " - " + role.title}
+        />
+
+        <meta
           name="description"
+          content={role.company.name + " - " + role.title}
+        />
+        <meta
+          property="og:description"
+          content={role.company.name + " - " + role.title}
+        />
+        <meta
+          name="twitter:description"
           content={role.company.name + " - " + role.title}
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/faviconV2.png" />
+
+        {/* <meta property="og:image" content="img_url" /> */}
+        {/* <meta name="twitter:image" content="img_url" /> */}
       </Head>
 
       <div className="page">
