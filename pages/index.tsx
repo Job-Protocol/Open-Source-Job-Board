@@ -288,8 +288,19 @@ export default function Home() {
               <div className={styles.headerListRolesContianer}>
                 <Link
                   className={
-                    "marginTop16 " + stylesGlobalFormElements.primaryButton
+                    "marginTop16 " +
+                    stylesGlobalFormElements.primaryButton +
+                    " " +
+                    styles.desktopOnly
                   }
+                  href={"https://app.jobprotocol.xyz/ethdenver_onboarding"}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  List your roles
+                </Link>
+                <Link
+                  className={"marginTop16 body16Bold link " + styles.mobileOnly}
                   href={"https://app.jobprotocol.xyz/ethdenver_onboarding"}
                   target="_blank"
                   rel="noreferrer"
