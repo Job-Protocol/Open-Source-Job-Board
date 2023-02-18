@@ -64,18 +64,23 @@ export default function Home() {
     <div>
       <Head>
         <title>{role.company.name + " - " + role.title}</title>
+
+        {/* Preimary meta tags */}
+        <meta
+          name="title"
+          content={role.company.name + " - " + role.title}
+        ></meta>
+        <meta
+          name="description"
+          content={role.company.name + " - " + role.title}
+        ></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/faviconV2.png" />
+
+        {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content={role.company.name + " - " + role.title}
-        />
-        <meta
-          name="twitter:title"
-          content={role.company.name + " - " + role.title}
-        />
-
-        <meta
-          name="description"
           content={role.company.name + " - " + role.title}
         />
         <meta
@@ -83,19 +88,23 @@ export default function Home() {
           content={role.company.name + " - " + role.title}
         />
         <meta
-          name="twitter:description"
-          content={role.company.name + " - " + role.title}
-        />
-        <meta property="twitter:card" content="summary" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/faviconV2.png" />
-
-        <meta
           property="og:image"
           content={role?.company?.logo.replace("//s3", "https://s3")}
         />
+
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary" />
         <meta
-          name="twitter:image"
+          property="twitter:title"
+          content={role.company.name + " - " + role.title}
+        />
+
+        <meta
+          property="twitter:description"
+          content={role.company.name + " - " + role.title}
+        />
+        <meta
+          property="twitter:image"
           content={role?.company?.logo.replace("//s3", "https://s3")}
         />
       </Head>
