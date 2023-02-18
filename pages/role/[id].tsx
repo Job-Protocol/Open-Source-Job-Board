@@ -63,18 +63,19 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>ETH Denver Jobs</title>
-        <meta name="description" content="Jobboard for ETHDenver 2023" />
+        <title>{role.company.name + " - " + role.title}</title>
+        <meta
+          name="description"
+          content={role.company.name + " - " + role.title}
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/faviconV2.png" />
       </Head>
 
       <div className="page">
-
         <div className="pageContainer">
           <div className={styles.headerContainer}>
             <div className={styles.headerLeftContainer}>
-
               <Link className={"body16Bold " + styles.headerLink} href="/">
                 <svg
                   width="18"
@@ -94,10 +95,16 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className={"body14 " + styles.headerRightContainer}>
+            <div
+              className={
+                "body14 " +
+                styles.headerRightContainer +
+                " " +
+                styles.desktopOnly
+              }
+            >
               ETHDENVER Job Board
             </div>
-
           </div>
 
           <div className={styles.roleDetailHeaderContainer}>
@@ -109,8 +116,8 @@ export default function Home() {
                     src={role?.company?.logo.replace("//s3", "https://s3")}
                     alt="Logo"
                     fill={true}
-                  // width={122}
-                  // height={122}
+                    // width={122}
+                    // height={122}
                   />
                 </div>
               )}
@@ -142,7 +149,7 @@ export default function Home() {
               <p className={"body18 " + styles.companyTagLine}>
                 {role?.company.tagline}
               </p>
-              <RoleConditions role={role} isInverted={true} />
+              <RoleConditions role={role} isInverted={false} />
             </div>
             {/* TODO(scheuclu) Role options are disabled until we have the data */}
             {/* <div className={styles.roleOptionsContainer}>
@@ -230,7 +237,13 @@ export default function Home() {
           />
 
           {/* TODO(scheuclu): replace with candidate_id */}
-          <div className={styles.headerBackgroundGradientContainer}></div>
+          <div
+            className={
+              styles.headerBackgroundGradientContainer +
+              " " +
+              styles.desktopOnly
+            }
+          ></div>
           <Footer />
         </div>
       </div>

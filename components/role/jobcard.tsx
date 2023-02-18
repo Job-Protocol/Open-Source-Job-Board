@@ -3,7 +3,7 @@ import styles from "@/styles/Jobcard.module.css";
 import { Role } from "@/bubble_types";
 import RoleConditions from "./detail/roleconditions";
 import Image from "next/image";
-import Link from 'next/link'
+import Link from "next/link";
 
 import { RoleState } from "@/bubble_types";
 
@@ -24,8 +24,8 @@ export default function JobCard(data: JobCardProps) {
             // width={100}
             // height={100}
             fill={true}
-            style={{ objectFit: 'fill' }}
-          // className={styles.logo}
+            // style={{ objectFit: 'fill' }}
+            className={styles.logo}
           />
         </div>
 
@@ -36,13 +36,11 @@ export default function JobCard(data: JobCardProps) {
             <h2 className={"body18Bold"}>{role.title}</h2>
           </div>
 
-
           <div className={styles.roleConditionsDesktop}>
             <h3 className={"body16"}>{role.company.tagline}</h3>
             <RoleConditions role={role} />
           </div>
         </div>
-
       </div>
 
       <div className={styles.roleConditionsMobile}>

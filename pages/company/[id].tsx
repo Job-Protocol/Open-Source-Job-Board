@@ -93,7 +93,7 @@ export default function Home() {
     return null;
   }
   return (
-    <div>
+    <>
       <Head>
         <title>ETH Denver Jobs</title>
         <meta name="description" content="Jobboard for ETHDenver 2023" />
@@ -137,8 +137,14 @@ export default function Home() {
                 height={122}
               />
               <div className={styles.roleInfoText}>
-                <h1 className={"h1 " + styles.roleTitleText}> {company.name}</h1>
-                <p className={"body18 " + styles.companyTagLine}> {company.tagline}</p>
+                <h1 className={"h1 " + styles.roleTitleText}>
+                  {" "}
+                  {company.name}
+                </h1>
+                <p className={"body18 " + styles.companyTagLine}>
+                  {" "}
+                  {company.tagline}
+                </p>
                 {/* <RoleConditions role={role} isInverted={true} /> */}
                 <CompanyConditions company={company} isInverted={true} />
               </div>
@@ -207,7 +213,6 @@ export default function Home() {
           </div>
 
           <div className={styles_home.filtersContainer}>
-
             {/* TODO(scheuclu) Disabling Search filters for now */}
             {/* <div className={styles_home.row}>
               <div className={styles_home.inputContainer}>
@@ -248,9 +253,8 @@ export default function Home() {
 
           {/* <div className={styles.headerBackgroundGradientContainer}></div> */}
           <Footer />
-
         </div>
       </div>
-    </div>
+    </>
   );
 }
