@@ -95,8 +95,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>ETH Denver Jobs</title>
-        <meta name="description" content="Jobboard for ETHDenver 2023" />
+        <title>{company.name}</title>
+        <meta name="description" content={company.name} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/ethdenver-spork-logo-pink2.png" />
       </Head>
@@ -124,18 +124,26 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className={styles.headerRightContainer}>
+            <div
+              className={
+                "body14 " +
+                styles.headerRightContainer +
+                " " +
+                styles.desktopOnly
+              }
+            >
               ETHDENVER Job Board
             </div>
           </div>
           <div className={styles.roleDetailHeaderContainer}>
             <div className={styles.roleInfo}>
-              <Image
-                src={company?.logo.replace("//s3", "https://s3")}
-                alt="Logo"
-                width={122}
-                height={122}
-              />
+              <div className={styles.logoContainer}>
+                <Image
+                  src={company?.logo.replace("//s3", "https://s3")}
+                  alt="Logo"
+                  fill={true}
+                />
+              </div>
               <div className={styles.roleInfoText}>
                 <h1 className={"h1 " + styles.roleTitleText}>
                   {" "}
@@ -146,7 +154,12 @@ export default function Home() {
                   {company.tagline}
                 </p>
                 {/* <RoleConditions role={role} isInverted={true} /> */}
-                <CompanyConditions company={company} isInverted={true} />
+                <div className={styles.desktopOnly}>
+                  <CompanyConditions company={company} isInverted={true} />
+                </div>
+                <div className={styles.mobileOnly}>
+                  <CompanyConditions company={company} isInverted={false} />
+                </div>
               </div>
             </div>
 
@@ -212,7 +225,9 @@ export default function Home() {
             </div> */}
           </div>
 
-          <div className={styles_home.filtersContainer}>
+          <div
+            className={styles_home.filtersContainer + " " + styles.desktopOnly}
+          >
             {/* TODO(scheuclu) Disabling Search filters for now */}
             {/* <div className={styles_home.row}>
               <div className={styles_home.inputContainer}>
