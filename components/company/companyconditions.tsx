@@ -47,7 +47,6 @@ export default function CompanyConditions(data: Props) {
     styleClassName += " " + "body16 " + styles.inverted;
   }
 
-  console.log("le socials ", data.company.socials);
 
   return (
     <div className={styleClassName}>

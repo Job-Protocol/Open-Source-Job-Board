@@ -13,6 +13,8 @@ import { useRouter } from "next/router";
 import { Role, Requirement } from "@/bubble_types";
 import RoleConditions from "@/components/role/detail/roleconditions";
 
+import FourOhFour from "@/pages/404";
+
 import Link from "next/link";
 import Image from "next/image";
 import Popup from "reactjs-popup";
@@ -21,6 +23,7 @@ import { FastAverageColor } from "fast-average-color";
 
 async function getRoleData(roleid: string): Promise<Role> {
   const result = await fetch("../api/role/" + roleid);
+
   const parsed = await result.json();
   return parsed;
 }
@@ -47,19 +50,26 @@ export default function Home() {
   useEffect(() => {
     if (role) {
       const test = new FastAverageColor();
-      test.getColorAsync(role.company.logo as string).then((res) => {
-        const dist_square: number =
-          (res.value[0] - 72) ** 2 +
-          (res.value[1] - 31) ** 2 +
-          (res.value[2] - 132) ** 2;
-        setLogoDark(dist_square < 20000); //TODO(scheuclu): Find a better heuristic here.
-      });
+      if (role.company.logo) {
+        test.getColorAsync(role.company.logo as string).then((res) => {
+          const dist_square: number =
+            (res.value[0] - 72) ** 2 +
+            (res.value[1] - 31) ** 2 +
+            (res.value[2] - 132) ** 2;
+          setLogoDark(dist_square < 20000); //TODO(scheuclu): Find a better heuristic here.
+        })
+      };
     }
   }, [role]);
 
   if (!role) {
     return;
   }
+
+  if (role.id == "") {
+    return FourOhFour();
+  }
+
   return (
     <div>
       <Head>
@@ -153,8 +163,8 @@ export default function Home() {
                     src={role?.company?.logo.replace("//s3", "https://s3")}
                     alt="Logo"
                     fill={true}
-                    // width={122}
-                    // height={122}
+                  // width={122}
+                  // height={122}
                   />
                 </div>
               )}

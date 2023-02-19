@@ -161,7 +161,7 @@ export interface Role {
 }
 export function getDefaultRole(): Role {
   return {
-    id: " ",
+    id: "",
     title: "",
     company: getDefaultCompany(),
     desc: "",
