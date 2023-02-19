@@ -23,7 +23,6 @@ export default function FourOhFour() {
                             Click here to go back home ...
                         </Link>
 
-
                     </div>
                 </div>
             </div>
