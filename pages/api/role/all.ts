@@ -98,9 +98,4 @@ export default async function role_handler(
   cache.set(cache_id, [company_ids, role_ids], { ttl: 1000 * 60 * 2 });
   res.status(200).json([company_ids, role_ids]);
 
-
-
-
-
-
 }
