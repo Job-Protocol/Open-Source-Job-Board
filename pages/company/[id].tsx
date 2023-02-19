@@ -23,29 +23,48 @@ import Filter from "@/components/overview/filter";
 
 import { useRouter } from "next/router";
 
-import { GetAllIDs, GetRolesByRoleIDs } from "@/pages/index";
+import { GetAllIDs, GetCompaniesByCompanyIDs, GetRolesByRoleIDs } from "@/pages/index";
 import CompanyConditions from "@/components/company/companyconditions";
 
 async function getCompanyData(id: string): Promise<Company> {
-  const result = await fetch("../api/company/" + id);
+  const result = await fetch(`${process.env.BASE_URL}/api/company/` + id);
   const parsed = await result.json();
   return parsed;
 }
 
-// async function GetRoleData(): Promise<Role[]> {
-//   const results = getConfig()["job-ids"].map(async (roleid: string) => {
-//     const result = await fetch("/api/role/" + roleid);
-//     const parsed = await result.json();
-//     return parsed;
-//   });
-//   const role_data = await Promise.all(results);
-//   return role_data;
-// };
+export interface Props {
+  company: Company;
+}
 
-export default function Home() {
-  const router = useRouter();
-  const id = router.query.id;
-  const [company, setCompany] = useState<Company>();
+export async function getStaticPaths() {
+
+  const allIDs = await GetAllIDs();
+  const companyIDS = allIDs[0];
+
+  const companies: Company[] = await GetCompaniesByCompanyIDs(companyIDS);
+  const slugs = companies.map(company => company.slug);
+  const paths = slugs.map(slug => ({ params: { id: slug } }));
+
+  return {
+    paths: paths,
+    fallback: false, // can also be true or 'blocking'
+  }
+}
+
+// `getStaticPaths` requires using `getStaticProps`
+export async function getStaticProps(context: any) {
+  const company = await getCompanyData(context.params.id);
+  return {
+    // Passed to the page component as props
+    props: { company: company },
+    revalidate: 60 * 30, // In seconds
+  }
+}
+
+
+export default function Home(props: Props) {
+
+  const company: Company = props.company;
   const [companyroles, setCompanyRoles] = useState<Role[]>([]);
   const [filteredCompanyRoles, setFilteredCompanyRoles] = useState<Role[]>([]);
   const [userAddress, setUserAddress] = useState<GeographicAddress | undefined>(
@@ -53,14 +72,6 @@ export default function Home() {
   );
   const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
   const [filter, setFilter] = useState<Filter>();
-
-  useEffect(() => {
-    if (id) {
-      getCompanyData(id as string).then((res) => {
-        setCompany(res);
-      });
-    }
-  }, [id]);
 
   useEffect(() => {
     if (company) {
