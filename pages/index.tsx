@@ -22,7 +22,7 @@ import { getConfig } from "@/utils";
 import { RoleType } from "@/bubble_types";
 
 export async function GetAllIDs(): Promise<string[][]> {
-  const result = await fetch("http://localhost:3000/api/role/all");
+  const result = await fetch("https://frontend-zeta-henna.vercel.app/api/role/all");
   const parsed = await result.json();
   return parsed;
 }
@@ -31,7 +31,7 @@ export async function GetCompaniesByCompanyIDs(
   ids: string[]
 ): Promise<Company[]> {
   const response: Promise<Response>[] = ids.map((id) =>
-    fetch(`http://localhost:3000/api/company/${id}`)
+    fetch(`https://frontend-zeta-henna.vercel.app/api/company/${id}`)
   );
   const reponses: Response[] = await Promise.all(response);
   const roles = reponses.map((result) => result.json());
@@ -42,7 +42,7 @@ export async function GetCompaniesByCompanyIDs(
 export async function GetRolesByRoleIDs(ids: string[]): Promise<Role[]> {
 
   const response: Promise<Response>[] = ids.map((id) =>
-    fetch(`http://localhost:3000/api/role/${id}`)
+    fetch(`https://frontend-zeta-henna.vercel.app/api/role/${id}`)
   );
   const reponses: Response[] = await Promise.all(response);
 
