@@ -9,7 +9,9 @@ import SearchBox from "@/components/overview/searchbox";
 import { GeographicAddress, RoleType } from "@/bubble_types";
 import Select from "react-select";
 
-export async function GetGeographicAddress(s: string): Promise<GeographicAddress> {
+export async function GetGeographicAddress(
+  s: string
+): Promise<GeographicAddress> {
   const result = await fetch("/api/places/details/fromstring/" + s);
   const parsed = await result.json();
   return parsed;
@@ -84,8 +86,7 @@ export default function JobFilters({
               styles={{
                 ...selectStyles,
                 control: (baseStyles: any, state: any) => ({
-                  ...baseStyles,
-                  ...selectStyles.control,
+                  ...selectStyles.control(baseStyles, state),
                   minWidth: "200px",
                 }),
               }}
