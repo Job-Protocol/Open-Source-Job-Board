@@ -61,8 +61,6 @@ export async function getStaticProps(context: any) {
 export default function Home(props: Props) {
 
   const role = props.role;
-  const router = useRouter();
-  const id = router.query.id;
 
   const [logoDark, setLogoDark] = useState<boolean>(false);
 

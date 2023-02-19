@@ -21,8 +21,6 @@ import { GeographicAddress } from "@/bubble_types";
 
 import Filter from "@/components/overview/filter";
 
-import { useRouter } from "next/router";
-
 import { GetAllIDs, GetCompaniesByCompanyIDs, GetRolesByRoleIDs } from "@/pages/index";
 import CompanyConditions from "@/components/company/companyconditions";
 
@@ -34,6 +32,7 @@ async function getCompanyData(id: string): Promise<Company> {
 
 export interface Props {
   company: Company;
+  companyroles: Role[];
 }
 
 export async function getStaticPaths() {
@@ -54,9 +53,14 @@ export async function getStaticPaths() {
 // `getStaticPaths` requires using `getStaticProps`
 export async function getStaticProps(context: any) {
   const company = await getCompanyData(context.params.id);
+  const allIDs = await GetAllIDs(); //TODO(scheuclu) URGENT. Replace this with more efficient query. E.g. query bubble to only return roles for this company.
+  const roleIDs = allIDs[1];
+  const allRoles = await GetRolesByRoleIDs(roleIDs);
+  const companyroles = allRoles.filter(role => role.company.id === company.id);
+
   return {
     // Passed to the page component as props
-    props: { company: company },
+    props: { company: company, companyroles: companyroles },
     revalidate: 60 * 30, // In seconds
   }
 }
@@ -65,26 +69,14 @@ export async function getStaticProps(context: any) {
 export default function Home(props: Props) {
 
   const company: Company = props.company;
-  const [companyroles, setCompanyRoles] = useState<Role[]>([]);
+  const companyroles: Role[] = props.companyroles;
+
   const [filteredCompanyRoles, setFilteredCompanyRoles] = useState<Role[]>([]);
   const [userAddress, setUserAddress] = useState<GeographicAddress | undefined>(
     undefined
   );
   const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
   const [filter, setFilter] = useState<Filter>();
-
-  useEffect(() => {
-    if (company) {
-      GetAllIDs()
-        .then((res) => GetRolesByRoleIDs(res[1]))
-        .then((res) => {
-          const roles_this_company = res.filter((role) => {
-            return role.company.id === company?.id;
-          });
-          setCompanyRoles(roles_this_company);
-        });
-    }
-  }, [company]);
 
   useEffect(() => {
     if (companyroles) {
