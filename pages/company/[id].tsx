@@ -21,59 +21,62 @@ import { GeographicAddress } from "@/bubble_types";
 
 import Filter from "@/components/overview/filter";
 
-import { useRouter } from "next/router";
-
-import { GetAllIDs, GetRolesByRoleIDs } from "@/pages/index";
+import { GetAllIDs, GetCompaniesByCompanyIDs, GetRolesByRoleIDs } from "@/pages/index";
 import CompanyConditions from "@/components/company/companyconditions";
 
 async function getCompanyData(id: string): Promise<Company> {
-  const result = await fetch("../api/company/" + id);
+  const result = await fetch(`${process.env.BASE_URL}/api/company/` + id);
   const parsed = await result.json();
   return parsed;
 }
 
-// async function GetRoleData(): Promise<Role[]> {
-//   const results = getConfig()["job-ids"].map(async (roleid: string) => {
-//     const result = await fetch("/api/role/" + roleid);
-//     const parsed = await result.json();
-//     return parsed;
-//   });
-//   const role_data = await Promise.all(results);
-//   return role_data;
-// };
+export interface Props {
+  company: Company;
+  companyroles: Role[];
+}
 
-export default function Home() {
-  const router = useRouter();
-  const id = router.query.id;
-  const [company, setCompany] = useState<Company>();
-  const [companyroles, setCompanyRoles] = useState<Role[]>([]);
+export async function getStaticPaths() {
+
+  const allIDs = await GetAllIDs();
+  const companyIDS = allIDs[0];
+
+  const companies: Company[] = await GetCompaniesByCompanyIDs(companyIDS);
+  const slugs = companies.map(company => company.slug);
+  const paths = slugs.map(slug => ({ params: { id: slug } }));
+
+  return {
+    paths: paths,
+    fallback: false, // can also be true or 'blocking'
+  }
+}
+
+// `getStaticPaths` requires using `getStaticProps`
+export async function getStaticProps(context: any) {
+  const company = await getCompanyData(context.params.id);
+  const allIDs = await GetAllIDs(); //TODO(scheuclu) URGENT. Replace this with more efficient query. E.g. query bubble to only return roles for this company.
+  const roleIDs = allIDs[1];
+  const allRoles = await GetRolesByRoleIDs(roleIDs);
+  const companyroles = allRoles.filter(role => role.company.id === company.id);
+
+  return {
+    // Passed to the page component as props
+    props: { company: company, companyroles: companyroles },
+    revalidate: 60 * 30, // In seconds
+  }
+}
+
+
+export default function Home(props: Props) {
+
+  const company: Company = props.company;
+  const companyroles: Role[] = props.companyroles;
+
   const [filteredCompanyRoles, setFilteredCompanyRoles] = useState<Role[]>([]);
   const [userAddress, setUserAddress] = useState<GeographicAddress | undefined>(
     undefined
   );
   const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
   const [filter, setFilter] = useState<Filter>();
-
-  useEffect(() => {
-    if (id) {
-      getCompanyData(id as string).then((res) => {
-        setCompany(res);
-      });
-    }
-  }, [id]);
-
-  useEffect(() => {
-    if (company) {
-      GetAllIDs()
-        .then((res) => GetRolesByRoleIDs(res[1]))
-        .then((res) => {
-          const roles_this_company = res.filter((role) => {
-            return role.company.id === company?.id;
-          });
-          setCompanyRoles(roles_this_company);
-        });
-    }
-  }, [company]);
 
   useEffect(() => {
     if (companyroles) {

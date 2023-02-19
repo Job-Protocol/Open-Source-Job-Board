@@ -15,37 +15,54 @@ import RoleConditions from "@/components/role/detail/roleconditions";
 
 import FourOhFour from "@/pages/404";
 
+
 import Link from "next/link";
 import Image from "next/image";
-import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { FastAverageColor } from "fast-average-color";
 
-async function getRoleData(roleid: string): Promise<Role> {
-  const result = await fetch("../api/role/" + roleid);
+import { GetAllIDs, GetCompaniesByCompanyIDs, GetRolesByRoleIDs } from "..";
 
+async function getRoleData(roleid: string): Promise<Role> {
+  const result = await fetch(`${process.env.BASE_URL}/api/role/` + roleid);
   const parsed = await result.json();
   return parsed;
 }
 
-export default function Home() {
-  const router = useRouter();
-  const id = router.query.id;
-  const [role, setRole] = useState<Role>();
-  const [showCandidateDetailModal, setShowCandidateDetailModal] =
-    useState(false);
-  const [showApplicationSuccessModal, setShowApplicationSuccessModal] =
-    useState<boolean>(false);
-  const [candidateId, setCandidateId] = useState<string | undefined>(undefined);
-  const [logoDark, setLogoDark] = useState<boolean>(false);
+export interface Props {
+  role: Role;
+}
 
-  useEffect(() => {
-    if (id) {
-      getRoleData(id as string).then((res) => {
-        setRole(res);
-      });
-    }
-  }, [id]);
+export async function getStaticPaths() {
+
+  const allIDs = await GetAllIDs();
+  const roleIDS = allIDs[1];
+
+  const roles = await GetRolesByRoleIDs(roleIDS);
+  const slugs = roles.map(role => role.slug);
+  const paths = slugs.map(slug => ({ params: { id: slug } }));
+
+  return {
+    paths: paths,
+    fallback: false, // can also be true or 'blocking'
+  }
+}
+
+// `getStaticPaths` requires using `getStaticProps`
+export async function getStaticProps(context: any) {
+  const role = await getRoleData(context.params.id);
+  return {
+    // Passed to the page component as props
+    props: { role: role },
+    revalidate: 60 * 30, // In seconds
+  }
+}
+
+export default function Home(props: Props) {
+
+  const role = props.role;
+
+  const [logoDark, setLogoDark] = useState<boolean>(false);
 
   useEffect(() => {
     if (role) {

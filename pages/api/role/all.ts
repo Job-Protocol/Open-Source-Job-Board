@@ -7,10 +7,6 @@ import { fetch_company_by_id } from "../company/[id]";
 import { fetch_by_id as fetchRoleLocation } from "./location/[id]";
 import { fetch_by_id as fetchRequirement } from "../requirement/[id]";
 
-var psCache = require('ps-cache');
-var cache = new psCache.Cache();
-
-
 
 export async function fetch_pageinated_bubble(url: string, requestOptions: any): Promise<any[]> {
 
@@ -85,17 +81,8 @@ export default async function role_handler(
     return;
   }
 
-
-  const cache_id: string = "all";
-  if (cache.has(cache_id)) { //TODO(scheuclu): make this dynamic
-    res.status(200).json(cache.get(cache_id));
-    return;
-  }
-
   const company_ids = await fetch_companies_by_partner("ETH_Denver", process.env.BUBBLE_API_PRIVATE_KEY);//TODO(scheuclu): make this dynamic
   const role_ids = await fetch_roleIDs_by_companyIDs(company_ids, process.env.BUBBLE_API_PRIVATE_KEY);
 
-  cache.set(cache_id, [company_ids, role_ids], { ttl: 1000 * 60 * 2 });
   res.status(200).json([company_ids, role_ids]);
-
 }
