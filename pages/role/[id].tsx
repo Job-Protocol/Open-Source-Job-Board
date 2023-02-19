@@ -13,6 +13,8 @@ import { useRouter } from "next/router";
 import { Role, Requirement } from "@/bubble_types";
 import RoleConditions from "@/components/role/detail/roleconditions";
 
+import FourOhFour from "@/pages/404";
+
 import Link from "next/link";
 import Image from "next/image";
 import Popup from "reactjs-popup";
@@ -21,6 +23,7 @@ import { FastAverageColor } from "fast-average-color";
 
 async function getRoleData(roleid: string): Promise<Role> {
   const result = await fetch("../api/role/" + roleid);
+
   const parsed = await result.json();
   return parsed;
 }
@@ -47,34 +50,79 @@ export default function Home() {
   useEffect(() => {
     if (role) {
       const test = new FastAverageColor();
-      test.getColorAsync(role.company.logo as string).then((res) => {
-        const dist_square: number =
-          (res.value[0] - 72) ** 2 +
-          (res.value[1] - 31) ** 2 +
-          (res.value[2] - 132) ** 2;
-        setLogoDark(dist_square < 20000); //TODO(scheuclu): Find a better heuristic here.
-      });
+      if (role.company.logo) {
+        test.getColorAsync(role.company.logo as string).then((res) => {
+          const dist_square: number =
+            (res.value[0] - 72) ** 2 +
+            (res.value[1] - 31) ** 2 +
+            (res.value[2] - 132) ** 2;
+          setLogoDark(dist_square < 20000); //TODO(scheuclu): Find a better heuristic here.
+        })
+      };
     }
   }, [role]);
 
   if (!role) {
     return;
   }
+
+  if (role.id == "") {
+    return FourOhFour();
+  }
+
   return (
     <div>
       <Head>
-        <title>ETH Denver Jobs</title>
-        <meta name="description" content="Jobboard for ETHDenver 2023" />
+        <title>{role.company.name + " - " + role.title}</title>
+
+        {/* Preimary meta tags */}
+        <meta
+          name="title"
+          content={role.company.name + " - " + role.title}
+        ></meta>
+        <meta
+          name="description"
+          content={role.company.name + " - " + role.title}
+        ></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/faviconV2.png" />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content={role.company.name + " - " + role.title}
+        />
+        <meta
+          property="og:description"
+          content={role.company.name + " - " + role.title}
+        />
+        <meta
+          property="og:image"
+          content={role?.company?.logo.replace("//s3", "https://s3")}
+        />
+
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary" />
+        <meta
+          property="twitter:title"
+          content={role.company.name + " - " + role.title}
+        />
+
+        <meta
+          property="twitter:description"
+          content={role.company.name + " - " + role.title}
+        />
+        <meta
+          property="twitter:image"
+          content={role?.company?.logo.replace("//s3", "https://s3")}
+        />
       </Head>
 
       <div className="page">
-
         <div className="pageContainer">
           <div className={styles.headerContainer}>
             <div className={styles.headerLeftContainer}>
-
               <Link className={"body16Bold " + styles.headerLink} href="/">
                 <svg
                   width="18"
@@ -94,10 +142,16 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className={"body14 " + styles.headerRightContainer}>
+            <div
+              className={
+                "body14 " +
+                styles.headerRightContainer +
+                " " +
+                styles.desktopOnly
+              }
+            >
               ETHDENVER Job Board
             </div>
-
           </div>
 
           <div className={styles.roleDetailHeaderContainer}>
@@ -142,7 +196,7 @@ export default function Home() {
               <p className={"body18 " + styles.companyTagLine}>
                 {role?.company.tagline}
               </p>
-              <RoleConditions role={role} isInverted={true} />
+              <RoleConditions role={role} isInverted={false} />
             </div>
             {/* TODO(scheuclu) Role options are disabled until we have the data */}
             {/* <div className={styles.roleOptionsContainer}>
@@ -230,7 +284,13 @@ export default function Home() {
           />
 
           {/* TODO(scheuclu): replace with candidate_id */}
-          <div className={styles.headerBackgroundGradientContainer}></div>
+          <div
+            className={
+              styles.headerBackgroundGradientContainer +
+              " " +
+              styles.desktopOnly
+            }
+          ></div>
           <Footer />
         </div>
       </div>

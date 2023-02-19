@@ -83,18 +83,18 @@ export function getDefaultRoleLocation(): RoleLocation {
 
 export interface CompanySocials {
   id: string;
-  twitter: string;
-  linkedin: string;
-  github: string;
-  website: string;
+  twitter: string | undefined;
+  linkedin: string | undefined;
+  github: string | undefined;
+  website: string | undefined;
 }
 export function getDefaultCompanySocials(): CompanySocials {
   return {
     id: "",
-    twitter: "https://www.twitter.com",
-    linkedin: "www.google.com",
-    github: "www.google.com",
-    website: "www.google.com",
+    twitter: undefined,
+    linkedin: undefined,
+    github: undefined,
+    website: undefined,
   };
 }
 
@@ -161,7 +161,7 @@ export interface Role {
 }
 export function getDefaultRole(): Role {
   return {
-    id: " ",
+    id: "",
     title: "",
     company: getDefaultCompany(),
     desc: "",

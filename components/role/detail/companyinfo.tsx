@@ -51,21 +51,21 @@ export default function CompanyCard(data: CompanyCardProps) {
         </div>
       )}
 
-      {data.company.socials && (
+      {data.company.socials && (data.company.socials.github || data.company.socials.linkedin || data.company.socials.twitter) && (
         <div className={styles.section}>
           <h4 className={"chapeauDark"}>Socials</h4>
           <div className={styles.socials}>
-            {data.company.socials && valid(data.company.socials.twitter) && (
+            {data.company.socials && data.company.socials.twitter && (
               <Link href={data.company.socials.twitter}>
                 <FaTwitter />
               </Link>
             )}
-            {data.company.socials && valid(data.company.socials.github) && (
+            {data.company.socials && data.company.socials.github && (
               <Link href={data.company.socials.github}>
                 <FaGithub />
               </Link>
             )}
-            {data.company.socials && valid(data.company.socials.linkedin) && (
+            {data.company.socials && data.company.socials.linkedin && (
               <Link href={data.company.socials.linkedin}>
                 <FaLinkedin />
               </Link>

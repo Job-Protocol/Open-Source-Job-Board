@@ -28,8 +28,8 @@ const selectStyles = {
   clearIndicator: (baseStyles: any, state: any) => ({
     ...baseStyles,
     cursor: "pointer",
-    ':hover': {
-      color: 'var(--main-color)',
+    ":hover": {
+      color: "var(--main-color)",
     },
   }),
   menu: (baseStyles: any, state: any) => ({
@@ -59,6 +59,7 @@ const selectStyles = {
     "&:hover": {
       backgroundColor: "var(--main-color-10pct-transparency)",
     },
+    color: "var(--text-color-dark)",
   }),
 };
 

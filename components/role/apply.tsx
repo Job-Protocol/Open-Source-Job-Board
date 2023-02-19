@@ -35,7 +35,6 @@ type CandidateData = {
   eth_wallet_address: string | undefined;
 };
 
-
 function undef(v: any | undefined) {
   return v === undefined;
 }
@@ -161,7 +160,10 @@ export default function ApplyCard(params: any) {
     const result = await response.json();
     const candidate_id: string = result.id;
     if (response.status !== 201) {
-      postMessage("URGENT: 'candidate creation' failed with status code " + response.status.toString());
+      postMessage(
+        "URGENT: 'candidate creation' failed with status code " +
+        response.status.toString()
+      );
       Swal.fire({
         title: "Error!",
         text: "Something went wrong. Reach out to us if this is a continous issue",
@@ -367,9 +369,11 @@ export default function ApplyCard(params: any) {
               type="email"
               className={
                 email && !validateEmail(email)
-                  ? stylesGlobalFormElements.inputInvalid +
+                  ? stylesGlobalFormElements.input +
                   " " +
-                  stylesGlobalFormElements.inputSquare
+                  stylesGlobalFormElements.inputSquare +
+                  " " +
+                  stylesGlobalFormElements.inputInvalid
                   : stylesGlobalFormElements.input +
                   " " +
                   stylesGlobalFormElements.inputSquare
@@ -421,7 +425,9 @@ export default function ApplyCard(params: any) {
                 styles.fullwidth
               }
               name="text-1675001387870"
-              onChange={value => { console.log("change"); processInput(value) }}
+              onChange={(value) => {
+                processInput(value);
+              }}
               id="input-linkedin"
               value={linkedIn}
             />
@@ -454,7 +460,9 @@ export default function ApplyCard(params: any) {
                 id="input-resume"
               />
             </label>
-            <p> &nbsp;{resume?.name.split('\\')[resume?.name.split('\\').length - 1]}</p>
+            <p className="body14 marginLeft8">
+              {resume?.name.split("\\")[resume?.name.split("\\").length - 1]}
+            </p>
           </div>
         </div>
         <div className={styles.formItemGroup}>

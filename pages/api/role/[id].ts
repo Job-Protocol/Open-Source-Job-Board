@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getConfig } from "@/utils";
+import { getConfig, postMessage } from "@/utils";
 
 import { Role, getDefaultRole, RoleLocation, Requirement, RoleState, RoleType } from "@/bubble_types";
 
@@ -72,8 +72,11 @@ export async function fetch_role_by_slug(slug: string, key: string): Promise<Rol
   const url: string = getConfig()["endpoint"] + "/obj/role/?constraints=" + JSON.stringify(params);
   // const url: string = 'https://app.jobprotocol.xyz/version-test/api/1.1/obj/role/?constraints=[{ "key": "Slug", "constraint_type": "equals", "value": "1inch-eth-denver--software-engineer"}]'
   const response = await fetch(url, requestOptions);
-  // console.log("RESPONSE 1", response);
   const result = await response.json()
+  if (result.response.results.length === 0) {
+    postMessage("No role found for slug " + slug);
+    return getDefaultRole();
+  }
 
   const r = await process_single_role_response(result.response.results[0], key);
   return r;

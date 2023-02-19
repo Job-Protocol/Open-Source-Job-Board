@@ -9,7 +9,7 @@ import Companylist from "@/components/overview/companylist";
 import SwitchRolesCompanies from "@/components/overview/switch_roles_companies";
 import Select from "react-select";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 
 import { Company, Role } from "@/bubble_types";
 import JobFilters from "@/components/overview/jobfilters";
@@ -22,7 +22,7 @@ import { getConfig } from "@/utils";
 import { RoleType } from "@/bubble_types";
 
 export async function GetAllIDs(): Promise<string[][]> {
-  const result = await fetch("../api/role/all");
+  const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/role/all`);
   const parsed = await result.json();
   return parsed;
 }
@@ -31,7 +31,7 @@ export async function GetCompaniesByCompanyIDs(
   ids: string[]
 ): Promise<Company[]> {
   const response: Promise<Response>[] = ids.map((id) =>
-    fetch(`../api/company/${id}`)
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/company/${id}`)
   );
   const reponses: Response[] = await Promise.all(response);
   const roles = reponses.map((result) => result.json());
@@ -40,8 +40,9 @@ export async function GetCompaniesByCompanyIDs(
 }
 
 export async function GetRolesByRoleIDs(ids: string[]): Promise<Role[]> {
+
   const response: Promise<Response>[] = ids.map((id) =>
-    fetch(`../api/role/${id}`)
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/role/${id}`)
   );
   const reponses: Response[] = await Promise.all(response);
 
@@ -50,14 +51,53 @@ export async function GetRolesByRoleIDs(ids: string[]): Promise<Role[]> {
   return final;
 }
 
-export default function Home() {
-  const [companyIDs, setCompanyIDs] = useState<string[]>([]);
-  const [roleIDs, setRoleIDs] = useState<string[]>([]);
+export interface Props {
+  sortedRoles: Role[];
+  companies: Company[];
+}
 
-  const [companies, setCompanies] = useState<Company[]>([]);
+
+// This function gets called at build time on server-side.
+// It may be called again, on a serverless function, if
+// revalidation is enabled and a new request comes in
+export async function getStaticProps() {
+  const res = await GetAllIDs();
+  const companyIDs = res[0];
+  const roleIDs = res[1];
+
+  const sortedRoles = await GetRolesByRoleIDs(roleIDs).then((res) => {
+    const aaa = res.sort((a, b) => {
+      if (!a.company.priority) return 1;
+      if (!b.company.priority) return 1;
+      return a.company.priority < b.company.priority ? 1 : -1;
+    });
+    return aaa;
+  });
+  const filteredRoles = sortedRoles;
+
+  const companies = await GetCompaniesByCompanyIDs(companyIDs);
+
+  return {
+    props: {
+      sortedRoles,
+      companies
+    },
+    // Next.js will attempt to re-generate the page:
+    // - When a request comes in
+    // - At most once every 10 seconds
+    revalidate: 60 * 30, // In seconds
+  }
+}
+
+
+
+
+export default function Home(data: Props) {
+  // const sortedRoles = data.sortedRoles;
+  const companies = data.companies;
+  const roles = data.sortedRoles;
 
   const [byCompanies, setByCompanies] = useState<boolean>(false);
-  const [roles, setRoles] = useState<Role[] | undefined>(undefined);
   const [filteredRoles, setFilteredRoles] = useState<Role[] | undefined>(
     undefined
   );
@@ -74,38 +114,9 @@ export default function Home() {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    GetAllIDs().then((res) => {
-      setCompanyIDs(res[0]);
-      setRoleIDs(res[1]);
-      setRoleType(undefined);
-    });
-  }, []);
-
-  useEffect(() => {
-    GetRolesByRoleIDs(roleIDs).then((res) => {
-      const sorted_roles = res.sort((a, b) => {
-        if (!a.company.priority) return 1;
-        if (!b.company.priority) return 1;
-        return a.company.priority < b.company.priority ? 1 : -1;
-      });
-
-      setRoles(sorted_roles);
-      setFilteredRoles(sorted_roles);
-    });
-  }, [companyIDs, roleIDs]);
-
-  useEffect(() => {
-    GetCompaniesByCompanyIDs(companyIDs).then((res) => {
-      setCompanies(res);
-    });
-  }, [companyIDs]);
-
-  useEffect(() => {
-    if (roles !== undefined) {
-      console.log("Setting filter ");
-      setFilter(new Filter(roles));
-    }
+    setFilter(new Filter(roles));
   }, [roles]);
+
 
   useEffect(() => {
     if (filter) {
@@ -134,11 +145,7 @@ export default function Home() {
               src={"/background_eth_3.jpg"}
               alt="Header image"
               fill
-              style={{
-                borderBottomLeftRadius: 16,
-                borderBottomRightRadius: 16,
-                objectFit: "cover",
-              }}
+              className={styles.headerImage}
             />
             <div
               className={
@@ -161,7 +168,7 @@ export default function Home() {
                 />
               </svg>
               Powered by
-              <Link href="https://www.opolis.co" >
+              <Link href="https://www.opolis.co">
                 <Image
                   src={"/Opolis_white.svg"}
                   width={90}
@@ -292,8 +299,19 @@ export default function Home() {
               <div className={styles.headerListRolesContianer}>
                 <Link
                   className={
-                    "marginTop16 " + stylesGlobalFormElements.primaryButton
+                    "marginTop16 " +
+                    stylesGlobalFormElements.primaryButton +
+                    " " +
+                    styles.desktopOnly
                   }
+                  href={"https://app.jobprotocol.xyz/ethdenver_onboarding"}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  List your roles
+                </Link>
+                <Link
+                  className={"marginTop16 body16Bold link " + styles.mobileOnly}
                   href={"https://app.jobprotocol.xyz/ethdenver_onboarding"}
                   target="_blank"
                   rel="noreferrer"
