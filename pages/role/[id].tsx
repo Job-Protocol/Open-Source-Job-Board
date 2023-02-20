@@ -44,7 +44,7 @@ export async function getStaticPaths() {
 
   return {
     paths: paths,
-    fallback: false, // can also be true or 'blocking'
+    fallback: true, // can also be true or 'blocking'
   }
 }
 
@@ -60,8 +60,10 @@ export async function getStaticProps(context: any) {
 
 export default function Home(props: Props) {
 
-  const role = props.role;
+  //Check for fallback
+  const router = useRouter()
 
+  const role = props?.role;
   const [logoDark, setLogoDark] = useState<boolean>(false);
 
   useEffect(() => {
@@ -78,6 +80,12 @@ export default function Home(props: Props) {
       };
     }
   }, [role]);
+
+  // If the page is not yet generated, this will be displayed
+  // initially until getStaticProps() finishes running
+  if (router.isFallback) {
+    return <div>Loading...</div>
+  }
 
   if (!role) {
     return;
