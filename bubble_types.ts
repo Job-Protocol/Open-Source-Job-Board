@@ -119,6 +119,7 @@ export interface Company {
   founding_year: number | undefined;
   slug: string | undefined;
   priority: number | undefined;
+  keywords: string[] | undefined;
 }
 export function getDefaultCompany(): Company {
   return {
@@ -133,7 +134,8 @@ export function getDefaultCompany(): Company {
     press_article_links: undefined,
     founding_year: undefined,
     slug: undefined,
-    priority: undefined
+    priority: undefined,
+    keywords: undefined
   };
 }
 

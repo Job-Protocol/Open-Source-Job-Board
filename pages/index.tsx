@@ -16,7 +16,8 @@ import JobFilters from "@/components/overview/jobfilters";
 import Footer from "@/components/overview/footer";
 
 import { GeographicAddress } from "@/bubble_types";
-import Filter from "../components/overview/filter";
+import RoleFilter from "../components/overview/filter";
+import { CompanyFilter } from "../components/overview/filter";
 import Switch from "react-switch";
 import { getConfig } from "@/utils";
 import { RoleType } from "@/bubble_types";
@@ -98,29 +99,39 @@ export default function Home(data: Props) {
   const [filteredRoles, setFilteredRoles] = useState<Role[] | undefined>(
     undefined
   );
+  const [filteredCompanies, setFilteredCompanies] = useState<Company[] | undefined>(
+    undefined
+  );
+
   const [userAddress, setUserAddress] = useState<GeographicAddress | undefined>(
     undefined
   );
   const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
-  const [filter, setFilter] = useState<Filter | undefined>(undefined);
+  const [roleFilter, setRoleFilter] = useState<RoleFilter | undefined>(undefined);
+  const [companyFilter, setCompanyFilter] = useState<CompanyFilter | undefined>(undefined);
   const [roleType, setRoleType] = useState<RoleType | undefined>(undefined);
   const [searchterm, setSearchterm] = useState<string | undefined>(undefined);
 
-  const [searchterms, setSearchterms] = useState<string>("");
 
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    setFilter(new Filter(roles));
-  }, [roles]);
+    setRoleFilter(new RoleFilter(roles));
+    setCompanyFilter(new CompanyFilter(companies));
+  }, [roles, companies]);
 
   useEffect(() => {
-    if (filter) {
+    if (roleFilter) {
       setFilteredRoles(
-        filter.getFilteredRoles(userAddress, remoteOnly, roleType, searchterm)
+        roleFilter.getFilteredRoles(userAddress, remoteOnly, roleType, searchterm)
       );
     }
-  }, [userAddress, remoteOnly, filter, roleType, searchterm]);
+    if (companyFilter) {
+      setFilteredCompanies(
+        companyFilter.getFilteredCompanies(searchterm)
+      );
+    }
+  }, [userAddress, remoteOnly, roleFilter, companyFilter, roleType, searchterm]);
 
   function handleChange(val: boolean) {
     setByCompanies(val);
@@ -189,8 +200,8 @@ export default function Home(data: Props) {
                 src={"/EDEN22Logo_Black.svg"}
                 alt="Header image"
                 fill
-                //style={{borderRadius: 8}}
-                // objectFit="cover"
+              //style={{borderRadius: 8}}
+              // objectFit="cover"
               />
             </div>
             <div className={styles.headerTextContainer}>
@@ -204,8 +215,8 @@ export default function Home(data: Props) {
                     width={16}
                     height={16}
 
-                    //style={{borderRadius: 8}}
-                    // objectFit="cover"
+                  //style={{borderRadius: 8}}
+                  // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://twitter.com/EthereumDenver"}>
@@ -214,8 +225,8 @@ export default function Home(data: Props) {
                     alt="Twitter icon"
                     width={16}
                     height={16}
-                    //style={{borderRadius: 8}}
-                    // objectFit="cover"
+                  //style={{borderRadius: 8}}
+                  // objectFit="cover"
                   />
                 </Link>
                 {/* <Link href={"https://www.google.com"}>
@@ -244,8 +255,8 @@ export default function Home(data: Props) {
                     alt="Discord icon"
                     width={16}
                     height={16}
-                    //style={{borderRadius: 8}}
-                    // objectFit="cover"
+                  //style={{borderRadius: 8}}
+                  // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://medium.com/ethdenver"}>
@@ -254,8 +265,8 @@ export default function Home(data: Props) {
                     alt="Medium icon"
                     width={16}
                     height={16}
-                    //style={{borderRadius: 8}}
-                    // objectFit="cover"
+                  //style={{borderRadius: 8}}
+                  // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://www.youtube.com/c/ETHDenver"}>
@@ -264,8 +275,8 @@ export default function Home(data: Props) {
                     alt="YouTube icon"
                     width={16}
                     height={16}
-                    //style={{borderRadius: 8}}
-                    // objectFit="cover"
+                  //style={{borderRadius: 8}}
+                  // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://www.instagram.com/ethdenver/"}>
@@ -274,8 +285,8 @@ export default function Home(data: Props) {
                     alt="Instagram icon"
                     width={16}
                     height={16}
-                    //style={{borderRadius: 8}}
-                    // objectFit="cover"
+                  //style={{borderRadius: 8}}
+                  // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://www.meetup.com/Ethereum-Denver/"}>
@@ -284,8 +295,8 @@ export default function Home(data: Props) {
                     alt="Meetup icon"
                     width={16}
                     height={16}
-                    //style={{borderRadius: 8}}
-                    // objectFit="cover"
+                  //style={{borderRadius: 8}}
+                  // objectFit="cover"
                   />
                 </Link>
               </div>
@@ -362,7 +373,7 @@ export default function Home(data: Props) {
                 </button>
               </div>
 
-              {!byCompanies && (
+              {true && (
                 <div className={styles.inputContainer}>
                   <div className={styles.inputIconContainer}>
                     <svg
@@ -407,7 +418,7 @@ export default function Home(data: Props) {
             )}
           </div>
           {!byCompanies && <Joblist roles={filteredRoles} />}
-          {byCompanies && <Companylist companies={companies} />}
+          {byCompanies && <Companylist companies={filteredCompanies} />}
           <Footer />
         </div>
       </div>

@@ -1,8 +1,8 @@
 import { GeographicAddress } from "@/bubble_types";
-import { Role, RoleLocationType, TimezoneRange, RoleType } from "@/bubble_types";
+import { Role, Company, RoleLocationType, TimezoneRange, RoleType } from "@/bubble_types";
 
 
-class Filter {
+class RoleFilter {
     // remoteOnly: boolean | undefined;
     // userAddress: GeographicAddress | undefined;
     roles: Role[] = [];
@@ -118,4 +118,45 @@ class Filter {
 }
 
 
-export default Filter;
+export class CompanyFilter {
+    // remoteOnly: boolean | undefined;
+    // userAddress: GeographicAddress | undefined;
+    companies: Company[] = [];
+
+    constructor(unfilteredCompanies: Company[]
+    ) {
+        // this.remoteOnly = false;
+        // this.userAddress = undefined;
+        this.companies = unfilteredCompanies;
+    }
+
+    private isSearchTermMatch(company: Company, searchterm: string | undefined): boolean {
+        if (!searchterm || searchterm.length < 4) {
+            return true;
+        }
+        if (!company.keywords) {
+            return false;
+        }
+        return company.keywords.map(keyword => keyword.toLowerCase().includes(searchterm.toLowerCase())).includes(true);
+    }
+
+    private companyFilter(
+        company: Company,
+        searchterm: string | undefined) {
+        // If remote only, filter the roles
+
+        var result = false;
+
+        return this.isSearchTermMatch(company, searchterm);
+    }
+
+
+    getFilteredCompanies(
+        searchterm: string | undefined) {
+        return this.companies.filter((company) => this.companyFilter(company, searchterm));
+    }
+
+}
+
+
+export default RoleFilter;

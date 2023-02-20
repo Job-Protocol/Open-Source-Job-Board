@@ -44,6 +44,7 @@ async function process_single_company_response(response_company: any, key: strin
   comp.slug = response_company.Slug;
   comp.mission = response_company.mission;
   comp.priority = response_company.priority;
+  comp.keywords = [comp.name, comp.headquarters];
 
   return comp;
 }
