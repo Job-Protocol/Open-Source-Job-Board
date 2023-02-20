@@ -102,7 +102,7 @@ export default function Home(props: Props) {
           content={role.company.name + " - " + role.title}
         ></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/faviconV2.png" />
+        <link rel="icon" href="/ethdenver-spork-logo-pink2.png" />
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
