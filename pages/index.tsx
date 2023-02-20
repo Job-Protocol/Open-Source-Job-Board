@@ -22,7 +22,9 @@ import { getConfig } from "@/utils";
 import { RoleType } from "@/bubble_types";
 
 export async function GetAllIDs(): Promise<string[][]> {
-  const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/role/all`);
+  const result = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/role/all`
+  );
   const parsed = await result.json();
   return parsed;
 }
@@ -40,7 +42,6 @@ export async function GetCompaniesByCompanyIDs(
 }
 
 export async function GetRolesByRoleIDs(ids: string[]): Promise<Role[]> {
-
   const response: Promise<Response>[] = ids.map((id) =>
     fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/role/${id}`)
   );
@@ -55,7 +56,6 @@ export interface Props {
   sortedRoles: Role[];
   companies: Company[];
 }
-
 
 // This function gets called at build time on server-side.
 // It may be called again, on a serverless function, if
@@ -80,17 +80,14 @@ export async function getStaticProps() {
   return {
     props: {
       sortedRoles,
-      companies
+      companies,
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 10 seconds
     revalidate: 60 * 30, // In seconds
-  }
+  };
 }
-
-
-
 
 export default function Home(data: Props) {
   // const sortedRoles = data.sortedRoles;
@@ -116,7 +113,6 @@ export default function Home(data: Props) {
   useEffect(() => {
     setFilter(new Filter(roles));
   }, [roles]);
-
 
   useEffect(() => {
     if (filter) {
@@ -177,7 +173,7 @@ export default function Home(data: Props) {
                 />
               </Link>
               &
-              <Link href="https://app.jobprotocol.xyz">
+              <Link href="https://jobprotocol.xyz">
                 <Image
                   src={"/JP_white.svg"}
                   width={120}
@@ -193,8 +189,8 @@ export default function Home(data: Props) {
                 src={"/EDEN22Logo_Black.svg"}
                 alt="Header image"
                 fill
-              //style={{borderRadius: 8}}
-              // objectFit="cover"
+                //style={{borderRadius: 8}}
+                // objectFit="cover"
               />
             </div>
             <div className={styles.headerTextContainer}>
@@ -208,8 +204,8 @@ export default function Home(data: Props) {
                     width={16}
                     height={16}
 
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://twitter.com/EthereumDenver"}>
@@ -218,8 +214,8 @@ export default function Home(data: Props) {
                     alt="Twitter icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 {/* <Link href={"https://www.google.com"}>
@@ -248,8 +244,8 @@ export default function Home(data: Props) {
                     alt="Discord icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://medium.com/ethdenver"}>
@@ -258,8 +254,8 @@ export default function Home(data: Props) {
                     alt="Medium icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://www.youtube.com/c/ETHDenver"}>
@@ -268,8 +264,8 @@ export default function Home(data: Props) {
                     alt="YouTube icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://www.instagram.com/ethdenver/"}>
@@ -278,8 +274,8 @@ export default function Home(data: Props) {
                     alt="Instagram icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://www.meetup.com/Ethereum-Denver/"}>
@@ -288,8 +284,8 @@ export default function Home(data: Props) {
                     alt="Meetup icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
               </div>
