@@ -14,6 +14,7 @@ import { Role, Requirement } from "@/bubble_types";
 import RoleConditions from "@/components/role/detail/roleconditions";
 
 import FourOhFour from "@/pages/404";
+import Loading from "@/components/loading";
 
 
 import Link from "next/link";
@@ -84,7 +85,11 @@ export default function Home(props: Props) {
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
   if (router.isFallback) {
-    return <div>Loading...</div>
+    return (
+      <div className="page">
+        <Loading />
+      </div>
+    )
   }
 
   if (!role) {
