@@ -186,6 +186,7 @@
     z-index: 1;
     background-color: var(--secondary-color);
     height: 194px;
+    min-height: 194px;
   }
 
   .roleDetailHeaderContainer {
