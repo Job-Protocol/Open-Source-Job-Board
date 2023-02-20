@@ -12,6 +12,8 @@ import { getConfig } from "@/utils";
 
 import { Company, Role } from "@/bubble_types";
 
+import Loading from "@/components/loading"
+
 async function GetCompanyData(): Promise<Company[]> {
   const results = getConfig()["company-ids"].map(async (companyid: string) => {
     const result = await fetch("api/company/" + companyid);
@@ -24,10 +26,12 @@ async function GetCompanyData(): Promise<Company[]> {
 }
 
 export interface Props {
-  companies: Company[];
+  companies: Company[] | undefined;
 }
 
 export default function Companylist(data: Props) {
+
+  if (!data.companies) return (<Loading />);
 
   return (
     <div className={styles.companyListContainer}>
