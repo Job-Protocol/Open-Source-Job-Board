@@ -168,97 +168,104 @@ export default function Home(data: Props) {
               <h1 className={"h1"}>Lime Academy Job Board</h1>
               <h2 className={"body18"}>We help experienced developers transition to the blockchain space.</h2>
               <div className={styles.headerIconsContainer}>
-                {process.env.NEXT_PUBLIC_socials_website && <Link href={process.env.NEXT_PUBLIC_socials_website}>
-                  <Image
-                    src={"/globe.svg"}
-                    alt="Globe icon"
-                    width={16}
-                    height={16}
-
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
-                  />
-                </Link>}
-                <Link href={"https://twitter.com/EthereumDenver"}>
-                  <Image
-                    src={"/twitter.svg"}
-                    alt="Twitter icon"
-                    width={16}
-                    height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
-                  />
-                </Link>
-                {/* <Link href={"https://www.google.com"}>
-                  <Image
-                    src={"/facebook.svg"}
-                    alt="Twitter icon"
-                    width={16}
-                    height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
-                  />
-                </Link> */}
-                {/* <Link href={"https://www.linkedin.com/company/jobprotocol/"}>
-                  <Image
-                    src={"/linkedin-square-colored.svg"}
-                    alt="Linkedin icon"
-                    width={16}
-                    height={16}
+                {process.env.NEXT_PUBLIC_socials_website &&
+                  <Link href={'https://' + process.env.NEXT_PUBLIC_socials_website} target="_blank" rel="noopener noreferrer">
+                    <Image
+                      src={"/globe.svg"}
+                      alt="Globe icon"
+                      width={16}
+                      height={16}
+                    />
+                  </Link>}
+                {process.env.NEXT_PUBLIC_socials_ &&
+                  <Link href={'https://' + process.env.NEXT_PUBLIC_socials_website} target="_blank" rel="noopener noreferrer">
+                    <Image
+                      src={"/twitter.svg"}
+                      alt="Twitter icon"
+                      width={16}
+                      height={16}
                     //style={{borderRadius: 8}}
                     // objectFit="cover"
-                  />
-                </Link> */}
-                <Link href={"https://discord.com/invite/sporkdao"}>
-                  <Image
-                    src={"/Discord_Logo_sans_texte 1.svg"}
-                    alt="Discord icon"
-                    width={16}
-                    height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
-                  />
-                </Link>
-                <Link href={"https://medium.com/ethdenver"}>
-                  <Image
-                    src={"/medium.svg"}
-                    alt="Medium icon"
-                    width={16}
-                    height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
-                  />
-                </Link>
-                <Link href={"https://www.youtube.com/c/ETHDenver"}>
-                  <Image
-                    src={"/youtube.svg"}
-                    alt="YouTube icon"
-                    width={16}
-                    height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
-                  />
-                </Link>
-                <Link href={"https://www.instagram.com/ethdenver/"}>
-                  <Image
-                    src={"/instagram.svg"}
-                    alt="Instagram icon"
-                    width={16}
-                    height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
-                  />
-                </Link>
-                <Link href={"https://www.meetup.com/Ethereum-Denver/"}>
-                  <Image
-                    src={"/meetup.svg"}
-                    alt="Meetup icon"
-                    width={16}
-                    height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
-                  />
-                </Link>
+                    />
+                  </Link>}
+                {process.env.NEXT_PUBLIC_socials_facebook &&
+                  <Link href={'https://' + process.env.NEXT_PUBLIC_socials_website} target="_blank" rel="noopener noreferrer">
+                    <Image
+                      src={"/facebook.svg"}
+                      alt="Twitter icon"
+                      width={16}
+                      height={16}
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
+                    />
+                  </Link>}
+                {process.env.NEXT_PUBLIC_socials_linkedin &&
+                  <Link href={'https://' + process.env.NEXT_PUBLIC_socials_linkedin} target="_blank" rel="noopener noreferrer">
+                    <Image
+                      src={"/linkedin-square-colored.svg"}
+                      alt="Linkedin icon"
+                      width={16}
+                      height={16}
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
+                    />
+                  </Link>}
+                {process.env.NEXT_PUBLIC_socials_discord &&
+                  <Link href={'https://' + process.env.NEXT_PUBLIC_socials_discord} target="_blank" rel="noopener noreferrer">
+                    <Image
+                      src={"/Discord_Logo_sans_texte 1.svg"}
+                      alt="Discord icon"
+                      width={16}
+                      height={16}
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
+                    />
+                  </Link>}
+                {process.env.NEXT_PUBLIC_socials_medium &&
+                  <Link href={'https://' + process.env.NEXT_PUBLIC_socials_medium} target="_blank" rel="noopener noreferrer">
+                    <Image
+                      src={"/medium.svg"}
+                      alt="Medium icon"
+                      width={16}
+                      height={16}
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
+                    />
+                  </Link>}
+                {process.env.NEXT_PUBLIC_socials_youtube &&
+                  <Link href={'https://' + process.env.NEXT_PUBLIC_socials_youtube} target="_blank" rel="noopener noreferrer">
+                    <Image
+                      src={"/youtube.svg"}
+                      alt="YouTube icon"
+                      width={16}
+                      height={16}
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
+                    />
+                  </Link>}
+                {process.env.NEXT_PUBLIC_socials_instagram &&
+                  <Link href={'https://' + process.env.NEXT_PUBLIC_socials_instagram} target="_blank" rel="noopener noreferrer">
+                    <Image
+                      src={"/instagram.svg"}
+                      alt="Instagram icon"
+                      width={16}
+                      height={16}
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
+                    />
+                  </Link>}
+                {process.env.NEXT_PUBLIC_socials_meetup &&
+                  <Link href={'https://' + process.env.NEXT_PUBLIC_socials_meetup} target="_blank" rel="noopener noreferrer">
+                    <Image
+                      src={"/meetup.svg"}
+                      alt="Meetup icon"
+                      width={16}
+                      height={16}
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
+                    />
+                  </Link>}
+
               </div>
             </div>
 
