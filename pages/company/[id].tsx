@@ -101,7 +101,6 @@ export default function Home(props: Props) {
         <title>{company.name}</title>
         <meta name="description" content={company.name} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/ethdenver-spork-logo-pink2.png" />
       </Head>
 
       <div className="page">

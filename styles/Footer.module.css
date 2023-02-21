@@ -6,7 +6,7 @@
   flex-direction: row;
   align-self: center;
   margin-top: 64px;
-  background-color: #f4387c1a;
+  background-color: var(--main-color-20pct-transparency);
   padding-left: 64px;
   padding-right: 64px;
   padding-top: 8px;

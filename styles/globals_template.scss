@@ -3,14 +3,15 @@
 @tailwind utilities;
 
 :root {
-  --main-color: #ee4c83;
-  --main-color-15pct-transparency: #ee4c8326;
-  --main-color-10pct-transparency: #ee4c831a;
-  --main-color-20pct-transparency: #ee4c8333;
-  --secondary-color: #28133e;
-  --border-color: #e2e2e2;
-  --text-color-dark: #1f2534;
-  --text-color-light: #1f2534cc;
+  --main-color:  MAIN_COLOR;
+  --main-color-15pct-transparency: MAIN_COLOR26;
+  --main-color-10pct-transparency: MAIN_COLOR1a;
+  --main-color-20pct-transparency: MAIN_COLOR33;
+  --secondary-color: SECONDARY_COLOR;
+  --background-color: BACKGROUND_COLOR;
+  --border-color: BORDER_COLOR;
+  --text-color-dark: TEXT_COLOR_DARK
+  --text-color-light: TEXT_COLOR_LIGHT;
 }
 
 @font-face {
@@ -28,7 +29,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #fffbfd;
+  background-color: var(--text-background-dark);
   height: 100%;
 }
 

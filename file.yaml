@@ -1,0 +1,20 @@
+colors:
+  main: #F67637
+  secondary: #393939
+  background: #F3F3F3
+  border: #393939
+  text:
+    dark: #1f2534
+    light: #1f2534cc
+title: LimeAcademy_Job_Board
+subtitle: This_is_limeacademy_subtitle
+branding: 
+  logo: asdasd
+  banner: cccc
+socials:
+  linkedin: https://www.google.com
+  website: https://www.google.com
+  twitter: https://www.google.com
+  discord: https://www.google.com
+  youtube: https://www.google.com
+  instagram: https://www.google.com
