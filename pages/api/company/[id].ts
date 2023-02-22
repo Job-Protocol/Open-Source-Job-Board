@@ -9,51 +9,16 @@ import {
   NamedLink,
 } from "@/bubble_types";
 
-import { fetch_by_id as fetchSocials } from "../company_socials/[id]";
-import { fetch_by_id as fetchNamedLink } from "../named_link/[id]";
+import { process_single_company_response } from "../company";
 
 var psCache = require('ps-cache');
 var cache = new psCache.Cache();
-
-async function process_single_company_response(response_company: any, key: string): Promise<Company> {
-  // Fetch socials, if possible
-  const socials: CompanySocials | undefined = response_company.socials
-    ? await fetchSocials(response_company.socials, key)
-    : undefined;
-
-  // Fetch named links, if possible
-  const press_article_links: NamedLink[] | undefined = response_company
-    .press_article_links
-    ? await Promise.all(
-      response_company.press_article_links.map((id: string) =>
-        fetchNamedLink(id, key)
-      )
-    )
-    : undefined;
-
-  const comp: Company = getDefaultCompany();
-  comp.id = response_company._id;
-  comp.name = response_company.Name;
-  comp.logo = response_company.Logo;
-  comp.headquarters = response_company.headquarters;
-  comp.num_employees = response_company.num_employees;
-  comp.socials = socials;
-  comp.tagline = response_company.tagline;
-  comp.press_article_links = press_article_links;
-  comp.founding_year = response_company.founding_year;
-  comp.slug = response_company.Slug;
-  comp.mission = response_company.mission;
-  comp.priority = response_company.priority;
-  comp.keywords = [comp.name, comp.headquarters];
-
-  return comp;
-}
 
 
 export async function fetch_company_by_slug(
   slug: string,
   key: string
-): Promise<Company> {
+): Promise<Company | undefined> {
 
 
   var myHeaders = new Headers();
@@ -67,15 +32,12 @@ export async function fetch_company_by_slug(
     headers: myHeaders,
     redirect: 'follow'
   };
-  // console.log("PARAMS", JSON.stringify(params));
 
   const url: string = getConfig()["endpoint"] + "/obj/company/?constraints=" + JSON.stringify(params);
-  // const url: string = 'https://app.jobprotocol.xyz/version-test/api/1.1/obj/role/?constraints=[{ "key": "Slug", "constraint_type": "equals", "value": "1inch-eth-denver--software-engineer"}]'
   const response = await fetch(url, requestOptions);
   if (response.status != 200) {
     postMessage("URGENT: 'fetch_company_by_slug' failed with status code " + response.status.toString());
   }
-  // console.log("RESPONSE 1", response);
   const result = await response.json()
 
   const c = await process_single_company_response(result.response.results[0], key);
