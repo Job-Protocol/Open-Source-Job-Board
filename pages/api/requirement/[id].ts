@@ -24,7 +24,7 @@ export async function fetch_by_id(
     const url: string = getConfig()["endpoint"] + "/obj/requirement/" + id;
     const response = await fetch(url, requestOptions);
     if (response.status != 200) {
-        postMessage("URGENT: 'fetch_by_id' for requirement failed with status code " + response.status.toString());
+        postMessage(`URGENT: 'fetch_by_id' for requirement failed with status code ${response.status.toString()} for requirement ${id} `);
     }
     const result = await response.json();
 
