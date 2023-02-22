@@ -15,7 +15,6 @@ export interface RequirementArgumentData {
 
 async function storeRequirementArgument(data: RequirementArgumentData) {
   var raw = JSON.stringify({
-    // author: "ethdenver", //TODO(scheuclu): Should we hardcode the ETH-DENVER user here?
     argument: data.answer.argument,
     candidate: data.candidate_id,
     is_requirement_satisfied: data.answer.answer,

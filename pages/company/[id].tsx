@@ -134,7 +134,7 @@ export default function Home(props: Props) {
                 styles.desktopOnly
               }
             >
-              ETHDENVER Job Board
+              {process.env.NEXT_PUBLIC_title}
             </div>
           </div>
           <div className={styles.roleDetailHeaderContainer}>
