@@ -49,14 +49,14 @@ export async function fetch_roleIDs_by_companyIDs(company_ids: string[], key: st
   return role_ids;
 }
 
-export async function fetch_companies_by_partner(partner: string, key: string): Promise<string[]> {
+export async function fetch_company_ids_by_partner(partner: string, key: string): Promise<string[]> {
   var myHeaders = new Headers();
   myHeaders.append("Authorization", "Bearer ".concat(key));
 
 
-  const params = [
+  const params = partner ? [
     { key: "via_partner", constraint_type: "equals", value: partner }
-  ];
+  ] : [];
   var requestOptions: RequestInit = {
     method: 'GET',
     headers: myHeaders,
@@ -81,7 +81,7 @@ export default async function role_handler(
     return;
   }
 
-  const company_ids = await fetch_companies_by_partner("ETH_Denver", process.env.BUBBLE_API_PRIVATE_KEY);//TODO(scheuclu): make this dynamic
+  const company_ids = await fetch_company_ids_by_partner(process.env.NEXT_PUBLIC_jobprotocol_key as string, process.env.BUBBLE_API_PRIVATE_KEY);//TODO(scheuclu): make this dynamic
   const role_ids = await fetch_roleIDs_by_companyIDs(company_ids, process.env.BUBBLE_API_PRIVATE_KEY);
 
   res.status(200).json([company_ids, role_ids]);

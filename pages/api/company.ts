@@ -17,6 +17,7 @@ var cache = new psCache.Cache();
 
 export async function process_single_company_response(response_company: any, key: string): Promise<Company> {
 
+
     // Fetch socials, if possible
     const socials: CompanySocials | undefined = response_company.socials
         ? await fetchSocials(response_company.socials, key)
@@ -80,7 +81,7 @@ export async function fetch_companies(
 
 export default async function company_handler(
     req: NextApiRequest,
-    res: NextApiResponse<Company>
+    res: NextApiResponse<Company[]>
 ) {
 
     if (!process.env.BUBBLE_API_PRIVATE_KEY) {
@@ -89,11 +90,9 @@ export default async function company_handler(
     }
 
 
-
     const comp = await fetch_companies(
         process.env.BUBBLE_API_PRIVATE_KEY
     );
     res.status(200).json(comp);
-
 
 }

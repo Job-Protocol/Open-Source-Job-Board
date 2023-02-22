@@ -22,6 +22,8 @@ import Switch from "react-switch";
 import { getConfig } from "@/utils";
 import { RoleType } from "@/bubble_types";
 
+import CurationModal from "@/components/admin/Curation";
+
 export async function GetAllIDs(): Promise<string[][]> {
   const result = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/role/all`
@@ -140,7 +142,7 @@ export default function Home(data: Props) {
   return (
     <>
       <Head>
-        <title>ETH Denver Jobs</title>
+        <title>{process.env.NEXT_PUBLIC_title}</title>
         <meta name="description" content="Jobboard" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -165,8 +167,8 @@ export default function Home(data: Props) {
               />
             </div>
             <div className={styles.headerTextContainer}>
-              <h1 className={"h1"}>Lime Academy Job Board</h1>
-              <h2 className={"body18"}>We help experienced developers transition to the blockchain space.</h2>
+              <h1 className={"h1"}>{process.env.NEXT_PUBLIC_title}</h1>
+              <h2 className={"body18"}>{process.env.NEXT_PUBLIC_subtitle}</h2>
               <div className={styles.headerIconsContainer}>
                 {process.env.NEXT_PUBLIC_socials_website &&
                   <Link href={'https://' + process.env.NEXT_PUBLIC_socials_website} target="_blank" rel="noopener noreferrer">
@@ -269,7 +271,8 @@ export default function Home(data: Props) {
               </div>
             </div>
 
-            <div className={"marginBottom8 " + styles.headerRightContainer}>
+            {/* List your roles */}
+            {/* <div className={"marginBottom8 " + styles.headerRightContainer}>
               <div className={styles.headerListRolesContianer}>
                 <Link
                   className={
@@ -293,7 +296,9 @@ export default function Home(data: Props) {
                   List your roles
                 </Link>
               </div>
-            </div>
+            </div> */}
+
+
           </div>
 
           <div className={styles.filtersContainer}>
@@ -384,6 +389,7 @@ export default function Home(data: Props) {
               />
             )}
           </div>
+          <CurationModal />
           {!byCompanies && <Joblist roles={filteredRoles} />}
           {byCompanies && <Companylist companies={filteredCompanies} />}
           <Footer />

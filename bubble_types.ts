@@ -125,7 +125,7 @@ export function getDefaultCompany(): Company {
   return {
     id: "",
     name: "",
-    logo: "",
+    logo: "https://static.thenounproject.com/png/88781-200.png",
     tagline: "",
     mission: undefined,
     num_employees: 0,

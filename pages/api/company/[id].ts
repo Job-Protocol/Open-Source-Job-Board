@@ -107,8 +107,14 @@ export default async function company_handler(
         process.env.BUBBLE_API_PRIVATE_KEY
       );
       cache.set(cache_id, comp, { ttl: 1000 * 60 * 2 });
+      if (!comp) {
+        res.status(500);
+        return;
+      }
       res.status(200).json(comp);
     }
+
+
   }
 
 

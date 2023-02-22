@@ -7,8 +7,17 @@ import Link from "next/link";
 
 import { RoleState } from "@/bubble_types";
 
+
+enum ActionType {
+  Apply,
+  View,
+  Add,
+}
+
 export interface JobCardProps {
   role: Role;
+  mode: "application" | "curation";
+  handleChange: (action: ActionType) => void;
 }
 
 export default function JobCard(data: JobCardProps) {
@@ -48,15 +57,38 @@ export default function JobCard(data: JobCardProps) {
         <RoleConditions role={role} />
       </div>
       <div className={styles.applyContainer}>
-        <button
-          type="submit"
-          className={"body16Bold " + styles.applyButton}
-          name="button-1675001572178"
-          onClick={() => console.log("Button clicked")}
-          id="button-apply"
-        >
-          Apply
-        </button>
+        {data.mode == 'application' &&
+          <button
+            type="submit"
+            className={"body16Bold " + styles.applyButton}
+            name="button-1675001572178"
+            onClick={() => data.handleChange(ActionType.Apply)}
+            id="button-apply"
+          >
+            Apply
+          </button>}
+        {data.mode != 'application' &&
+          <div className="flex flex-col">
+            <button
+              type="submit"
+              className={"body16Bold " + styles.applyButton}
+              name="button-1675001572178"
+              onClick={() => data.handleChange(ActionType.View)}
+              id="button-apply"
+            >
+              View
+            </button>
+            <button
+              type="submit"
+              className={"body16Bold " + styles.applyButton}
+              name="button-1675001572178"
+              onClick={() => data.handleChange(ActionType.Add)}
+              id="button-apply"
+            >
+              Add
+            </button>
+          </div>
+        }
 
         {/* <div id="apply button" className={styles.horizontal_flow}>
           

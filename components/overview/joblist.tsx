@@ -37,7 +37,11 @@ export default function Joblist(data: Props) {
   return (
     <div className={styles.jobListContainer}>
       {roles.map((role) => (
-        <JobCard role={role} key={role.id} />
+        <JobCard
+          role={role}
+          key={role.id}
+          mode={"curation"}
+          handleChange={(val) => { console.log(val) }} />
       ))}
     </div>
   );
