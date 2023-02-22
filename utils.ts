@@ -79,15 +79,16 @@ export function postMessage(msg: string) {
     redirect: "follow",
   };
 
-  const URL: string = config["dev"]["endpoint"] +
-    "/wf/slack_message_forward"
-  fetch(
-    URL,
-    requestOptions
-  )
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
+  //TODO(scheuclu) Reenable this.
+  // const URL: string = config["dev"]["endpoint"] +
+  //   "/wf/slack_message_forward"
+  // fetch(
+  //   URL,
+  //   requestOptions
+  // )
+  //   .then((response) => response.text())
+  //   .then((result) => console.log(result))
+  //   .catch((error) => console.log("error", error));
 }
 
 export const validateEmail = (email: string): boolean => {

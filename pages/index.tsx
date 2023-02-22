@@ -3,11 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "@/styles/Home.module.css";
 import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.css";
-import SearchBox from "@/components/overview/searchbox";
 import Joblist from "@/components/overview/joblist";
 import Companylist from "@/components/overview/companylist";
 import SwitchRolesCompanies from "@/components/overview/switch_roles_companies";
-import Select from "react-select";
 
 import React, { useState, useEffect, useReducer } from "react";
 
@@ -18,42 +16,29 @@ import Footer from "@/components/overview/footer";
 import { GeographicAddress } from "@/bubble_types";
 import RoleFilter from "../components/overview/filter";
 import { CompanyFilter } from "../components/overview/filter";
-import Switch from "react-switch";
-import { getConfig } from "@/utils";
 import { RoleType } from "@/bubble_types";
 
 import CurationModal from "@/components/admin/Curation";
 
-export async function GetAllIDs(): Promise<string[][]> {
-  const result = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/role/all`
-  );
+
+export async function GetAllRelevantRoles(): Promise<Role[]> {
+  const constraints = [{ key: "Partner_boards", constraint_type: "contains", value: "Limeacademy" }];
+  const URL: string = `${process.env.NEXT_PUBLIC_BASE_URL}/api/role?constraints=` + JSON.stringify(constraints);
+  console.log("--------- URL", URL);
+  const result = await fetch(URL);
   const parsed = await result.json();
   return parsed;
 }
 
-export async function GetCompaniesByCompanyIDs(
-  ids: string[]
-): Promise<Company[]> {
-  const response: Promise<Response>[] = ids.map((id) =>
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/company/${id}`)
-  );
-  const reponses: Response[] = await Promise.all(response);
-  const roles = reponses.map((result) => result.json());
-  const final = await Promise.all(roles);
-  return final;
-}
 
-export async function GetRolesByRoleIDs(ids: string[]): Promise<Role[]> {
-  const response: Promise<Response>[] = ids.map((id) =>
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/role/${id}`)
-  );
-  const reponses: Response[] = await Promise.all(response);
 
-  const roles = reponses.map((result) => result.json());
-  const final = await Promise.all(roles);
-  return final;
-}
+// export async function GetAllIDs(): Promise<string[][]> {
+//   const result = await fetch(
+//     `${process.env.NEXT_PUBLIC_BASE_URL}/api/role/all`
+//   );
+//   const parsed = await result.json();
+//   return parsed;
+// }
 
 export interface Props {
   sortedRoles: Role[];
@@ -64,11 +49,8 @@ export interface Props {
 // It may be called again, on a serverless function, if
 // revalidation is enabled and a new request comes in
 export async function getStaticProps() {
-  const res = await GetAllIDs();
-  const companyIDs = res[0];
-  const roleIDs = res[1];
 
-  const sortedRoles = await GetRolesByRoleIDs(roleIDs).then((res) => {
+  const sortedRoles = await GetAllRelevantRoles().then((res) => {
     const aaa = res.sort((a, b) => {
       if (!a.company.priority) return 1;
       if (!b.company.priority) return 1;
@@ -76,9 +58,11 @@ export async function getStaticProps() {
     });
     return aaa;
   });
+
+  console.log("------------------- sorted Roles", sortedRoles);
   const filteredRoles = sortedRoles;
 
-  const companies = await GetCompaniesByCompanyIDs(companyIDs);
+  const companies = sortedRoles.map((role) => role.company);
 
   return {
     props: {
@@ -113,6 +97,8 @@ export default function Home(data: Props) {
   const [companyFilter, setCompanyFilter] = useState<CompanyFilter | undefined>(undefined);
   const [roleType, setRoleType] = useState<RoleType | undefined>(undefined);
   const [searchterm, setSearchterm] = useState<string | undefined>(undefined);
+
+  const [showCuration, setShowCuration] = useState<boolean>(false);
 
 
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
@@ -272,9 +258,18 @@ export default function Home(data: Props) {
             </div>
 
             {/* List your roles */}
-            {/* <div className={"marginBottom8 " + styles.headerRightContainer}>
+            <div className={"marginBottom8 " + styles.headerRightContainer}>
               <div className={styles.headerListRolesContianer}>
-                <Link
+                <button
+                  type="submit"
+                  className={"body16Bold " + stylesGlobalFormElements.primaryButton}
+                  name="button-1675001572178"
+                  onClick={() => setShowCuration(true)}
+                  id="button-apply"
+                >
+                  Add Jobprotocol Role
+                </button>
+                {/* <Link
                   className={
                     "marginTop16 " +
                     stylesGlobalFormElements.primaryButton +
@@ -285,7 +280,7 @@ export default function Home(data: Props) {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  List your roles
+                  Add Jobprotocol Role
                 </Link>
                 <Link
                   className={"marginTop16 body16Bold link " + styles.mobileOnly}
@@ -294,9 +289,9 @@ export default function Home(data: Props) {
                   rel="noreferrer"
                 >
                   List your roles
-                </Link>
+                </Link> */}
               </div>
-            </div> */}
+            </div>
 
 
           </div>
@@ -389,8 +384,17 @@ export default function Home(data: Props) {
               />
             )}
           </div>
-          <CurationModal />
-          {!byCompanies && <Joblist roles={filteredRoles} />}
+          {showCuration &&
+            <div
+              className={stylesGlobalFormElements.modal + " z-50"}
+              onClick={() => {
+                setShowCuration(false);
+              }}
+            >
+              <CurationModal />
+            </div>
+          }
+          {!byCompanies && <Joblist roles={filteredRoles} mode="application" />}
           {byCompanies && <Companylist companies={filteredCompanies} />}
           <Footer />
         </div>

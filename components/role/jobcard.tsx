@@ -20,11 +20,12 @@ export interface JobCardProps {
   handleChange: (action: ActionType) => void;
 }
 
-export default function JobCard(data: JobCardProps) {
+
+function content(data: JobCardProps) {
   const role = data.role;
   const link: string = "/role/" + role.slug;
   return (
-    <Link href={link} className={styles.card}>
+    <div className={styles.card}>
       <div className={styles.roleInfo}>
         <div className={styles.roleInfoImage}>
           <Image
@@ -56,7 +57,10 @@ export default function JobCard(data: JobCardProps) {
         <h3 className={"body16"}>{role.company.tagline}</h3>
         <RoleConditions role={role} />
       </div>
-      <div className={styles.applyContainer}>
+      <div
+        className={styles.applyContainer}
+        onClick={(e) => e.stopPropagation()}
+      >
         {data.mode == 'application' &&
           <button
             type="submit"
@@ -94,6 +98,17 @@ export default function JobCard(data: JobCardProps) {
           
         </div> */}
       </div>
-    </Link>
+    </div>
+  );
+}
+
+export default function JobCard(data: JobCardProps) {
+  const role = data.role;
+  const link: string = "/role/" + role.slug;
+  return (data.mode == 'application' ?
+    <Link href={link}>
+      {content(data)}
+    </Link> :
+    content(data)
   );
 }

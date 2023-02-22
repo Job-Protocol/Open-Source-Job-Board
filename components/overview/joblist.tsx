@@ -24,6 +24,7 @@ import {
 
 export interface Props {
   roles: Role[] | undefined;
+  mode: "application" | "curation";
 }
 
 export default function Joblist(data: Props) {
@@ -40,7 +41,7 @@ export default function Joblist(data: Props) {
         <JobCard
           role={role}
           key={role.id}
-          mode={"curation"}
+          mode={data.mode}
           handleChange={(val) => { console.log(val) }} />
       ))}
     </div>

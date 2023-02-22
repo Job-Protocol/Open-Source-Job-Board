@@ -6,6 +6,7 @@ import Joblist from "../overview/joblist";
 // import Requirement from "./detail/roleconditions";
 
 import { Company } from "@/bubble_types";
+import Loading from "../loading";
 
 
 export async function GetCompanies(): Promise<Company[]> {
@@ -24,7 +25,7 @@ export interface Props {
 
 export default function CurationModal(data: Props) {
 
-    const [bubbleRoles, setBubbleRoles] = useState<Role[] | undefined>([]);
+    const [bubbleRoles, setBubbleRoles] = useState<Role[] | undefined>(undefined);
     const [bubbleCompanies, setBubbleCompanies] = useState<Company[] | undefined>([]);
 
     //Load up to 100 roles at a time
@@ -37,13 +38,20 @@ export default function CurationModal(data: Props) {
         getRoles();
     }, []);
 
+
+
     return (
-        <div className={styles.modal}>
-            <div className={styles.modal_content}>
-                <h1>Curate</h1>
-                <p>{bubbleRoles?.length}</p>
-                <Joblist roles={bubbleRoles} />
-            </div>
+        // <div className={styles.modal}>
+        <div
+            className={stylesGlobalFormElements.modal_content}
+            onClick={(e) => e.stopPropagation()}
+
+        >
+            <h1>Curate</h1>
+            <p>{bubbleRoles?.length}</p>
+            {bubbleRoles !== undefined && <Joblist roles={bubbleRoles} mode='curation' />}
+            {bubbleRoles == undefined && <Loading />}
         </div>
+        // </div>
     );
 }

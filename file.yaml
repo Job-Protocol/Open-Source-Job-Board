@@ -1,3 +1,4 @@
+jobprotocol_key: Limeacademy
 colors:
   main: #F67637
   secondary: #393939
@@ -6,8 +7,8 @@ colors:
   text:
     dark: #1f2534
     light: #1f2534cc
-title: LimeAcademy_Job_Board
-subtitle: This_is_limeacademy_subtitle
+title: LimeAcademy~Job~Board
+subtitle: This~is~limeacademy~subtitle
 branding: 
   logo: asdasd
   banner: cccc

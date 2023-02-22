@@ -21,7 +21,7 @@ import { GeographicAddress } from "@/bubble_types";
 
 import Filter from "@/components/overview/filter";
 
-import { GetAllIDs, GetCompaniesByCompanyIDs, GetRolesByRoleIDs } from "@/pages/index";
+import { GetAllRelevantRoles } from "@/pages/index";
 import CompanyConditions from "@/components/company/companyconditions";
 
 async function getCompanyData(id: string): Promise<Company> {
@@ -37,10 +37,12 @@ export interface Props {
 
 export async function getStaticPaths() {
 
-  const allIDs = await GetAllIDs();
-  const companyIDS = allIDs[0];
+  // const allIDs = await GetAllIDs();
+  // const companyIDS = allIDs[0];
 
-  const companies: Company[] = await GetCompaniesByCompanyIDs(companyIDS);
+  const roles = await GetAllRelevantRoles();
+
+  const companies: Company[] = roles.map(role => role.company);
   const slugs = companies.map(company => company.slug);
   const paths = slugs.map(slug => ({ params: { id: slug } }));
 
@@ -52,15 +54,22 @@ export async function getStaticPaths() {
 
 // `getStaticPaths` requires using `getStaticProps`
 export async function getStaticProps(context: any) {
-  const company = await getCompanyData(context.params.id);
-  const allIDs = await GetAllIDs(); //TODO(scheuclu) URGENT. Replace this with more efficient query. E.g. query bubble to only return roles for this company.
-  const roleIDs = allIDs[1];
-  const allRoles = await GetRolesByRoleIDs(roleIDs);
-  const companyroles = allRoles.filter(role => role.company.id === company.id);
+
+  const all_roles = await GetAllRelevantRoles();
+  const this_company_roles = all_roles.filter(role => role.company.slug === context.params.id);
+  const this_company = this_company_roles[0].company;
+
+
+
+  // const company = await getCompanyData(context.params.id);
+  // const allIDs = await GetAllIDs(); //TODO(scheuclu) URGENT. Replace this with more efficient query. E.g. query bubble to only return roles for this company.
+  // const roleIDs = allIDs[1];
+  // const allRoles = await GetRolesByRoleIDs(roleIDs);
+  // const companyroles = allRoles.filter(role => role.company.id === company.id);
 
   return {
     // Passed to the page component as props
-    props: { company: company, companyroles: companyroles },
+    props: { company: this_company, companyroles: this_company_roles },
     revalidate: 60 * 30, // In seconds
   }
 }
@@ -266,7 +275,7 @@ export default function Home(props: Props) {
             />
           </div>
 
-          <Joblist roles={filteredCompanyRoles} />
+          <Joblist roles={filteredCompanyRoles} mode='application' />
 
           {/* <div className={styles.headerBackgroundGradientContainer}></div> */}
           <Footer />

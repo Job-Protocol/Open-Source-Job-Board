@@ -61,7 +61,8 @@ interface Constraints {
 }
 
 export async function fetchRoles(
-    key: string
+    key: string,
+    params: any
 ): Promise<Role[]> {
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer ".concat(key));
@@ -71,7 +72,8 @@ export async function fetchRoles(
         redirect: "follow",
     };
 
-    const url_role: string = getConfig()["endpoint"] + "/obj/role";
+    const url_role: string = getConfig()["endpoint"] + "/obj/role?" + new URLSearchParams(params);
+    console.log("------ URL2, ", url_role);
     const response = await fetch(url_role, requestOptions);
 
     const result = await response.json();
@@ -88,15 +90,20 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Role[]>
 ) {
-    const { id } = req.query;
+
+
+    // const router = useRouter()
+    // console.log(router.query);
+
+    // { param: 'aaa', second: 'bbb' }
     res.setHeader('Cache-Control', 's-maxage=86400');
     if (!process.env.BUBBLE_API_PRIVATE_KEY) {
         res.status(500);
         return;
     }
 
-
-    const roles = await fetchRoles(process.env.BUBBLE_API_PRIVATE_KEY);
+    console.log("Req.quert", req.query);
+    const roles = await fetchRoles(process.env.BUBBLE_API_PRIVATE_KEY, req.query);
     res.status(200).json(roles);
 
 

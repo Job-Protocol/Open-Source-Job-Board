@@ -22,7 +22,7 @@ import Image from "next/image";
 import "reactjs-popup/dist/index.css";
 import { FastAverageColor } from "fast-average-color";
 
-import { GetAllIDs, GetCompaniesByCompanyIDs, GetRolesByRoleIDs } from "..";
+import { GetAllRelevantRoles } from "..";
 
 async function getRoleData(roleid: string): Promise<Role> {
   const result = await fetch(`${process.env.BASE_URL}/api/role/` + roleid);
@@ -36,11 +36,9 @@ export interface Props {
 
 export async function getStaticPaths() {
 
-  const allIDs = await GetAllIDs();
-  const roleIDS = allIDs[1];
-
-  const roles = await GetRolesByRoleIDs(roleIDS);
+  const roles = await GetAllRelevantRoles();
   const slugs = roles.map(role => role.slug);
+  console.log("------------------- SLUGS", slugs);
   const paths = slugs.map(slug => ({ params: { id: slug } }));
 
   return {
