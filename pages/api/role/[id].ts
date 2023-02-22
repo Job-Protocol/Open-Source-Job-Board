@@ -3,6 +3,8 @@ import { getConfig, postMessage } from "@/utils";
 
 import { Role, getDefaultRole, RoleLocation, Requirement, RoleState, RoleType } from "@/bubble_types";
 
+import { process_single_role_response } from "../role";
+
 var psCache = require('ps-cache');
 var cache = new psCache.Cache();
 
