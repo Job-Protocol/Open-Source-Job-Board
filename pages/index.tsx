@@ -21,24 +21,16 @@ import { RoleType } from "@/bubble_types";
 import CurationModal from "@/components/admin/Curation";
 
 
+import { useRouter } from 'next/router'
+
+
 export async function GetAllRelevantRoles(): Promise<Role[]> {
   const constraints = [{ key: "Partner_boards", constraint_type: "contains", value: "Limeacademy" }];
   const URL: string = `${process.env.NEXT_PUBLIC_BASE_URL}/api/role?constraints=` + JSON.stringify(constraints);
-  console.log("--------- URL", URL);
   const result = await fetch(URL);
   const parsed = await result.json();
   return parsed;
 }
-
-
-
-// export async function GetAllIDs(): Promise<string[][]> {
-//   const result = await fetch(
-//     `${process.env.NEXT_PUBLIC_BASE_URL}/api/role/all`
-//   );
-//   const parsed = await result.json();
-//   return parsed;
-// }
 
 export interface Props {
   sortedRoles: Role[];
@@ -77,6 +69,18 @@ export async function getStaticProps() {
 }
 
 export default function Home(data: Props) {
+
+
+  const refreshData = () => {
+    router.replace(router.asPath);
+  }
+
+
+  const router = useRouter()
+  const params = router.query;
+  // console.log("-----QUERY", router.query, router.query.password);
+
+
   // const sortedRoles = data.sortedRoles;
   const companies = data.companies;
   const roles = data.sortedRoles;
@@ -99,6 +103,9 @@ export default function Home(data: Props) {
   const [searchterm, setSearchterm] = useState<string | undefined>(undefined);
 
   const [showCuration, setShowCuration] = useState<boolean>(false);
+  const [showCustomRole, setShowCustomRole] = useState<boolean>(false);
+
+  const [adminMode, setAdminMode] = useState<boolean>(false);
 
 
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
@@ -106,7 +113,10 @@ export default function Home(data: Props) {
   useEffect(() => {
     setRoleFilter(new RoleFilter(roles));
     setCompanyFilter(new CompanyFilter(companies));
-  }, [roles, companies]);
+    if (params.key && params.key === "abc") {//TODO(scheuclu): Remove hard coded password
+      setAdminMode(true);
+    }
+  }, [roles, companies, params]);
 
   useEffect(() => {
     if (roleFilter) {
@@ -257,41 +267,31 @@ export default function Home(data: Props) {
               </div>
             </div>
 
-            {/* List your roles */}
-            <div className={"marginBottom8 " + styles.headerRightContainer}>
-              <div className={styles.headerListRolesContianer}>
-                <button
-                  type="submit"
-                  className={"body16Bold " + stylesGlobalFormElements.primaryButton}
-                  name="button-1675001572178"
-                  onClick={() => setShowCuration(true)}
-                  id="button-apply"
-                >
-                  Add Jobprotocol Role
-                </button>
-                {/* <Link
-                  className={
-                    "marginTop16 " +
-                    stylesGlobalFormElements.primaryButton +
-                    " " +
-                    styles.desktopOnly
-                  }
-                  href={"https://app.jobprotocol.xyz/ethdenver_onboarding"}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Add Jobprotocol Role
-                </Link>
-                <Link
-                  className={"marginTop16 body16Bold link " + styles.mobileOnly}
-                  href={"https://app.jobprotocol.xyz/ethdenver_onboarding"}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  List your roles
-                </Link> */}
+            {adminMode &&
+              <div className={"marginBottom8 " + styles.headerRightContainer}>
+                <div className={styles.headerListRolesContianer + " gap-x-1.5"}>
+                  <button
+                    type="submit"
+                    className={"body16Bold " + stylesGlobalFormElements.primaryButton}
+                    name="button-1675001572178"
+                    onClick={() => setShowCuration(true)}
+                    id="button-apply"
+                  >
+                    Add Jobprotocol Role
+                  </button>
+
+                  <button
+                    type="submit"
+                    className={"body16Bold " + stylesGlobalFormElements.primaryButton}
+                    name="button-1675001572178"
+                    onClick={() => setShowCustomRole(true)}
+                    id="button-apply"
+                  >
+                    Add Custom Role
+                  </button>
+                </div>
               </div>
-            </div>
+            }
 
 
           </div>
@@ -389,12 +389,14 @@ export default function Home(data: Props) {
               className={stylesGlobalFormElements.modal + " z-50"}
               onClick={() => {
                 setShowCuration(false);
+                refreshData();
               }}
             >
               <CurationModal />
             </div>
           }
-          {!byCompanies && <Joblist roles={filteredRoles} mode="application" />}
+          {!byCompanies && !adminMode && <Joblist roles={filteredRoles} mode="application" />}
+          {!byCompanies && adminMode && <Joblist roles={filteredRoles} mode="remove" />}
           {byCompanies && <Companylist companies={filteredCompanies} />}
           <Footer />
         </div>

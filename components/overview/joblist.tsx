@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 
 import styles from "@/styles/Joblist.module.css";
-import JobCard from "@/components/role/jobcard";
+import JobCard, { ActionType } from "@/components/role/jobcard";
 import { JobCardProps } from "@/components/role/jobcard";
 
 import { addressstring_to_type } from "@/utils";
@@ -24,25 +24,57 @@ import {
 
 export interface Props {
   roles: Role[] | undefined;
-  mode: "application" | "curation";
+  mode: "application" | "curation" | "remove";
 }
 
 export default function Joblist(data: Props) {
+
+  var allroles = data.roles;
+
+  var [variableRoles, setVariableRoles] = useState<Role[]>([]);
+
+  // const [flip, setFlip] = useState(false);
+
+  const [removeIDs, setRemoveIDs] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (allroles) {
+      console.log("Setting variable roles");
+      setVariableRoles(allroles.filter((val, index) => !removeIDs.includes(val.id)));
+    }
+  }, [allroles, removeIDs]);
+
+  // useEffect(() => {
+
+
+  //   setVariableRoles(variableRoles.filter((value, index) => index != actionIndex));
+  // }, [flip, actionIndex, allroles]);
+
+
+
 
 
   if (!data.roles) return (<Loading />);
   // if (data.roles.length == 0) return (<p>N data</p>);
 
-  const roles: Role[] = data.roles;
+  var roles: Role[] = data.roles;
 
   return (
     <div className={styles.jobListContainer}>
-      {roles.map((role) => (
+      <p>{removeIDs}</p>
+      {variableRoles.map((role, index) => (
         <JobCard
           role={role}
           key={role.id}
           mode={data.mode}
-          handleChange={(val) => { console.log(val) }} />
+          handleChange={(id, actiontype) => {
+            console.log("id", id);
+            console.log("actiontype", actiontype);
+            if (actiontype == ActionType.Remove) {
+              setRemoveIDs(removeIDs.concat(id));
+            }
+
+          }} />
       ))}
     </div>
   );

@@ -8,22 +8,35 @@ import Link from "next/link";
 import { RoleState } from "@/bubble_types";
 
 
-enum ActionType {
+export enum ActionType {
   Apply,
   View,
   Add,
+  Remove
 }
 
 export interface JobCardProps {
   role: Role;
-  mode: "application" | "curation";
-  handleChange: (action: ActionType) => void;
+  mode: "application" | "curation" | "remove";
+  handleChange: (id: string, action: ActionType) => void;
 }
 
 
 function content(data: JobCardProps) {
   const role = data.role;
   const link: string = "/role/" + role.slug;
+
+
+  async function curateRole(id: string, method: "remove" | "add") {
+    if (method == "add") {
+      const result = await fetch("/api/curate/" + id + "?method=add")
+      return result;
+    }
+    const result = await fetch("/api/curate/" + id + "?method=remove")
+    return result;
+  }
+
+
   return (
     <div className={styles.card}>
       <div className={styles.roleInfo}>
@@ -58,7 +71,7 @@ function content(data: JobCardProps) {
         <RoleConditions role={role} />
       </div>
       <div
-        className={styles.applyContainer}
+        // className={styles.applyContainer}
         onClick={(e) => e.stopPropagation()}
       >
         {data.mode == 'application' &&
@@ -66,28 +79,50 @@ function content(data: JobCardProps) {
             type="submit"
             className={"body16Bold " + styles.applyButton}
             name="button-1675001572178"
-            onClick={() => data.handleChange(ActionType.Apply)}
+            onClick={() => data.handleChange(role.id, ActionType.Apply)}
             id="button-apply"
           >
             Apply
           </button>}
-        {data.mode != 'application' &&
-          <div className="flex flex-col">
+        {data.mode == 'remove' &&
+          <button
+            type="submit"
+            className={"body16Bold " + styles.applyButton}
+            name="button-1675001572178"
+            onClick={() => {
+              console.log("removing Role");
+              curateRole(role.id, "remove");
+              data.handleChange(role.id, ActionType.Remove)
+            }
+            }
+            id="button-apply"
+          >
+            Remove
+          </button>}
+        {data.mode == 'curation' &&
+          <div className="flex flex-col gap-y-1">
+            <Link href={"role/" + role.slug} target="_blank" rel="noopener noreferrer">
+              <button
+                type="submit"
+                className={"body16Bold " + styles.applyButton}
+                name="button-1675001572178"
+                onClick={() => data.handleChange(role.id, ActionType.View)}
+                id="button-apply"
+              >
+                View
+              </button>
+            </Link>
+
             <button
               type="submit"
               className={"body16Bold " + styles.applyButton}
               name="button-1675001572178"
-              onClick={() => data.handleChange(ActionType.View)}
-              id="button-apply"
-            >
-              View
-            </button>
-            <button
-              type="submit"
-              className={"body16Bold " + styles.applyButton}
-              name="button-1675001572178"
-              onClick={() => data.handleChange(ActionType.Add)}
-              id="button-apply"
+              onClick={() => {
+                console.log("adding Role");
+                curateRole(role.id, "add");
+                data.handleChange(role.id, ActionType.Add)
+              }}
+              id="button-apply2"
             >
               Add
             </button>
@@ -98,7 +133,7 @@ function content(data: JobCardProps) {
           
         </div> */}
       </div>
-    </div>
+    </div >
   );
 }
 
