@@ -23,6 +23,8 @@ import CurationModal from "@/components/admin/Curation";
 
 import { useRouter } from 'next/router'
 
+// import Iframe from 'react-iframe'
+
 
 export async function GetAllRelevantRoles(): Promise<Role[]> {
   const constraints = [{ key: "Partner_boards", constraint_type: "contains", value: "Limeacademy" }];
@@ -51,7 +53,6 @@ export async function getStaticProps() {
     return aaa;
   });
 
-  console.log("------------------- sorted Roles", sortedRoles);
   const filteredRoles = sortedRoles;
 
   const companies = sortedRoles.map((role) => role.company);
@@ -78,7 +79,6 @@ export default function Home(data: Props) {
 
   const router = useRouter()
   const params = router.query;
-  // console.log("-----QUERY", router.query, router.query.password);
 
 
   // const sortedRoles = data.sortedRoles;
@@ -398,6 +398,17 @@ export default function Home(data: Props) {
           {!byCompanies && !adminMode && <Joblist roles={filteredRoles} mode="application" />}
           {!byCompanies && adminMode && <Joblist roles={filteredRoles} mode="remove" />}
           {byCompanies && <Companylist companies={filteredCompanies} />}
+          {/* 
+          <iframe src="https://www.google.com" width="100%"></iframe>
+
+          <Iframe url="https://www.facebook.com/"
+            width="450px"
+            height="450px"
+            id="myId"
+            className="myClassname"
+            display="initial"
+            position="relative" /> */}
+
           <Footer />
         </div>
       </div>
