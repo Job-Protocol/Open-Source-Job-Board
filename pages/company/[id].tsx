@@ -21,7 +21,11 @@ import { GeographicAddress } from "@/bubble_types";
 
 import Filter from "@/components/overview/filter";
 
-import { GetAllIDs, GetCompaniesByCompanyIDs, GetRolesByRoleIDs } from "@/pages/index";
+import {
+  GetAllIDs,
+  GetCompaniesByCompanyIDs,
+  GetRolesByRoleIDs,
+} from "@/pages/index";
 import CompanyConditions from "@/components/company/companyconditions";
 
 async function getCompanyData(id: string): Promise<Company> {
@@ -36,18 +40,17 @@ export interface Props {
 }
 
 export async function getStaticPaths() {
-
   const allIDs = await GetAllIDs();
   const companyIDS = allIDs[0];
 
   const companies: Company[] = await GetCompaniesByCompanyIDs(companyIDS);
-  const slugs = companies.map(company => company.slug);
-  const paths = slugs.map(slug => ({ params: { id: slug } }));
+  const slugs = companies.map((company) => company.slug);
+  const paths = slugs.map((slug) => ({ params: { id: slug } }));
 
   return {
     paths: paths,
     fallback: false, // can also be true or 'blocking'
-  }
+  };
 }
 
 // `getStaticPaths` requires using `getStaticProps`
@@ -56,18 +59,18 @@ export async function getStaticProps(context: any) {
   const allIDs = await GetAllIDs(); //TODO(scheuclu) URGENT. Replace this with more efficient query. E.g. query bubble to only return roles for this company.
   const roleIDs = allIDs[1];
   const allRoles = await GetRolesByRoleIDs(roleIDs);
-  const companyroles = allRoles.filter(role => role.company.id === company.id);
+  const companyroles = allRoles.filter(
+    (role) => role.company.id === company.id
+  );
 
   return {
     // Passed to the page component as props
     props: { company: company, companyroles: companyroles },
     revalidate: 60 * 30, // In seconds
-  }
+  };
 }
 
-
 export default function Home(props: Props) {
-
   const company: Company = props.company;
   const companyroles: Role[] = props.companyroles;
 
@@ -102,6 +105,18 @@ export default function Home(props: Props) {
         <meta name="description" content={company.name} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/ethdenver-spork-logo-pink2.png" />
+        {/* Facebook */}
+        <meta property="og:title" content={company.name} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/social_banner.png" />
+        {/* Twitter */}
+        <meta name="twitter:title" content={company.name} />
+        <meta
+          name="twitter:description"
+          content="Job Board for ETH Denver - a fast-track to the best jobs in Web3 🔥"
+        />
+        <meta property="twitter:image" content="/social_banner.png" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
 
       <div className="page">
