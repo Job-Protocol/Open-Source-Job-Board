@@ -19,8 +19,7 @@ import RoleFilter from "../components/overview/filter";
 import { CompanyFilter } from "../components/overview/filter";
 import { RoleType } from "@/bubble_types";
 
-import { PromisePool } from '@supercharge/promise-pool'
-
+import { PromisePool } from "@supercharge/promise-pool";
 
 export async function GetAllIDs(): Promise<string[][]> {
   const result = await fetch(
@@ -39,12 +38,11 @@ export async function GetCompaniesByCompanyIDs(
   const reponses: Response[] = await Promise.all(response);
   const comps = reponses.map((result) => result.json());
 
-  const final = await PromisePool
-    .for(comps)
+  const final = await PromisePool.for(comps)
     .withConcurrency(2)
-    .process(async rolepromise => {
+    .process(async (rolepromise) => {
       return await rolepromise;
-    })
+    });
 
   return final.results;
 }
@@ -57,13 +55,11 @@ export async function GetRolesByRoleIDs(ids: string[]): Promise<Role[]> {
 
   const roles = reponses.map((result) => result.json());
 
-  const final = await PromisePool
-    .for(roles)
+  const final = await PromisePool.for(roles)
     .withConcurrency(2)
-    .process(async rolepromise => {
+    .process(async (rolepromise) => {
       return await rolepromise;
-    })
-
+    });
 
   return final.results;
 }
@@ -114,19 +110,22 @@ export default function Home(data: Props) {
   const [filteredRoles, setFilteredRoles] = useState<Role[] | undefined>(
     undefined
   );
-  const [filteredCompanies, setFilteredCompanies] = useState<Company[] | undefined>(
-    undefined
-  );
+  const [filteredCompanies, setFilteredCompanies] = useState<
+    Company[] | undefined
+  >(undefined);
 
   const [userAddress, setUserAddress] = useState<GeographicAddress | undefined>(
     undefined
   );
   const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
-  const [roleFilter, setRoleFilter] = useState<RoleFilter | undefined>(undefined);
-  const [companyFilter, setCompanyFilter] = useState<CompanyFilter | undefined>(undefined);
+  const [roleFilter, setRoleFilter] = useState<RoleFilter | undefined>(
+    undefined
+  );
+  const [companyFilter, setCompanyFilter] = useState<CompanyFilter | undefined>(
+    undefined
+  );
   const [roleType, setRoleType] = useState<RoleType | undefined>(undefined);
   const [searchterm, setSearchterm] = useState<string | undefined>(undefined);
-
 
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
 
@@ -138,15 +137,25 @@ export default function Home(data: Props) {
   useEffect(() => {
     if (roleFilter) {
       setFilteredRoles(
-        roleFilter.getFilteredRoles(userAddress, remoteOnly, roleType, searchterm)
+        roleFilter.getFilteredRoles(
+          userAddress,
+          remoteOnly,
+          roleType,
+          searchterm
+        )
       );
     }
     if (companyFilter) {
-      setFilteredCompanies(
-        companyFilter.getFilteredCompanies(searchterm)
-      );
+      setFilteredCompanies(companyFilter.getFilteredCompanies(searchterm));
     }
-  }, [userAddress, remoteOnly, roleFilter, companyFilter, roleType, searchterm]);
+  }, [
+    userAddress,
+    remoteOnly,
+    roleFilter,
+    companyFilter,
+    roleType,
+    searchterm,
+  ]);
 
   function handleChange(val: boolean) {
     setByCompanies(val);
@@ -155,8 +164,11 @@ export default function Home(data: Props) {
   return (
     <>
       <Head>
-        <title>ETH Denver Jobs</title>
-        <meta name="description" content="Jobboard for ETHDenver 2023" />
+        <title>ETH Denver Opportunity Zone</title>
+        <meta
+          name="description"
+          content="Job Board for ETH Denver - a fast-track to the best jobs in Web3 🔥"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/ethdenver-spork-logo-pink2.png" />
       </Head>
@@ -215,8 +227,8 @@ export default function Home(data: Props) {
                 src={"/EDEN22Logo_Black.svg"}
                 alt="Header image"
                 fill
-              //style={{borderRadius: 8}}
-              // objectFit="cover"
+                //style={{borderRadius: 8}}
+                // objectFit="cover"
               />
             </div>
             <div className={styles.headerTextContainer}>
@@ -230,8 +242,8 @@ export default function Home(data: Props) {
                     width={16}
                     height={16}
 
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://twitter.com/EthereumDenver"}>
@@ -240,8 +252,8 @@ export default function Home(data: Props) {
                     alt="Twitter icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 {/* <Link href={"https://www.google.com"}>
@@ -270,8 +282,8 @@ export default function Home(data: Props) {
                     alt="Discord icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://medium.com/ethdenver"}>
@@ -280,8 +292,8 @@ export default function Home(data: Props) {
                     alt="Medium icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://www.youtube.com/c/ETHDenver"}>
@@ -290,8 +302,8 @@ export default function Home(data: Props) {
                     alt="YouTube icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://www.instagram.com/ethdenver/"}>
@@ -300,8 +312,8 @@ export default function Home(data: Props) {
                     alt="Instagram icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://www.meetup.com/Ethereum-Denver/"}>
@@ -310,8 +322,8 @@ export default function Home(data: Props) {
                     alt="Meetup icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
               </div>
