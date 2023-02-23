@@ -61,7 +61,7 @@ export default function Joblist(data: Props) {
 
   return (
     <div className={styles.jobListContainer}>
-      <p>{removeIDs}</p>
+      {/* <p>{removeIDs}</p> */}
       {variableRoles.map((role, index) => (
         <JobCard
           role={role}
