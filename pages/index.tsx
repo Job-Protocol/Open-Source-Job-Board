@@ -394,7 +394,7 @@ export default function Home(data: Props) {
               className={stylesGlobalFormElements.modal + " z-50"}
               onClick={() => {
                 setShowCuration(false);
-                //refreshData();
+                refreshData();
               }}
             >
               <CurationModal />

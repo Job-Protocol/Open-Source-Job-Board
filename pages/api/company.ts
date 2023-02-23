@@ -17,10 +17,13 @@ var cache = new psCache.Cache();
 
 export async function process_single_company_response(response_company: any, key: string): Promise<Company> {
 
-
+    if (!response_company) {
+        return getDefaultCompany();
+    }
     // Fetch socials, if possible
-    const socials: CompanySocials | null = response_company.socials
-        ? await fetchSocials(response_company.socials, key)
+
+    const socials: CompanySocials | null = response_company.socials ?
+        await fetchSocials(response_company.socials, key)
         : null;
 
     // Fetch named links, if possible
@@ -37,15 +40,15 @@ export async function process_single_company_response(response_company: any, key
     comp.id = response_company._id;
     comp.name = response_company.Name;
     comp.logo = response_company.Logo;
-    comp.headquarters = response_company.headquarters;
-    comp.num_employees = response_company.num_employees;
+    comp.headquarters = response_company.headquarters ? response_company.headquarters : null;
+    comp.num_employees = response_company.num_employees ? response_company.num_employees : null;
     comp.socials = socials;
-    comp.tagline = response_company.tagline;
-    comp.press_article_links = press_article_links;
-    comp.founding_year = response_company.founding_year;
+    comp.tagline = response_company.tagline ? response_company.tagline : null;
+    comp.press_article_links = press_article_links ? press_article_links : null;
+    comp.founding_year = response_company.founding_year ? response_company.founding_year : null;
     comp.slug = response_company.Slug;
-    comp.mission = response_company.mission;
-    comp.priority = response_company.priority;
+    comp.mission = response_company.mission ? response_company.mission : null;
+    comp.priority = response_company.priority ? response_company.priority : 1;
     comp.keywords = [comp.name, comp.headquarters];
 
     return comp;
