@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "@/styles/Home.module.css";
 import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.css";
-import SearchBox from "@/components/overview/searchbox";
 import Joblist from "@/components/overview/joblist";
 import Companylist from "@/components/overview/companylist";
 import SwitchRolesCompanies from "@/components/overview/switch_roles_companies";
@@ -18,9 +17,10 @@ import Footer from "@/components/overview/footer";
 import { GeographicAddress } from "@/bubble_types";
 import RoleFilter from "../components/overview/filter";
 import { CompanyFilter } from "../components/overview/filter";
-import Switch from "react-switch";
-import { getConfig } from "@/utils";
 import { RoleType } from "@/bubble_types";
+
+import { PromisePool } from '@supercharge/promise-pool'
+
 
 export async function GetAllIDs(): Promise<string[][]> {
   const result = await fetch(
@@ -37,9 +37,16 @@ export async function GetCompaniesByCompanyIDs(
     fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/company/${id}`)
   );
   const reponses: Response[] = await Promise.all(response);
-  const roles = reponses.map((result) => result.json());
-  const final = await Promise.all(roles);
-  return final;
+  const comps = reponses.map((result) => result.json());
+
+  const final = await PromisePool
+    .for(comps)
+    .withConcurrency(2)
+    .process(async rolepromise => {
+      return await rolepromise;
+    })
+
+  return final.results;
 }
 
 export async function GetRolesByRoleIDs(ids: string[]): Promise<Role[]> {
@@ -49,8 +56,16 @@ export async function GetRolesByRoleIDs(ids: string[]): Promise<Role[]> {
   const reponses: Response[] = await Promise.all(response);
 
   const roles = reponses.map((result) => result.json());
-  const final = await Promise.all(roles);
-  return final;
+
+  const final = await PromisePool
+    .for(roles)
+    .withConcurrency(2)
+    .process(async rolepromise => {
+      return await rolepromise;
+    })
+
+
+  return final.results;
 }
 
 export interface Props {

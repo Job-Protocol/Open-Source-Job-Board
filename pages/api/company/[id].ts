@@ -67,7 +67,6 @@ export async function fetch_company_by_slug(
     headers: myHeaders,
     redirect: 'follow'
   };
-  // console.log("PARAMS", JSON.stringify(params));
 
   const url: string = getConfig()["endpoint"] + "/obj/company/?constraints=" + JSON.stringify(params);
   // const url: string = 'https://app.jobprotocol.xyz/version-test/api/1.1/obj/role/?constraints=[{ "key": "Slug", "constraint_type": "equals", "value": "1inch-eth-denver--software-engineer"}]'
@@ -75,7 +74,6 @@ export async function fetch_company_by_slug(
   if (response.status != 200) {
     postMessage("URGENT: 'fetch_company_by_slug' failed with status code " + response.status.toString());
   }
-  // console.log("RESPONSE 1", response);
   const result = await response.json()
 
   const c = await process_single_company_response(result.response.results[0], key);
