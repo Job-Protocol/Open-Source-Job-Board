@@ -33,22 +33,22 @@ export async function fetch_by_id(
   const result = await response.json();
 
   const res: RoleLocation = getDefaultRoleLocation();
-  const timezone_range: TimezoneRange | undefined = result.response
+  const timezone_range: TimezoneRange | null = result.response
     .TimeZoneRange
     ? {
       min: result.response.TimeZoneRange[0],
       max: result.response.TimeZoneRange[1],
     }
-    : undefined;
+    : null;
 
 
-  const location_type: RoleLocationType | undefined =
+  const location_type: RoleLocationType | null =
     result.response.LocationType == "LocationList"
       ? RoleLocationType.LocationList
       : result.response.LocationType == "TimezoneRange"
         ? RoleLocationType.TimezoneRange
         : result.response.LocationType == "Global"
-          ? RoleLocationType.Remote : undefined;
+          ? RoleLocationType.Remote : null;
 
   const location_list = await Promise.all(result.response.LocationList.map((loc: any) => addressstring_to_type(loc.address)));
 

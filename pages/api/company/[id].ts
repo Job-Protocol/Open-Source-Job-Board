@@ -10,6 +10,7 @@ import {
 } from "@/bubble_types";
 
 import { process_single_company_response } from "../company";
+import { StringDecoder } from "string_decoder";
 
 var psCache = require('ps-cache');
 var cache = new psCache.Cache();
@@ -18,7 +19,7 @@ var cache = new psCache.Cache();
 export async function fetch_company_by_slug(
   slug: string,
   key: string
-): Promise<Company | undefined> {
+): Promise<Company | null> {
 
 
   var myHeaders = new Headers();
@@ -71,6 +72,26 @@ export async function fetch_company_by_id(
 
   const comp: Company = await process_single_company_response(result.response, key);
   return comp;
+}
+
+export async function fetch_company_by_slug_or_id(slug_or_id: string): Promise<Company | null> {
+
+
+  if (slug_or_id.length == 32 && slug_or_id[13] == 'x') {
+    const comp = await fetch_company_by_id(
+      slug_or_id,
+      process.env.BUBBLE_API_PRIVATE_KEY as string
+    );
+    return comp;
+  }
+  else {
+    const comp = await fetch_company_by_slug(
+      slug_or_id,
+      process.env.BUBBLE_API_PRIVATE_KEY as string
+    );
+    return comp;
+  }
+
 }
 
 export default async function company_handler(

@@ -3,14 +3,14 @@ import { Role, Company, RoleLocationType, TimezoneRange, RoleType } from "@/bubb
 
 
 class RoleFilter {
-    // remoteOnly: boolean | undefined;
-    // userAddress: GeographicAddress | undefined;
+    // remoteOnly: boolean | null;
+    // userAddress: GeographicAddress | null;
     roles: Role[] = [];
 
     constructor(unfilteredRoles: Role[]
     ) {
         // this.remoteOnly = false;
-        // this.userAddress = undefined;
+        // this.userAddress = null;
         this.roles = unfilteredRoles;
     }
 
@@ -24,7 +24,7 @@ class RoleFilter {
         return (location.country && this.hasCountry(location.country, role_addresses)) ||
             (location.city && this.hasCity(location.city, role_addresses));
     }
-    private timezoneMatches(utc_offset: number | undefined, timezone_range: TimezoneRange | undefined) {
+    private timezoneMatches(utc_offset: number | null, timezone_range: TimezoneRange | null) {
         if (!timezone_range) {
             return false;
         }
@@ -34,7 +34,7 @@ class RoleFilter {
         return utc_offset / 60 >= timezone_range.min && utc_offset / 60 <= timezone_range.max;
     }
 
-    private isRemoteMatch(role: Role, userAddress: GeographicAddress | undefined) {
+    private isRemoteMatch(role: Role, userAddress: GeographicAddress | null) {
         if (!role.location) {
             return true;
         }
@@ -51,7 +51,7 @@ class RoleFilter {
 
         return true;
     }
-    private isNonRemoteMatch(role: Role, userAddress: GeographicAddress | undefined) {
+    private isNonRemoteMatch(role: Role, userAddress: GeographicAddress | null) {
         if (!role.location || !userAddress) {
             return true;
         }
@@ -69,14 +69,14 @@ class RoleFilter {
         return true;
     }
 
-    private isRoleTypeMatch(role: Role, roleType: RoleType | undefined) {
+    private isRoleTypeMatch(role: Role, roleType: RoleType | null) {
         if (!roleType) {
             return true;
         }
         return role.type == roleType;
     }
 
-    private isSearchTermMatch(role: Role, searchterm: string | undefined): boolean {
+    private isSearchTermMatch(role: Role, searchterm: string | null): boolean {
         if (!searchterm || searchterm.length < 4) {
             return true;
         }
@@ -88,10 +88,10 @@ class RoleFilter {
 
     private roleFilter(
         role: Role,
-        userAddress: GeographicAddress | undefined,
-        remoteOnly: boolean | undefined,
-        roleType: RoleType | undefined,
-        searchterm: string | undefined) {
+        userAddress: GeographicAddress | null,
+        remoteOnly: boolean | null,
+        roleType: RoleType | null,
+        searchterm: string | null) {
         // If remote only, filter the roles
 
         var result = false;
@@ -108,10 +108,10 @@ class RoleFilter {
 
 
     getFilteredRoles(
-        userAddress: GeographicAddress | undefined,
-        remoteOnly: boolean | undefined,
-        roleType: RoleType | undefined,
-        searchterm: string | undefined) {
+        userAddress: GeographicAddress | null,
+        remoteOnly: boolean | null,
+        roleType: RoleType | null,
+        searchterm: string | null) {
         return this.roles.filter((role) => this.roleFilter(role, userAddress, remoteOnly, roleType, searchterm));
     }
 
@@ -119,18 +119,18 @@ class RoleFilter {
 
 
 export class CompanyFilter {
-    // remoteOnly: boolean | undefined;
-    // userAddress: GeographicAddress | undefined;
+    // remoteOnly: boolean | null;
+    // userAddress: GeographicAddress | null;
     companies: Company[] = [];
 
     constructor(unfilteredCompanies: Company[]
     ) {
         // this.remoteOnly = false;
-        // this.userAddress = undefined;
+        // this.userAddress = null;
         this.companies = unfilteredCompanies;
     }
 
-    private isSearchTermMatch(company: Company, searchterm: string | undefined): boolean {
+    private isSearchTermMatch(company: Company, searchterm: string | null): boolean {
         if (!searchterm || searchterm.length < 4) {
             return true;
         }
@@ -142,7 +142,7 @@ export class CompanyFilter {
 
     private companyFilter(
         company: Company,
-        searchterm: string | undefined) {
+        searchterm: string | null) {
         // If remote only, filter the roles
 
         var result = false;
@@ -152,7 +152,7 @@ export class CompanyFilter {
 
 
     getFilteredCompanies(
-        searchterm: string | undefined) {
+        searchterm: string | null) {
         return this.companies.filter((company) => this.companyFilter(company, searchterm));
     }
 

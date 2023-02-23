@@ -30,20 +30,20 @@ type CandidateData = {
   github: string;
   linkedin: string;
   role: string;
-  resume: File | undefined;
-  location: GeographicAddress | undefined;
-  eth_wallet_address: string | undefined;
+  resume: File | null;
+  location: GeographicAddress | null;
+  eth_wallet_address: string | null;
 };
 
-function undef(v: any | undefined) {
-  return v === undefined;
+function undef(v: any | null) {
+  return v === null;
 }
 
-function empty(v: any | undefined) {
+function empty(v: any | null) {
   return v === "";
 }
 
-function valueSet(v: any | undefined) {
+function valueSet(v: any | null) {
   return !undef(v) && !empty(v);
 }
 
@@ -61,8 +61,8 @@ export default function ApplyCard(params: any) {
   const ROLE_TITLE: string = params.role_title;
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
-  const [location, setLocation] = useState<GeographicAddress | undefined>(
-    undefined
+  const [location, setLocation] = useState<GeographicAddress | null>(
+    null
   );
   const [email, setEmail] = useState<string>("");
   const [linkedIn, setLinkedIn] = useState<string>("");
@@ -70,7 +70,7 @@ export default function ApplyCard(params: any) {
   const [walletAddress, setWalletAddress] = useState<string>("");
   const [buttonClicked, setButtonClicked] = useState<boolean>(false);
   const [inputsValid, setInputsValid] = useState<boolean>(false);
-  const [resume, setResume] = useState<File | undefined>(undefined);
+  const [resume, setResume] = useState<File | null>(null);
   const [showApplicationSuccessModal, setShowApplicationSuccessModal] =
     useState<boolean>(false);
   const [showCandidateDetailModal, setShowCandidateDetailModal] =
@@ -90,9 +90,9 @@ export default function ApplyCard(params: any) {
   ) {
     const referred_by = getConfig()["referred_by"];
 
-    const candidate_location: string | undefined = data.location
+    const candidate_location: string | null = data.location
       ? data.location.address
-      : undefined;
+      : null;
 
     var raw = JSON.stringify({
       first_name: data.first_name,
@@ -258,7 +258,7 @@ export default function ApplyCard(params: any) {
         location: location,
         eth_wallet_address: walletAddress,
       },
-      params.requirements !== undefined
+      params.requirements !== null
     );
   };
 
@@ -267,9 +267,9 @@ export default function ApplyCard(params: any) {
       valueSet(firstName) &&
       valueSet(lastName) &&
       valueSet(email) &&
-      location != undefined &&
+      location != null &&
       validateEmail(email) &&
-      (valueSet(linkedIn) || resume != undefined)
+      (valueSet(linkedIn) || resume != null)
     );
   };
 
@@ -474,7 +474,7 @@ export default function ApplyCard(params: any) {
           </div>
 
           {(params.role_type === RoleType.Engineering ||
-            params.role_type === undefined) && (
+            params.role_type === null) && (
               <div className={styles.formItem}>
                 <label
                   htmlFor="text-github"

@@ -15,33 +15,33 @@ export async function process_single_role_response(role_response: any, key: stri
         process.env.BUBBLE_API_PRIVATE_KEY as string
     );
 
-    //fetch role location or set undefined
-    const loc: RoleLocation | undefined = role_response.location_new
+    //fetch role location or set null
+    const loc: RoleLocation | null = role_response.location_new
         ? await fetchRoleLocation(role_response.location_new as string, key)
-        : undefined;
+        : null;
 
-    //fetch role requirement od set undefined
-    const reqs: Requirement[] | undefined = role_response.requirements ?
+    //fetch role requirement od set null
+    const reqs: Requirement[] | null = role_response.requirements ?
         await Promise.all(role_response.requirements.map((req: string) => fetchRequirement(req as string, key))) :
-        undefined;
+        null;
 
 
-    const rtype: RoleType | undefined = role_response.type == 'Engineering' ? RoleType.Engineering :
+    const rtype: RoleType | null = role_response.type == 'Engineering' ? RoleType.Engineering :
         role_response.type == 'Product' ? RoleType.Product :
             role_response.type == 'Design' ? RoleType.Design :
                 role_response.type == 'Marketing' ? RoleType.Marketing :
                     role_response.type == 'Sales/BD' ? RoleType.SalesBD :
-                        role_response.type == 'Operations' ? RoleType.Operations : undefined;
+                        role_response.type == 'Operations' ? RoleType.Operations : null;
 
 
     const r: Role = getDefaultRole();
     r.id = role_response._id;
-    r.title = role_response.title;
-    r.desc = role_response.job_description;
-    r.salary_min = role_response.salary_min;
-    r.salary_max = role_response.salary_max;
-    r.equity_pct_min = role_response.equity_pct_min;
-    r.equity_pct_max = role_response.equity_pct_max;
+    r.title = role_response.title ? role_response.title : null;
+    r.desc = role_response.job_description ? role_response.job_description : null;
+    r.salary_min = role_response.salary_min ? role_response.salary_min : null;
+    r.salary_max = role_response.salary_max ? role_response.salary_max : null;
+    r.equity_pct_min = role_response.equity_pct_min ? role_response.equity_pct_min : null;
+    r.equity_pct_max = role_response.equity_pct_max ? role_response.equity_pct_max : null;
     r.company = result_company;
     r.location = loc;
     r.requirements = reqs;
@@ -73,12 +73,11 @@ export async function fetchRoles(
     };
 
     const url_role: string = getConfig()["endpoint"] + "/obj/role?" + new URLSearchParams(params);
-    console.log("------ URL2, ", url_role);
     const response = await fetch(url_role, requestOptions);
 
     const result = await response.json();
 
-    const filtered = result.response.results.filter((r: any) => r !== undefined).filter((r: any) => r.company !== undefined);
+    const filtered = result.response.results.filter((r: any) => r !== null).filter((r: any) => r.company !== null);
 
     const roles: any = filtered.map((result: any) => process_single_role_response(result, key));
 

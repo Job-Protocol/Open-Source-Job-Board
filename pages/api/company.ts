@@ -19,19 +19,19 @@ export async function process_single_company_response(response_company: any, key
 
 
     // Fetch socials, if possible
-    const socials: CompanySocials | undefined = response_company.socials
+    const socials: CompanySocials | null = response_company.socials
         ? await fetchSocials(response_company.socials, key)
-        : undefined;
+        : null;
 
     // Fetch named links, if possible
-    const press_article_links: NamedLink[] | undefined = response_company
+    const press_article_links: NamedLink[] | null = response_company
         .press_article_links
         ? await Promise.all(
             response_company.press_article_links.map((id: string) =>
                 fetchNamedLink(id, key)
             )
         )
-        : undefined;
+        : null;
 
     const comp: Company = getDefaultCompany();
     comp.id = response_company._id;
@@ -72,6 +72,7 @@ export async function fetch_companies(
     const result = await response.json();
 
     const comps: any = result.response.results.map((result: any) => process_single_company_response(result, key));
+    console.log("COMPS: ", comps);
 
     const final = await Promise.all(comps);
 

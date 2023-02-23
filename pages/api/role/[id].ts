@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getConfig, postMessage } from "@/utils";
 
-import { Role, getDefaultRole, RoleLocation, Requirement, RoleState, RoleType } from "@/bubble_types";
+import { Role, getDefaultRole } from "@/bubble_types";
 
 import { process_single_role_response } from "../role";
 
@@ -53,6 +53,17 @@ export async function fetch_role_by_id(id: string, key: string): Promise<Role> {
   const r = await process_single_role_response(result_role.response, key);
 
   return r;
+}
+
+export async function fetch_role_by_id_or_slug(id_or_slug: string, key: string): Promise<Role> {
+  //Decide whether to fetch by slug or by id
+  if (id_or_slug.length === 32 && id_or_slug[13] === 'x') { //TODO(scheuclu) Improve this (maybe use regex
+    const role = await fetch_role_by_id(id_or_slug, key);
+    return role;
+  } else {
+    const role = await fetch_role_by_slug(id_or_slug, key);
+    return role;
+  }
 }
 
 export default async function role_handler(

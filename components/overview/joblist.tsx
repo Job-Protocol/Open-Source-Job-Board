@@ -23,7 +23,7 @@ import {
 } from "@/bubble_types";
 
 export interface Props {
-  roles: Role[] | undefined;
+  roles: Role[] | null;
   mode: "application" | "curation" | "remove";
 }
 

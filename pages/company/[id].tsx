@@ -24,6 +24,8 @@ import Filter from "@/components/overview/filter";
 import { GetAllRelevantRoles } from "@/pages/index";
 import CompanyConditions from "@/components/company/companyconditions";
 
+import { fetch_company_by_slug_or_id } from "@/pages/api/company/[id]";
+
 async function getCompanyData(id: string): Promise<Company> {
   const result = await fetch(`${process.env.BASE_URL}/api/company/` + id);
   const parsed = await result.json();
@@ -81,8 +83,8 @@ export default function Home(props: Props) {
   const companyroles: Role[] = props.companyroles;
 
   const [filteredCompanyRoles, setFilteredCompanyRoles] = useState<Role[]>([]);
-  const [userAddress, setUserAddress] = useState<GeographicAddress | undefined>(
-    undefined
+  const [userAddress, setUserAddress] = useState<GeographicAddress | null>(
+    null
   );
   const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
   const [filter, setFilter] = useState<Filter>();
@@ -96,7 +98,7 @@ export default function Home(props: Props) {
   useEffect(() => {
     if (filter) {
       setFilteredCompanyRoles(
-        filter.getFilteredRoles(userAddress, remoteOnly, undefined, undefined)
+        filter.getFilteredRoles(userAddress, remoteOnly, null, null)
       ); //TODO(scheuclu) URGENT. Add role type filter
     }
   }, [userAddress, remoteOnly, filter]);

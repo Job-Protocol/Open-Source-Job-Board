@@ -10,7 +10,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-import { Role, Requirement } from "@/bubble_types";
+import { Role, Requirement, getDefaultRole } from "@/bubble_types";
 import RoleConditions from "@/components/role/detail/roleconditions";
 
 import FourOhFour from "@/pages/404";
@@ -24,9 +24,10 @@ import { FastAverageColor } from "fast-average-color";
 
 import { GetAllRelevantRoles } from "..";
 
+import { fetch_role_by_id_or_slug } from "@/pages/api/role/[id]"
+
 async function getRoleData(roleid: string): Promise<Role> {
-  const result = await fetch(`${process.env.BASE_URL}/api/role/` + roleid);
-  const parsed = await result.json();
+  const parsed = fetch_role_by_id_or_slug(roleid, process.env.BUBBLE_API_PRIVATE_KEY as string);
   return parsed;
 }
 
@@ -38,7 +39,7 @@ export async function getStaticPaths() {
 
   const roles = await GetAllRelevantRoles();
   const slugs = roles.map(role => role.slug);
-  console.log("------------------- SLUGS", slugs);
+  //console.log("------------------- SLUGS", slugs);
   const paths = slugs.map(slug => ({ params: { id: slug } }));
 
   return {

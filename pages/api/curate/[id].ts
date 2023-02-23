@@ -22,7 +22,7 @@ export async function curate_role_by_id(id: string, method: "add" | "remove" | u
         formdata.append("partner_boards", JSON.stringify([process.env.NEXT_PUBLIC_jobprotocol_key]));
     }
     else if (method == 'remove') {
-        console.log("I am in the right spot");
+        //console.log("I am in the right spot");
         formdata.append("partner_boards", JSON.stringify([]));
     }
     else {
@@ -50,14 +50,14 @@ export default async function role_handler(
     res: NextApiResponse<any>
 ) {
 
-    console.log("req", req.method);
-    console.log("req.query", req.query);
+    //console.log("req", req.method);
+    ///console.log("req.query", req.query);
 
     const method: string | undefined = req.method;
     const { id } = req.query;
     const body = req.body;
-    console.log("body", body);
-    console.log("id", id);
+    //console.log("body", body);
+    //console.log("id", id);
 
     if (!id) {
         res.status(400).json({ message: "Missing id" });

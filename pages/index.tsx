@@ -7,9 +7,9 @@ import Joblist from "@/components/overview/joblist";
 import Companylist from "@/components/overview/companylist";
 import SwitchRolesCompanies from "@/components/overview/switch_roles_companies";
 
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 
-import { Company, Role } from "@/bubble_types";
+import { Company, getDefaultRole, Role } from "@/bubble_types";
 import JobFilters from "@/components/overview/jobfilters";
 import Footer from "@/components/overview/footer";
 
@@ -26,11 +26,15 @@ import { useRouter } from 'next/router'
 // import Iframe from 'react-iframe'
 
 
+import { fetchRoles } from "@/pages/api/role";
+
 export async function GetAllRelevantRoles(): Promise<Role[]> {
-  const constraints = [{ key: "Partner_boards", constraint_type: "contains", value: "Limeacademy" }];
-  const URL: string = `${process.env.NEXT_PUBLIC_BASE_URL}/api/role?constraints=` + JSON.stringify(constraints);
-  const result = await fetch(URL);
-  const parsed = await result.json();
+
+  const params = {
+    constraints: '[{"key":"Partner_boards","constraint_type":"contains","value":"Limeacademy"}]'
+  }
+  const parsed: Role[] = await fetchRoles(process.env.BUBBLE_API_PRIVATE_KEY as string, params);
+
   return parsed;
 }
 
@@ -56,6 +60,7 @@ export async function getStaticProps() {
   const filteredRoles = sortedRoles;
 
   const companies = sortedRoles.map((role) => role.company);
+  // const companies: Company[] = [];
 
   return {
     props: {
@@ -86,21 +91,21 @@ export default function Home(data: Props) {
   const roles = data.sortedRoles;
 
   const [byCompanies, setByCompanies] = useState<boolean>(false);
-  const [filteredRoles, setFilteredRoles] = useState<Role[] | undefined>(
-    undefined
+  const [filteredRoles, setFilteredRoles] = useState<Role[] | null>(
+    null
   );
-  const [filteredCompanies, setFilteredCompanies] = useState<Company[] | undefined>(
-    undefined
+  const [filteredCompanies, setFilteredCompanies] = useState<Company[] | null>(
+    null
   );
 
-  const [userAddress, setUserAddress] = useState<GeographicAddress | undefined>(
-    undefined
+  const [userAddress, setUserAddress] = useState<GeographicAddress | null>(
+    null
   );
   const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
-  const [roleFilter, setRoleFilter] = useState<RoleFilter | undefined>(undefined);
-  const [companyFilter, setCompanyFilter] = useState<CompanyFilter | undefined>(undefined);
-  const [roleType, setRoleType] = useState<RoleType | undefined>(undefined);
-  const [searchterm, setSearchterm] = useState<string | undefined>(undefined);
+  const [roleFilter, setRoleFilter] = useState<RoleFilter | null>(null);
+  const [companyFilter, setCompanyFilter] = useState<CompanyFilter | null>(null);
+  const [roleType, setRoleType] = useState<RoleType | null>(null);
+  const [searchterm, setSearchterm] = useState<string | null>(null);
 
   const [showCuration, setShowCuration] = useState<boolean>(false);
   const [showCustomRole, setShowCustomRole] = useState<boolean>(false);
@@ -389,7 +394,7 @@ export default function Home(data: Props) {
               className={stylesGlobalFormElements.modal + " z-50"}
               onClick={() => {
                 setShowCuration(false);
-                refreshData();
+                //refreshData();
               }}
             >
               <CurationModal />

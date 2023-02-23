@@ -28,12 +28,13 @@ export async function fetch_by_inp(id: string, key: string): Promise<GeographicA
   const formattted_address = result.result.formatted_address;
   const address_components = result.result.address_components;
 
-  function find_by_type(t: string, address_components: any[]): string | undefined {
+  function find_by_type(t: string, address_components: any[]): string | null {
     for (var i = 0; i < address_components.length; i++) {
       if (address_components[i].types.includes(t)) {
         return address_components[i].long_name;
       }
     }
+    return null;
   }
 
   const res = getDefaultGeographicAddress();

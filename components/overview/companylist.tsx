@@ -26,7 +26,7 @@ async function GetCompanyData(): Promise<Company[]> {
 }
 
 export interface Props {
-  companies: Company[] | undefined;
+  companies: Company[] | null;
 }
 
 export default function Companylist(data: Props) {
