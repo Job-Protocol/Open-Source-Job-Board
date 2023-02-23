@@ -67,7 +67,6 @@ export async function fetch_role_by_slug(slug: string, key: string): Promise<Rol
     headers: myHeaders,
     redirect: 'follow'
   };
-  // console.log("PARAMS", JSON.stringify(params));
 
   const url: string = getConfig()["endpoint"] + "/obj/role/?constraints=" + JSON.stringify(params);
   // const url: string = 'https://app.jobprotocol.xyz/version-test/api/1.1/obj/role/?constraints=[{ "key": "Slug", "constraint_type": "equals", "value": "1inch-eth-denver--software-engineer"}]'
