@@ -174,6 +174,16 @@ export default function Home(data: Props) {
         {/* Facebook */}
         <meta property="og:title" content="ETH Denver Opportunity Zone" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="/background_eth_3.jpg" />
+        {/* Twitter */}
+        <meta name="twitter:title" content="ETH Denver Opportunity Zone" />
+        <meta
+          name="twitter:description"
+          content="Job Board for ETH Denver - a fast-track to the best jobs in Web3 🔥"
+        />
+        <meta property="twitter:image" content="/background_eth_3.jpg" />
+        {/* <meta name="twitter:image" content=" http://euro-travel-example.com/thumbnail.jpg"> */}
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <div className={"page"}>
         <div className={"pageContainer"}>
