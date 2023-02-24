@@ -8,6 +8,11 @@
   border-radius: 8px;
 }
 
+.buttonContainer {
+  display: flex;
+  align-items: center;
+}
+
 .card:hover {
   background-image: linear-gradient(
     to right,
