@@ -23,39 +23,33 @@ import {
 } from "@/bubble_types";
 
 export interface Props {
-  roles: Role[] | null;
+  roles: Role[];
   mode: "application" | "curation" | "remove";
+  handleChange: (actiontype: ActionType, role: Role) => void;
 }
 
 export default function Joblist(data: Props) {
 
   var allroles = data.roles;
-
-  var [variableRoles, setVariableRoles] = useState<Role[]>([]);
-
-  // const [flip, setFlip] = useState(false);
-
-  const [removeIDs, setRemoveIDs] = useState<string[]>([]);
-
-  useEffect(() => {
-    if (allroles) {
-      console.log("Setting variable roles");
-      setVariableRoles(allroles.filter((val, index) => !removeIDs.includes(val.id)));
-    }
-  }, [allroles, removeIDs]);
+  var [variableRoles, setVariableRoles] = useState<Role[]>(data.roles != null ? data.roles : []);
+  // const [removeIDs, setRemoveIDs] = useState<string[]>([]);
+  // const [addRoles, setAddRoles] = useState<Role[]>([]);
 
   // useEffect(() => {
+  //   if (allroles) {
+  //     console.log("Setting variable roles");
+  //     setVariableRoles(allroles.filter((val, index) => !removeIDs.includes(val.id)));
+  //   }
+  // }, [allroles, removeIDs]);
 
+  // useEffect(() => {
+  //   if (allroles) {
+  //     console.log("Setting variable roles");
+  //     setVariableRoles(allroles.filter((val, index) => !removeIDs.includes(val.id)));
+  //   }
+  // }, [allroles, addRoles]);
 
-  //   setVariableRoles(variableRoles.filter((value, index) => index != actionIndex));
-  // }, [flip, actionIndex, allroles]);
-
-
-
-
-
-  if (!data.roles) return (<Loading />);
-  // if (data.roles.length == 0) return (<p>N data</p>);
+  if (variableRoles.length == 0) return (<Loading />);
 
   var roles: Role[] = data.roles;
 
@@ -67,11 +61,18 @@ export default function Joblist(data: Props) {
           role={role}
           key={role.id}
           mode={data.mode}
-          handleChange={(id, actiontype) => {
-            console.log("id", id);
+          handleChange={(actiontype, role) => {
+            console.log("id", role);
             console.log("actiontype", actiontype);
             if (actiontype == ActionType.Remove) {
-              setRemoveIDs(removeIDs.concat(id));
+              console.log("Here I am");
+              setVariableRoles(variableRoles.filter(vrole => vrole.id != role.id));
+
+            }
+            if (actiontype == ActionType.Add) {
+              // setAddRoles(addRoles.concat(role));
+              // //setVariableRoles(variableRoles.concat(role))
+              data.handleChange(actiontype, role);
             }
 
           }} />

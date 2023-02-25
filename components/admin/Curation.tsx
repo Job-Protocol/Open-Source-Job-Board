@@ -8,6 +8,8 @@ import Joblist from "../overview/joblist";
 import { Company } from "@/bubble_types";
 import Loading from "../loading";
 
+import { ActionType } from "../role/jobcard";
+
 
 export async function GetCompanies(): Promise<Company[]> {
     const result = await fetch('/api/companies');
@@ -18,6 +20,7 @@ export async function GetCompanies(): Promise<Company[]> {
 
 
 export interface Props {
+    handleChange: (actiontype: ActionType, role: Role) => void;
 }
 
 
@@ -47,7 +50,7 @@ export default function CurationModal(data: Props) {
         >
             <h1>Curate</h1>
             <p>{bubbleRoles?.length}</p>
-            {bubbleRoles !== null && <Joblist roles={bubbleRoles} mode='curation' />}
+            {bubbleRoles !== null && <Joblist roles={bubbleRoles} mode='curation' handleChange={(a, b) => data.handleChange(a, b)} />}
             {bubbleRoles == null && <Loading />}
         </div>
         // </div>

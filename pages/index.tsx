@@ -19,13 +19,11 @@ import { GeographicAddress } from "@/bubble_types";
 import RoleFilter from "../components/overview/filter";
 import { CompanyFilter } from "../components/overview/filter";
 import { RoleType } from "@/bubble_types";
-
 import CurationModal from "@/components/admin/Curation";
-
-
 import { useRouter } from 'next/router'
-
 import { fetchRoles } from "@/pages/api/role";
+
+import { ActionType } from "@/components/role/jobcard";
 
 export async function GetAllRelevantRoles(): Promise<Role[]> {
 
@@ -75,8 +73,12 @@ export async function getStaticProps() {
 
 export default function Home(data: Props) {
 
+  const [variableRoles, setVariableRoles] = useState<Role[]>(data.sortedRoles);
+  const [addRole, setAddRole] = useState<Role | null>(null);
+
 
   const refreshData = () => {
+    console.log("refreshing Data");
     router.replace(router.asPath);
   }
 
@@ -87,7 +89,7 @@ export default function Home(data: Props) {
 
   // const sortedRoles = data.sortedRoles;
   const companies = data.companies;
-  const roles = data.sortedRoles;
+  // const roles = data.sortedRoles;
 
   const [byCompanies, setByCompanies] = useState<boolean>(false);
   const [filteredRoles, setFilteredRoles] = useState<Role[] | null>(
@@ -115,12 +117,19 @@ export default function Home(data: Props) {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    setRoleFilter(new RoleFilter(roles));
+    setRoleFilter(new RoleFilter(variableRoles));
     setCompanyFilter(new CompanyFilter(companies));
     if (params.key && params.key === "abc") {//TODO(scheuclu): Remove hard coded password
       setAdminMode(true);
     }
-  }, [roles, companies, params]);
+  }, [variableRoles, companies, params]);
+
+  // useEffect(() => {
+  //   if (addRole) {
+  //     setVariableRoles([...variableRoles, addRole]);
+  //   }
+  //   setAddRole(null);
+  // }, [addRole, variableRoles]);
 
   useEffect(() => {
     if (roleFilter) {
@@ -319,11 +328,22 @@ export default function Home(data: Props) {
                 refreshData();
               }}
             >
-              <CurationModal />
+              <CurationModal handleChange={(actionType, data) => {
+                console.log("ppp", actionType, data);
+                if (actionType == ActionType.Add) {
+                  console.log("peekaboo");
+                  setVariableRoles([...variableRoles, data])
+                  refreshData();
+                }
+              }} />
             </div>
           }
-          {!byCompanies && !adminMode && <Joblist roles={filteredRoles} mode="application" />}
-          {!byCompanies && adminMode && <Joblist roles={filteredRoles} mode="remove" />}
+          <p>{filteredRoles != null ? filteredRoles.length : "null"}</p>
+          {!byCompanies && !adminMode && <Joblist roles={filteredRoles != null ? filteredRoles : []} mode="application" handleChange={(actiontype, role) => { }} />}
+          {!byCompanies && adminMode && <Joblist roles={filteredRoles != null ? filteredRoles : []} mode="remove" handleChange={(actiontype, role) => {
+            console.log("ttt", role, actiontype, ActionType.Add);
+            refreshData();
+          }} />}
           {byCompanies && <Companylist companies={filteredCompanies} />}
           {/* 
           <iframe src="https://www.google.com" width="100%"></iframe>

@@ -17,7 +17,7 @@ export enum ActionType {
 export interface JobCardProps {
   role: Role;
   mode: "application" | "curation" | "remove";
-  handleChange: (id: string, action: ActionType) => void;
+  handleChange: (action: ActionType, role: Role) => void;
 }
 
 function content(data: JobCardProps) {
@@ -77,7 +77,7 @@ function content(data: JobCardProps) {
             type="submit"
             className={"body16Bold " + styles.applyButton}
             name="button-1675001572178"
-            onClick={() => data.handleChange(role.id, ActionType.Apply)}
+            onClick={() => data.handleChange(ActionType.Apply, role)}
             id="button-apply"
           >
             Apply
@@ -89,9 +89,10 @@ function content(data: JobCardProps) {
             className={"body16Bold " + styles.applyButton}
             name="button-1675001572178"
             onClick={() => {
-              console.log("removing Role");
+              console.log("remoooooving Role");
+              console.log("ROLE", role);
               curateRole(role.id, "remove");
-              data.handleChange(role.id, ActionType.Remove);
+              data.handleChange(ActionType.Remove, role);
             }}
             id="button-apply"
           >
@@ -109,7 +110,7 @@ function content(data: JobCardProps) {
                 type="submit"
                 className={"body16Bold " + styles.applyButton}
                 name="button-1675001572178"
-                onClick={() => data.handleChange(role.id, ActionType.View)}
+                onClick={() => data.handleChange(ActionType.View, role)}
                 id="button-apply"
               >
                 View
@@ -123,7 +124,7 @@ function content(data: JobCardProps) {
               onClick={() => {
                 console.log("adding Role");
                 curateRole(role.id, "add");
-                data.handleChange(role.id, ActionType.Add);
+                data.handleChange(ActionType.Add, role);
               }}
               id="button-apply2"
             >

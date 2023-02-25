@@ -24,9 +24,7 @@ export async function fetch_by_inp(id: string, key: string): Promise<GeographicA
     postMessage("URGENT: 'fetch_by_inp' failed with status code " + response.status.toString());
   }
   const result = await response.json();
-  const utc_offset = result.result.utc_offset;
-  const formattted_address = result.result.formatted_address;
-  const address_components = result.result.address_components;
+  const address_components = result.result.address_components != null ? result.result.address_components : null;
 
   function find_by_type(t: string, address_components: any[]): string | null {
     for (var i = 0; i < address_components.length; i++) {
@@ -39,7 +37,7 @@ export async function fetch_by_inp(id: string, key: string): Promise<GeographicA
 
   const res = getDefaultGeographicAddress();
   res.country = find_by_type("country", address_components);
-  res.utc_offset = result.result.utc_offset;
+  res.utc_offset = result.result.utc_offset != null ? result.result.utc_offset : null;
   res.address = result.result.formatted_address;
   res.city = find_by_type("locality", address_components);
   return res;
