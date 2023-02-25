@@ -1,6 +1,7 @@
 // @ts-nocheck
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getConfig, postMessage } from "@/utils";
+import FormData from 'form-data';
 
 import customer_config from "@/customer_config.json";
 
@@ -31,7 +32,6 @@ export async function curate_role_by_id(
       JSON.stringify([customer_config.jobprotocol_key])
     );
   } else if (method == "remove") {
-    //console.log("I am in the right spot");
     formdata.append("partner_boards", JSON.stringify([]));
   } else {
     false;
@@ -58,7 +58,8 @@ export default async function role_handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  //console.log("req", req.method);
+  console.log("AAAAAAAA");
+  console.log("req", req.method);
   ///console.log("req.query", req.query);
 
   const method: string | undefined = req.method;
@@ -82,6 +83,5 @@ export default async function role_handler(
     req.query.method,
     process.env.BUBBLE_API_PRIVATE_KEY as string
   );
-  curate_role_by_id;
   res.status(200).json(role);
 }
