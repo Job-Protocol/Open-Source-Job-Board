@@ -6,7 +6,8 @@
     "dev": "bash run_dev.sh",
     "build": "bash run_build.sh",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "bash run_x.sh"
   },
   "dependencies": {
     "@bbob/core": "^2.8.2",

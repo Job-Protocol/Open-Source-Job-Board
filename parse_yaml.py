@@ -36,14 +36,16 @@ for line in lines:
     key, val = line.strip().split(':')
     
     if val:
-        outline=f"export {'NEXT_PUBLIC_'+'_'.join(prefixes+[key])}='{val.strip()}'"
+        outline=f"{'NEXT_PUBLIC_'+'_'.join(prefixes+[key])}='{val.strip()}'"
         out.append(outline+'\n')
         print(outline)
 
 
 with open('temp.sh', 'w') as f:
     f.writelines(out)
-        
+    
+# import subprocess
+# subprocess.run(["next", "dev"])
     
     
     
