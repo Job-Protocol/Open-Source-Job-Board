@@ -174,8 +174,8 @@ export default function Home(data: Props) {
               <h2 className={"body18"}>{customer_config.subtitle}</h2>
               <div className={styles.headerIconsContainer}>
 
-
-                {['linkedin', 'facebook', 'website', 'youtube', 'twitter', 'instagram', 'meetup'].map(social => {
+                {/* <p>{aaa}</p> */}
+                {Object.keys(customer_config.socials).map(social => {
                   // @ts-ignore
                   if (!customer_config.socials[social]) return null;
                   // @ts-ignore

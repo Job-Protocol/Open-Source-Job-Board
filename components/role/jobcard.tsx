@@ -29,6 +29,7 @@ function content(data: JobCardProps) {
       const result = await fetch("/api/curate/" + id + "?method=add");
       return result;
     }
+
     const result = await fetch("/api/curate/" + id + "?method=remove");
     return result;
   }
