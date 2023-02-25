@@ -58,9 +58,7 @@ export default async function role_handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  console.log("AAAAAAAA");
-  console.log("req", req.method);
-  ///console.log("req.query", req.query);
+  console.log("req.query", process.env.BUBBLE_API_PRIVATE_KEY);
 
   const method: string | undefined = req.method;
   const { id } = req.query;
