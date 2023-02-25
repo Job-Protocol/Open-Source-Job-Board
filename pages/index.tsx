@@ -153,7 +153,7 @@ export default function Home(data: Props) {
         <div className={"pageContainer"}>
           <div className={styles.coverImageContainer}>
             <Image
-              src={"/limeacademy_banner.png"}
+              src={customer_config.branding.banner}
               alt="Header image"
               fill
               className={styles.headerImage}
@@ -162,7 +162,7 @@ export default function Home(data: Props) {
           <div className={styles.headerContainer}>
             <div className={styles.logoImageContainer}>
               <Image
-                src={"/limeacademy_lime_only.png"}
+                src={customer_config.branding.logo}
                 alt="Header image"
                 fill
               //style={{borderRadius: 8}}

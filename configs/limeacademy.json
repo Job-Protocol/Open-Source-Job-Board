@@ -10,12 +10,12 @@
             "light": "#1f2534cc"
         }
     },
-    "title": "LimeAcademy~Job~Board",
-    "subtitle": "This~is~limeacademy~subtitle",
+    "title": "LimeAcademy Job Board",
+    "subtitle": "The best opportunities in crypto",
     "referred_by": "1677242159986x468907182827297700",
     "branding": {
-        "logo": "asdasd",
-        "banner": "cccc"
+        "logo": "https://open-source-job-board.vercel.app/_next/image?url=%2Flimeacademy_lime_only.png&w=3840&q=75",
+        "banner": "https://open-source-job-board.vercel.app/_next/image?url=%2Flimeacademy_banner.png&w=3840&q=75"
     },
     "socials": {
         "linkedin": "www.linkedin.com/company/limeacademy",
