@@ -31,51 +31,22 @@ export interface Props {
 export default function Joblist(data: Props) {
 
   var allroles = data.roles;
-  var [variableRoles, setVariableRoles] = useState<Role[]>(data.roles != null ? data.roles : []);
-  // const [removeIDs, setRemoveIDs] = useState<string[]>([]);
-  // const [addRoles, setAddRoles] = useState<Role[]>([]);
-
-  // useEffect(() => {
-  //   if (allroles) {
-  //     console.log("Setting variable roles");
-  //     setVariableRoles(allroles.filter((val, index) => !removeIDs.includes(val.id)));
-  //   }
-  // }, [allroles, removeIDs]);
-
-  // useEffect(() => {
-  //   if (allroles) {
-  //     console.log("Setting variable roles");
-  //     setVariableRoles(allroles.filter((val, index) => !removeIDs.includes(val.id)));
-  //   }
-  // }, [allroles, addRoles]);
-
-  if (variableRoles.length == 0) return (<Loading />);
+  if (data.roles.length == 0) return (<p>No roles</p>);
 
   var roles: Role[] = data.roles;
 
   return (
     <div className={styles.jobListContainer}>
       {/* <p>{removeIDs}</p> */}
-      {variableRoles.map((role, index) => (
+      {data.roles.map((role, index) => (
         <JobCard
           role={role}
           key={role.id}
           mode={data.mode}
           handleChange={(actiontype, role) => {
-            console.log("id", role);
-            console.log("actiontype", actiontype);
-            if (actiontype == ActionType.Remove) {
-              console.log("Here I am");
-              setVariableRoles(variableRoles.filter(vrole => vrole.id != role.id));
-
-            }
-            if (actiontype == ActionType.Add) {
-              // setAddRoles(addRoles.concat(role));
-              // //setVariableRoles(variableRoles.concat(role))
-              data.handleChange(actiontype, role);
-            }
-
-          }} />
+            data.handleChange(actiontype, role);
+          }
+          } />
       ))}
     </div>
   );

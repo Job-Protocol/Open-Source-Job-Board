@@ -112,6 +112,9 @@ class RoleFilter {
         remoteOnly: boolean | null,
         roleType: RoleType | null,
         searchterm: string | null) {
+        if (!this.roles) {
+            return [];
+        }
         return this.roles.filter((role) => this.roleFilter(role, userAddress, remoteOnly, roleType, searchterm));
     }
 
@@ -153,6 +156,9 @@ export class CompanyFilter {
 
     getFilteredCompanies(
         searchterm: string | null) {
+        if (!this.companies) {
+            return [];
+        }
         return this.companies.filter((company) => this.companyFilter(company, searchterm));
     }
 

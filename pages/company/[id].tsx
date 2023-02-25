@@ -28,11 +28,11 @@ import CompanyConditions from "@/components/company/companyconditions";
 
 import { fetch_company_by_slug_or_id } from "@/pages/api/company/[id]";
 
-async function getCompanyData(id: string): Promise<Company> {
-  const result = await fetch(`${process.env.BASE_URL}/api/company/` + id);
-  const parsed = await result.json();
-  return parsed;
-}
+// async function getCompanyData(id: string): Promise<Company> {
+//   const result = await fetch(`${process.env.BASE_URL}/api/company/` + id);
+//   const parsed = await result.json();
+//   return parsed;
+// }
 
 export interface Props {
   company: Company;

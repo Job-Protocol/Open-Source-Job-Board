@@ -68,22 +68,19 @@ export async function getStaticProps() {
     // - When a request comes in
     // - At most once every 10 seconds
     revalidate: 60 * 30, // In seconds
+    //unstable_revalidate: 20, // In seconds
   };
 }
 
 export default function Home(data: Props) {
 
-  const [variableRoles, setVariableRoles] = useState<Role[]>(data.sortedRoles);
-  const [addRole, setAddRole] = useState<Role | null>(null);
 
-
-  const refreshData = () => {
-    console.log("refreshing Data");
-    router.replace(router.asPath);
-  }
 
 
   const router = useRouter()
+
+
+
   const params = router.query;
 
 
@@ -92,8 +89,8 @@ export default function Home(data: Props) {
   // const roles = data.sortedRoles;
 
   const [byCompanies, setByCompanies] = useState<boolean>(false);
-  const [filteredRoles, setFilteredRoles] = useState<Role[] | null>(
-    null
+  const [filteredRoles, setFilteredRoles] = useState<Role[]>(
+    []
   );
   const [filteredCompanies, setFilteredCompanies] = useState<Company[] | null>(
     null
@@ -115,6 +112,8 @@ export default function Home(data: Props) {
 
 
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
+
+  const [variableRoles, setVariableRoles] = useState<Role[]>(data.sortedRoles);
 
   useEffect(() => {
     setRoleFilter(new RoleFilter(variableRoles));
@@ -325,24 +324,23 @@ export default function Home(data: Props) {
               className={stylesGlobalFormElements.modal + " z-50"}
               onClick={() => {
                 setShowCuration(false);
-                refreshData();
+                // refreshData();
               }}
             >
               <CurationModal handleChange={(actionType, data) => {
-                console.log("ppp", actionType, data);
                 if (actionType == ActionType.Add) {
-                  console.log("peekaboo");
+
                   setVariableRoles([...variableRoles, data])
-                  refreshData();
                 }
               }} />
             </div>
           }
           <p>{filteredRoles != null ? filteredRoles.length : "null"}</p>
-          {!byCompanies && !adminMode && <Joblist roles={filteredRoles != null ? filteredRoles : []} mode="application" handleChange={(actiontype, role) => { }} />}
-          {!byCompanies && adminMode && <Joblist roles={filteredRoles != null ? filteredRoles : []} mode="remove" handleChange={(actiontype, role) => {
-            console.log("ttt", role, actiontype, ActionType.Add);
-            refreshData();
+          {!byCompanies && !adminMode && <Joblist roles={filteredRoles} mode="application" handleChange={(actiontype, role) => { }} />}
+          {!byCompanies && adminMode && <Joblist roles={filteredRoles} mode="remove" handleChange={(actiontype, role) => {
+            if (actiontype == ActionType.Remove) {
+              setVariableRoles(variableRoles.filter(vrole => vrole.id != role.id));
+            }
           }} />}
           {byCompanies && <Companylist companies={filteredCompanies} />}
           {/* 
