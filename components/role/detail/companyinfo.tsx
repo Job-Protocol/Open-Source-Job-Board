@@ -5,8 +5,8 @@ import {
   FaHome,
   FaUserFriends,
 } from "react-icons/fa";
-import styles from "@/styles/Companyinfo.module.css";
-import styles_role_detail from "@/styles/Roledetailpage.module.css";
+import styles from "@/styles/Companyinfo.module.sass";
+import styles_role_detail from "@/styles/Roledetailpage.module.sass";
 import { Company } from "@/bubble_types";
 
 import Image from "next/image";

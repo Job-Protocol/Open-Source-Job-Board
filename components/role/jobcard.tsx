@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@/styles/Jobcard.module.css";
+import styles from "@/styles/Jobcard.module.sass";
 import { Role } from "@/bubble_types";
 import RoleConditions from "./detail/roleconditions";
 import Image from "next/image";
@@ -36,7 +36,8 @@ function content(data: JobCardProps) {
   return (
     <div className={styles.card}>
       <div className={styles.roleInfo}>
-        <div className={styles.roleInfoImage}>
+
+        <div className={styles.Image}>
           <Image
             src={role.company.logo.replace("//s3", "https://s3")}
             alt="Logo"

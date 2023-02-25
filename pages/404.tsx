@@ -1,9 +1,9 @@
 // 404.js
 import Link from 'next/link'
 import Image from "next/image";
-import styles from "@/styles/Home.module.css";
+import styles from "@/styles/Home.module.sass";
 
-import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.css";
+import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.sass";
 
 export default function FourOhFour() {
     return <>

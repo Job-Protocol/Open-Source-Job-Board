@@ -1,10 +1,9 @@
 import Head from "next/head";
-import styles from "@/styles/Roledetailpage.module.css";
-import styles_req from "@/styles/Requirements.module.css";
+import styles from "@/styles/Roledetailpage.module.sass";
+import styles_req from "@/styles/Requirements.module.sass";
 import JdCard from "@/components/role/detail/jobdesc";
 import ApplyCard from "@/components/role/apply";
 import CompanyCard from "@/components/role/detail/companyinfo";
-import RequirementsCard from "@/components/role/requirements";
 import Footer from "@/components/overview/footer";
 import React, { useState } from "react";
 import { useEffect } from "react";
@@ -184,27 +183,14 @@ export default function Home(props: Props) {
 
           <div className={styles.roleDetailHeaderContainer}>
             <div className={styles.roleInfo}>
-              {logoDark && (
-                <div className={styles.logoContainer}>
-                  <Image
-                    // className={styles.logoContainer}
-                    src={role?.company?.logo.replace("//s3", "https://s3")}
-                    alt="Logo"
-                    fill={true}
-                  // width={122}
-                  // height={122}
-                  />
-                </div>
-              )}
-              {!logoDark && (
+              <div className={styles.logoContainer}>
                 <Image
-                  className={styles.logoContainer}
                   src={role?.company?.logo.replace("//s3", "https://s3")}
                   alt="Logo"
-                  width={122}
-                  height={122}
+                  fill={true}
                 />
-              )}
+              </div>
+
               <div className={styles.roleInfoText}>
                 <p className={"chapeau " + styles.companyText}>
                   {" "}

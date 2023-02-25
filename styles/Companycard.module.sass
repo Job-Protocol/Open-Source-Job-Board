@@ -1,0 +1,75 @@
+@use 'Variables'
+
+.companyCard
+  display: flex
+  flex-direction: row
+  /* flex: 0 1 calc(33% - 16px); */
+  /* flex-basis: 373px; */
+  /* min-width: 373px; */
+
+  padding: 16px
+  background-color: white
+  border-color: Variables.$border-color
+  border-width: 1px
+  border-radius: 8px
+
+.horizontal_flow
+  display: flex
+  flex-direction: row
+  gap: 1rem
+
+.logoContainer
+  width: 72px
+  height: 72px
+  position: relative
+
+.companyCard:hover
+  background-image: linear-gradient(to right,#ffffff00,Variables.$main-color-15pct-transparency)
+
+@media (min-width: 10px)
+  .companyCard
+    width: 100%
+
+@media (min-width: 700px)
+  .companyCard
+    width: calc(50% - 8px)
+
+@media (min-width: 1000px)
+  .companyCard
+    width: calc(33.33% - 10.67px)
+
+.logo
+  border-radius: 8px
+
+.cardContainer
+  display: flex
+  flex-direction: column
+  flex: 1
+  gap: 12px
+
+.cardContents
+  display: flex
+  flex-direction: column
+  flex: 1
+
+  gap: 4px
+
+.cardMainContents
+  display: flex
+  flex-direction: column
+  flex: 1
+  gap: 8px
+  /* background-color: green; */
+
+.companyFactsContainer
+  display: flex
+  flex-direction: row
+  gap: 8px
+
+.discoverButton
+  color: Variables.$main-color
+  /* flex: 1; */
+  margin-top: auto
+  height: 32px
+  align-self: flex-start
+  /* background-color: blue; */

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 
-import styles from "@/styles/Joblist.module.css";
+import styles from "@/styles/Joblist.module.sass";
 import JobCard, { ActionType } from "@/components/role/jobcard";
 import { JobCardProps } from "@/components/role/jobcard";
 

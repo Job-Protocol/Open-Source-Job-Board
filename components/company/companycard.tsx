@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@/styles/Companycard.module.css";
+import styles from "@/styles/Companycard.module.sass";
 import { Company } from "@/bubble_types";
 import Image from "next/image";
 // import RoleConditions from "./detail/roleconditions";

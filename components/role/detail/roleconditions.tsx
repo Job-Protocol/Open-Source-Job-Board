@@ -1,4 +1,4 @@
-import styles from "@/styles/Roleconditions.module.css";
+import styles from "@/styles/Roleconditions.module.sass";
 import { Role } from "@/bubble_types";
 import { rolelocation_to_string } from "@/utils";
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 
-import styles from "@/styles/Companylist.module.css";
+import styles from "@/styles/Companylist.module.sass";
 import CompanyCard from "../company/companycard";
 
 // import config from "../../config.json";

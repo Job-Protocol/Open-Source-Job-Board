@@ -1,10 +1,10 @@
 import React, { SyntheticEvent } from "react";
 import { useState } from "react";
 //import { postMessages } from "@/utils"; //TODO(scheuclu): Issue with Slack token.
-import styles from "@/styles/Applycard.module.css";
-import styles_role_detail from "@/styles/Roledetailpage.module.css";
-import styles_req from "@/styles/Requirements.module.css";
-import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.css";
+import styles from "@/styles/Applycard.module.sass";
+import styles_role_detail from "@/styles/Roledetailpage.module.sass";
+import styles_req from "@/styles/Requirements.module.sass";
+import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.sass";
 import Swal from "sweetalert2";
 import { validateEmail } from "@/utils";
 import Image from "next/image";
@@ -160,7 +160,7 @@ export default function ApplyCard(params: any) {
     if (response.status !== 201) {
       postMessage(
         "URGENT: 'candidate creation' failed with status code " +
-          response.status.toString()
+        response.status.toString()
       );
       Swal.fire({
         title: "Error!",
@@ -263,11 +263,11 @@ export default function ApplyCard(params: any) {
   const checkInputsValid = () => {
     setInputsValid(
       valueSet(firstName) &&
-        valueSet(lastName) &&
-        valueSet(email) &&
-        location != null &&
-        validateEmail(email) &&
-        (valueSet(linkedIn) || resume != null)
+      valueSet(lastName) &&
+      valueSet(email) &&
+      location != null &&
+      validateEmail(email) &&
+      (valueSet(linkedIn) || resume != null)
     );
   };
 
@@ -301,7 +301,7 @@ export default function ApplyCard(params: any) {
               onChange={processInput}
               id="input-first-name"
               value={firstName}
-              // placeholder={"Required, e.g. Vitalik"}
+            // placeholder={"Required, e.g. Vitalik"}
             />
           </div>
           <div className={styles.formItem}>
@@ -322,7 +322,7 @@ export default function ApplyCard(params: any) {
               onChange={processInput}
               id="input-last-name"
               value={lastName}
-              // placeholder={"Required, e.g. Buterin"}
+            // placeholder={"Required, e.g. Buterin"}
             />
           </div>
           <div className={styles.formItem}>
@@ -368,13 +368,13 @@ export default function ApplyCard(params: any) {
               className={
                 email && !validateEmail(email)
                   ? stylesGlobalFormElements.input +
-                    " " +
-                    stylesGlobalFormElements.inputSquare +
-                    " " +
-                    stylesGlobalFormElements.inputInvalid
+                  " " +
+                  stylesGlobalFormElements.inputSquare +
+                  " " +
+                  stylesGlobalFormElements.inputInvalid
                   : stylesGlobalFormElements.input +
-                    " " +
-                    stylesGlobalFormElements.inputSquare
+                  " " +
+                  stylesGlobalFormElements.inputSquare
 
                 // email && validateEmail(email)
                 //   ? stylesGlobalFormElements.input +
@@ -390,7 +390,7 @@ export default function ApplyCard(params: any) {
               onChange={processInput}
               id="input-email"
               value={email}
-              // placeholder={"Required, e.g. vitalik@ethereum.org"}
+            // placeholder={"Required, e.g. vitalik@ethereum.org"}
             />
           </div>
         </div>
@@ -473,27 +473,27 @@ export default function ApplyCard(params: any) {
 
           {(params.role_type === RoleType.Engineering ||
             params.role_type === null) && (
-            <div className={styles.formItem}>
-              <label
-                htmlFor="text-github"
-                className={"body16 " + styles.formLabel}
-              >
-                <FaGithub />
-                Github
-              </label>
-              <input
-                type="text"
-                className={
-                  stylesGlobalFormElements.input +
-                  " " +
-                  stylesGlobalFormElements.inputSquare
-                }
-                onChange={processInput}
-                id="input-github"
-                value={github}
-              />
-            </div>
-          )}
+              <div className={styles.formItem}>
+                <label
+                  htmlFor="text-github"
+                  className={"body16 " + styles.formLabel}
+                >
+                  <FaGithub />
+                  Github
+                </label>
+                <input
+                  type="text"
+                  className={
+                    stylesGlobalFormElements.input +
+                    " " +
+                    stylesGlobalFormElements.inputSquare
+                  }
+                  onChange={processInput}
+                  id="input-github"
+                  value={github}
+                />
+              </div>
+            )}
           <div className={styles.formItem}>
             <label
               htmlFor="text-1675001555945"
@@ -521,11 +521,11 @@ export default function ApplyCard(params: any) {
             className={
               isSubmitting
                 ? stylesGlobalFormElements.primaryButton +
-                  " " +
-                  stylesGlobalFormElements.primaryButtonDisabled
+                " " +
+                stylesGlobalFormElements.primaryButtonDisabled
                 : inputsValid
-                ? stylesGlobalFormElements.primaryButton
-                : stylesGlobalFormElements.primaryButton +
+                  ? stylesGlobalFormElements.primaryButton
+                  : stylesGlobalFormElements.primaryButton +
                   " " +
                   stylesGlobalFormElements.primaryButtonDisabled
             }

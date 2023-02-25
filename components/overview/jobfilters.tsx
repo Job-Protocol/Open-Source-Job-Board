@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 
-import styles from "@/styles/Jobfilters.module.css";
-import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.css";
+import styles from "@/styles/Jobfilters.module.sass";
+import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.sass";
 import { selectStyles } from "./selectStyles";
+//import selectStyles from "@/styles/SelectStyles.module.sass";
 
 import SearchBox from "@/components/overview/searchbox";
 import { GeographicAddress, RoleType } from "@/bubble_types";

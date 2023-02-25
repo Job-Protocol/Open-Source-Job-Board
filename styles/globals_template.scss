@@ -3,15 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --main-color:  MAIN_COLOR;
+  --main-color: MAIN_COLOR;
   --main-color-15pct-transparency: MAIN_COLOR26;
   --main-color-10pct-transparency: MAIN_COLOR1a;
   --main-color-20pct-transparency: MAIN_COLOR33;
   --secondary-color: SECONDARY_COLOR;
   --background-color: BACKGROUND_COLOR;
   --border-color: BORDER_COLOR;
-  --text-color-dark: TEXT_COLOR_DARK
-  --text-color-light: TEXT_COLOR_LIGHT;
+  --text-color-dark: TEXT_COLOR_DARK --text-color-light: TEXT_COLOR_LIGHT;
 }
 
 @font-face {
@@ -61,7 +60,7 @@ body {
   font-weight: 600;
   line-height: 38px;
   letter-spacing: -0.02em;
-  color: var(--text-color-dark);
+  color: Variables.$text-color-dark;
 }
 
 .body18 {
@@ -70,7 +69,7 @@ body {
   font-weight: 400;
   line-height: 25px;
   letter-spacing: -0.015em;
-  color: var(--text-color-light);
+  color: Variables.$text-color-light;
 }
 
 .body18Bold {
@@ -79,7 +78,7 @@ body {
   font-weight: 600;
   line-height: 25px;
   letter-spacing: -0.015em;
-  color: var(--text-color-dark);
+  color: Variables.$text-color-dark;
 }
 
 .body16 {
@@ -88,7 +87,7 @@ body {
   font-weight: 400;
   line-height: 22px;
   letter-spacing: -0.015em;
-  color: var(--text-color-dark);
+  color: Variables.$text-color-dark;
 }
 
 .body16Bold {
@@ -98,7 +97,7 @@ body {
   line-height: 22px;
   /* line-height: 100%; */
   letter-spacing: -0.015em;
-  color: var(--text-color-dark);
+  color: Variables.$text-color-dark;
 }
 
 .body14 {
@@ -107,7 +106,7 @@ body {
   font-weight: 400;
   line-height: 19px;
   letter-spacing: -0.015em;
-  color: var(--text-color-light);
+  color: Variables.$text-color-light;
 }
 
 .body14Bold {
@@ -116,14 +115,14 @@ body {
   font-weight: 600;
   line-height: 19px;
   letter-spacing: -0.015em;
-  color: var(--text-color-dark);
+  color: Variables.$text-color-dark;
 }
 
 .chapeau {
   font-family: "Avenir Next DemiBold";
   font-weight: 600;
   font-size: 12px;
-  color: var(--text-color-light);
+  color: Variables.$text-color-light;
   line-height: 16px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -133,7 +132,7 @@ body {
   font-family: "Avenir Next DemiBold";
   font-weight: 600;
   font-size: 12px;
-  color: var(--text-color-dark);
+  color: Variables.$text-color-dark;
   line-height: 16px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -150,12 +149,15 @@ body {
 .marginTop4 {
   margin-top: 4px;
 }
+
 .marginTop16 {
   margin-top: 4px;
 }
+
 .marginTop24 {
   margin-top: 24px;
 }
+
 .marginTop32 {
   margin-top: 32px;
 }
@@ -182,8 +184,8 @@ body {
 
 
 .loader {
-  border: 16px solid #eeeeee; 
-  border-top: 16px solid var(--main-color);
+  border: 16px solid #eeeeee;
+  border-top: 16px solid Variables.$main-color;
   border-radius: 50%;
   width: 120px;
   height: 120px;
@@ -192,6 +194,11 @@ body {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

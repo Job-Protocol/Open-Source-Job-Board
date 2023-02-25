@@ -1,0 +1,137 @@
+@use 'Variables'
+
+.card
+  display: flex
+  flex-direction: row
+  padding: 16px
+  background-color: white
+  border-color: Variables.$border-color
+  border-width: 1px
+  border-radius: 8px
+
+.buttonContainer
+  display: flex
+  align-items: center
+
+.card:hover
+  background-image: linear-gradient(to right,#ffffff00,Variables.$main-color-15pct-transparency)
+
+.logo
+  border-radius: 8px
+  object-fit: fill
+  // /* width: 100px;
+  height: 100px
+
+.roleInfo
+  display: flex
+  flex-direction: row
+  flex: 1
+
+  .Image
+    flex-grow: 0//; /* do not grow - initial value: 0 */
+    flex-shrink: 0//; /* do not shrink - initial value: 1 */
+    vertical-align: middle
+    align-items: center
+    vertical-align: middle
+    display: "inline-block"
+    width: 100px
+    height: 100px
+    position: relative
+
+  &Text
+    display: flex
+    flex-direction: column
+    margin-left: 24px
+    gap: 4px
+
+  &CompanyAndRoleTitleContainer
+    display: flex
+    flex-direction: column
+    gap: 2px
+
+.applyContainer
+  display: flex
+  flex-direction: row-reverse
+  align-items: center
+
+.applyButton
+  border-color: Variables.$main-color
+  border-width: 1px
+  border-radius: 8px
+  padding-top: 12px
+  padding-bottom: 12px
+  padding-left: 16px
+  padding-right: 16px
+  &:hover
+    background-color: Variables.$main-color
+    color: white
+
+.roleConditionsMobile
+  display: none
+  visibility: collapse
+
+.roleConditionsDesktop
+  visibility: visible
+
+// .roleInfoImage
+//   flex-grow: 0//; /* do not grow - initial value: 0 */
+//   flex-shrink: 0//; /* do not shrink - initial value: 1 */
+//   vertical-align: middle
+//   align-items: center
+//   vertical-align: middle
+//   display: "inline-block"
+//   width: 100px
+//   height: 100px
+//   position: relative
+
+@media only screen and (max-width: 1000px)
+  .roleInfo
+    display: flex
+    flex-direction: row
+
+  .applyButton
+    /* align-self: flex-end; */
+    border-color: Variables.$main-color
+    border-width: 1px
+    border-radius: 8px
+    padding-top: 12px
+    padding-bottom: 12px
+    padding-left: 16px
+    padding-right: 16px
+    display: none
+    visibility: collapse
+
+  .roleConditionsMobile
+    display: contents
+    visibility: visible
+
+  .roleConditionsDesktop
+    display: none
+    visibility: collapse
+
+  .card
+    display: flex
+    flex-direction: column
+    padding: 16px
+    background-color: white
+    border-color: Variables.$border-color
+    border-width: 1px
+    border-radius: 8px
+
+  .roleInfoImage
+    // /* background-color: green; */
+    flex-grow: 0//; /* do not grow - initial value: 0 */
+    flex-shrink: 0//; /* do not shrink - initial value: 1 */
+    // /* flex-basis: 100px; width/height  - initial value: auto */
+    vertical-align: middle
+    align-items: center
+    display: "inline-block"
+    width: 48px
+    height: 48px
+    position: relative
+
+  .roleInfoCompanyAndRoleTitleContainer
+    display: flex
+    flex-direction: column
+    gap: 2px
+    margin-bottom: 0.5rem

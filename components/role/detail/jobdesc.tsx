@@ -1,8 +1,8 @@
 import bbobHTML from "@bbob/html";
 import presetHTML5 from "@bbob/preset-html5";
 
-import styles from "@/styles/Jdcard.module.css";
-import styles_role_detail from "@/styles/Roledetailpage.module.css";
+import styles from "@/styles/Jdcard.module.sass";
+import styles_role_detail from "@/styles/Roledetailpage.module.sass";
 
 import { Inter, Titillium_Web } from "@next/font/google";
 const inter = Inter({ subsets: ["latin"] });

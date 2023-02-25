@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@/styles/Searchbox.module.css";
+//import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.sass";
 import { useState, useEffect } from "react";
 
 import Select from "react-select";

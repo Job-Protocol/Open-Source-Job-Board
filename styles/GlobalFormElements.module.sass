@@ -1,0 +1,124 @@
+@use 'Variables'
+
+.input
+  display: block
+  flex: 1
+
+  border-width: 1px
+  border-color: Variables.$border-color
+  color: #1f2534cc
+  width: 100%
+
+  padding-top: 12px
+  padding-bottom: 12px
+  line-height: 22px
+
+  &Invalid
+    border-color: #fe0000
+
+  &Round
+    border-radius: 32px
+
+  &Square
+    border-radius: 8px
+    padding-left: 12px
+    padding-right: 12px
+
+  &:hover
+    border-width: 1px
+    border-color: Variables.$main-color
+
+  &:focus
+    border-width: 1px
+    border-color: Variables.$main-color
+    outline: none !important
+    box-shadow: 0
+
+.primaryButton
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: center
+  height: 48px
+  background-color: Variables.$main-color
+  padding-left: 16px
+  padding-right: 16px
+  border-radius: 8px
+  color: white
+  font-weight: 600
+  font-size: 16px
+  font-family: "Avenir Next DemiBold"
+
+  &Disabled
+    opacity: 0.25
+
+.outlineButton
+  display: flex
+  flex-direction: row
+  gap: 8px
+
+  align-items: center
+  height: 48px
+  border-color: Variables.$main-color
+  border-width: 1px
+  border-radius: 8px
+  padding-left: 16px
+  padding-right: 16px
+  color: Variables.$text-color-dark
+  font-weight: 600
+  font-size: 16px
+  font-family: "Avenir Next DemiBold"
+
+.checkbox
+  border-radius: 4px
+  border-color: Variables.$border-color
+  width: 18px
+  height: 18px
+  min-width: 18px
+  accent-color: Variables.$main-color
+
+@media only screen and (max-width: 1000px)
+  .input
+    display: block
+    flex: 1
+
+    border-width: 1px
+    border-color: Variables.$border-color
+    color: #1f2534cc
+
+    padding-top: 12px
+    padding-bottom: 12px
+    line-height: 22px
+
+    // /* height: 48px; */
+    // /* width: 100%; */
+
+.modal
+  display: flex//; /* Hidden by default */
+  flex-direction: column
+  align-items: center
+
+  position: fixed//; /* Stay in place */
+  z-index: 1//0; /* Sit on top */
+  left: 0
+  top: 0
+  width: 100%//; /* Full width */
+  height: 100%//; /* Full height */
+  overflow: auto//; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0)//; /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4)//; /* Black w/ opacity */
+
+  &_content
+    display: flex
+    flex-direction: column
+
+    background-color: #fefefe
+    margin-top: 10%
+    margin-left: 12px
+    margin-right: 12px
+    padding: 24px
+
+    max-width: 600px
+
+    border-radius: 8px
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px

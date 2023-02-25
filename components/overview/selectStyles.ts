@@ -1,14 +1,19 @@
+
+
+
+
 const selectStyles = {
   control: (baseStyles: any, state: any) => ({
     ...baseStyles,
-    borderColor: state.isFocused ? "var(--main-color)" : "var(--border-color)",
+    borderColor: state.isFocused ? "#F67637" : '#F67637',
     width: "100%",
     borderWidth: "1px",
     borderRadius: "8px",
     boxShadow: "none",
     outline: "none",
+    color: "#05192D",
     "&:hover": {
-      borderColor: "var(--main-color)",
+      borderColor: '#F67637',
     },
   }),
   container: (baseStyles: any, state: any) => ({
@@ -29,12 +34,12 @@ const selectStyles = {
     ...baseStyles,
     cursor: "pointer",
     ":hover": {
-      color: "var(--main-color)",
+      color: '#F67637',
     },
   }),
   menu: (baseStyles: any, state: any) => ({
     ...baseStyles,
-    borderColor: "var(--border-color)",
+    borderColor: "#F67637",
     borderWidth: "1px",
     borderRadius: "8px",
     marginTop: "4px",
@@ -54,12 +59,12 @@ const selectStyles = {
     paddingBottom: "8px",
     borderRadius: "4px",
     backgroundColor: state.isSelected
-      ? "var(--main-color-10pct-transparency)"
+      ? "#F6763710"
       : "none",
     "&:hover": {
-      backgroundColor: "var(--main-color-10pct-transparency)",
+      backgroundColor: '#F6763710',
     },
-    color: "var(--text-color-dark)",
+    color: "#1f2534",
   }),
 };
 
