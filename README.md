@@ -15,7 +15,7 @@ Test-data: [frontend-test-beta.vercel.app](https://frontend-test-beta.vercel.app
 
 ### Environment variables
 
-In order to run this app, you need to set a few environment variables
+In order to run this app, you need to set a few environment variables. 
 
 - `GOOGLE_API_KEY`: Put your Gogle API key here. Places API must be enabled.
 - `BUBBLE_API_PRIVATE_KEY`: Private key for jobprotocol API access on bubble
