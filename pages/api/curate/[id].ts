@@ -2,6 +2,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getConfig, postMessage } from "@/utils";
 
+import customer_config from "@/customer_config.json";
+
 import {
   Role,
   getDefaultRole,
@@ -26,7 +28,7 @@ export async function curate_role_by_id(
   if (method == "add") {
     formdata.append(
       "partner_boards",
-      JSON.stringify([process.env.NEXT_PUBLIC_jobprotocol_key])
+      JSON.stringify([customer_config.jobprotocol_key])
     );
   } else if (method == "remove") {
     //console.log("I am in the right spot");

@@ -8,6 +8,7 @@ import Footer from "@/components/overview/footer";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import customer_config from "@/customer_config.json";
 
 import { Role, Requirement, getDefaultRole } from "@/bubble_types";
 import RoleConditions from "@/components/role/detail/roleconditions";
@@ -177,7 +178,7 @@ export default function Home(props: Props) {
                 styles.desktopOnly
               }
             >
-              {process.env.NEXT_PUBLIC_title}
+              {customer_config.title}
             </div>
           </div>
 

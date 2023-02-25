@@ -12,6 +12,8 @@ import Image from "next/image";
 import Link from "next/link";
 import SwitchRolesCompanies from "@/components/overview/switch_roles_companies";
 
+import customer_config from "@/customer_config.json";
+
 import { Company, Role } from "@/bubble_types";
 import RoleConditions from "@/components/role/detail/roleconditions";
 import Joblist from "@/components/overview/joblist";
@@ -145,7 +147,7 @@ export default function Home(props: Props) {
                 styles.desktopOnly
               }
             >
-              {process.env.NEXT_PUBLIC_title}
+              {customer_config.title}
             </div>
           </div>
           <div className={styles.roleDetailHeaderContainer}>

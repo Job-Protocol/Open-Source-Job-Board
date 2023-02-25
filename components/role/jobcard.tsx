@@ -50,7 +50,6 @@ function content(data: JobCardProps) {
         </div>
 
         <div className={styles.roleInfoText}>
-          {/* {role.state != RoleState.Live && process.env.NEXT_PUBLIC_ADMIN && <p className="admin">This role is not yet live</p>} */}
           <div className={styles.roleInfoCompanyAndRoleTitleContainer}>
             <p className={"chapeau"}> {role.company.name} </p>
             <h2 className={"body18Bold"}>{role.title}</h2>

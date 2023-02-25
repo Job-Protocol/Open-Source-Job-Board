@@ -1,11 +1,13 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import customer_config from "../customer_config.json";
 import styles from "@/styles/Home.module.sass";
 import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.sass";
 import Joblist from "@/components/overview/joblist";
 import Companylist from "@/components/overview/companylist";
 import SwitchRolesCompanies from "@/components/overview/switch_roles_companies";
+
 
 import React, { useState, useEffect } from "react";
 
@@ -143,7 +145,7 @@ export default function Home(data: Props) {
   return (
     <>
       <Head>
-        <title>{process.env.NEXT_PUBLIC_title}</title>
+        <title>{customer_config.title}</title>
         <meta name="description" content="Jobboard" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -168,106 +170,29 @@ export default function Home(data: Props) {
               />
             </div>
             <div className={styles.headerTextContainer}>
-              <h1 className={"h1"}>{process.env.NEXT_PUBLIC_title}</h1>
-              <h2 className={"body18"}>{process.env.NEXT_PUBLIC_subtitle}</h2>
+              <h1 className={"h1"}>{variables.title}</h1>
+              <h2 className={"body18"}>{variables.subtitle}</h2>
               <div className={styles.headerIconsContainer}>
-                {process.env.NEXT_PUBLIC_socials_website &&
-                  <Link href={'https://' + process.env.NEXT_PUBLIC_socials_website} target="_blank" rel="noopener noreferrer">
-                    <Image
-                      src={"/globe.svg"}
-                      alt="Globe icon"
-                      width={16}
-                      height={16}
-                    />
-                  </Link>}
-                {process.env.NEXT_PUBLIC_socials_ &&
-                  <Link href={'https://' + process.env.NEXT_PUBLIC_socials_website} target="_blank" rel="noopener noreferrer">
-                    <Image
-                      src={"/twitter.svg"}
-                      alt="Twitter icon"
-                      width={16}
-                      height={16}
-                    //style={{borderRadius: 8}}
-                    // objectFit="cover"
-                    />
-                  </Link>}
-                {process.env.NEXT_PUBLIC_socials_facebook &&
-                  <Link href={'https://' + process.env.NEXT_PUBLIC_socials_website} target="_blank" rel="noopener noreferrer">
-                    <Image
-                      src={"/facebook.svg"}
-                      alt="Twitter icon"
-                      width={16}
-                      height={16}
-                    //style={{borderRadius: 8}}
-                    // objectFit="cover"
-                    />
-                  </Link>}
-                {process.env.NEXT_PUBLIC_socials_linkedin &&
-                  <Link href={'https://' + process.env.NEXT_PUBLIC_socials_linkedin} target="_blank" rel="noopener noreferrer">
-                    <Image
-                      src={"/linkedin-square-colored.svg"}
-                      alt="Linkedin icon"
-                      width={16}
-                      height={16}
-                    //style={{borderRadius: 8}}
-                    // objectFit="cover"
-                    />
-                  </Link>}
-                {process.env.NEXT_PUBLIC_socials_discord &&
-                  <Link href={'https://' + process.env.NEXT_PUBLIC_socials_discord} target="_blank" rel="noopener noreferrer">
-                    <Image
-                      src={"/Discord_Logo_sans_texte 1.svg"}
-                      alt="Discord icon"
-                      width={16}
-                      height={16}
-                    //style={{borderRadius: 8}}
-                    // objectFit="cover"
-                    />
-                  </Link>}
-                {process.env.NEXT_PUBLIC_socials_medium &&
-                  <Link href={'https://' + process.env.NEXT_PUBLIC_socials_medium} target="_blank" rel="noopener noreferrer">
-                    <Image
-                      src={"/medium.svg"}
-                      alt="Medium icon"
-                      width={16}
-                      height={16}
-                    //style={{borderRadius: 8}}
-                    // objectFit="cover"
-                    />
-                  </Link>}
-                {process.env.NEXT_PUBLIC_socials_youtube &&
-                  <Link href={'https://' + process.env.NEXT_PUBLIC_socials_youtube} target="_blank" rel="noopener noreferrer">
-                    <Image
-                      src={"/youtube.svg"}
-                      alt="YouTube icon"
-                      width={16}
-                      height={16}
-                    //style={{borderRadius: 8}}
-                    // objectFit="cover"
-                    />
-                  </Link>}
-                {process.env.NEXT_PUBLIC_socials_instagram &&
-                  <Link href={'https://' + process.env.NEXT_PUBLIC_socials_instagram} target="_blank" rel="noopener noreferrer">
-                    <Image
-                      src={"/instagram.svg"}
-                      alt="Instagram icon"
-                      width={16}
-                      height={16}
-                    //style={{borderRadius: 8}}
-                    // objectFit="cover"
-                    />
-                  </Link>}
-                {process.env.NEXT_PUBLIC_socials_meetup &&
-                  <Link href={'https://' + process.env.NEXT_PUBLIC_socials_meetup} target="_blank" rel="noopener noreferrer">
-                    <Image
-                      src={"/meetup.svg"}
-                      alt="Meetup icon"
-                      width={16}
-                      height={16}
-                    //style={{borderRadius: 8}}
-                    // objectFit="cover"
-                    />
-                  </Link>}
+
+
+                {['linkedin', 'facebook', 'website', 'youtube', 'twitter', 'instagram', 'meetup'].map(social => {
+                  // @ts-ignore
+                  if (!variables.socials[social]) return null;
+                  // @ts-ignore
+                  const socialUrl: string = 'https://' + variables.socials[social];
+                  return (
+                    <div key={social}>
+                      <Link href={socialUrl} target="_blank" rel="noopener noreferrer">
+                        <Image
+                          src={`/socials/${social}.svg`}
+                          alt="icon"
+                          width={16}
+                          height={16}
+                        />
+                      </Link>
+                    </div>
+                  )
+                })}
 
               </div>
             </div>

@@ -15,6 +15,8 @@ import RequirementsCard from "@/components/role/requirements";
 import SearchBox from "../overview/searchbox";
 import { GetGeographicAddress } from "../overview/jobfilters";
 
+import customer_config from "@/customer_config.json";
+
 import {
   FaGithub,
   FaTwitter,
@@ -86,7 +88,7 @@ export default function ApplyCard(params: any) {
     data: CandidateData,
     checkRequirements: boolean
   ) {
-    const referred_by = process.env.NEXT_PUBLIC_referred_by;
+    const referred_by = customer_config.referred_by;
 
     const candidate_location: string | null = data.location
       ? data.location.address
