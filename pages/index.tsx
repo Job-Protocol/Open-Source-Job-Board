@@ -170,16 +170,16 @@ export default function Home(data: Props) {
               />
             </div>
             <div className={styles.headerTextContainer}>
-              <h1 className={"h1"}>{variables.title}</h1>
-              <h2 className={"body18"}>{variables.subtitle}</h2>
+              <h1 className={"h1"}>{customer_config.title}</h1>
+              <h2 className={"body18"}>{customer_config.subtitle}</h2>
               <div className={styles.headerIconsContainer}>
 
 
                 {['linkedin', 'facebook', 'website', 'youtube', 'twitter', 'instagram', 'meetup'].map(social => {
                   // @ts-ignore
-                  if (!variables.socials[social]) return null;
+                  if (!customer_config.socials[social]) return null;
                   // @ts-ignore
-                  const socialUrl: string = 'https://' + variables.socials[social];
+                  const socialUrl: string = 'https://' + customer_config.socials[social];
                   return (
                     <div key={social}>
                       <Link href={socialUrl} target="_blank" rel="noopener noreferrer">

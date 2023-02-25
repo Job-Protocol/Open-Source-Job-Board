@@ -26,5 +26,5 @@ for key, val in d.items():
 
 with open('./styles/Variables.sass', 'w') as f:
     f.write(t)
-with open('./config_custom.json', 'w') as f:
+with open('./customer_config.json', 'w') as f:
     json.dump(conf, f)
