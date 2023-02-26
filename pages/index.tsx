@@ -29,7 +29,7 @@ import { ActionType } from "@/components/role/jobcard";
 export async function GetAllRelevantRoles(): Promise<Role[]> {
 
   const params = {
-    constraints: '[{"key":"Partner_boards","constraint_type":"contains","value":"Limeacademy"}]'
+    constraints: `[{"key":"Partner_boards","constraint_type":"contains","value":"${customer_config.jobprotocol_key}"}]`
   }
   const parsed: Role[] = await fetchRoles(process.env.BUBBLE_API_PRIVATE_KEY as string, params);
 
@@ -107,7 +107,7 @@ export default function Home(data: Props) {
   const [searchterm, setSearchterm] = useState<string | null>(null);
 
   const [showCuration, setShowCuration] = useState<boolean>(false);
-  const [showCustomRole, setShowCustomRole] = useState<boolean>(true);
+  const [showCustomRole, setShowCustomRole] = useState<boolean>(false);
 
   const [adminMode, setAdminMode] = useState<boolean>(false);
 
@@ -338,7 +338,7 @@ export default function Home(data: Props) {
           }
           {showCustomRole &&
             <div
-              className={stylesGlobalFormElements.modal + " z-50"}
+              className={stylesGlobalFormElements.modal}
               onClick={() => {
                 setShowCustomRole(false);
                 // refreshData();
@@ -352,7 +352,6 @@ export default function Home(data: Props) {
               }} />
             </div>
           }
-          <p>{filteredRoles != null ? filteredRoles.length : "null"}</p>
           {!byCompanies && !adminMode && <Joblist roles={filteredRoles} mode="application" handleChange={(actiontype, role) => { }} />}
           {!byCompanies && adminMode && <Joblist roles={filteredRoles} mode="remove" handleChange={(actiontype, role) => {
             if (actiontype == ActionType.Remove) {
