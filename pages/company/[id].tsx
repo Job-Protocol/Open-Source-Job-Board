@@ -93,17 +93,17 @@ export default function Home(props: Props) {
 
   useEffect(() => {
     if (companyroles) {
-      setFilter(new Filter(companyroles));
+      setFilter(new Filter());
     }
   }, [companyroles]);
 
   useEffect(() => {
     if (filter) {
       setFilteredCompanyRoles(
-        filter.getFilteredRoles(userAddress, remoteOnly, null, null)
+        filter.getFilteredRoles(companyroles, userAddress, remoteOnly, null, null)
       ); //TODO(scheuclu) URGENT. Add role type filter
     }
-  }, [userAddress, remoteOnly, filter]);
+  }, [companyroles, userAddress, remoteOnly, filter]);
 
   if (!company) {
     return null;

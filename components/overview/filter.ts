@@ -5,14 +5,14 @@ import { Role, Company, RoleLocationType, TimezoneRange, RoleType } from "@/bubb
 class RoleFilter {
     // remoteOnly: boolean | null;
     // userAddress: GeographicAddress | null;
-    roles: Role[] = [];
+    // roles: Role[] = [];
 
-    constructor(unfilteredRoles: Role[]
-    ) {
-        // this.remoteOnly = false;
-        // this.userAddress = null;
-        this.roles = unfilteredRoles;
-    }
+    // constructor(unfilteredRoles: Role[]
+    // ) {
+    //     // this.remoteOnly = false;
+    //     // this.userAddress = null;
+    //     // this.roles = unfilteredRoles;
+    // }
 
     private hasCountry(country: string, location_list: GeographicAddress[]) {
         return location_list.map(addr => addr.country).includes(country);
@@ -108,15 +108,18 @@ class RoleFilter {
 
 
     getFilteredRoles(
+        roles: Role[],
         userAddress: GeographicAddress | null,
         remoteOnly: boolean | null,
         roleType: RoleType | null,
         searchterm: string | null) {
-        if (!this.roles) {
+        if (!roles) {
             return [];
         }
-        return this.roles.filter((role) => this.roleFilter(role, userAddress, remoteOnly, roleType, searchterm));
+        return roles.filter((role) => this.roleFilter(role, userAddress, remoteOnly, roleType, searchterm));
     }
+
+
 
 }
 
@@ -124,14 +127,6 @@ class RoleFilter {
 export class CompanyFilter {
     // remoteOnly: boolean | null;
     // userAddress: GeographicAddress | null;
-    companies: Company[] = [];
-
-    constructor(unfilteredCompanies: Company[]
-    ) {
-        // this.remoteOnly = false;
-        // this.userAddress = null;
-        this.companies = unfilteredCompanies;
-    }
 
     private isSearchTermMatch(company: Company, searchterm: string | null): boolean {
         if (!searchterm || searchterm.length < 4) {
@@ -155,11 +150,12 @@ export class CompanyFilter {
 
 
     getFilteredCompanies(
+        companies: Company[] | null,
         searchterm: string | null) {
-        if (!this.companies) {
+        if (!companies) {
             return [];
         }
-        return this.companies.filter((company) => this.companyFilter(company, searchterm));
+        return companies.filter((company) => this.companyFilter(company, searchterm));
     }
 
 }

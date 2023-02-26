@@ -30,20 +30,24 @@ export interface Props {
 
 export default function Joblist(data: Props) {
 
-  var allroles = data.roles;
-  if (data.roles.length == 0) return (<p>No roles</p>);
+  const [ignoreIDs, setIgnoreIDs] = useState<string[]>([]);
 
-  var roles: Role[] = data.roles;
+  // var allroles = data.roles;
+  if (data.roles.length == 0) return (<p>No roles</p>);
 
   return (
     <div className={styles.jobListContainer}>
-      {/* <p>{removeIDs}</p> */}
-      {data.roles.map((role, index) => (
+      <p>{data.roles.length}</p>
+      {data.roles.filter(role => !ignoreIDs.includes(role.id)).map((role, index) => (
         <JobCard
           role={role}
           key={role.id}
           mode={data.mode}
           handleChange={(actiontype, role) => {
+            //It's ignored in this Joblist, because it's being added to another
+            if (actiontype == ActionType.Add) {
+              setIgnoreIDs([...ignoreIDs, role.id]);
+            }
             data.handleChange(actiontype, role);
           }
           } />

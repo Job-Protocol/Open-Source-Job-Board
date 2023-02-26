@@ -41,6 +41,11 @@ export interface Props {
   companies: Company[];
 }
 
+
+function getCompaniesFromRoles(roles: Role[]): Company[] {
+  return [];
+}
+
 // This function gets called at build time on server-side.
 // It may be called again, on a serverless function, if
 // revalidation is enabled and a new request comes in
@@ -68,7 +73,7 @@ export async function getStaticProps() {
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 10 seconds
-    revalidate: 60 * 30, // In seconds
+    revalidate: 10, // In seconds
     //unstable_revalidate: 20, // In seconds
   };
 }
@@ -86,7 +91,9 @@ export default function Home(data: Props) {
 
 
   // const sortedRoles = data.sortedRoles;
-  const companies = data.companies;
+  //const companies = data.companies;
+
+  const [companies, setCompanies] = useState<Company[]>(data.companies);
   // const roles = data.sortedRoles;
 
   const [byCompanies, setByCompanies] = useState<boolean>(false);
@@ -101,8 +108,8 @@ export default function Home(data: Props) {
     null
   );
   const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
-  const [roleFilter, setRoleFilter] = useState<RoleFilter | null>(null);
-  const [companyFilter, setCompanyFilter] = useState<CompanyFilter | null>(null);
+  const [roleFilter, setRoleFilter] = useState<RoleFilter>(new RoleFilter());
+  const [companyFilter, setCompanyFilter] = useState<CompanyFilter>(new CompanyFilter());
   const [roleType, setRoleType] = useState<RoleType | null>(null);
   const [searchterm, setSearchterm] = useState<string | null>(null);
 
@@ -116,33 +123,29 @@ export default function Home(data: Props) {
 
   const [variableRoles, setVariableRoles] = useState<Role[]>(data.sortedRoles);
 
+
+
+  function updateCompanies() {
+    setCompanies(variableRoles.map((role) => role.company));
+  }
+
   useEffect(() => {
-    setRoleFilter(new RoleFilter(variableRoles));
-    setCompanyFilter(new CompanyFilter(companies));
     if (params.key && params.key === "abc") {//TODO(scheuclu): Remove hard coded password
       setAdminMode(true);
     }
-  }, [variableRoles, companies, params]);
+  }, [params]);
 
-  // useEffect(() => {
-  //   if (addRole) {
-  //     setVariableRoles([...variableRoles, addRole]);
-  //   }
-  //   setAddRole(null);
-  // }, [addRole, variableRoles]);
+
 
   useEffect(() => {
+    console.log("BBBB");
     if (roleFilter) {
-      setFilteredRoles(
-        roleFilter.getFilteredRoles(userAddress, remoteOnly, roleType, searchterm)
-      );
+      setFilteredRoles(roleFilter.getFilteredRoles(variableRoles, userAddress, remoteOnly, roleType, searchterm));
     }
     if (companyFilter) {
-      setFilteredCompanies(
-        companyFilter.getFilteredCompanies(searchterm)
-      );
+      setFilteredCompanies(companyFilter.getFilteredCompanies(companies, searchterm));
     }
-  }, [userAddress, remoteOnly, roleFilter, companyFilter, roleType, searchterm]);
+  }, [variableRoles, userAddress, remoteOnly, roleFilter, companyFilter, roleType, searchterm, companies]);
 
   function handleChange(val: boolean) {
     setByCompanies(val);
@@ -332,6 +335,7 @@ export default function Home(data: Props) {
                 if (actionType == ActionType.Add) {
 
                   setVariableRoles([...variableRoles, data])
+                  updateCompanies();
                 }
               }} />
             </div>
@@ -346,12 +350,13 @@ export default function Home(data: Props) {
             >
               <CustomRole handleChange={(actionType, data) => {
                 if (actionType == ActionType.Add) {
-
                   setVariableRoles([...variableRoles, data])
+                  updateCompanies();
                 }
               }} />
             </div>
           }
+          <p>{filteredRoles.length}</p>
           {!byCompanies && !adminMode && <Joblist roles={filteredRoles} mode="application" handleChange={(actiontype, role) => { }} />}
           {!byCompanies && adminMode && <Joblist roles={filteredRoles} mode="remove" handleChange={(actiontype, role) => {
             if (actiontype == ActionType.Remove) {
