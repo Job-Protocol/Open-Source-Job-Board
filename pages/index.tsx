@@ -20,6 +20,7 @@ import RoleFilter from "../components/overview/filter";
 import { CompanyFilter } from "../components/overview/filter";
 import { RoleType } from "@/bubble_types";
 import CurationModal from "@/components/admin/Curation";
+import CustomRole from "@/components/admin/CustomRole";
 import { useRouter } from 'next/router'
 import { fetchRoles } from "@/pages/api/role";
 
@@ -106,7 +107,7 @@ export default function Home(data: Props) {
   const [searchterm, setSearchterm] = useState<string | null>(null);
 
   const [showCuration, setShowCuration] = useState<boolean>(false);
-  const [showCustomRole, setShowCustomRole] = useState<boolean>(false);
+  const [showCustomRole, setShowCustomRole] = useState<boolean>(true);
 
   const [adminMode, setAdminMode] = useState<boolean>(false);
 
@@ -328,6 +329,22 @@ export default function Home(data: Props) {
               }}
             >
               <CurationModal handleChange={(actionType, data) => {
+                if (actionType == ActionType.Add) {
+
+                  setVariableRoles([...variableRoles, data])
+                }
+              }} />
+            </div>
+          }
+          {showCustomRole &&
+            <div
+              className={stylesGlobalFormElements.modal + " z-50"}
+              onClick={() => {
+                setShowCustomRole(false);
+                // refreshData();
+              }}
+            >
+              <CustomRole handleChange={(actionType, data) => {
                 if (actionType == ActionType.Add) {
 
                   setVariableRoles([...variableRoles, data])

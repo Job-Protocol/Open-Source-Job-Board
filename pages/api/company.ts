@@ -75,7 +75,6 @@ export async function fetch_companies(
     const result = await response.json();
 
     const comps: any = result.response.results.map((result: any) => process_single_company_response(result, key));
-    console.log("COMPS: ", comps);
 
     const final = await Promise.all(comps);
 

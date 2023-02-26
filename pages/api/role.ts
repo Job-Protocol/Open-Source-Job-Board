@@ -90,18 +90,12 @@ export default async function handler(
     res: NextApiResponse<Role[]>
 ) {
 
-
-    // const router = useRouter()
-    // console.log(router.query);
-
-    // { param: 'aaa', second: 'bbb' }
     res.setHeader('Cache-Control', 's-maxage=86400');
     if (!process.env.BUBBLE_API_PRIVATE_KEY) {
         res.status(500);
         return;
     }
 
-    console.log("Req.quert", req.query);
     const roles = await fetchRoles(process.env.BUBBLE_API_PRIVATE_KEY, req.query);
     res.status(200).json(roles);
 

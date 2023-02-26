@@ -89,8 +89,6 @@ function content(data: JobCardProps) {
             className={"body16Bold " + styles.applyButton}
             name="button-1675001572178"
             onClick={() => {
-              console.log("remoooooving Role");
-              console.log("ROLE", role);
               curateRole(role.id, "remove");
               data.handleChange(ActionType.Remove, role);
             }}
@@ -122,7 +120,6 @@ function content(data: JobCardProps) {
               className={"body16Bold " + styles.applyButton}
               name="button-1675001572178"
               onClick={() => {
-                console.log("adding Role");
                 curateRole(role.id, "add");
                 data.handleChange(ActionType.Add, role);
               }}
