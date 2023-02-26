@@ -164,10 +164,10 @@ export default function Home(data: Props) {
   return (
     <>
       <Head>
-        <title>ETH Denver Opportunity Zone</title>
+        <title>ETHDenver Opportunity Zone</title>
         <meta
           name="description"
-          content="Job Board for ETH Denver - a fast-track to the best jobs in Web3 🔥"
+          content="Job Board for ETHDenver - a fast-track to the best jobs in Web3 🔥"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/ethdenver-spork-logo-pink2.png" />
@@ -232,7 +232,7 @@ export default function Home(data: Props) {
               />
             </div>
             <div className={styles.headerTextContainer}>
-              <h1 className={"h1"}>ETH Denver Opportunity Zone</h1>
+              <h1 className={"h1"}>ETHDenver Opportunity Zone</h1>
               <h2 className={"body18"}>The best opportunities in crypto</h2>
               <div className={styles.headerIconsContainer}>
                 <Link href={"https://www.ethdenver.com/"}>
