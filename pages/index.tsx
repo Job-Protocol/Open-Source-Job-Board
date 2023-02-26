@@ -356,7 +356,6 @@ export default function Home(data: Props) {
               }} />
             </div>
           }
-          <p>{filteredRoles.length}</p>
           {!byCompanies && !adminMode && <Joblist roles={filteredRoles} mode="application" handleChange={(actiontype, role) => { }} />}
           {!byCompanies && adminMode && <Joblist roles={filteredRoles} mode="remove" handleChange={(actiontype, role) => {
             if (actiontype == ActionType.Remove) {

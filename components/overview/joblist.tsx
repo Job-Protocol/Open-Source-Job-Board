@@ -37,7 +37,6 @@ export default function Joblist(data: Props) {
 
   return (
     <div className={styles.jobListContainer}>
-      <p>{data.roles.length}</p>
       {data.roles.filter(role => !ignoreIDs.includes(role.id)).map((role, index) => (
         <JobCard
           role={role}
