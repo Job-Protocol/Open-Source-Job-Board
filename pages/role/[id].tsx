@@ -49,7 +49,6 @@ export async function getStaticPaths() {
 
 // `getStaticPaths` requires using `getStaticProps`
 export async function getStaticProps(context: any) {
-  console.log("ma");
   const role = await getRoleData(context.params.id);
   return {
     // Passed to the page component as props
