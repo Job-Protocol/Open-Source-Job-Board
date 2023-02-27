@@ -228,8 +228,8 @@ export default function Home(data: Props) {
                 src={"/EDEN22Logo_Black.svg"}
                 alt="Header image"
                 fill
-              //style={{borderRadius: 8}}
-              // objectFit="cover"
+                //style={{borderRadius: 8}}
+                // objectFit="cover"
               />
             </div>
             <div className={styles.headerTextContainer}>
@@ -243,8 +243,8 @@ export default function Home(data: Props) {
                     width={16}
                     height={16}
 
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://twitter.com/EthereumDenver"}>
@@ -253,8 +253,8 @@ export default function Home(data: Props) {
                     alt="Twitter icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 {/* <Link href={"https://www.google.com"}>
@@ -283,8 +283,8 @@ export default function Home(data: Props) {
                     alt="Discord icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://medium.com/ethdenver"}>
@@ -293,8 +293,8 @@ export default function Home(data: Props) {
                     alt="Medium icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://www.youtube.com/c/ETHDenver"}>
@@ -303,8 +303,8 @@ export default function Home(data: Props) {
                     alt="YouTube icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://www.instagram.com/ethdenver/"}>
@@ -313,8 +313,8 @@ export default function Home(data: Props) {
                     alt="Instagram icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
                 <Link href={"https://www.meetup.com/Ethereum-Denver/"}>
@@ -323,8 +323,8 @@ export default function Home(data: Props) {
                     alt="Meetup icon"
                     width={16}
                     height={16}
-                  //style={{borderRadius: 8}}
-                  // objectFit="cover"
+                    //style={{borderRadius: 8}}
+                    // objectFit="cover"
                   />
                 </Link>
               </div>
@@ -445,8 +445,7 @@ export default function Home(data: Props) {
               />
             )}
           </div>
-          {/* <p> Length of filtered Roles: {filteredRoles ? filteredRoles.length : 0}</p> */}
-          {!byCompanies && <Joblist roles={filteredRoles} numItemsPerPage={10} />}
+          {!byCompanies && <Joblist roles={filteredRoles} />}
           {byCompanies && <Companylist companies={filteredCompanies} />}
           <Footer />
         </div>
