@@ -279,7 +279,7 @@ export default function Home(props: Props) {
             />
           </div>
 
-          <Joblist roles={filteredCompanyRoles} mode='application' handleChange={(a, b) => { }} />
+          <Joblist roles={filteredCompanyRoles} mode='application' showBounty={false} handleChange={(a, b) => { }} />
 
           {/* <div className={styles.headerBackgroundGradientContainer}></div> */}
           <Footer />

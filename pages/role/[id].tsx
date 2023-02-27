@@ -203,7 +203,7 @@ export default function Home(props: Props) {
                     {role?.company.tagline}
                   </p>
 
-                  <RoleConditions role={role} isInverted={true} />
+                  <RoleConditions role={role} showBounty={false} isInverted={true} />
                 </div>
               </div>
             </div>
@@ -211,7 +211,7 @@ export default function Home(props: Props) {
               <p className={"body18 " + styles.companyTagLine}>
                 {role?.company.tagline}
               </p>
-              <RoleConditions role={role} isInverted={false} />
+              <RoleConditions role={role} showBounty={false} isInverted={false} />
             </div>
             {/* TODO(scheuclu) Role options are disabled until we have the data */}
             {/* <div className={styles.roleOptionsContainer}>
