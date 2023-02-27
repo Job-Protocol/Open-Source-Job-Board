@@ -149,12 +149,15 @@ body {
 .marginTop4 {
   margin-top: 4px;
 }
+
 .marginTop16 {
   margin-top: 4px;
 }
+
 .marginTop24 {
   margin-top: 24px;
 }
+
 .marginTop32 {
   margin-top: 32px;
 }
@@ -177,4 +180,9 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+.textPrimaryColor {
+  font-family: "Avenir Next";
+  color: var(--main-color);
 }
