@@ -49,7 +49,12 @@ export default function CurationModal(data: Props) {
 
         >
             <h1>Add avavailable Jobprotocol roles to your dashboard using this modal.</h1>
-            {bubbleRoles !== null && <Joblist roles={bubbleRoles} mode='curation' handleChange={(a, b) => data.handleChange(a, b)} />}
+            {bubbleRoles !== null && <Joblist
+                roles={bubbleRoles}
+                mode='curation'
+                showBounty={true}
+                handleChange={(a, b) => data.handleChange(a, b)}
+            />}
             {bubbleRoles == null && <Loading />}
         </div>
         // </div>

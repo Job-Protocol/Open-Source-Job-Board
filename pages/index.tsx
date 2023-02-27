@@ -356,12 +356,22 @@ export default function Home(data: Props) {
               }} />
             </div>
           }
-          {!byCompanies && !adminMode && <Joblist roles={filteredRoles} mode="application" handleChange={(actiontype, role) => { }} />}
-          {!byCompanies && adminMode && <Joblist roles={filteredRoles} mode="remove" handleChange={(actiontype, role) => {
-            if (actiontype == ActionType.Remove) {
-              setVariableRoles(variableRoles.filter(vrole => vrole.id != role.id));
-            }
-          }} />}
+          {!byCompanies && !adminMode && <Joblist
+            roles={filteredRoles}
+            mode="application"
+            showBounty={false}
+            handleChange={(actiontype, role) => { }}
+          />}
+          {!byCompanies && adminMode && <Joblist
+            roles={filteredRoles}
+            mode="remove"
+            showBounty={false}
+            handleChange={(actiontype, role) => {
+              if (actiontype == ActionType.Remove) {
+                setVariableRoles(variableRoles.filter(vrole => vrole.id != role.id));
+              }
+            }}
+          />}
           {byCompanies && <Companylist companies={filteredCompanies} />}
           {/* 
           <iframe src="https://www.google.com" width="100%"></iframe>

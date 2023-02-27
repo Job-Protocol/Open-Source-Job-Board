@@ -153,6 +153,7 @@ export interface Role {
   salary_max: number | null;
   equity_pct_min: number | null;
   equity_pct_max: number | null;
+  bounty: number | null;
   requirements: Requirement[] | null;
   state: RoleState;
   type: RoleType | null;
@@ -170,6 +171,7 @@ export function getDefaultRole(): Role {
     salary_max: null,
     equity_pct_min: null,
     equity_pct_max: null,
+    bounty: null,
     requirements: null,
     state: RoleState.Hidden,
     type: null,

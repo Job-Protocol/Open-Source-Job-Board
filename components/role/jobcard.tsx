@@ -17,6 +17,7 @@ export enum ActionType {
 export interface JobCardProps {
   role: Role;
   mode: "application" | "curation" | "remove";
+  showBounty: boolean;
   handleChange: (action: ActionType, role: Role) => void;
 }
 
@@ -58,14 +59,14 @@ function content(data: JobCardProps) {
 
           <div className={styles.roleConditionsDesktop}>
             <h3 className={"body16"}>{role.company.tagline}</h3>
-            <RoleConditions role={role} />
+            <RoleConditions role={role} showBounty={data.showBounty} />
           </div>
         </div>
       </div>
 
       <div className={styles.roleConditionsMobile}>
         <h3 className={"body16"}>{role.company.tagline}</h3>
-        <RoleConditions role={role} />
+        <RoleConditions role={role} showBounty={data.showBounty} />
       </div>
       <div
         // className={styles.applyContainer}

@@ -42,6 +42,7 @@ export async function process_single_role_response(role_response: any, key: stri
     r.salary_max = role_response.salary_max ? role_response.salary_max : null;
     r.equity_pct_min = role_response.equity_pct_min ? role_response.equity_pct_min : null;
     r.equity_pct_max = role_response.equity_pct_max ? role_response.equity_pct_max : null;
+    r.bounty = role_response.bounty ? role_response.bounty : null;
     r.company = result_company;
     r.location = loc;
     r.requirements = reqs;

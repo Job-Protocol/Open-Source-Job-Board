@@ -25,6 +25,7 @@ import {
 export interface Props {
   roles: Role[];
   mode: "application" | "curation" | "remove";
+  showBounty: boolean;
   handleChange: (actiontype: ActionType, role: Role) => void;
 }
 
@@ -41,6 +42,7 @@ export default function Joblist(data: Props) {
         <JobCard
           role={role}
           key={role.id}
+          showBounty={data.showBounty}
           mode={data.mode}
           handleChange={(actiontype, role) => {
             //It's ignored in this Joblist, because it's being added to another
