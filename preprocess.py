@@ -15,6 +15,8 @@ d = {
     'TEXT_COLOR_DARK': conf['colors']['text']['dark'],
     'BACKGROUND_COLOR': conf['colors']['background'],
     'BORDER_COLOR': conf['colors']['border'],
+    'BORDER_WIDTH': conf['border_width'],
+    'BORDER_RADIUS': conf['border_radius']
 }
 
 with open('./styles/Variables_template.sass') as f:

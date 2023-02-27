@@ -1,19 +1,19 @@
 
-
+import customer_config from "@/customer_config.json";
 
 
 const selectStyles = {
   control: (baseStyles: any, state: any) => ({
     ...baseStyles,
-    borderColor: state.isFocused ? "#F67637" : '#F67637',
+    borderColor: state.isFocused ? customer_config.colors.border : customer_config.colors.border,
     width: "100%",
-    borderWidth: "1px",
+    borderWidth: customer_config.border_width,
     borderRadius: "8px",
     boxShadow: "none",
     outline: "none",
-    color: "#05192D",
+    color: customer_config.colors.main,
     "&:hover": {
-      borderColor: '#F67637',
+      borderColor: customer_config.colors.border
     },
   }),
   container: (baseStyles: any, state: any) => ({
@@ -28,19 +28,23 @@ const selectStyles = {
   // }),
   dropdownIndicator: (baseStyles: any, state: any) => ({
     ...baseStyles,
-    color: "#05192D",
+    //color: customer_config.colors.main,
+    cursor: "pointer",
+    ":hover": {
+      color: customer_config.colors.main,
+    },
   }),
   clearIndicator: (baseStyles: any, state: any) => ({
     ...baseStyles,
     cursor: "pointer",
     ":hover": {
-      color: '#F67637',
+      color: customer_config.colors.main,
     },
   }),
   menu: (baseStyles: any, state: any) => ({
     ...baseStyles,
-    borderColor: "#F67637",
-    borderWidth: "1px",
+    borderColor: customer_config.colors.border,
+    borderWidth: customer_config.border_width,
     borderRadius: "8px",
     marginTop: "4px",
     boxShadow: "0px",
@@ -59,12 +63,12 @@ const selectStyles = {
     paddingBottom: "8px",
     borderRadius: "4px",
     backgroundColor: state.isSelected
-      ? "#F6763710"
+      ? `${customer_config.colors.main}30`
       : "none",
     "&:hover": {
-      backgroundColor: '#F6763710',
+      backgroundColor: `${customer_config.colors.main}30`,
     },
-    color: "#1f2534",
+    color: customer_config.colors.text,
   }),
 };
 

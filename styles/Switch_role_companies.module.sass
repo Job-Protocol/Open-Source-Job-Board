@@ -4,8 +4,8 @@
   display: flex
   flex-direction: row
   height: 48px
-  border: 1px solid Variables.$border-color
-  border-radius: 8px
+  border: Variables.$border-width solid Variables.$border-color
+  border-radius: Variables.$border-radius
   cursor: pointer
 
 .toggleOn
@@ -14,12 +14,12 @@
   background-color: Variables.$main-color
   padding-left: 12px
   padding-right: 12px
-  border: 1px solid Variables.$main-color
-  border-radius: 8px
+  border: Variables.$border-width solid Variables.$main-color
+  border-radius: Variables.$border-radius
   margin-top: -1px
   margin-left: -1px
   margin-bottom: -1px
-  color: white
+  color: Variables.$secondary-color
 
 .toggleOff
   display: flex
