@@ -48,9 +48,10 @@ export async function GetCompaniesByCompanyIDs(
 }
 
 export async function GetRolesByRoleIDs(ids: string[]): Promise<Role[]> {
-  const response: Promise<Response>[] = ids.map((id) =>
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/role/${id}`)
-  );
+  const response: Promise<Response>[] = ids.map((id) => {
+    // console.log(`${process.env.NEXT_PUBLIC_BASE_URL}/api/role/${id}`);
+    return fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/role/${id}`);
+  });
   const reponses: Response[] = await Promise.all(response);
 
   const roles = reponses.map((result) => result.json());
