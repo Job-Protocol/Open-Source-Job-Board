@@ -21,6 +21,7 @@ import { CompanyFilter } from "../components/overview/filter";
 import { RoleType } from "@/bubble_types";
 import CurationModal from "@/components/admin/Curation";
 import CustomRole from "@/components/admin/CustomRole";
+import Login from "@/components/admin/Login";
 import { useRouter } from 'next/router'
 import { fetchRoles } from "@/pages/api/role";
 
@@ -115,6 +116,7 @@ export default function Home(data: Props) {
 
   const [showCuration, setShowCuration] = useState<boolean>(false);
   const [showCustomRole, setShowCustomRole] = useState<boolean>(false);
+  const [showLogin, setShowLogin] = useState<boolean>(true);
 
   const [adminMode, setAdminMode] = useState<boolean>(false);
 
@@ -206,9 +208,31 @@ export default function Home(data: Props) {
               </div>
             </div>
 
+
+
+            {!adminMode &&
+              <div className={"marginBottom8 " + styles.headerRightContainer}>
+                <div className={styles.headerListRolesContianer + " gap-x-1.5"}>
+                  <button
+                    type="submit"
+                    className={"body16Bold " + stylesGlobalFormElements.primaryButton}
+                    name="button-admin-mode"
+                    onClick={() => setShowLogin(true)}
+                    id="button-admin-mode"
+                  >
+                    Admin Mode
+                  </button>
+                </div>
+              </div>
+            }
+
+
+
+
             {adminMode &&
               <div className={"marginBottom8 " + styles.headerRightContainer}>
                 <div className={styles.headerListRolesContianer + " gap-x-1.5"}>
+
                   <button
                     type="submit"
                     className={"body16Bold " + stylesGlobalFormElements.primaryButton}
@@ -323,6 +347,27 @@ export default function Home(data: Props) {
               />
             )}
           </div>
+
+
+          {showLogin &&
+            <div
+              className={stylesGlobalFormElements.modal + " z-50"}
+              onClick={() => {
+                setShowLogin(false);
+                // refreshData();
+              }}
+            >
+              <Login handleChange={(actionType, data) => {
+                if (actionType == ActionType.Add) {
+
+                  setVariableRoles([...variableRoles, data])
+                  updateCompanies();
+                }
+              }} />
+            </div>
+          }
+
+
           {showCuration &&
             <div
               className={stylesGlobalFormElements.modal + " z-50"}
