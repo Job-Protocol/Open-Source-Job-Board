@@ -23,8 +23,8 @@ export default function RoleConditions(data: RoleConditionsProps) {
     <div className={styleClassName}>
       <p>Full time</p>
 
-      {data.role.location && (<p>&nbsp; • &nbsp;</p>)}
-      {data.role.location && (<p> {rolelocation_to_string(data.role.location)}</p>)}
+      {data.role.location && data.role.location.location_type && (<p>&nbsp; • &nbsp;</p>)}
+      {data.role.location && data.role.location.location_type && (<p> {rolelocation_to_string(data.role.location)}</p>)}
 
       <p>&nbsp; • &nbsp;</p>
       {
