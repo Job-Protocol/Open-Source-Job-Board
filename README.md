@@ -1,6 +1,5 @@
 # Jobprotocol ETH-Denver frontend
 
-
 This is the frontend repo behind jobs.ethdenver.com.  
 The jobboard is powered by [JobProtocol](https://www.jobprotocol.com).
 
@@ -29,9 +28,11 @@ You can set variable wit `export VARIABLE="value"` or put the same command into 
 
 Use `npm run dev` for development purposes.
 
+
 Else, start the app with
 
 ```
 npm run build
 npm run start
 ```
+
