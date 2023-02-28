@@ -8,16 +8,22 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         {/* Facebook */}
-        <meta property="og:title" content="ETH Denver Opportunity Zone" />
+        <meta property="og:title" content="ETHDenver Opportunity Zone" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="/social_banner.png" />
+        <meta
+          property="og:image"
+          content={process.env.NEXT_PUBLIC_BASE_URL + "/social_banner.png"}
+        />
         {/* Twitter */}
-        <meta name="twitter:title" content="ETH Denver Opportunity Zone" />
+        <meta name="twitter:title" content="ETHDenver Opportunity Zone" />
         <meta
           name="twitter:description"
-          content="Job Board for ETH Denver - a fast-track to the best jobs in Web3 🔥"
+          content="Job Board for ETHDenver - a fast-track to the best jobs in Web3 🔥"
         />
-        <meta property="twitter:image" content="/social_banner.png" />
+        <meta
+          property="twitter:image"
+          content={process.env.NEXT_PUBLIC_BASE_URL + "/social_banner.png"}
+        />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <Component {...pageProps} />

@@ -1,10 +1,8 @@
 import Head from "next/head";
 import styles from "@/styles/Roledetailpage.module.css";
-import styles_req from "@/styles/Requirements.module.css";
 import JdCard from "@/components/role/detail/jobdesc";
 import ApplyCard from "@/components/role/apply";
 import CompanyCard from "@/components/role/detail/companyinfo";
-import RequirementsCard from "@/components/role/requirements";
 import Footer from "@/components/overview/footer";
 import React, { useState } from "react";
 import { useEffect } from "react";
@@ -15,7 +13,6 @@ import RoleConditions from "@/components/role/detail/roleconditions";
 
 import FourOhFour from "@/pages/404";
 import Loading from "@/components/loading";
-
 
 import Link from "next/link";
 import Image from "next/image";
@@ -35,18 +32,17 @@ export interface Props {
 }
 
 export async function getStaticPaths() {
-
   const allIDs = await GetAllIDs();
   const roleIDS = allIDs[1];
 
   const roles = await GetRolesByRoleIDs(roleIDS);
-  const slugs = roles.map(role => role.slug);
-  const paths = slugs.map(slug => ({ params: { id: slug } }));
+  const slugs = roles.map((role) => role.slug);
+  const paths = slugs.map((slug) => ({ params: { id: slug } }));
 
   return {
     paths: paths,
     fallback: true, // can also be true or 'blocking'
-  }
+  };
 }
 
 // `getStaticPaths` requires using `getStaticProps`
@@ -56,13 +52,12 @@ export async function getStaticProps(context: any) {
     // Passed to the page component as props
     props: { role: role },
     revalidate: 60 * 30, // In seconds
-  }
+  };
 }
 
 export default function Home(props: Props) {
-
   //Check for fallback
-  const router = useRouter()
+  const router = useRouter();
 
   const role = props?.role;
   const [logoDark, setLogoDark] = useState<boolean>(false);
@@ -77,8 +72,8 @@ export default function Home(props: Props) {
             (res.value[1] - 31) ** 2 +
             (res.value[2] - 132) ** 2;
           setLogoDark(dist_square < 20000); //TODO(scheuclu): Find a better heuristic here.
-        })
-      };
+        });
+      }
     }
   }, [role]);
 
@@ -89,7 +84,7 @@ export default function Home(props: Props) {
       <div className="page">
         <Loading />
       </div>
-    )
+    );
   }
 
   if (!role) {
