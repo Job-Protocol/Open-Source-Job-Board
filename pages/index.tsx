@@ -115,7 +115,7 @@ export default function Home(data: Props) {
   const [searchterm, setSearchterm] = useState<string | null>(null);
 
   const [showCuration, setShowCuration] = useState<boolean>(false);
-  const [showCustomRole, setShowCustomRole] = useState<boolean>(false);
+  const [showCustomRole, setShowCustomRole] = useState<boolean>(true);
   const [showLogin, setShowLogin] = useState<boolean>(false);
 
   const [adminMode, setAdminMode] = useState<boolean>(false);

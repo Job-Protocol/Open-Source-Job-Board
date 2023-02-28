@@ -42,14 +42,19 @@ export default function CustomRole(data: Props) {
 
 
     return (
+        // <div className="m-10">
         <iframe
-            className={stylesGlobalFormElements.modal_content}
+            className={stylesGlobalFormElements.modal_iframe}
             onClick={(e) => e.stopPropagation()}
-            src="https://app.jobprotocol.xyz/custom_role"
+            src="https://app.jobprotocol.xyz/version-test/custom_role"
+            allowFullScreen={false}
             width='100%'
-            height='70%'>
+            height='100%'
+            marginWidth={20}
+        >
             Your browser does not support iframes.
-        </iframe>
+        </iframe >
+        // </div>
 
 
     );
