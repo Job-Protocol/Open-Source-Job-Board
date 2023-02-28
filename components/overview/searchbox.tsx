@@ -45,10 +45,10 @@ export default function SearchBox(data: Props) {
   }
 
   return (
-    <div className={stylesGlobalFormElements.input}>
+    <div>
       <Select
         // className="basic-single"
-        classNamePrefix={stylesGlobalFormElements.input}
+        // classNamePrefix={stylesGlobalFormElements.input}
         id={data.id}
         components={{
           DropdownIndicator: () => null,
