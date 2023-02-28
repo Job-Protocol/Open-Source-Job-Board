@@ -67,7 +67,7 @@ export async function GetRolesByRoleIDs(ids: string[]): Promise<Role[]> {
 
 export interface Props {
   sortedRoles: Role[];
-  companies: Company[];
+  sortedCompanies: Company[];
 }
 
 // This function gets called at build time on server-side.
@@ -91,7 +91,7 @@ export async function getStaticProps() {
   const filteredRoles = sortedRoles;
 
   const companies = await GetCompaniesByCompanyIDs(companyIDs);
-  const sortedCompanies = companies.sort((a, b) => {
+  const sortedCompanies: Company[] = companies.sort((a, b) => {
     if (!a.priority) return 1;
     if (!b.priority) return 1;
     if (a.priority === b.priority) return Math.random() > 0.5 ? 1 : -1; //sort randomly within the same priority
@@ -113,7 +113,7 @@ export async function getStaticProps() {
 
 export default function Home(data: Props) {
   // const sortedRoles = data.sortedRoles;
-  const companies = data.companies;
+  const companies = data.sortedCompanies;
   const roles = data.sortedRoles;
 
   const [byCompanies, setByCompanies] = useState<boolean>(false);
