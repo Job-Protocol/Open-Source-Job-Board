@@ -1,10 +1,8 @@
 import Head from "next/head";
 import styles from "@/styles/Roledetailpage.module.css";
-import styles_req from "@/styles/Requirements.module.css";
 import JdCard from "@/components/role/detail/jobdesc";
 import ApplyCard from "@/components/role/apply";
 import CompanyCard from "@/components/role/detail/companyinfo";
-import RequirementsCard from "@/components/role/requirements";
 import Footer from "@/components/overview/footer";
 import React, { useState } from "react";
 import { useEffect } from "react";
@@ -190,8 +188,8 @@ export default function Home(props: Props) {
                     src={role?.company?.logo.replace("//s3", "https://s3")}
                     alt="Logo"
                     fill={true}
-                    // width={122}
-                    // height={122}
+                  // width={122}
+                  // height={122}
                   />
                 </div>
               )}

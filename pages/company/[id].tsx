@@ -288,7 +288,7 @@ export default function Home(props: Props) {
             />
           </div>
 
-          <Joblist roles={filteredCompanyRoles} numItemsPerPage={100} />
+          <Joblist roles={filteredCompanyRoles} />
 
           {/* <div className={styles.headerBackgroundGradientContainer}></div> */}
           <Footer />
