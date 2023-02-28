@@ -4,7 +4,7 @@
   display: block
   flex: 1
 
-  border-width: Variables.$border-width/2
+  // border-width: Variables.$border-width/2
   border-color: Variables.$border-color
   color: #1f2534cc
   width: 100%
@@ -77,22 +77,6 @@
   min-width: 18px
   accent-color: Variables.$main-color
 
-@media only screen and (max-width: 1000px)
-  .input
-    display: block
-    flex: 1
-
-    border-width: 1px
-    border-color: Variables.$border-color
-    color: #1f2534cc
-
-    padding-top: 12px
-    padding-bottom: 12px
-    line-height: 22px
-
-    // /* height: 48px; */
-    // /* width: 100%; */
-
 .modal
   display: flex//; /* Hidden by default */
   flex-direction: column
@@ -105,8 +89,13 @@
   width: 100%//; /* Full width */
   height: 100%//; /* Full height */
   overflow: auto//; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0)//; /* Fallback color */
+  background-color: rgb(100, 0, 0)//; /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4)//; /* Black w/ opacity */
+  // transition: background-color 2s
+
+  input
+    border-width: Variables.$border-width/2
+    border-color: Variables.$border-color
 
   &_content
     display: flex
@@ -123,5 +112,22 @@
     border-radius: 8px
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px
 
-    .h1
-      color: green
+    h1
+      font-size: 20px
+      font-weight: 600
+
+@media only screen and (max-width: 1000px)
+.input
+  display: block
+  flex: 1
+
+  border-width: 1px
+  border-color: Variables.$border-color
+  color: #1f2534cc
+
+  padding-top: 12px
+  padding-bottom: 12px
+  line-height: 22px
+
+  // /* height: 48px; */
+  // /* width: 100%; */

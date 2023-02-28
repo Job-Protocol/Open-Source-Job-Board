@@ -116,7 +116,7 @@ export default function Home(data: Props) {
 
   const [showCuration, setShowCuration] = useState<boolean>(false);
   const [showCustomRole, setShowCustomRole] = useState<boolean>(false);
-  const [showLogin, setShowLogin] = useState<boolean>(true);
+  const [showLogin, setShowLogin] = useState<boolean>(false);
 
   const [adminMode, setAdminMode] = useState<boolean>(false);
 
@@ -132,8 +132,9 @@ export default function Home(data: Props) {
   }
 
   useEffect(() => {
-    if (params.key && params.key === "abc") {//TODO(scheuclu): Remove hard coded password
-      setAdminMode(true);
+
+    if (params.mode && params.mode == 'admin') {//TODO(scheuclu): Remove hard coded password
+      setShowLogin(true);
     }
   }, [params]);
 
@@ -210,7 +211,7 @@ export default function Home(data: Props) {
 
 
 
-            {!adminMode &&
+            {/* {!adminMode &&
               <div className={"marginBottom8 " + styles.headerRightContainer}>
                 <div className={styles.headerListRolesContianer + " gap-x-1.5"}>
                   <button
@@ -224,7 +225,7 @@ export default function Home(data: Props) {
                   </button>
                 </div>
               </div>
-            }
+            } */}
 
 
 
@@ -232,6 +233,17 @@ export default function Home(data: Props) {
             {adminMode &&
               <div className={"marginBottom8 " + styles.headerRightContainer}>
                 <div className={styles.headerListRolesContianer + " gap-x-1.5"}>
+
+                  <button
+                    type="submit"
+                    className={"body16Bold " + stylesGlobalFormElements.primaryButton}
+                    name="button-admin-mode"
+                    onClick={() => setAdminMode(false)}
+                    id="button-admin-mode"
+                  >
+                    Exit Admin Mode
+                  </button>
+
 
                   <button
                     type="submit"
@@ -252,6 +264,10 @@ export default function Home(data: Props) {
                   >
                     Add Custom Role
                   </button>
+
+
+
+
                 </div>
               </div>
             }
@@ -357,11 +373,12 @@ export default function Home(data: Props) {
                 // refreshData();
               }}
             >
-              <Login handleChange={(actionType, data) => {
-                if (actionType == ActionType.Add) {
+              <Login handleChange={(success) => {
+                if (success) {
 
-                  setVariableRoles([...variableRoles, data])
-                  updateCompanies();
+                  //setVariableRoles([...variableRoles, data])
+                  setShowLogin(false);
+                  setAdminMode(true);
                 }
               }} />
             </div>
