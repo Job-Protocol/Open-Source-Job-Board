@@ -70,6 +70,16 @@ export interface Props {
   sortedCompanies: Company[];
 }
 
+
+function sort2companies(a: Company, b: Company): 0 | 1 | -1 {
+  if (!a.priority && !b.priority) return 0;
+  if (!a.priority) return 1;
+  if (!b.priority) return -1;
+  if (a.priority === b.priority) return Math.random() > 0.5 ? 1 : -1; //sort randomly within the same priority
+  //if (a.company.priority === b.company.priority) return a.company.id > b.company.id ? 1 : -1 //sort using id which is a random hash
+  return a.priority < b.priority ? 1 : -1;
+}
+
 // This function gets called at build time on server-side.
 // It may be called again, on a serverless function, if
 // revalidation is enabled and a new request comes in
@@ -79,24 +89,13 @@ export async function getStaticProps() {
   const roleIDs = res[1];
 
   const sortedRoles = await GetRolesByRoleIDs(roleIDs).then((res) => {
-    const aaa = res.sort((a, b) => {
-      if (!a.company.priority) return 1;
-      if (!b.company.priority) return 1;
-      if (a.company.priority === b.company.priority) return Math.random() > 0.5 ? 1 : -1; //sort randomly within the same priority
-      //if (a.company.priority === b.company.priority) return a.company.id > b.company.id ? 1 : -1 //sort using id which is a random hash
-      return a.company.priority < b.company.priority ? 1 : -1;
-    });
+    const aaa = res.sort((a, b) => sort2companies(a.company, b.company));
     return aaa;
   });
   const filteredRoles = sortedRoles;
 
   const companies = await GetCompaniesByCompanyIDs(companyIDs);
-  const sortedCompanies: Company[] = companies.sort((a, b) => {
-    if (!a.priority) return 1;
-    if (!b.priority) return 1;
-    if (a.priority === b.priority) return Math.random() > 0.5 ? 1 : -1; //sort randomly within the same priority
-    return a.priority < b.priority ? 1 : -1;
-  });
+  const sortedCompanies: Company[] = companies.sort((a, b) => sort2companies(a, b));
 
 
   return {
