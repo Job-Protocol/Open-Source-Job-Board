@@ -1,5 +1,6 @@
 # Jobprotocol ETH-Denver frontend
 
+
 This is the frontend repo behind jobs.ethdenver.com.  
 The jobboard is powered by [JobProtocol](https://www.jobprotocol.com).
 
