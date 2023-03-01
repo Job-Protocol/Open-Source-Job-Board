@@ -157,6 +157,33 @@ body
   animation: spin 2s linear infinite
   margin: auto
 
+.hovertext
+  position: relative
+  border-bottom: 1px dotted green
+
+  &:before
+    content: attr(data-hover)
+    visibility: hidden
+    opacity: 0
+    width: 140px
+    background-color: black
+    color: #ff0
+    text-align: center
+    border-radius: 5px
+    padding: 5px 0
+    transition: opacity 1s ease-in-out
+    width: max-content
+
+    position: absolute
+    z-index: 100
+    left: 0
+    top: 110%
+
+  &:hover:before
+    opacity: 1
+    visibility: visible
+    background-color: #ff0000
+
 @keyframes spin
   0%
     transform: rotate(0deg)

@@ -57,7 +57,12 @@ function content(data: JobCardProps) {
             <h2 className={"body18Bold"}>{role.title}</h2>
           </div>
 
-          <div className={styles.roleConditionsDesktop}>
+          <div
+            className={styles.roleConditionsDesktop}
+          //onClick={(e) => e.stopPropagation()}
+          //onMouseEnter={(e) => e.stopPropagation()}
+          // onClick={(e) => e.stopPropagation()}
+          >
             <h3 className={"body16"}>{role.company.tagline}</h3>
             <RoleConditions role={role} showBounty={data.showBounty} />
           </div>

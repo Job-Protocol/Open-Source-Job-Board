@@ -8,7 +8,6 @@ import Joblist from "@/components/overview/joblist";
 import Companylist from "@/components/overview/companylist";
 import SwitchRolesCompanies from "@/components/overview/switch_roles_companies";
 
-
 import React, { useState, useEffect } from "react";
 
 import { Company, getDefaultRole, Role } from "@/bubble_types";
@@ -26,6 +25,7 @@ import { useRouter } from 'next/router'
 import { fetchRoles } from "@/pages/api/role";
 
 import { ActionType } from "@/components/role/jobcard";
+import RoleConditions from "@/components/role/detail/roleconditions";
 
 export async function GetAllRelevantRoles(): Promise<Role[]> {
 
@@ -75,39 +75,19 @@ export async function getStaticProps() {
     // - When a request comes in
     // - At most once every 10 seconds
     revalidate: 60 * 30, // In seconds
-    //unstable_revalidate: 20, // In seconds
   };
 }
 
 export default function Home(data: Props) {
 
-
-
-
   const router = useRouter()
-
-
-
   const params = router.query;
 
-
-  // const sortedRoles = data.sortedRoles;
-  //const companies = data.companies;
-
   const [companies, setCompanies] = useState<Company[]>(data.companies);
-  // const roles = data.sortedRoles;
-
   const [byCompanies, setByCompanies] = useState<boolean>(false);
-  const [filteredRoles, setFilteredRoles] = useState<Role[]>(
-    []
-  );
-  const [filteredCompanies, setFilteredCompanies] = useState<Company[] | null>(
-    null
-  );
-
-  const [userAddress, setUserAddress] = useState<GeographicAddress | null>(
-    null
-  );
+  const [filteredRoles, setFilteredRoles] = useState<Role[]>([]);
+  const [filteredCompanies, setFilteredCompanies] = useState<Company[] | null>(null);
+  const [userAddress, setUserAddress] = useState<GeographicAddress | null>(null);
   const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
   const [roleFilter, setRoleFilter] = useState<RoleFilter>(new RoleFilter());
   const [companyFilter, setCompanyFilter] = useState<CompanyFilter>(new CompanyFilter());
@@ -117,14 +97,9 @@ export default function Home(data: Props) {
   const [showCuration, setShowCuration] = useState<boolean>(false);
   const [showCustomRole, setShowCustomRole] = useState<boolean>(false);
   const [showLogin, setShowLogin] = useState<boolean>(false);
-
   const [adminMode, setAdminMode] = useState<boolean>(false);
-
-
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
-
   const [variableRoles, setVariableRoles] = useState<Role[]>(data.sortedRoles);
-
 
 
   function updateCompanies() {
@@ -226,6 +201,9 @@ export default function Home(data: Props) {
                 </div>
               </div>
             } */}
+
+
+            {/* <RoleConditions role={filteredRoles[0]} showBounty={true} /> */}
 
 
 
@@ -349,6 +327,8 @@ export default function Home(data: Props) {
                   ></input>
                 </div>
               )}
+
+              {/* <RoleConditions role={filteredRoles[0]} showBounty={true} /> */}
             </div>
             {!byCompanies && (
               <JobFilters
@@ -393,13 +373,15 @@ export default function Home(data: Props) {
                 // refreshData();
               }}
             >
-              <CurationModal handleChange={(actionType, data) => {
-                if (actionType == ActionType.Add) {
+              <CurationModal
+                ignoreIDs={filteredRoles.map((role) => role.id)}
+                handleChange={(actionType, data) => {
+                  if (actionType == ActionType.Add) {
 
-                  setVariableRoles([...variableRoles, data])
-                  updateCompanies();
-                }
-              }} />
+                    setVariableRoles([...variableRoles, data])
+                    updateCompanies();
+                  }
+                }} />
             </div>
           }
           {showCustomRole &&
@@ -418,6 +400,9 @@ export default function Home(data: Props) {
               }} />
             </div>
           }
+
+
+          {/* <RoleConditions role={filteredRoles[0]} showBounty={true} /> */}
           {!byCompanies && !adminMode && <Joblist
             roles={filteredRoles}
             mode="application"
@@ -435,16 +420,6 @@ export default function Home(data: Props) {
             }}
           />}
           {byCompanies && <Companylist companies={filteredCompanies} />}
-          {/* 
-          <iframe src="https://www.google.com" width="100%"></iframe>
-
-          <Iframe url="https://www.facebook.com/"
-            width="450px"
-            height="450px"
-            id="myId"
-            className="myClassname"
-            display="initial"
-            position="relative" /> */}
 
           <Footer />
         </div>

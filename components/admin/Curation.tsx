@@ -21,6 +21,7 @@ export async function GetCompanies(): Promise<Company[]> {
 
 export interface Props {
     handleChange: (actiontype: ActionType, role: Role) => void;
+    ignoreIDs: string[];
 }
 
 
@@ -34,10 +35,10 @@ export default function CurationModal(data: Props) {
         async function getRoles() {
             const result = await fetch(`/api/role/`);
             const parsed = await result.json();
-            setBubbleRoles(parsed);
+            setBubbleRoles(parsed.filter((role: Role) => !data.ignoreIDs.includes(role.id)));
         }
         getRoles();
-    }, []);
+    }, [data]);
 
 
 
