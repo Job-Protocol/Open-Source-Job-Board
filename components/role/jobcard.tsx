@@ -4,6 +4,7 @@ import { Role } from "@/bubble_types";
 import RoleConditions from "./detail/roleconditions";
 import Image from "next/image";
 import Link from "next/link";
+import Swal from "sweetalert2";
 
 import { RoleState } from "@/bubble_types";
 
@@ -25,14 +26,14 @@ function content(data: JobCardProps) {
   const role = data.role;
   const link: string = "/role/" + role.slug;
 
-  async function curateRole(id: string, method: "remove" | "add") {
+  async function curateRole(id: string, method: "remove" | "add"): Promise<boolean> {
     if (method == "add") {
       const result = await fetch("/api/curate/" + id + "?method=add");
-      return result;
+      return result.status == 200;
     }
 
     const result = await fetch("/api/curate/" + id + "?method=remove");
-    return result;
+    return result.status == 200;
   }
 
   return (
@@ -95,8 +96,19 @@ function content(data: JobCardProps) {
             className={"body16Bold " + styles.applyButton}
             name="button-1675001572178"
             onClick={() => {
-              curateRole(role.id, "remove");
-              data.handleChange(ActionType.Remove, role);
+              curateRole(role.id, "remove").then((success) => {
+                if (success === true) {
+                  data.handleChange(ActionType.Remove, role);
+                } else {
+                  Swal.fire({
+                    title: "Error !",
+                    text: "Adding role failes. Reach out to us if this is a continous issue",
+                    icon: "error",
+                    iconColor: "#481f84",
+                    confirmButtonText: "Close",
+                  })
+                }
+              });
             }}
             id="button-apply"
           >
@@ -126,7 +138,21 @@ function content(data: JobCardProps) {
               className={"body16Bold " + styles.applyButton}
               name="button-1675001572178"
               onClick={() => {
-                curateRole(role.id, "add");
+
+                curateRole(role.id, "add").then((success) => {
+                  if (success === true) {
+                    data.handleChange(ActionType.Remove, role);
+                  } else {
+                    Swal.fire({
+                      title: "Error !",
+                      text: "Adding role failes. Reach out to us if this is a continous issue",
+                      icon: "error",
+                      iconColor: "#481f84",
+                      confirmButtonText: "Close",
+                    })
+                  }
+                });
+
                 data.handleChange(ActionType.Add, role);
               }}
               id="button-apply2"
@@ -140,7 +166,7 @@ function content(data: JobCardProps) {
           
         </div> */}
       </div>
-    </div>
+    </div >
   );
 }
 

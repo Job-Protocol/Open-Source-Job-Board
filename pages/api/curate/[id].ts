@@ -53,9 +53,13 @@ export async function curate_role_by_id(
   return true;
 }
 
+interface IResponse {
+  message: string
+}
+
 export default async function role_handler(
   req: NextApiRequest,
-  res: NextApiResponse<any>
+  res: NextApiResponse<IResponse>
 ) {
   console.log("req.query", process.env.BUBBLE_API_PRIVATE_KEY, customer_config.jobprotocol_key);
 
@@ -81,8 +85,8 @@ export default async function role_handler(
     process.env.BUBBLE_API_PRIVATE_KEY as string
   );
   if (success) {
-    res.status(200).json(role);
+    res.status(200).json({ message: "Success" });
   } else {
-    res.status(400).json({ message: "Role curation failed" });
+    res.status(402).json({ message: "Role curation failed" });
   }
 }
