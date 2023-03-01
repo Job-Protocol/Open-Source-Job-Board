@@ -25,6 +25,7 @@ export async function curate_role_by_id(
   } else {
     false;
   }
+  console.log("formdata", formdata);
 
   //   let url = new URLSearchParams(formdata as any).toString();
 
@@ -35,12 +36,15 @@ export async function curate_role_by_id(
     headers: myHeaders,
     redirect: "follow",
   };
+  console.log("requestOptions", requestOptions);
+
+
 
   const url_role: string = getConfig()["endpoint"] + "/obj/role/" + id;
   console.log("url_role", url_role);
 
   const result: any = await fetch(url_role, requestOptions);
-
+  console.log("result", result);
   return result;
 }
 
