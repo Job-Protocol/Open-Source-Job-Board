@@ -24,7 +24,7 @@ export default function CompanyCard(data: JobCardProps) {
           <div className={styles.logoContainer}>
             <Image
               fill={true}
-              src={company.logo.replace("//s3", "https://s3")}
+              src={company.logo ? company.logo.replace("//s3", "https://s3") : "/globe.svg"}
               alt="Logo"
               className={styles.logo}
             />
