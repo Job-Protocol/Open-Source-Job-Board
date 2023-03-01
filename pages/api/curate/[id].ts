@@ -43,8 +43,13 @@ export async function curate_role_by_id(
   const url_role: string = getConfig()["endpoint"] + "/obj/role/" + id;
   console.log("url_role", url_role);
 
-  const result: any = await fetch(url_role, requestOptions);
-  console.log("result", result);
+  try {
+    const result: any = await fetch(url_role, requestOptions);
+    console.log("result", result);
+  } catch (e) {
+    console.log("THE ERROR", e);
+    return false
+  }
   return result;
 }
 
