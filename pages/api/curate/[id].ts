@@ -9,10 +9,24 @@ import customer_config from "@/customer_config.json";
 export async function curate_role_by_id(
   id: string,
   method: "add" | "remove" | undefined,
-  key: string
 ): Promise<boolean> {
-  let myHeaders = new Headers();
-  myHeaders.append("Authorization", "Bearer ".concat(key));
+
+  console.log("KEY", process.env.BUBBLE_API_PRIVATE_KEY);
+  console.log("KEY", process.env.NEXT_PUBLIC_BUBBLE_API_PRIVATE_KEY);
+  console.log("aaa", customer_config.jobprotocol_key);
+
+
+  var myHeaders = new Headers();
+  myHeaders.append(
+    "Authorization",
+    "Bearer ".concat(process.env.NEXT_PUBLIC_BUBBLE_API_PRIVATE_KEY as string)
+  );
+
+  myHeaders.append("Content-Type", "text/plain");
+
+
+  // let myHeaders = new Headers();
+  // myHeaders.append("Authorization", "Bearer ".concat(process.env.BUBBLE_API_PRIVATE_KEY as string));
 
   let formdata = new FormData();
   if (method == "add") {
@@ -23,7 +37,8 @@ export async function curate_role_by_id(
   } else if (method == "remove") {
     formdata.append("partner_boards", JSON.stringify([]));
   } else {
-    false;
+    console.log("method not recognized");
+    return false;
   }
   console.log("formdata", formdata);
 
@@ -82,7 +97,6 @@ export default async function role_handler(
   const success: boolean = await curate_role_by_id(
     id,
     req.query.method,
-    process.env.BUBBLE_API_PRIVATE_KEY as string
   );
   if (success) {
     res.status(200).json({ message: "Success" });

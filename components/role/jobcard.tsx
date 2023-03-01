@@ -8,6 +8,8 @@ import Swal from "sweetalert2";
 
 import { RoleState } from "@/bubble_types";
 
+import { curate_role_by_id } from "@/pages/api/curate/[id]";
+
 export enum ActionType {
   Apply,
   View,
@@ -27,13 +29,8 @@ function content(data: JobCardProps) {
   const link: string = "/role/" + role.slug;
 
   async function curateRole(id: string, method: "remove" | "add"): Promise<boolean> {
-    if (method == "add") {
-      const result = await fetch("/api/curate/" + id + "?method=add");
-      return result.status == 200;
-    }
-
-    const result = await fetch("/api/curate/" + id + "?method=remove");
-    return result.status == 200;
+    const result = curate_role_by_id(id, method);
+    return result;
   }
 
   return (
