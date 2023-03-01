@@ -34,9 +34,7 @@ async function loginUser(email: string, password: string): Promise<boolean> {
         return false;
     }
 
-    console.log("RESULT", result);
     const temp = await result.json();
-    console.log("temp", temp);
 
     return true;
 }
