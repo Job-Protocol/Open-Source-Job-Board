@@ -50,7 +50,7 @@ export async function curate_role_by_id(
     console.log("THE ERROR", e);
     return false
   }
-  return result;
+  return true;
 }
 
 export default async function role_handler(
@@ -75,10 +75,14 @@ export default async function role_handler(
     return;
   }
 
-  const role = await curate_role_by_id(
+  const success: boolean = await curate_role_by_id(
     id,
     req.query.method,
     process.env.BUBBLE_API_PRIVATE_KEY as string
   );
-  res.status(200).json(role);
+  if (success) {
+    res.status(200).json(role);
+  } else {
+    res.status(400).json({ message: "Role curation failed" });
+  }
 }
