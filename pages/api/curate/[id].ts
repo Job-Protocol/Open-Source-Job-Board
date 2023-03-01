@@ -5,17 +5,6 @@ import FormData from 'form-data';
 
 import customer_config from "@/customer_config.json";
 
-import {
-  Role,
-  getDefaultRole,
-  RoleLocation,
-  Requirement,
-  RoleState,
-  RoleType,
-} from "@/bubble_types";
-
-var psCache = require("ps-cache");
-var cache = new psCache.Cache();
 
 export async function curate_role_by_id(
   id: string,
@@ -48,6 +37,7 @@ export async function curate_role_by_id(
   };
 
   const url_role: string = getConfig()["endpoint"] + "/obj/role/" + id;
+  console.log("url_role", url_role);
 
   const result: any = await fetch(url_role, requestOptions);
 
