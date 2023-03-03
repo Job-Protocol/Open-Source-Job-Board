@@ -29,7 +29,10 @@ function content(data: JobCardProps) {
   const link: string = "/role/" + role.slug;
 
   async function curateRole(id: string, method: "remove" | "add"): Promise<boolean> {
-    const result = curate_role_by_id(id, method);
+    // const result = curate_role_by_id(id, method);
+    const temp = await fetch(`/api/curate/${id}?method=${method}`);
+    console.log("status: " + temp.status);
+    const result = temp.status === 200;
     return result;
   }
 
@@ -93,6 +96,7 @@ function content(data: JobCardProps) {
             className={"body16Bold " + styles.applyButton}
             name="button-1675001572178"
             onClick={() => {
+              console.log("REMOVE 1");
               curateRole(role.id, "remove").then((success) => {
                 if (success === true) {
                   data.handleChange(ActionType.Remove, role);

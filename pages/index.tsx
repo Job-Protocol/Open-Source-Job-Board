@@ -27,6 +27,8 @@ import { fetchRoles } from "@/pages/api/role";
 import { ActionType } from "@/components/role/jobcard";
 import RoleConditions from "@/components/role/detail/roleconditions";
 
+import { revalidate_page } from "../utils";
+
 export async function GetAllRelevantRoles(): Promise<Role[]> {
 
   const params = {
@@ -34,7 +36,7 @@ export async function GetAllRelevantRoles(): Promise<Role[]> {
   }
   const parsed: Role[] = await fetchRoles(process.env.BUBBLE_API_PRIVATE_KEY as string, params);
 
-  return parsed;
+  return parsed.filter((role) => { role.slug != undefined && role.company.name != undefined && role.company.slug != undefined });
 }
 
 export interface Props {
@@ -51,6 +53,7 @@ function getCompaniesFromRoles(roles: Role[]): Company[] {
 // It may be called again, on a serverless function, if
 // revalidation is enabled and a new request comes in
 export async function getStaticProps() {
+  console.log("Get static props is running");
 
   const sortedRoles = await GetAllRelevantRoles().then((res) => {
     const aaa = res.sort((a, b) => {
@@ -97,9 +100,11 @@ export default function Home(data: Props) {
   const [showCuration, setShowCuration] = useState<boolean>(false);
   const [showCustomRole, setShowCustomRole] = useState<boolean>(false);
   const [showLogin, setShowLogin] = useState<boolean>(false);
-  const [adminMode, setAdminMode] = useState<boolean>(false);
+  const [adminMode, setAdminMode] = useState<boolean>(true);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
   const [variableRoles, setVariableRoles] = useState<Role[]>(data.sortedRoles);
+
+  const [revalidationNeccessary, setRevalidationNeccessary] = useState<boolean>(false);
 
 
   function updateCompanies() {
@@ -107,11 +112,19 @@ export default function Home(data: Props) {
   }
 
   useEffect(() => {
-
     if (params.mode && params.mode == 'admin') {//TODO(scheuclu): Remove hard coded password
       setShowLogin(true);
     }
   }, [params]);
+
+
+  useEffect(() => {
+    if (revalidationNeccessary === true) {
+      console.log("About to call revalidation");
+      revalidate_page('/');
+      setRevalidationNeccessary(false);
+    }
+  }, [revalidationNeccessary]);
 
 
 
@@ -370,6 +383,7 @@ export default function Home(data: Props) {
               className={stylesGlobalFormElements.modal + " z-50"}
               onClick={() => {
                 setShowCuration(false);
+                setRevalidationNeccessary(true);
                 // refreshData();
               }}
             >

@@ -18,7 +18,8 @@ export async function curate_role_by_id(
     "Bearer ".concat(process.env.NEXT_PUBLIC_BUBBLE_API_PRIVATE_KEY as string)
   );
 
-  myHeaders.append("Content-Type", "text/plain");
+  //myHeaders.append("Content-Type", "multipart/form-data");
+  //myHeaders.append("Content-Type", "text/plain");
 
 
   // let myHeaders = new Headers();
@@ -31,6 +32,7 @@ export async function curate_role_by_id(
       JSON.stringify([customer_config.jobprotocol_key])
     );
   } else if (method == "remove") {
+    console.log("Adding remove to formdata");
     formdata.append("partner_boards", JSON.stringify([]));
   } else {
     console.log("method not recognized");
@@ -52,20 +54,27 @@ export async function curate_role_by_id(
   const url_role: string = getConfig()["endpoint"] + "/obj/role/" + id;
 
   try {
+    console.log("Curation request", url_role);
     const result: any = await fetch(url_role, requestOptions);
+    console.log("RESULT", result);
+    if (result.status !== 204) {
+      throw new Error(`Bubble returned unexecpected status code ${result.status}`);
+    }
   } catch (e) {
     console.log("THE ERROR", e);
     return false
   }
 
-  // Role curation was successfull, so now, revalidate the page.
-  const url_revlidate: string = "/api/revalidate?page=/?path=/";
-  try {
-    const success_re: any = await fetch(url_role);
-  } catch (e) {
-    console.log("Revalidation failed with error", e);
-    return false
-  }
+  // // Role curation was successfull, so now, revalidate the page.
+  // const url_revlidate: string = "/api/revalidate?page=/?path=/";
+  // try {
+  //   console.log("Revalidating index page");
+  //   const success_re: any = await fetch(url_revlidate);
+  // } catch (e) {
+  //   console.log("Revalidation failed with error", e);
+  //   return false
+  // }
+
   return true;
 }
 
