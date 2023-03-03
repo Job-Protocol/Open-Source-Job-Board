@@ -22,7 +22,7 @@ import CurationModal from "@/components/admin/Curation";
 import CustomRole from "@/components/admin/CustomRole";
 import Login from "@/components/admin/Login";
 import { useRouter } from 'next/router'
-import { fetchRoles } from "@/pages/api/role";
+import { fetchRoles, Constraint } from "@/pages/api/role";
 
 import { ActionType } from "@/components/role/jobcard";
 import RoleConditions from "@/components/role/detail/roleconditions";
@@ -31,10 +31,16 @@ import { revalidate_page } from "../utils";
 
 export async function GetAllRelevantRoles(): Promise<Role[]> {
 
-  const params = {
-    constraints: `[{"key":"Partner_boards","constraint_type":"contains","value":"${customer_config.jobprotocol_key}"}]`
-  }
-  const parsed: Role[] = await fetchRoles(process.env.BUBBLE_API_PRIVATE_KEY as string, params);
+  // const params = {
+  //   constraints: `[{"key":"Partner_boards","constraint_type":"contains","value":"${customer_config.jobprotocol_key}"}]`
+  // }
+
+  const constraints: Constraint[] = [
+    { key: 'Partner_boards', constraint_type: 'contains', value: customer_config.jobprotocol_key }
+  ]
+
+
+  const parsed: Role[] = await fetchRoles(process.env.BUBBLE_API_PRIVATE_KEY as string, constraints);
 
   const parsed_filtered = parsed.filter((role) => { role.slug != undefined && role.company.name != undefined && role.company.slug != undefined });
   return parsed;
@@ -111,7 +117,7 @@ export default function Home(data: Props) {
   const [showCuration, setShowCuration] = useState<boolean>(false);
   const [showCustomRole, setShowCustomRole] = useState<boolean>(false);
   const [showLogin, setShowLogin] = useState<boolean>(false);
-  const [adminMode, setAdminMode] = useState<boolean>(false);
+  const [adminMode, setAdminMode] = useState<boolean>(true);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
   const [variableRoles, setVariableRoles] = useState<Role[]>(data.sortedRoles);
 
