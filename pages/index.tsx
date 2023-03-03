@@ -36,7 +36,8 @@ export async function GetAllRelevantRoles(): Promise<Role[]> {
   }
   const parsed: Role[] = await fetchRoles(process.env.BUBBLE_API_PRIVATE_KEY as string, params);
 
-  return parsed.filter((role) => { role.slug != undefined && role.company.name != undefined && role.company.slug != undefined });
+  const parsed_filtered = parsed.filter((role) => { role.slug != undefined && role.company.name != undefined && role.company.slug != undefined });
+  return parsed;
 }
 
 export interface Props {
@@ -55,14 +56,22 @@ function getCompaniesFromRoles(roles: Role[]): Company[] {
 export async function getStaticProps() {
   console.log("Get static props is running");
 
-  const sortedRoles = await GetAllRelevantRoles().then((res) => {
-    const aaa = res.sort((a, b) => {
-      if (!a.company.priority) return 1;
-      if (!b.company.priority) return 1;
-      return a.company.priority < b.company.priority ? 1 : -1;
-    });
-    return aaa;
+  const response = await GetAllRelevantRoles();
+  const sortedRoles = response.sort((a, b) => {
+    if (!a.company.priority) return 1;
+    if (!b.company.priority) return 1;
+    return a.company.priority < b.company.priority ? 1 : -1;
   });
+
+
+  // const sortedRoles = await GetAllRelevantRoles().then((res) => {
+  //   const aaa = res.sort((a, b) => {
+  //     if (!a.company.priority) return 1;
+  //     if (!b.company.priority) return 1;
+  //     return a.company.priority < b.company.priority ? 1 : -1;
+  //   });
+  //   return aaa;
+  // });
 
   const filteredRoles = sortedRoles;
 
@@ -129,7 +138,6 @@ export default function Home(data: Props) {
 
 
   useEffect(() => {
-    console.log("BBBB");
     if (roleFilter) {
       setFilteredRoles(roleFilter.getFilteredRoles(variableRoles, userAddress, remoteOnly, roleType, searchterm));
     }
@@ -430,6 +438,7 @@ export default function Home(data: Props) {
             handleChange={(actiontype, role) => {
               if (actiontype == ActionType.Remove) {
                 setVariableRoles(variableRoles.filter(vrole => vrole.id != role.id));
+                setRevalidationNeccessary(true);
               }
             }}
           />}

@@ -96,7 +96,6 @@ function content(data: JobCardProps) {
             className={"body16Bold " + styles.applyButton}
             name="button-1675001572178"
             onClick={() => {
-              console.log("REMOVE 1");
               curateRole(role.id, "remove").then((success) => {
                 if (success === true) {
                   data.handleChange(ActionType.Remove, role);

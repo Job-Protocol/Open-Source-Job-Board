@@ -12,9 +12,6 @@ import {
 import { process_single_company_response } from "../company";
 import { StringDecoder } from "string_decoder";
 
-var psCache = require('ps-cache');
-var cache = new psCache.Cache();
-
 
 export async function fetch_company_by_slug(
   slug: string,
@@ -108,8 +105,8 @@ export default async function company_handler(
 
 
   const cache_id: string = "company_" + id;
-  if (cache.has(cache_id)) {
-    res.status(200).json(cache.get(cache_id));
+  if (false) {
+    // res.status(200).json(cache.get(cache_id));
     return;
   }
   else {
@@ -119,7 +116,6 @@ export default async function company_handler(
         id,
         process.env.BUBBLE_API_PRIVATE_KEY
       );
-      cache.set(cache_id, comp, { ttl: 1000 * 60 * 2 });
       res.status(200).json(comp);
     }
     else {
@@ -127,7 +123,6 @@ export default async function company_handler(
         id,
         process.env.BUBBLE_API_PRIVATE_KEY
       );
-      cache.set(cache_id, comp, { ttl: 1000 * 60 * 2 });
       if (!comp) {
         res.status(500);
         return;
