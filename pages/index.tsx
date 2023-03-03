@@ -111,7 +111,7 @@ export default function Home(data: Props) {
   const [showCuration, setShowCuration] = useState<boolean>(false);
   const [showCustomRole, setShowCustomRole] = useState<boolean>(false);
   const [showLogin, setShowLogin] = useState<boolean>(false);
-  const [adminMode, setAdminMode] = useState<boolean>(true);
+  const [adminMode, setAdminMode] = useState<boolean>(false);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
   const [variableRoles, setVariableRoles] = useState<Role[]>(data.sortedRoles);
 
@@ -239,7 +239,10 @@ export default function Home(data: Props) {
                     type="submit"
                     className={"body16Bold " + stylesGlobalFormElements.primaryButton}
                     name="button-admin-mode"
-                    onClick={() => setAdminMode(false)}
+                    onClick={() => {
+                      setAdminMode(false);
+                      router.replace('/', undefined, { shallow: true });
+                    }}
                     id="button-admin-mode"
                   >
                     Exit Admin Mode
