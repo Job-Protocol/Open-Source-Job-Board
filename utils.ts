@@ -115,7 +115,7 @@ export async function revalidate_page(page: string): Promise<boolean> {
   // Role curation was successfull, so now, revalidate the page.
   const url_revlidate: string = `/api/revalidate?path=${page}`;
   try {
-    console.log("Revalidating index page");
+    console.log("Revalidating index page: ", url_revlidate);
     const success_re: any = await fetch(url_revlidate);
     if (success_re.status != 200) {
       throw new Error(`API rejected with status ${success_re.status}`)

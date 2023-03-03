@@ -62,6 +62,7 @@ export async function getStaticProps() {
     if (!b.company.priority) return 1;
     return a.company.priority < b.company.priority ? 1 : -1;
   });
+  console.log("Get static props has finished");
 
 
   // const sortedRoles = await GetAllRelevantRoles().then((res) => {
@@ -74,6 +75,7 @@ export async function getStaticProps() {
   // });
 
   const filteredRoles = sortedRoles;
+  console.log("NOw having numroles: " + filteredRoles.length);
 
   const companies = sortedRoles.map((role) => role.company);
   // const companies: Company[] = [];
@@ -85,8 +87,8 @@ export async function getStaticProps() {
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
-    // - At most once every 10 seconds
-    revalidate: 60 * 30, // In seconds
+    // - At most once every 15 minuts
+    revalidate: 60 * 15, // In seconds
   };
 }
 

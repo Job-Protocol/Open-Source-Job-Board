@@ -22,21 +22,20 @@ export async function curate_role_by_id(
   //myHeaders.append("Content-Type", "text/plain");
 
   var urlencoded = new URLSearchParams();
-  urlencoded.append("title", "ttt");
+  //urlencoded.append("title", "ttt");
 
 
   // let myHeaders = new Headers();
   // myHeaders.append("Authorization", "Bearer ".concat(process.env.BUBBLE_API_PRIVATE_KEY as string));
 
-  let formdata = new FormData();
   if (method == "add") {
-    formdata.append(
+    urlencoded.append(
       "partner_boards",
       JSON.stringify([customer_config.jobprotocol_key])
     );
   } else if (method == "remove") {
     console.log("Adding remove to formdata");
-    formdata.append("partner_boards", JSON.stringify([]));
+    urlencoded.append("partner_boards", JSON.stringify([]));
   } else {
     console.log("method not recognized");
     return false;
