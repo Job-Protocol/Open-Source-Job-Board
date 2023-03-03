@@ -27,6 +27,8 @@ import { fetchRoles } from "@/pages/api/role";
 import { ActionType } from "@/components/role/jobcard";
 import RoleConditions from "@/components/role/detail/roleconditions";
 
+import { revalidate_page } from "../utils";
+
 export async function GetAllRelevantRoles(): Promise<Role[]> {
 
   const params = {
@@ -34,6 +36,7 @@ export async function GetAllRelevantRoles(): Promise<Role[]> {
   }
   const parsed: Role[] = await fetchRoles(process.env.BUBBLE_API_PRIVATE_KEY as string, params);
 
+  const parsed_filtered = parsed.filter((role) => { role.slug != undefined && role.company.name != undefined && role.company.slug != undefined });
   return parsed;
 }
 
@@ -51,17 +54,28 @@ function getCompaniesFromRoles(roles: Role[]): Company[] {
 // It may be called again, on a serverless function, if
 // revalidation is enabled and a new request comes in
 export async function getStaticProps() {
+  console.log("Get static props is running");
 
-  const sortedRoles = await GetAllRelevantRoles().then((res) => {
-    const aaa = res.sort((a, b) => {
-      if (!a.company.priority) return 1;
-      if (!b.company.priority) return 1;
-      return a.company.priority < b.company.priority ? 1 : -1;
-    });
-    return aaa;
+  const response = await GetAllRelevantRoles();
+  const sortedRoles = response.sort((a, b) => {
+    if (!a.company.priority) return 1;
+    if (!b.company.priority) return 1;
+    return a.company.priority < b.company.priority ? 1 : -1;
   });
+  console.log("Get static props has finished");
+
+
+  // const sortedRoles = await GetAllRelevantRoles().then((res) => {
+  //   const aaa = res.sort((a, b) => {
+  //     if (!a.company.priority) return 1;
+  //     if (!b.company.priority) return 1;
+  //     return a.company.priority < b.company.priority ? 1 : -1;
+  //   });
+  //   return aaa;
+  // });
 
   const filteredRoles = sortedRoles;
+  console.log("NOw having numroles: " + filteredRoles.length);
 
   const companies = sortedRoles.map((role) => role.company);
   // const companies: Company[] = [];
@@ -73,8 +87,8 @@ export async function getStaticProps() {
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
-    // - At most once every 10 seconds
-    revalidate: 60 * 30, // In seconds
+    // - At most once every 15 minuts
+    revalidate: 60 * 15, // In seconds
   };
 }
 
@@ -101,22 +115,31 @@ export default function Home(data: Props) {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
   const [variableRoles, setVariableRoles] = useState<Role[]>(data.sortedRoles);
 
+  const [revalidationNeccessary, setRevalidationNeccessary] = useState<boolean>(false);
+
 
   function updateCompanies() {
     setCompanies(variableRoles.map((role) => role.company));
   }
 
   useEffect(() => {
-
     if (params.mode && params.mode == 'admin') {//TODO(scheuclu): Remove hard coded password
       setShowLogin(true);
     }
   }, [params]);
 
 
+  useEffect(() => {
+    if (revalidationNeccessary === true) {
+      console.log("About to call revalidation");
+      revalidate_page('/');
+      setRevalidationNeccessary(false);
+    }
+  }, [revalidationNeccessary]);
+
+
 
   useEffect(() => {
-    console.log("BBBB");
     if (roleFilter) {
       setFilteredRoles(roleFilter.getFilteredRoles(variableRoles, userAddress, remoteOnly, roleType, searchterm));
     }
@@ -216,7 +239,10 @@ export default function Home(data: Props) {
                     type="submit"
                     className={"body16Bold " + stylesGlobalFormElements.primaryButton}
                     name="button-admin-mode"
-                    onClick={() => setAdminMode(false)}
+                    onClick={() => {
+                      setAdminMode(false);
+                      router.replace('/', undefined, { shallow: true });
+                    }}
                     id="button-admin-mode"
                   >
                     Exit Admin Mode
@@ -370,6 +396,7 @@ export default function Home(data: Props) {
               className={stylesGlobalFormElements.modal + " z-50"}
               onClick={() => {
                 setShowCuration(false);
+                setRevalidationNeccessary(true);
                 // refreshData();
               }}
             >
@@ -416,6 +443,7 @@ export default function Home(data: Props) {
             handleChange={(actiontype, role) => {
               if (actiontype == ActionType.Remove) {
                 setVariableRoles(variableRoles.filter(vrole => vrole.id != role.id));
+                setRevalidationNeccessary(true);
               }
             }}
           />}
