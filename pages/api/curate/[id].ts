@@ -18,8 +18,11 @@ export async function curate_role_by_id(
     "Bearer ".concat(process.env.NEXT_PUBLIC_BUBBLE_API_PRIVATE_KEY as string)
   );
 
-  //myHeaders.append("Content-Type", "multipart/form-data");
+  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
   //myHeaders.append("Content-Type", "text/plain");
+
+  var urlencoded = new URLSearchParams();
+  urlencoded.append("title", "ttt");
 
 
   // let myHeaders = new Headers();
@@ -43,7 +46,7 @@ export async function curate_role_by_id(
 
   // @ts-ignore
   const requestOptions: RequestInit = {
-    body: formdata,
+    body: urlencoded,
     method: "PATCH",
     headers: myHeaders,
     redirect: "follow",
