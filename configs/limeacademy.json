@@ -1,6 +1,9 @@
 {
     "jobprotocol_key": "Limeacademy",
-    "bubble_user_id": "0x0",
+    "bubble_user_id": {
+        "dev": "1677242159986x468907182827297700",
+        "production": "1677866183565x802757657419803000"
+    },
     "colors": {
         "main": "#F67637",
         "secondary": "#393939",

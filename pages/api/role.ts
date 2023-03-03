@@ -7,6 +7,14 @@ import { fetch_company_by_id } from "./company/[id]";
 import { fetch_by_id as fetchRoleLocation } from "./role/location/[id]";
 import { fetch_by_id as fetchRequirement } from "./requirement/[id]";
 
+import customer_config from "@/customer_config.json";
+
+export interface Constraint {
+    key: string
+    constraint_type: string
+    value: String
+
+}
 
 
 export async function process_single_role_response(role_response: any, key: string): Promise<Role> {
@@ -55,15 +63,24 @@ export async function process_single_role_response(role_response: any, key: stri
 }
 
 
-interface Constraints {
-    key: string,
-    constraint_type: string,
-    value: string | string[]
+// export interface Constraint {
+//     key: string,
+//     constraint_type: string,
+//     value: string | string[]
+// }
+
+function constraint2string(con: Constraint): string {
+    return `{%20%22key%22:%20%22${con.key}%22,%20%22constraint_type%22:%20%22${con.constraint_type}%22,%20%22value%22:%20%22${con.value}%22%20}`
+}
+
+function constraints2string(cons: Constraint[]): string {
+    // return `[%20${constraint2string(con[0])}%20,%20${constraint2string(con[1])}%20]`
+    return `[${cons.map(con => constraint2string(con)).join(",")}]`
 }
 
 export async function fetchRoles(
     key: string,
-    params: any
+    constraints: Constraint[]
 ): Promise<Role[]> {
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer ".concat(key));
@@ -73,12 +90,44 @@ export async function fetchRoles(
         redirect: "follow",
     };
 
-    const url_role: string = getConfig()["endpoint"] + "/obj/role?" + new URLSearchParams(params);
+
+    const params = new URLSearchParams(JSON.stringify(constraints[0]));
+    console.log("PARAMS", params);
+    console.log("JSON", JSON.stringify(constraints[0]));
+    console.log("CONSTRAINTS", params.toString());
+    // params.toString()
+
+
+    const a = constraints.map(a => JSON.stringify(a));
+    console.log("-------A", a);
+
+
+
+    const url_role: string = getConfig()["endpoint"] + "/obj/role?constraints=" + constraints2string(constraints);
+    // const url_role: string = getConfig()["endpoint"] + "/obj/role?constraints=[%20{%20%22key%22:%20%22Partner_boards%22,%20%22constraint_type%22:%20%22contains%22,%20%22value%22:%20%22Limeacademy%22%20}%20]";
+    console.log(url_role);
+
+
+
     const response = await fetch(url_role, requestOptions);
+    // console.log("RESPONSE", response);
 
     const result = await response.json();
 
-    const filtered = result.response.results.filter((r: any) => r !== null).filter((r: any) => r.company !== null);
+    if (!result.response) {
+        return []
+    }
+
+    const filtered = result.response.results.filter((r: any) => {
+        const keep = r !== 0 && r.company !== null;
+        // if (only_partner && keep) {
+        //     return r.partner_boards.includes(only_partner);
+        // }
+        return keep;
+    });
+
+
+    // r !== null).filter((r: any) => r.company !== null);
 
     const roles: any = filtered.map((result: any) => process_single_role_response(result, key));
 
@@ -91,13 +140,35 @@ export default async function handler(
     res: NextApiResponse<Role[]>
 ) {
 
+    console.log(req.query);
+
     res.setHeader('Cache-Control', 's-maxage=86400');
     if (!process.env.BUBBLE_API_PRIVATE_KEY) {
         res.status(500);
         return;
     }
 
-    const roles = await fetchRoles(process.env.BUBBLE_API_PRIVATE_KEY, req.query);
+
+    let constraints: Constraint[] = [];
+    if (req.query.partner) {
+        constraints.push({ key: "Partner_boards", constraint_type: "contains", value: req.query.partner as string })
+    }
+    if (req.query.owner) {
+        constraints.push({ key: "Private_owner", constraint_type: "equals", value: req.query.owner as string })
+    }
+
+
+    // var params = {
+    //     constraints: [constraint_partner]
+    // };
+    // if (req.query.partner_boards) {
+    //     params['constraints'].push(constraint_partner);
+    // }
+    // const params = {
+    //     constraints: `[{"key":"Partner_boards","constraint_type":"contains","value":"${customer_config.jobprotocol_key}"}]`
+    // }
+    console.log("USING THESE constraints", constraints)
+    const roles = await fetchRoles(process.env.BUBBLE_API_PRIVATE_KEY, constraints);
     res.status(200).json(roles);
 
 

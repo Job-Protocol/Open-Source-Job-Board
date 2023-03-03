@@ -24,35 +24,44 @@ import {
 
 export interface Props {
   roles: Role[];
+  title?: string | undefined;
   mode: "application" | "curation" | "remove";
   showBounty: boolean;
   handleChange: (actiontype: ActionType, role: Role) => void;
 }
 
-export default function Joblist(data: Props) {
+export default function Joblist({ roles, title = undefined, mode, showBounty, handleChange }: Props) {
+  // const { roles, title, mode, showBounty, handleChange } = Props;
 
   const [ignoreIDs, setIgnoreIDs] = useState<string[]>([]);
 
-  // var allroles = data.roles;
-  if (data.roles.length == 0) return (<p>No roles</p>);
+  // // var allroles = data.roles;
+  // if (roles.length == 0) return (<p>No roles</p>);
 
   return (
     <div className={styles.jobListContainer}>
-      {data.roles.filter(role => !ignoreIDs.includes(role.id)).map((role, index) => (
-        <JobCard
-          role={role}
-          key={role.id}
-          showBounty={data.showBounty}
-          mode={data.mode}
-          handleChange={(actiontype, role) => {
-            //It's ignored in this Joblist, because it's being added to another
-            if (actiontype == ActionType.Add) {
-              setIgnoreIDs([...ignoreIDs, role.id]);
+      <h2 className="title">{title}</h2>
+      {roles.length !== 0 ?
+
+        roles.filter(role => !ignoreIDs.includes(role.id)).map((role, index) => (
+          <JobCard
+            role={role}
+            key={role.id}
+            showBounty={showBounty}
+            mode={mode}
+            handleChange={(actiontype, role) => {
+              //It's ignored in this Joblist, because it's being added to another
+              if (actiontype == ActionType.Add) {
+                setIgnoreIDs([...ignoreIDs, role.id]);
+              }
+              handleChange(actiontype, role);
             }
-            data.handleChange(actiontype, role);
-          }
-          } />
-      ))}
+            } />
+        )) :
+        <p> - </p>
+
+      }
+
     </div>
   );
 }
