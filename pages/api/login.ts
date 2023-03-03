@@ -47,7 +47,6 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<IResponse>
 ) {
-    console.log("req.query", req.query);
 
     if (req.query.email == undefined || req.query.password == undefined) {
         res.status(401).json({ status: 401, result: undefined });

@@ -92,22 +92,10 @@ export async function fetchRoles(
 
 
     const params = new URLSearchParams(JSON.stringify(constraints[0]));
-    console.log("PARAMS", params);
-    console.log("JSON", JSON.stringify(constraints[0]));
-    console.log("CONSTRAINTS", params.toString());
-    // params.toString()
-
 
     const a = constraints.map(a => JSON.stringify(a));
-    console.log("-------A", a);
-
-
 
     const url_role: string = getConfig()["endpoint"] + "/obj/role?constraints=" + constraints2string(constraints);
-    // const url_role: string = getConfig()["endpoint"] + "/obj/role?constraints=[%20{%20%22key%22:%20%22Partner_boards%22,%20%22constraint_type%22:%20%22contains%22,%20%22value%22:%20%22Limeacademy%22%20}%20]";
-    console.log(url_role);
-
-
 
     const response = await fetch(url_role, requestOptions);
     // console.log("RESPONSE", response);
@@ -139,8 +127,6 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Role[]>
 ) {
-
-    console.log(req.query);
 
     res.setHeader('Cache-Control', 's-maxage=86400');
     if (!process.env.BUBBLE_API_PRIVATE_KEY) {

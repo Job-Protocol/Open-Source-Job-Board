@@ -43,10 +43,8 @@ export default function CurationModal(data: Props) {
         async function getCustomerRoles() {
             // const parsed: Role[] = await fetchRoles(process.env.BUBBLE_API_PRIVATE_KEY as string, params, 'Limeacademy');
             const user_id = process.env.NEXT_PUBLIC_CONFIG_VERSION == 'production' ? customer_config.bubble_user_id.production : customer_config.bubble_user_id.dev
-            console.log("USER ID", user_id);
             const result = await fetch(`/api/role?owner=${user_id}`);
             const parsed = await result.json();
-            console.log("XXXXXXXXX", parsed);
             setCustomerRoles(parsed.filter((role: Role) => !data.ignoreIDs.includes(role.id)));
         };
         getJPRoles();

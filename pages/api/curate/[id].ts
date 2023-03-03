@@ -29,15 +29,10 @@ export async function curate_role_by_id(
   // myHeaders.append("Authorization", "Bearer ".concat(process.env.BUBBLE_API_PRIVATE_KEY as string));
 
   if (method == "add") {
-    urlencoded.append(
-      "partner_boards",
-      JSON.stringify([customer_config.jobprotocol_key])
-    );
+    urlencoded.append("partner_boards", JSON.stringify([customer_config.jobprotocol_key]));
   } else if (method == "remove") {
-    console.log("Adding remove to formdata");
     urlencoded.append("partner_boards", JSON.stringify([]));
   } else {
-    console.log("method not recognized");
     return false;
   }
 
@@ -56,9 +51,7 @@ export async function curate_role_by_id(
   const url_role: string = getConfig()["endpoint"] + "/obj/role/" + id;
 
   try {
-    console.log("Curation request", url_role);
     const result: any = await fetch(url_role, requestOptions);
-    console.log("RESULT", result);
     if (result.status !== 204) {
       throw new Error(`Bubble returned unexecpected status code ${result.status}`);
     }

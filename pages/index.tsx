@@ -60,7 +60,6 @@ function getCompaniesFromRoles(roles: Role[]): Company[] {
 // It may be called again, on a serverless function, if
 // revalidation is enabled and a new request comes in
 export async function getStaticProps() {
-  console.log("Get static props is running");
 
   const response = await GetAllRelevantRoles();
   const sortedRoles = response.sort((a, b) => {
@@ -68,7 +67,6 @@ export async function getStaticProps() {
     if (!b.company.priority) return 1;
     return a.company.priority < b.company.priority ? 1 : -1;
   });
-  console.log("Get static props has finished");
 
 
   // const sortedRoles = await GetAllRelevantRoles().then((res) => {
@@ -137,7 +135,6 @@ export default function Home(data: Props) {
 
   useEffect(() => {
     if (revalidationNeccessary === true) {
-      console.log("About to call revalidation");
       revalidate_page('/');
       setRevalidationNeccessary(false);
     }

@@ -31,7 +31,6 @@ function content(data: JobCardProps) {
   async function curateRole(id: string, method: "remove" | "add"): Promise<boolean> {
     // const result = curate_role_by_id(id, method);
     const temp = await fetch(`/api/curate/${id}?method=${method}`);
-    console.log("status: " + temp.status);
     const result = temp.status === 200;
     return result;
   }

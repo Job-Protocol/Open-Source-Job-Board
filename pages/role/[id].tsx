@@ -39,7 +39,6 @@ export async function getStaticPaths() {
 
   const roles = await GetAllRelevantRoles();
   const slugs = roles.map(role => role.slug);
-  //console.log("------------------- SLUGS", slugs);
   const paths = slugs.map(slug => ({ params: { id: slug } }));
 
   return {
