@@ -46,7 +46,7 @@ export async function process_single_company_response(response_company: any, key
     comp.tagline = response_company.tagline ? response_company.tagline : null;
     comp.press_article_links = press_article_links ? press_article_links : null;
     comp.founding_year = response_company.founding_year ? response_company.founding_year : null;
-    comp.slug = response_company.Slug;
+    comp.slug = response_company.Slug ? response_company.Slug : `${comp.name.replace(' ', '_').replace(' ', '.')}`;
     comp.mission = response_company.mission ? response_company.mission : null;
     comp.priority = response_company.priority ? response_company.priority : 1;
     comp.keywords = [comp.name, comp.headquarters];

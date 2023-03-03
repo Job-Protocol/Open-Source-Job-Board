@@ -57,6 +57,15 @@ export async function curate_role_by_id(
     console.log("THE ERROR", e);
     return false
   }
+
+  // Role curation was successfull, so now, revalidate the page.
+  const url_revlidate: string = "/api/revalidate?page=/?path=/";
+  try {
+    const success_re: any = await fetch(url_role);
+  } catch (e) {
+    console.log("Revalidation failed with error", e);
+    return false
+  }
   return true;
 }
 
