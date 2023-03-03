@@ -11,10 +11,6 @@ export async function curate_role_by_id(
   method: "add" | "remove" | undefined,
 ): Promise<boolean> {
 
-  console.log("KEY", process.env.BUBBLE_API_PRIVATE_KEY);
-  console.log("KEY", process.env.NEXT_PUBLIC_BUBBLE_API_PRIVATE_KEY);
-  console.log("aaa", customer_config.jobprotocol_key);
-
 
   var myHeaders = new Headers();
   myHeaders.append(
@@ -40,7 +36,6 @@ export async function curate_role_by_id(
     console.log("method not recognized");
     return false;
   }
-  console.log("formdata", formdata);
 
   //   let url = new URLSearchParams(formdata as any).toString();
 
@@ -51,16 +46,13 @@ export async function curate_role_by_id(
     headers: myHeaders,
     redirect: "follow",
   };
-  console.log("requestOptions", requestOptions);
 
 
 
   const url_role: string = getConfig()["endpoint"] + "/obj/role/" + id;
-  console.log("url_role", url_role);
 
   try {
     const result: any = await fetch(url_role, requestOptions);
-    console.log("result", result);
   } catch (e) {
     console.log("THE ERROR", e);
     return false
@@ -76,13 +68,10 @@ export default async function role_handler(
   req: NextApiRequest,
   res: NextApiResponse<IResponse>
 ) {
-  console.log("req.query", process.env.BUBBLE_API_PRIVATE_KEY, customer_config.jobprotocol_key);
 
   const method: string | undefined = req.method;
   const { id } = req.query;
   const body = req.body;
-  //console.log("body", body);
-  //console.log("id", id);
 
   if (!id) {
     res.status(400).json({ message: "Missing id" });
