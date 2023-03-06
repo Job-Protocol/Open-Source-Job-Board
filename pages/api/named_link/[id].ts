@@ -1,11 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getConfig } from "@/utils";
 import { postMessage } from "@/utils";
-
 import { NamedLink, getDefaultNamedLink } from "@/bubble_types";
-
-var psCache = require('ps-cache');
-var cache = new psCache.Cache();
 
 export async function fetch_by_id(id: string, key: string): Promise<NamedLink> {
   var myHeaders = new Headers();
@@ -35,21 +31,13 @@ export default async function company_handler(
 ) {
   const { id } = req.query;
 
-
   if (!process.env.BUBBLE_API_PRIVATE_KEY || typeof id !== "string") {
     res.status(500);
     return;
   }
 
-
   const cache_id: string = "named_link_" + id;
-  if (cache.has(cache_id)) {
-    res.status(200).json(cache.get(cache_id));
-    return;
-  }
-  else {
-    const role = await fetch_by_id(id, process.env.BUBBLE_API_PRIVATE_KEY);
-    cache.set(cache_id, role, { ttl: 1000 * 60 * 2 });
-    res.status(200).json(role);
-  }
+  const role = await fetch_by_id(id, process.env.BUBBLE_API_PRIVATE_KEY);
+  res.status(200).json(role);
+
 }

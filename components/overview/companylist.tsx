@@ -14,17 +14,6 @@ import { Company, Role } from "@/bubble_types";
 
 import Loading from "@/components/loading"
 
-async function GetCompanyData(): Promise<Company[]> {
-  const results = getConfig()["company-ids"].map(async (companyid: string) => {
-    const result = await fetch("api/company/" + companyid);
-    const parsed = await result.json();
-    return parsed;
-  });
-  const role_data = await Promise.all(results);
-
-  return role_data;
-}
-
 export interface Props {
   companies: Company[] | null;
 }

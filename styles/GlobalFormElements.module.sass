@@ -87,9 +87,10 @@
   left: 0
   top: 0
   width: 100%//; /* Full width */
+  min-height: 500px
   height: 100%//; /* Full height */
   overflow: auto//; /* Enable scroll if needed */
-  background-color: rgb(100, 0, 0)//; /* Fallback color */
+  // background-color: rgb(100, 0, 0)//; /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4)//; /* Black w/ opacity */
   // transition: background-color 2s
 
@@ -98,13 +99,16 @@
     border-color: Variables.$border-color
 
   &_iframe
-    display: span
-    overflow: hidden
-    position: relative
+    display: block
+    // overflow: hidden
+    contain: content
+    position: auto
     max-width: 720px
     margin: 24px
     border-radius: 24px
     paddin-left: 10px
+    // height: auto
+    max-height: 100%
 
   &_content
     display: flex

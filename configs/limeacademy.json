@@ -1,5 +1,6 @@
 {
     "jobprotocol_key": "Limeacademy",
+    "bubble_user_email": "limeacademy@jobprotocol.co",
     "bubble_user_id": {
         "dev": "1677242159986x468907182827297700",
         "production": "1677866183565x802757657419803000"
@@ -16,7 +17,7 @@
     },
     "border_width": "2px",
     "border_radius": "12px",
-    "title": "LimeAcademy Job Board",
+    "title": "Limeacademy Job Board",
     "subtitle": "The best opportunities in crypto",
     "referred_by": "1677242159986x468907182827297700",
     "branding": {

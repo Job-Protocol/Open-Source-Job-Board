@@ -1,6 +1,5 @@
 import Head from "next/head";
 import styles from "@/styles/Roledetailpage.module.sass";
-import styles_req from "@/styles/Requirements.module.sass";
 import JdCard from "@/components/role/detail/jobdesc";
 import ApplyCard from "@/components/role/apply";
 import CompanyCard from "@/components/role/detail/companyinfo";
@@ -10,7 +9,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import customer_config from "@/customer_config.json";
 
-import { Role, Requirement, getDefaultRole } from "@/bubble_types";
+import { Role } from "@/bubble_types";
 import RoleConditions from "@/components/role/detail/roleconditions";
 
 import FourOhFour from "@/pages/404";
@@ -39,7 +38,6 @@ export async function getStaticPaths() {
 
   const roles = await GetAllRelevantRoles();
   const slugs = roles.map(role => role.slug);
-  //console.log("------------------- SLUGS", slugs);
   const paths = slugs.map(slug => ({ params: { id: slug } }));
 
   return {
@@ -213,78 +211,6 @@ export default function Home(props: Props) {
               </p>
               <RoleConditions role={role} showBounty={false} isInverted={false} />
             </div>
-            {/* TODO(scheuclu) Role options are disabled until we have the data */}
-            {/* <div className={styles.roleOptionsContainer}>
-              <div className={styles.roleOptionContainer}>
-                <div className={styles.roleOptionIconContainer}>
-                  <Image
-                    src={"/building.svg"}
-                    alt="BuildingIcon"
-                    width={20}
-                    height={20}
-                  />
-                </div>
-                <div
-                  className={
-                    "body14Bold " + styles.roleOptionTextAndInfoContainer
-                  }
-                >
-                  Hybrid work environment
-                  <Image
-                    src={"/info.svg"}
-                    alt="InfoIcon"
-                    width={13}
-                    height={13}
-                  />
-                </div>
-              </div>
-              <div className={styles.roleOptionContainer}>
-                <div className={styles.roleOptionIconContainer}>
-                  <Image
-                    src={"/building.svg"}
-                    alt="BuildingIcon"
-                    width={20}
-                    height={20}
-                  />
-                </div>
-                <div
-                  className={
-                    "body14Bold " + styles.roleOptionTextAndInfoContainer
-                  }
-                >
-                  Hybrid work environment
-                  <Image
-                    src={"/info.svg"}
-                    alt="InfoIcon"
-                    width={13}
-                    height={13}
-                  />
-                </div>
-              </div>
-              <div className={styles.roleOptionContainer}>
-                <div className={styles.roleOptionIconContainer}>
-                  <Image
-                    src={"/building.svg"}
-                    alt="BuildingIcon"
-                    width={20}
-                    height={20}
-                  />
-                </div>
-                <div
-                  className={
-                    "body14Bold " + styles.roleOptionTextAndInfoContainer
-                  }
-                >
-                  Hybrid work environment
-                  <Image
-                    src={"/info.svg"}
-                    alt="InfoIcon"
-                    width={13}
-                    height={13}
-                  />
-                </div>
-              </div>
-            </div> */}
           </div>
           <div className={styles.JDAndCompanyCardContainer}>
             <JdCard desc={role?.desc as string} />

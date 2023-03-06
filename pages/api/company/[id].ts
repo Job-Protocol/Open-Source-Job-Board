@@ -4,9 +4,6 @@ import { postMessage } from "@/utils";
 
 import {
   Company,
-  CompanySocials,
-  getDefaultCompany,
-  NamedLink,
 } from "@/bubble_types";
 
 import { process_single_company_response } from "../company";

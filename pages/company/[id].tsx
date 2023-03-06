@@ -1,38 +1,19 @@
 import Head from "next/head";
 import styles from "@/styles/Roledetailpage.module.sass";
 import styles_home from "@/styles/Home.module.sass";
-import JdCard from "@/components/role/detail/jobdesc";
-import ApplyCard from "@/components/role/apply";
-import CompanyCard from "@/components/role/detail/companyinfo";
 import Footer from "@/components/overview/footer";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { getConfig } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
-import SwitchRolesCompanies from "@/components/overview/switch_roles_companies";
-
 import customer_config from "@/customer_config.json";
-
 import { Company, Role } from "@/bubble_types";
-import RoleConditions from "@/components/role/detail/roleconditions";
 import Joblist from "@/components/overview/joblist";
-
 import JobFilters from "@/components/overview/jobfilters";
 import { GeographicAddress } from "@/bubble_types";
-
 import Filter from "@/components/overview/filter";
-
 import { GetAllRelevantRoles } from "@/pages/index";
 import CompanyConditions from "@/components/company/companyconditions";
-
-import { fetch_company_by_slug_or_id } from "@/pages/api/company/[id]";
-
-// async function getCompanyData(id: string): Promise<Company> {
-//   const result = await fetch(`${process.env.BASE_URL}/api/company/` + id);
-//   const parsed = await result.json();
-//   return parsed;
-// }
 
 export interface Props {
   company: Company;
@@ -40,9 +21,6 @@ export interface Props {
 }
 
 export async function getStaticPaths() {
-
-  // const allIDs = await GetAllIDs();
-  // const companyIDS = allIDs[0];
 
   const roles = await GetAllRelevantRoles();
 
@@ -62,14 +40,6 @@ export async function getStaticProps(context: any) {
   const all_roles = await GetAllRelevantRoles();
   const this_company_roles = all_roles.filter(role => role.company.slug === context.params.id);
   const this_company = this_company_roles[0].company;
-
-
-
-  // const company = await getCompanyData(context.params.id);
-  // const allIDs = await GetAllIDs(); //TODO(scheuclu) URGENT. Replace this with more efficient query. E.g. query bubble to only return roles for this company.
-  // const roleIDs = allIDs[1];
-  // const allRoles = await GetRolesByRoleIDs(roleIDs);
-  // const companyroles = allRoles.filter(role => role.company.id === company.id);
 
   return {
     // Passed to the page component as props
@@ -177,97 +147,11 @@ export default function Home(props: Props) {
                 </div>
               </div>
             </div>
-
-            {/* TODO(scheuclu) */}
-            {/* <div className={styles.roleOptionsContainer}>
-              <div className={styles.roleOptionContainer}>
-                <div className={styles.roleOptionIconContainer}>
-                  <Image
-                    src={"/building.svg"}
-                    alt="BuildingIcon"
-                    width={20}
-                    height={20}
-                  />
-                </div>
-                <div className={styles.roleOptionTextAndInfoContainer}>
-                  Hybrid work environment
-                  <Image
-                    src={"/info.svg"}
-                    alt="InfoIcon"
-                    width={13}
-                    height={13}
-                  />
-                </div>
-              </div>
-              <div className={styles.roleOptionContainer}>
-                <div className={styles.roleOptionIconContainer}>
-                  <Image
-                    src={"/building.svg"}
-                    alt="BuildingIcon"
-                    width={20}
-                    height={20}
-                  />
-                </div>
-                <div className={styles.roleOptionTextAndInfoContainer}>
-                  Hybrid work environment
-                  <Image
-                    src={"/info.svg"}
-                    alt="InfoIcon"
-                    width={13}
-                    height={13}
-                  />
-                </div>
-              </div>
-              <div className={styles.roleOptionContainer}>
-                <div className={styles.roleOptionIconContainer}>
-                  <Image
-                    src={"/building.svg"}
-                    alt="BuildingIcon"
-                    width={20}
-                    height={20}
-                  />
-                </div>
-                <div className={styles.roleOptionTextAndInfoContainer}>
-                  Hybrid work environment
-                  <Image
-                    src={"/info.svg"}
-                    alt="InfoIcon"
-                    width={13}
-                    height={13}
-                  />
-                </div>
-              </div>
-            </div> */}
           </div>
 
           <div
             className={styles_home.filtersContainer + " " + styles.desktopOnly}
           >
-            {/* TODO(scheuclu) Disabling Search filters for now */}
-            {/* <div className={styles_home.row}>
-              <div className={styles_home.inputContainer}>
-                <div className={styles_home.inputIconContainer}>
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M14.2356 13.765C14.3658 13.6348 14.3658 13.4237 14.2357 13.2935L10.876 9.93327C11.602 9.0026 12 7.86589 12 6.66659C12 5.24194 11.4447 3.90389 10.4373 2.89591C9.43002 1.88794 8.09132 1.33325 6.66668 1.33325C5.24203 1.33325 3.90268 1.88794 2.89601 2.89591C1.88803 3.90389 1.33334 5.24194 1.33334 6.66659C1.33334 8.09123 1.88803 9.43058 2.89601 10.4373C3.90268 11.4452 5.24203 11.9999 6.66668 11.9999C7.86598 11.9999 9.0027 11.6026 9.93336 10.8765L13.293 14.2362C13.4232 14.3664 13.6342 14.3664 13.7644 14.2362L14.2356 13.765ZM9.49464 9.49528C8.73935 10.2506 7.73471 10.6666 6.66668 10.6666C5.59799 10.6666 4.594 10.2506 3.83871 9.49528C3.08269 8.73991 2.66668 7.73527 2.66668 6.66659C2.66668 5.59855 3.08269 4.59391 3.83871 3.83862C4.594 3.0826 5.59799 2.66659 6.66668 2.66659C7.73471 2.66659 8.73935 3.0826 9.49464 3.83862C10.2507 4.59391 10.6667 5.59855 10.6667 6.66659C10.6667 7.73527 10.2507 8.73991 9.49464 9.49528Z"
-                      fill="#1F2534"
-                    />
-                  </svg>
-                </div>
-                <input
-                  className={styles_home.input}
-                  placeholder="Search"
-                ></input>
-              </div>
-            </div> */}
             <JobFilters
               handleChange={(userAddress, remoteOnly) => {
                 setUserAddress(userAddress);

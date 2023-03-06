@@ -7,6 +7,9 @@ import { fetch_company_by_id } from "./company/[id]";
 import { fetch_by_id as fetchRoleLocation } from "./role/location/[id]";
 import { fetch_by_id as fetchRequirement } from "./requirement/[id]";
 
+
+import { paginated_fetch } from "@/utils";
+
 import customer_config from "@/customer_config.json";
 
 export interface Constraint {
@@ -92,33 +95,14 @@ export async function fetchRoles(
 
 
     const params = new URLSearchParams(JSON.stringify(constraints[0]));
-    console.log("PARAMS", params);
-    console.log("JSON", JSON.stringify(constraints[0]));
-    console.log("CONSTRAINTS", params.toString());
-    // params.toString()
-
 
     const a = constraints.map(a => JSON.stringify(a));
-    console.log("-------A", a);
-
-
 
     const url_role: string = getConfig()["endpoint"] + "/obj/role?constraints=" + constraints2string(constraints);
-    // const url_role: string = getConfig()["endpoint"] + "/obj/role?constraints=[%20{%20%22key%22:%20%22Partner_boards%22,%20%22constraint_type%22:%20%22contains%22,%20%22value%22:%20%22Limeacademy%22%20}%20]";
-    console.log(url_role);
 
+    const newresult = await paginated_fetch(url_role, requestOptions);
 
-
-    const response = await fetch(url_role, requestOptions);
-    // console.log("RESPONSE", response);
-
-    const result = await response.json();
-
-    if (!result.response) {
-        return []
-    }
-
-    const filtered = result.response.results.filter((r: any) => {
+    const filtered = newresult.filter((r: any) => {
         const keep = r !== 0 && r.company !== null;
         // if (only_partner && keep) {
         //     return r.partner_boards.includes(only_partner);
@@ -140,8 +124,6 @@ export default async function handler(
     res: NextApiResponse<Role[]>
 ) {
 
-    console.log(req.query);
-
     res.setHeader('Cache-Control', 's-maxage=86400');
     if (!process.env.BUBBLE_API_PRIVATE_KEY) {
         res.status(500);
@@ -150,12 +132,18 @@ export default async function handler(
 
 
     let constraints: Constraint[] = [];
-    if (req.query.partner) {
-        constraints.push({ key: "Partner_boards", constraint_type: "contains", value: req.query.partner as string })
-    }
     if (req.query.owner) {
         constraints.push({ key: "Private_owner", constraint_type: "equals", value: req.query.owner as string })
     }
+    if (req.query.state) {
+        if (req.query.state != "All") {
+            constraints.push({ key: "Private_owner", constraint_type: "equals", value: req.query.state as string })
+        }
+    } else {
+        constraints.push({ key: "State", constraint_type: "equals", value: "Live" })
+    }
+
+
 
 
     // var params = {
