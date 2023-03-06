@@ -7,6 +7,9 @@ import { fetch_company_by_id } from "./company/[id]";
 import { fetch_by_id as fetchRoleLocation } from "./role/location/[id]";
 import { fetch_by_id as fetchRequirement } from "./requirement/[id]";
 
+
+import { paginated_fetch } from "@/utils";
+
 import customer_config from "@/customer_config.json";
 
 export interface Constraint {
@@ -97,16 +100,9 @@ export async function fetchRoles(
 
     const url_role: string = getConfig()["endpoint"] + "/obj/role?constraints=" + constraints2string(constraints);
 
-    const response = await fetch(url_role, requestOptions);
-    // console.log("RESPONSE", response);
+    const newresult = await paginated_fetch(url_role, requestOptions);
 
-    const result = await response.json();
-
-    if (!result.response) {
-        return []
-    }
-
-    const filtered = result.response.results.filter((r: any) => {
+    const filtered = newresult.filter((r: any) => {
         const keep = r !== 0 && r.company !== null;
         // if (only_partner && keep) {
         //     return r.partner_boards.includes(only_partner);

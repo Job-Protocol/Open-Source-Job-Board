@@ -1,23 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styles from "@/styles/Curation.module.sass";
+import styles2 from "@/styles/Home.module.sass";
 import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.sass";
 import { Role, Requirement } from "@/bubble_types";
 import Joblist from "../overview/joblist";
-// import Requirement from "./detail/roleconditions";
-
-import { Company } from "@/bubble_types";
 import Loading from "../loading";
 
 import { ActionType } from "../role/jobcard";
 import customer_config from "@/customer_config.json";
-
-import { fetchRoles } from "@/pages/api/role";
-// export async function GetCompanies(): Promise<Company[]> {
-//     const result = await fetch('/api/companies');
-//     const parsed = await result.json();
-//     return parsed;
-// }
-
 
 
 export interface Props {
@@ -31,6 +21,8 @@ export default function CurationModal(data: Props) {
     const [jobprotocolRoles, setJobprotocolRoles] = useState<Role[] | null>(null);
     // const [bubbleCompanies, setBubbleCompanies] = useState<Company[] | null>([]);
     const [customerRoles, setCustomerRoles] = useState<Role[] | null>(null);
+    // const [searchTerm, setSearchterm] = useState<string | null>(null);
+    // const [filteredJPRoles, setFilteredJPRoles] = useState<Role[]>([]);
 
     //Load up to 100 roles at a time
     useEffect(() => {
@@ -53,6 +45,9 @@ export default function CurationModal(data: Props) {
 
 
 
+
+
+
     return (
         // <div className={styles.modal}>
         <div
@@ -61,11 +56,14 @@ export default function CurationModal(data: Props) {
 
         >
             <h1 className="text-center">Add roles to the dashboard.</h1>
+            <h2 className="text-center">You can add both your own roles as well as generatl Jobprotocol roles to your jobboard here. </h2>
             <hr></hr>
+
             <div className="flex flex-col gap-y-1">
-                {/* <h2>Roles you have previously created</h2> */}
+                {/* <h2>Roles you have previously created </h2> */}
                 {customerRoles !== null && <Joblist
-                    title="Roles you have previously created"
+                    // title="Roles you have previously created"
+                    title={`Roles you have previously created (${customerRoles.length})`}
                     roles={customerRoles}
                     mode='curation'
                     showBounty={true}
@@ -75,9 +73,8 @@ export default function CurationModal(data: Props) {
             </div>
             <hr></hr>
             <div className="flex flex-col gap-y-1">
-                {/* <h2>Joprotocol roles</h2> */}
                 {jobprotocolRoles !== null && <Joblist
-                    title="Joprotocol roles"
+                    title={`Other roles from app.jobprotocol.xyz (${jobprotocolRoles.length})`}
                     roles={jobprotocolRoles}
                     mode='curation'
                     showBounty={true}
@@ -86,6 +83,5 @@ export default function CurationModal(data: Props) {
                 {jobprotocolRoles == null && <Loading />}
             </div>
         </div>
-        // </div>
     );
 }

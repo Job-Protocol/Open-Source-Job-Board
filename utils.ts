@@ -128,3 +128,42 @@ export async function revalidate_page(page: string): Promise<boolean> {
   return true;
 }
 
+
+export async function paginated_fetch(url: string, requestOptions: any): Promise<any[]> {
+  let finals: any[] = [];
+  let finished: boolean = false;
+  let cursor = 0;
+
+  // Add cursor
+  let updated_url = new URL(url);
+  let search_params = updated_url.searchParams;
+  if (!search_params.has("cursor")) {
+    search_params.set("cursor", "0");
+    updated_url.search = search_params.toString();
+  }
+
+  while (!finished) {
+    const response = await fetch(updated_url.toString(), requestOptions);
+    if (response.status != 200) {
+      postMessage(
+        "URGENT: 'fetch_pageinated_bubble' failed with status code " +
+        response.status.toString()
+      );
+    }
+    const result = await response.json();
+    finals = finals.concat(result.response.results);
+
+    const bubble_count = result.response.count;
+    const bubble_remaining = result.response.remaining;
+
+    finished = bubble_remaining == 0 || cursor === 10000;
+    cursor = cursor + bubble_count;
+
+    let search_params = updated_url.searchParams;
+    search_params.set("cursor", cursor.toString());
+    updated_url.search = search_params.toString();
+  }
+  return finals;
+
+}
+

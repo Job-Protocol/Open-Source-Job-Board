@@ -39,7 +39,7 @@ export async function process_single_company_response(response_company: any, key
     const comp: Company = getDefaultCompany();
     comp.id = response_company._id;
     comp.name = response_company.Name;
-    comp.logo = response_company.Logo;
+    comp.logo = response_company.Logo ? response_company.Logo : "https://static.thenounproject.com/png/88781-200.png";
     comp.headquarters = response_company.headquarters ? response_company.headquarters : null;
     comp.num_employees = response_company.num_employees ? response_company.num_employees : null;
     comp.socials = socials;

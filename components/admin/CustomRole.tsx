@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
-import styles from "@/styles/Curation.module.sass";
 import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.sass";
 import { Role, Requirement } from "@/bubble_types";
-import Joblist from "../overview/joblist";
 // import Requirement from "./detail/roleconditions";
 
 import { Company } from "@/bubble_types";
-import Loading from "../loading";
 
 import { ActionType } from "../role/jobcard";
 
@@ -18,14 +15,11 @@ export async function GetCompanies(): Promise<Company[]> {
 }
 
 
-
 export interface Props {
     handleChange: (actiontype: ActionType, role: Role) => void;
 }
 
-
 export default function CustomRole(data: Props) {
-
     const [bubbleRoles, setBubbleRoles] = useState<Role[] | null>(null);
     // const [bubbleCompanies, setBubbleCompanies] = useState<Company[] | null>([]);
 

@@ -1,12 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getConfig, postMessage } from "@/utils";
-
 import { Role, getDefaultRole } from "@/bubble_types";
-
 import { process_single_role_response } from "../role";
-
-var psCache = require('ps-cache');
-var cache = new psCache.Cache();
 
 
 
@@ -78,24 +73,13 @@ export default async function role_handler(
     return;
   }
 
-  const cache_id: string = "role_" + id;
-  if (cache.has(cache_id)) {
-    res.status(200).json(cache.get(cache_id));
-    return;
-  }
-  else {
-
-    //Decide whether to fetch by slug or by id
-    if (id.length === 32 && id[13] === 'x') { //TODO(scheuclu) Improve this (maybe use regex
-      const role = await fetch_role_by_id(id, process.env.BUBBLE_API_PRIVATE_KEY);
-      cache.set(cache_id, role, { ttl: 1000 * 60 * 2 });
-      res.status(200).json(role);
-    } else {
-      const role = await fetch_role_by_slug(id, process.env.BUBBLE_API_PRIVATE_KEY);
-      cache.set(cache_id, role, { ttl: 1000 * 60 * 2 });
-      res.status(200).json(role);
-    }
-
+  //Decide whether to fetch by slug or by id
+  if (id.length === 32 && id[13] === 'x') { //TODO(scheuclu) Improve this (maybe use regex
+    const role = await fetch_role_by_id(id, process.env.BUBBLE_API_PRIVATE_KEY);
+    res.status(200).json(role);
+  } else {
+    const role = await fetch_role_by_slug(id, process.env.BUBBLE_API_PRIVATE_KEY);
+    res.status(200).json(role);
   }
 
 }

@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import config from "@/config.json";
 import { addressstring_to_type } from "@/utils";
 import { getConfig } from "@/utils";
 
@@ -12,8 +11,7 @@ import {
   RoleLocation,
   getDefaultRoleLocation,
   RoleLocationType,
-  TimezoneRange,
-  GeographicAddress,
+  TimezoneRange
 } from "@/bubble_types";
 
 export async function fetch_by_id(

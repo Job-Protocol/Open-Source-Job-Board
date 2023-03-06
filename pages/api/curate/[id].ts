@@ -1,10 +1,8 @@
 // @ts-nocheck
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getConfig, postMessage } from "@/utils";
-import FormData from 'form-data';
+import { getConfig } from "@/utils";
 
 import customer_config from "@/customer_config.json";
-
 
 export async function curate_role_by_id(
   id: string,
@@ -19,14 +17,7 @@ export async function curate_role_by_id(
   );
 
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-  //myHeaders.append("Content-Type", "text/plain");
-
   var urlencoded = new URLSearchParams();
-  //urlencoded.append("title", "ttt");
-
-
-  // let myHeaders = new Headers();
-  // myHeaders.append("Authorization", "Bearer ".concat(process.env.BUBBLE_API_PRIVATE_KEY as string));
 
   if (method == "add") {
     urlencoded.append("partner_boards", JSON.stringify([customer_config.jobprotocol_key]));
@@ -36,8 +27,6 @@ export async function curate_role_by_id(
     return false;
   }
 
-  //   let url = new URLSearchParams(formdata as any).toString();
-
   // @ts-ignore
   const requestOptions: RequestInit = {
     body: urlencoded,
@@ -45,8 +34,6 @@ export async function curate_role_by_id(
     headers: myHeaders,
     redirect: "follow",
   };
-
-
 
   const url_role: string = getConfig()["endpoint"] + "/obj/role/" + id;
 
@@ -59,16 +46,6 @@ export async function curate_role_by_id(
     console.log("THE ERROR", e);
     return false
   }
-
-  // // Role curation was successfull, so now, revalidate the page.
-  // const url_revlidate: string = "/api/revalidate?page=/?path=/";
-  // try {
-  //   console.log("Revalidating index page");
-  //   const success_re: any = await fetch(url_revlidate);
-  // } catch (e) {
-  //   console.log("Revalidation failed with error", e);
-  //   return false
-  // }
 
   return true;
 }
