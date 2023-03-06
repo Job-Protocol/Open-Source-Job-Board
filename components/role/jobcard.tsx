@@ -90,29 +90,50 @@ function content(data: JobCardProps) {
           </button>
         )}
         {data.mode == "remove" && (
-          <button
-            type="submit"
-            className={"body16Bold " + styles.applyButton}
-            name="button-1675001572178"
-            onClick={() => {
-              curateRole(role.id, "remove").then((success) => {
-                if (success === true) {
-                  data.handleChange(ActionType.Remove, role);
-                } else {
-                  Swal.fire({
-                    title: "Error !",
-                    text: "Adding role failes. Reach out to us if this is a continous issue",
-                    icon: "error",
-                    iconColor: "#481f84",
-                    confirmButtonText: "Close",
-                  })
-                }
-              });
-            }}
-            id="button-apply"
-          >
-            Remove
-          </button>
+          <div className="flex flex-col gap-y-1">
+
+            <Link
+              // className={"body16Bold " + styles.applyButton}
+              href={"role/" + role.slug}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button
+                type="submit"
+                className={"body16Bold " + styles.applyButton}
+                name="button-1675001572178"
+                onClick={() => data.handleChange(ActionType.View, role)}
+                id="button-apply"
+              >
+                View
+              </button>
+            </Link>
+
+
+            <button
+              type="submit"
+              className={"body16Bold " + styles.applyButton}
+              name="button-1675001572178"
+              onClick={() => {
+                curateRole(role.id, "remove").then((success) => {
+                  if (success === true) {
+                    data.handleChange(ActionType.Remove, role);
+                  } else {
+                    Swal.fire({
+                      title: "Error !",
+                      text: "Adding role failes. Reach out to us if this is a continous issue",
+                      icon: "error",
+                      iconColor: "#481f84",
+                      confirmButtonText: "Close",
+                    })
+                  }
+                });
+              }}
+              id="button-apply"
+            >
+              Remove
+            </button>
+          </div>
         )}
         {data.mode == "curation" && (
           <div className="flex flex-col gap-y-1">

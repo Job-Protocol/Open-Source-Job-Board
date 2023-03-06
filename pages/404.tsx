@@ -3,6 +3,8 @@ import Link from 'next/link'
 import Image from "next/image";
 import styles from "@/styles/Home.module.sass";
 
+import customer_config from "@/customer_config.json";
+
 import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.sass";
 
 export default function FourOhFour() {
@@ -11,7 +13,7 @@ export default function FourOhFour() {
             <div className={"pageContainer"}>
                 <div className={styles.coverImageContainer}>
                     <Image
-                        src={"/background_eth_3.jpg"}
+                        src={customer_config.branding.banner}
                         alt="Header image"
                         fill
                         className={styles.headerImage}

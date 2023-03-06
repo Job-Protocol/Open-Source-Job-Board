@@ -33,7 +33,8 @@ export async function GetAllRelevantRoles(): Promise<Role[]> {
 
 
   const constraints: Constraint[] = [
-    { key: 'Partner_boards', constraint_type: 'contains', value: customer_config.jobprotocol_key }
+    { key: 'Private_owner', constraint_type: 'equals', value: customer_config.bubble_user_id.production },
+    { key: 'State', constraint_type: 'equals', value: "Live" }
   ]
 
 
@@ -50,7 +51,13 @@ export interface Props {
 
 
 function getCompaniesFromRoles(roles: Role[]): Company[] {
-  return [];
+  const unfiltered = roles.map((role) => role.company);
+  const ids = unfiltered.map((company) => company.id);
+  const result = unfiltered.filter((value, index) => {
+    return ids.indexOf(value.id) === index
+
+  });
+  return result;
 }
 
 // This function gets called at build time on server-side.
@@ -67,7 +74,7 @@ export async function getStaticProps() {
 
   const filteredRoles = sortedRoles;
 
-  const companies = sortedRoles.map((role) => role.company);
+  const companies = getCompaniesFromRoles(sortedRoles);
   // const companies: Company[] = [];
 
   return {
@@ -103,14 +110,17 @@ export default function Home(data: Props) {
   const [showLogin, setShowLogin] = useState<boolean>(false);
   const [adminMode, setAdminMode] = useState<boolean>(true);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
+
   const [variableRoles, setVariableRoles] = useState<Role[]>(data.sortedRoles);
+  const [variableCompanies, setVariableCompanies] = useState<Company[]>(data.companies);
 
   const [revalidationNeccessary, setRevalidationNeccessary] = useState<boolean>(false);
 
 
-  function updateCompanies() {
-    setCompanies(variableRoles.map((role) => role.company));
-  }
+  // function updateCompanies() {
+  //   setCompanies(variableRoles.map((role) => role.company));
+  //   // [...new Set(array)];
+  // }
 
   useEffect(() => {
     if (params.mode && params.mode == 'admin') {//TODO(scheuclu): Remove hard coded password
@@ -371,7 +381,7 @@ export default function Home(data: Props) {
                   if (actionType == ActionType.Add) {
 
                     setVariableRoles([...variableRoles, data])
-                    updateCompanies();
+                    setVariableCompanies(getCompaniesFromRoles(variableRoles));
                   }
                 }} />
             </div>
@@ -381,15 +391,9 @@ export default function Home(data: Props) {
               className={stylesGlobalFormElements.modal}
               onClick={() => {
                 setShowCustomRole(false);
-                // refreshData();
               }}
             >
-              <CustomRole handleChange={(actionType, data) => {
-                if (actionType == ActionType.Add) {
-                  setVariableRoles([...variableRoles, data])
-                  updateCompanies();
-                }
-              }} />
+              <CustomRole password={"asd"} />
             </div>
           }
 
@@ -412,7 +416,7 @@ export default function Home(data: Props) {
               }
             }}
           />}
-          {byCompanies && <Companylist companies={filteredCompanies} />}
+          {byCompanies && <Companylist companies={variableCompanies} />}
 
           <Footer />
         </div>

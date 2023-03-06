@@ -20,9 +20,9 @@ export async function curate_role_by_id(
   var urlencoded = new URLSearchParams();
 
   if (method == "add") {
-    urlencoded.append("partner_boards", JSON.stringify([customer_config.jobprotocol_key]));
+    urlencoded.append("state", "Live");
   } else if (method == "remove") {
-    urlencoded.append("partner_boards", JSON.stringify([]));
+    urlencoded.append("state", "Hidden");
   } else {
     return false;
   }
@@ -39,6 +39,7 @@ export async function curate_role_by_id(
 
   try {
     const result: any = await fetch(url_role, requestOptions);
+    console.log("RESULT", result);
     if (result.status !== 204) {
       throw new Error(`Bubble returned unexecpected status code ${result.status}`);
     }

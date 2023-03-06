@@ -132,12 +132,18 @@ export default async function handler(
 
 
     let constraints: Constraint[] = [];
-    if (req.query.partner) {
-        constraints.push({ key: "Partner_boards", constraint_type: "contains", value: req.query.partner as string })
-    }
     if (req.query.owner) {
         constraints.push({ key: "Private_owner", constraint_type: "equals", value: req.query.owner as string })
     }
+    if (req.query.state) {
+        if (req.query.state != "All") {
+            constraints.push({ key: "Private_owner", constraint_type: "equals", value: req.query.state as string })
+        }
+    } else {
+        constraints.push({ key: "State", constraint_type: "equals", value: "Live" })
+    }
+
+
 
 
     // var params = {

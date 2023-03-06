@@ -30,12 +30,24 @@ export default function CurationModal(data: Props) {
             // const parsed: Role[] = await fetchRoles(process.env.BUBBLE_API_PRIVATE_KEY as string, params, 'Limeacademy');
             const result = await fetch(`/api/role`);
             const parsed = await result.json();
-            setJobprotocolRoles(parsed.filter((role: Role) => !data.ignoreIDs.includes(role.id)));
+            setJobprotocolRoles(
+                parsed.filter((role: Role) => !data.ignoreIDs.includes(role.id)).sort((a: Role, b: Role) => {
+                    if (!a.bounty) return 1;
+                    if (!b.bounty) return -1;
+                    if (a.bounty > b.bounty) {
+                        return -1;
+                    }
+                    if (a.bounty < b.bounty) {
+                        return 1;
+                    }
+                    return 0;
+                })
+            );
         };
         async function getCustomerRoles() {
             // const parsed: Role[] = await fetchRoles(process.env.BUBBLE_API_PRIVATE_KEY as string, params, 'Limeacademy');
             const user_id = process.env.NEXT_PUBLIC_CONFIG_VERSION == 'production' ? customer_config.bubble_user_id.production : customer_config.bubble_user_id.dev
-            const result = await fetch(`/api/role?owner=${user_id}`);
+            const result = await fetch(`/api/role?owner=${user_id}&state=All`);
             const parsed = await result.json();
             setCustomerRoles(parsed.filter((role: Role) => !data.ignoreIDs.includes(role.id)));
         };
@@ -56,14 +68,14 @@ export default function CurationModal(data: Props) {
 
         >
             <h1 className="text-center">Add roles to the dashboard.</h1>
-            <h2 className="text-center">You can add both your own roles as well as generatl Jobprotocol roles to your jobboard here. </h2>
+            <h2 className="text-center">You can add both your roles as well as Jobprotocol roles to your job board here. </h2>
             <hr></hr>
 
             <div className="flex flex-col gap-y-1">
                 {/* <h2>Roles you have previously created </h2> */}
                 {customerRoles !== null && <Joblist
                     // title="Roles you have previously created"
-                    title={`Roles you have previously created (${customerRoles.length})`}
+                    title={`Roles you have previously created, that are not live yet (${customerRoles.length})`}
                     roles={customerRoles}
                     mode='curation'
                     showBounty={true}
