@@ -259,7 +259,7 @@ export default function Home(data: Props) {
                     onClick={() => setShowCuration(true)}
                     id="button-apply"
                   >
-                    Add Jobprotocol Role
+                    Add role to board
                   </button>
 
                   <button
@@ -269,7 +269,7 @@ export default function Home(data: Props) {
                     onClick={() => setShowCustomRole(true)}
                     id="button-apply"
                   >
-                    Add Custom Role
+                    Create new role
                   </button>
 
 
