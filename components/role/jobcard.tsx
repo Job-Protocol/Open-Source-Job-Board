@@ -5,9 +5,8 @@ import RoleConditions from "./detail/roleconditions";
 import Image from "next/image";
 import Link from "next/link";
 import Swal from "sweetalert2";
-
+import customer_config from "@/customer_config.json";
 import { RoleState } from "@/bubble_types";
-
 import { curate_role_by_id } from "@/pages/api/curate/[id]";
 
 export enum ActionType {
@@ -15,6 +14,7 @@ export enum ActionType {
   View,
   Add,
   Remove,
+  Edit,
 }
 
 export interface JobCardProps {
@@ -34,6 +34,8 @@ function content(data: JobCardProps) {
     const result = temp.status === 200;
     return result;
   }
+
+  const userID = process.env.NEXT_PUBLIC_CONFIG_VERSION == "production" ? customer_config.bubble_user_id.production : customer_config.bubble_user_id.dev;
 
   return (
     <div className={styles.card}>
@@ -59,7 +61,7 @@ function content(data: JobCardProps) {
 
           <div
             className={styles.roleConditionsDesktop}
-          //onClick={(e) => e.stopPropagation()}
+          // onClick={(e) => e.stopPropagation()}
           //onMouseEnter={(e) => e.stopPropagation()}
           // onClick={(e) => e.stopPropagation()}
           >
@@ -92,22 +94,24 @@ function content(data: JobCardProps) {
         {data.mode == "remove" && (
           <div className="flex flex-col gap-y-1">
 
-            <Link
+            {/* <Link
               // className={"body16Bold " + styles.applyButton}
               href={"role/" + role.slug}
               target="_blank"
               rel="noopener noreferrer"
-            >
-              <button
+            > */}
+            {data.role.private_owner && data.role.private_owner == userID &&
+              < button
                 type="submit"
                 className={"body16Bold " + styles.applyButton}
                 name="button-1675001572178"
-                onClick={() => data.handleChange(ActionType.View, role)}
-                id="button-apply"
+                onClick={() => data.handleChange(ActionType.Edit, role)}
+                id="button-edit"
               >
-                View
+                Edit
               </button>
-            </Link>
+            }
+            {/* </Link> */}
 
 
             <button

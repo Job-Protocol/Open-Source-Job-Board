@@ -9,7 +9,6 @@ import Companylist from "@/components/overview/companylist";
 import SwitchRolesCompanies from "@/components/overview/switch_roles_companies";
 
 import React, { useState, useEffect } from "react";
-
 import { Company, getDefaultRole, Role } from "@/bubble_types";
 import JobFilters from "@/components/overview/jobfilters";
 import Footer from "@/components/overview/footer";
@@ -20,6 +19,7 @@ import { CompanyFilter } from "../components/overview/filter";
 import { RoleType } from "@/bubble_types";
 import CurationModal from "@/components/admin/Curation";
 import CustomRole from "@/components/admin/CustomRole";
+import EditRole from "@/components/admin/EditRole";
 import Login from "@/components/admin/Login";
 import { useRouter } from 'next/router'
 import { fetchRoles, Constraint } from "@/pages/api/role";
@@ -108,6 +108,8 @@ export default function Home(data: Props) {
 
   const [showCuration, setShowCuration] = useState<boolean>(false);
   const [showCustomRole, setShowCustomRole] = useState<boolean>(false);
+  const [showEditRole, setShowEditRole] = useState<boolean>(false);
+  const [editRole, setEditRole] = useState<Role | null>(null);
   const [showLogin, setShowLogin] = useState<boolean>(false);
   const [adminMode, setAdminMode] = useState<boolean>(false);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
@@ -398,6 +400,20 @@ export default function Home(data: Props) {
             </div>
           }
 
+          {showEditRole && editRole &&
+            <div
+              className={stylesGlobalFormElements.modal}
+              onClick={(a) => {
+                console.log(a);
+                setShowEditRole(false);
+                setEditRole(null);
+                setRevalidationNeccessary(true);
+              }}
+            >
+              <EditRole role={editRole} password={"asd"} />
+            </div>
+          }
+
 
           {/* <RoleConditions role={filteredRoles[0]} showBounty={true} /> */}
           {!byCompanies && !adminMode && <Joblist
@@ -414,6 +430,11 @@ export default function Home(data: Props) {
               if (actiontype == ActionType.Remove) {
                 setVariableRoles(variableRoles.filter(vrole => vrole.id != role.id));
                 setRevalidationNeccessary(true);
+              }
+              if (actiontype == ActionType.Edit) {
+                setEditRole(role);
+                setShowEditRole(true);
+                // setRevalidationNeccessary(true);
               }
             }}
           />}
