@@ -12,6 +12,7 @@
   border-color: Variables.$border-color
   border-width: Variables.$border-width
   border-radius: Variables.$border-radius
+  max-height: 250px //TODO
 
 .horizontal_flow
   display: flex
@@ -51,6 +52,8 @@
   display: flex
   flex-direction: column
   flex: 1
+  // background-color: green
+  overflow-y: hidden
 
   gap: 4px
 
@@ -59,7 +62,17 @@
   flex-direction: column
   flex: 1
   gap: 8px
-  /* background-color: green; */
+  // background-color: yellow
+  // overflow: auto
+
+.cardMainTagline
+  display: flex
+  flex-direction: column
+  flex: 1
+  gap: 8px
+  // background-color: yellow
+  overflow: hidden
+  max-height: 70px
 
 .companyFactsContainer
   display: flex

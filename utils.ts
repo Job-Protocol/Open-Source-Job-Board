@@ -156,7 +156,7 @@ export async function paginated_fetch(url: string, requestOptions: any): Promise
     const bubble_count = result.response.count;
     const bubble_remaining = result.response.remaining;
 
-    finished = bubble_remaining == 0 || cursor === 10000;
+    finished = bubble_remaining === 0 || cursor === 1000;
     cursor = cursor + bubble_count;
 
     let search_params = updated_url.searchParams;
