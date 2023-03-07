@@ -32,7 +32,7 @@ export default function CompanyCard(data: JobCardProps) {
 
           <div id="content" className={styles.cardContents}>
             <h2 className="body18Bold"> {company.name} </h2>
-            <div className={styles.cardMainContents}>
+            <div className={styles.cardMainTagline}>
               <p className="body16"> {company.tagline}</p>
             </div>
           </div>
