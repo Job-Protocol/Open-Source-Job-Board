@@ -60,6 +60,7 @@ export async function process_single_role_response(role_response: any, key: stri
     r.state = role_response.state == "Live" ? RoleState.Live : RoleState.Hidden;
     r.type = rtype;
     r.keywords = r.company ? [r.title, r.company.name] : [r.title]//TODO(scheuclu) Improve this
+    r.private_owner = role_response.private_owner ? role_response.private_owner : null;
     r.slug = role_response.Slug ? role_response.Slug : role_response._id;
 
     return r;

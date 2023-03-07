@@ -158,6 +158,7 @@ export interface Role {
   state: RoleState;
   type: RoleType | null;
   keywords: string[] | null;
+  private_owner: string | null;
   slug: string | null;
 }
 export function getDefaultRole(): Role {
@@ -176,6 +177,7 @@ export function getDefaultRole(): Role {
     state: RoleState.Hidden,
     type: null,
     keywords: null,
+    private_owner: null,
     slug: null,
   };
 }
