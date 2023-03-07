@@ -88,7 +88,7 @@ export default function ApplyCard(params: any) {
     data: CandidateData,
     checkRequirements: boolean
   ) {
-    const referred_by = customer_config.referred_by;
+    const referred_by = process.env.NEXT_PUBLIC_CONFIG_VERSION === "dev" ? customer_config.bubble_user_id.dev : customer_config.bubble_user_id.production;
 
     const candidate_location: string | null = data.location
       ? data.location.address
@@ -101,7 +101,7 @@ export default function ApplyCard(params: any) {
       personal_website_url: data.github,
       linkedin_url: data.linkedin,
       role: data.role,
-      // referred_by: referred_by,
+      referred_by: referred_by,
       referral_type: "Link",
       state: "New",
       has_confirmed_interest: true,
@@ -135,7 +135,7 @@ export default function ApplyCard(params: any) {
         personal_website_url: data.github,
         linkedin_url: data.linkedin,
         role: data.role,
-        // referred_by: referred_by,
+        referred_by: referred_by,
         referral_type: "Link",
         state: "New",
         has_confirmed_interest: true,
@@ -171,6 +171,7 @@ export default function ApplyCard(params: any) {
         iconColor: "#481f84",
         confirmButtonText: "Close",
       });
+      setIsSubmitting(false);
       return;
     }
     sendMail(candidate_id);
