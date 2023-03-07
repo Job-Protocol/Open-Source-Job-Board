@@ -33,7 +33,8 @@ export async function GetAllRelevantRoles(): Promise<Role[]> {
 
 
   const constraints: Constraint[] = [
-    { key: 'Private_owner', constraint_type: 'equals', value: customer_config.bubble_user_id.production },
+    { key: 'Partner_boards', constraint_type: 'contains', value: customer_config.jobprotocol_key },
+    // { key: 'Private_owner', constraint_type: 'equals', value: customer_config.bubble_user_id.production },
     { key: 'State', constraint_type: 'equals', value: "Live" }
   ]
 
@@ -108,7 +109,7 @@ export default function Home(data: Props) {
   const [showCuration, setShowCuration] = useState<boolean>(false);
   const [showCustomRole, setShowCustomRole] = useState<boolean>(false);
   const [showLogin, setShowLogin] = useState<boolean>(false);
-  const [adminMode, setAdminMode] = useState<boolean>(false);
+  const [adminMode, setAdminMode] = useState<boolean>(true);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
 
   const [variableRoles, setVariableRoles] = useState<Role[]>(data.sortedRoles);

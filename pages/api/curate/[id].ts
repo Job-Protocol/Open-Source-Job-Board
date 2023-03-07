@@ -20,9 +20,9 @@ export async function curate_role_by_id(
   var urlencoded = new URLSearchParams();
 
   if (method == "add") {
-    urlencoded.append("state", "Live");
+    urlencoded.append("partner_boards", JSON.stringify([customer_config.jobprotocol_key]));
   } else if (method == "remove") {
-    urlencoded.append("state", "Hidden");
+    urlencoded.append("partner_boards", JSON.stringify([]));
   } else {
     return false;
   }
