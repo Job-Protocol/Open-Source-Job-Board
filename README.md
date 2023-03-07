@@ -25,7 +25,7 @@ You can set variable wit `export VARIABLE="value"` or put the same command into 
 
 ### Run page
 
-Use `npm run dev` for development purposes.
+Use `npm run dev` for development purposes.  
 
 Else, start the app with
 
