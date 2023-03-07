@@ -144,17 +144,6 @@ export default async function handler(
     }
 
 
-
-
-    // var params = {
-    //     constraints: [constraint_partner]
-    // };
-    // if (req.query.partner_boards) {
-    //     params['constraints'].push(constraint_partner);
-    // }
-    // const params = {
-    //     constraints: `[{"key":"Partner_boards","constraint_type":"contains","value":"${customer_config.jobprotocol_key}"}]`
-    // }
     console.log("USING THESE constraints", constraints)
     const roles = await fetchRoles(process.env.BUBBLE_API_PRIVATE_KEY, constraints);
     res.status(200).json(roles);
