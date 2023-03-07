@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "python3 preprocess.py ./configs/limeacademy.json; printenv; next dev",
-    "build": "python3 preprocess.py ./configs/limeacademy.json; printenv; next build",
-    "start": "python3 preprocess.py ./configs/limeacademy.json; printenv; next start",
-    "lint": "python preprocess.py ./configs/limeacademy.json; printenv; next lint"
+    "dev": "python3 preprocess.py $CONFIG_FILE; printenv; next dev",
+    "build": "python3 preprocess.py $CONFIG_FILE; printenv; next build",
+    "start": "python3 preprocess.py $CONFIG_FILE; printenv; next start",
+    "lint": "python preprocess.py $CONFIG_FILE; printenv; next lint"
   },
   "dependencies": {
     "@bbob/core": "^2.8.2",
