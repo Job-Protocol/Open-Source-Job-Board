@@ -1,7 +1,7 @@
 # Jobprotocol ETH-Denver frontend
 
 
-bbb
+[![GitHub Super-Linter](https://github.com/Job-Protocol/Open-Source-Job-Board/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
 This is the frontend repo behind jobs.ethdenver.com.  
 The jobboard is powered by [JobProtocol](https://www.jobprotocol.com).
