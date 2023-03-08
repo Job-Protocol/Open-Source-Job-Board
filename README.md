@@ -1,6 +1,5 @@
 # LimeAcademy Jobboard
 
-
 The jobboard is powered by [JobProtocol](https://www.jobprotocol.com).  
 
 Job Protocol lets companies list open roles with a referral bounty on the blockchain, incentivizing their community and our ecosystem of talent partners - recruiters, communities, agencies, networkers - to help hire top talent faster and cheaper.
@@ -26,7 +25,7 @@ You can set variable wit `export VARIABLE="value"` or put the same command into 
 
 ### Run page
 
-Use `npm run dev` for development purposes.
+Use `npm run dev` for development purposes.  
 
 Else, start the app with
 
