@@ -1,5 +1,6 @@
 {
     "jobprotocol_key": "Limeacademy",
+    "fancy": false,
     "bubble_user_email": "limeacademy@jobprotocol.co",
     "bubble_user_id": {
         "dev": "1677242159986x468907182827297700",
@@ -9,6 +10,7 @@
         "main": "#F67637",
         "secondary": "#393939",
         "background": "#ffffff",
+        "cards": "#ffffff",
         "border": "#393939",
         "text": {
             "dark": "#1f2534",

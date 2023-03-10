@@ -204,7 +204,7 @@ export default function Home(data: Props) {
               />
             </div>
             <div className={styles.headerTextContainer}>
-              <h1 className={"board_title text-4xl"}>{customer_config.title}</h1>
+              <h1 className={customer_config.fancy ? "board_title_fancy text-4xl" : "board_title text-4xl"}>{customer_config.title}</h1>
               <h2 className={"body18"}>{customer_config.subtitle}</h2>
               <div className={styles.headerIconsContainer}>
 

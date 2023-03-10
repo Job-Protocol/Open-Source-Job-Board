@@ -1,5 +1,6 @@
 {
     "jobprotocol_key": "Limeacademy",
+    "fancy": true,
     "bubble_user_email": "limeacademy@jobprotocol.co",
     "bubble_user_id": {
         "dev": "1677242159986x468907182827297700",
