@@ -26,7 +26,7 @@ export default function CompanyCard(data: CompanyCardProps) {
   }
   return (
     <div className={styles_role_detail.card + " " + styles.gap24}>
-      <h3 className={"body18Bold"}>About {data.company.name}</h3>
+      <h2 className={"body18Bold"}>About {data.company.name}</h2>
 
       {data.company.mission && <div className={styles.section}>
         <h4 className={"chapeauDark"}>Mission</h4>

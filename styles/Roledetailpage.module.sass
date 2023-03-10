@@ -6,7 +6,7 @@
   left: 0
   right: 0
   height: 421px
-  background: linear-gradient(to bottom,#ffffff,Variables.$main-color-15pct-transparency)
+  background: linear-gradient(to bottom, adjust-color(Variables.$secondary-color, $alpha: -0.50), Variables.$background-color)
   z-index: 0
 
 .headerContainer
@@ -15,6 +15,7 @@
   padding-top: 32px
   padding-bottom: 24px
   z-index: 1
+  // border-width: 4px
 
 .headerLink
   color: Variables.$main-color
@@ -39,6 +40,8 @@
   border-radius: Variables.$border-radius
   padding: 24px
   z-index: 1
+  border-width: Variables.$border-width
+  border-color: Variables.$border-color
 
 .roleInfo
   display: flex
@@ -120,7 +123,7 @@
   border-color: Variables.$border-color
   padding: 24px
   max-width: 850px
-  background-color: Variables.$background-color
+  background-color: Variables.$card-color
   display: flex
   flex-direction: column
   margin: 1rem 0rem

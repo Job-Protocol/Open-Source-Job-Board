@@ -165,7 +165,13 @@ export default function Home(props: Props) {
 
           <Joblist roles={filteredCompanyRoles} mode='application' showBounty={false} handleChange={(a, b) => { }} />
 
-          {/* <div className={styles.headerBackgroundGradientContainer}></div> */}
+          <div
+            className={
+              styles.headerBackgroundGradientContainer +
+              " " +
+              styles.desktopOnly
+            }
+          ></div>
           <Footer />
         </div>
       </div>

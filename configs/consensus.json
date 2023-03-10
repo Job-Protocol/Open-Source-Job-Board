@@ -1,0 +1,38 @@
+{
+    "jobprotocol_key": "Limeacademy",
+    "bubble_user_email": "limeacademy@jobprotocol.co",
+    "bubble_user_id": {
+        "dev": "1677242159986x468907182827297700",
+        "production": "1677866183565x802757657419803000"
+    },
+    "colors": {
+        "main": "#FF008D",
+        "secondary": "#00c7f8",
+        "background": "#020A0A",
+        "cards": "#2B2B30",
+        "border": "#354A67",
+        "text": {
+            "dark": "#ffffff",
+            "light": "#ffffff"
+        }
+    },
+    "border_width": "4px",
+    "border_radius": "12px",
+    "title": "Consensus Jobs",
+    "subtitle": "The best opportunities in crypto",
+    "referred_by": "1677242159986x468907182827297700",
+    "branding": {
+        "logo": "https://d2pasa6bkzkrjd.cloudfront.net/site/consensus2023/images/userfiles/logo-2.svg",
+        "banner": "/background_eth_3.jpg",
+        "favicon": "/favicon.ico"
+    },
+    "socials": {
+        "linkedin": "www.linkedin.com/company/limeacademy",
+        "website": "www.limeacademy.tech",
+        "twitter": "twitter.com/LimeAcademyHQ",
+        "discord": "discord.com/invite/HqXqUcVrhq",
+        "youtube": "www.youtube.com/channel/UCw0EmZNAMyXeyROyOx1KKyg",
+        "instagram": "instagram.com/limeacademyhq",
+        "facebook": "www.facebook.com/limeacademy"
+    }
+}

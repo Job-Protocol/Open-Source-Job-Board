@@ -14,6 +14,7 @@ d = {
     'TEXT_COLOR_LIGHT': conf['colors']['text']['light'],
     'TEXT_COLOR_DARK': conf['colors']['text']['dark'],
     'BACKGROUND_COLOR': conf['colors']['background'],
+    'CARD_COLOR': conf['colors']['cards'],
     'BORDER_COLOR': conf['colors']['border'],
     'BORDER_WIDTH': conf['border_width'],
     'BORDER_RADIUS': conf['border_radius']

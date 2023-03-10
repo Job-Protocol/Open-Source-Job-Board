@@ -1,8 +1,10 @@
 .filtersContainerMobileOpen
   // /* Only relevant on mobile */
+  z-index: 10
 
 .filtersContainerMobileClosed
   // /* Only relevant on mobile */
+  z-index: 10
 
 .showOnlyOnMobile
   display: none
@@ -13,6 +15,7 @@
   flex-direction: row
   flex: 1
   gap: 24px
+  z-index: 1
 
 .filtersContentTopContainer
   display: flex
@@ -25,6 +28,7 @@
   flex-direction: row
   gap: 16px
   align-items: center
+  // background-color: green
   /* width: 100%; */
 
 .locationFilterContainer
@@ -35,12 +39,16 @@
   flex: 1
   align-items: center
 
+  // color: #ff0000
+
 .locationInputsContainer
   display: flex
   flex-direction: row
   align-items: center
   gap: 16px
   width: 100%
+
+  // color: #ff0000
 
 .includeRemoteContainer
   display: flex
@@ -129,3 +137,4 @@
     align-items: center
     gap: 16px
     width: 100%
+    color: #ff0000
