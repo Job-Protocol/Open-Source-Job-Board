@@ -31,12 +31,12 @@ import { revalidate_page } from "../utils";
 
 
 import IconLinkedin from '@/public/linkedin.svg'
-import IconGlobe from '@/public/globe.svg'
-import IconTwitter from '@/public/twitter.svg'
-import IconDiscord from '@/public/globe.svg'
-import IconYouTube from '@/public/youtube.svg'
-import IconInstagram from '@/public/instagram.svg'
-import IconFacebook from '@/public/Facebook.svg'
+import IconGlobe from '@/public//globe.svg'
+import IconTwitter from '@/public//twitter.svg'
+import IconDiscord from '@/public//globe.svg'
+import IconYouTube from '@/public//youtube.svg'
+import IconInstagram from '@/public//instagram.svg'
+import IconFacebook from '@/public/facebook.svg'
 
 
 let iconmap = new Map<string, Component>([
