@@ -79,6 +79,7 @@ export default function ApplyCard(params: any) {
   const [candidateId, setCandidateId] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
+
   async function sendMail(candidate_id: string) {
     // const url = "../api/candidate/sendmail?id=" + candidate_id;
     // const response = await fetch(url);
@@ -276,7 +277,7 @@ export default function ApplyCard(params: any) {
 
   return (
     <div className={styles_role_detail.card}>
-      <h2 className={"body18Bold"}>Apply for this position</h2>
+      <h2 className={customer_config.fancy ? "body18Bold text_secondary" : "body18Bold text_secondary"}>Apply for this position</h2>
       <div className={styles.formContainer}>
         <div className={styles.formItemGroup}>
           <div>
