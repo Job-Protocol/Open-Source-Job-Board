@@ -133,7 +133,7 @@ export default function Home(data: Props) {
   const [showEditRole, setShowEditRole] = useState<boolean>(false);
   const [editRole, setEditRole] = useState<Role | null>(null);
   const [showLogin, setShowLogin] = useState<boolean>(false);
-  const [adminMode, setAdminMode] = useState<boolean>(false);
+  const [adminMode, setAdminMode] = useState<boolean>(true);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
 
   const [variableRoles, setVariableRoles] = useState<Role[]>(data.sortedRoles);
