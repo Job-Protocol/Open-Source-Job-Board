@@ -11,14 +11,31 @@
         "secondary": "#00c7f8",
         "background": "#020A0A",
         "cards": "#2B2B30",
-        "border": "#354A67",
         "text": {
             "dark": "#ffffff",
             "light": "#ffffff"
         }
     },
-    "border_width": "2px",
-    "border_radius": "12px",
+    "borders": {
+        "controls": {
+            "width": "2px",
+            "radius": "12px",
+            "color": "#354A67"
+        },
+        "cards": {
+            "width": "2px",
+            "radius": "12px",
+            "color": "#354A67"
+        }
+    },
+    "banner": {
+        "background": "#020A0A",
+        "background_background": "linear-gradient(to bottom, adjust-color($secondary-color, $alpha: -0.50), $background-color)"
+    },
+    "fonts": {
+        "regular": "/fonts/NHaasGroteskTXPro-55Rg.ttf",
+        "demibold": "/fonts/NHaasGroteskTXPro-55Rg.ttf"
+    },
     "title": "Consensus Jobs",
     "subtitle": "The best opportunities in web3",
     "referred_by": "1677242159986x468907182827297700",

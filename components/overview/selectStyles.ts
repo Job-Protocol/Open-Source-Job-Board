@@ -5,16 +5,16 @@ import customer_config from "@/customer_config.json";
 const selectStyles = {
   control: (baseStyles: any, state: any) => ({
     ...baseStyles,
-    borderColor: state.isFocused ? customer_config.colors.border : customer_config.colors.border,
+    borderColor: state.isFocused ? customer_config.borders.controls.color : customer_config.borders.controls.color,
     width: "100%",
-    borderWidth: customer_config.border_width,
+    borderWidth: customer_config.borders.controls.width,
     borderRadius: "8px",
     boxShadow: "none",
     outline: "none",
-    backgroundColor: customer_config.colors.background,
+    backgroundColor: "000000ff",
     color: customer_config.colors.main,
     "&:hover": {
-      borderColor: customer_config.colors.border
+      borderColor: customer_config.borders.controls.color
     },
   }),
   container: (baseStyles: any, state: any) => ({
@@ -46,8 +46,8 @@ const selectStyles = {
   }),
   menu: (baseStyles: any, state: any) => ({
     ...baseStyles,
-    borderColor: customer_config.colors.border,
-    borderWidth: customer_config.border_width,
+    borderColor: customer_config.borders.controls.color,
+    borderWidth: customer_config.borders.controls.width,
     backgroundColor: customer_config.colors.cards,
     borderRadius: "8px",
     marginTop: "4px",

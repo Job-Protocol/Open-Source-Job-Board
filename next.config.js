@@ -1,3 +1,6 @@
+const jsonImporter = require("node-sass-json-importer");
+
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -18,17 +21,9 @@ const nextConfig = {
 
     return config
   },
+  sassOptions: {
+    importer: jsonImporter(),
+  }
 }
 
 module.exports = nextConfig
-
-
-
-// webpack(config) {
-//   config.module.rules.push({
-//     test: /\.svg$/,
-//     use: ["@svgr/webpack"]
-//   });
-
-//   return config;
-// }

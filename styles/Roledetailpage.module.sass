@@ -6,7 +6,8 @@
   left: 0
   right: 0
   height: 421px
-  background: linear-gradient(to bottom, adjust-color(Variables.$secondary-color, $alpha: -0.50), Variables.$background-color)
+  background: Variables.$banner-background-background
+
   z-index: 0
 
 .headerContainer
@@ -36,14 +37,12 @@
 .roleDetailHeaderContainer
   display: flex
   flex-direction: column
-  background-color: Variables.$secondary-color
-  border-radius: Variables.$border-radius
+  background: Variables.$banner-background
+  border-radius: Variables.$borders-cards-radius
   padding: 24px
   z-index: 1
-  border-width: Variables.$border-width
-  border-color: Variables.$border-color
-  // box-shadow: 5px 5px 5px 5px Variables.$main-color
-  // box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 2px
+  border-width: Variables.$borders-cards-width
+  border-color: Variables.$borders-cards-color
 
 .roleInfo
   display: flex
@@ -109,10 +108,10 @@
   z-index: 1
 
 .logoContainer
-  border-width: 2px
-  border-color: rgba(255, 255, 255, 0.15)
+  // border-width: 2px
+  border-color: Variables.$borders-cards-color
   border-radius: 8px
-  background-color: white
+  // background-color: adjust-color(Variables.$secondary-color, $alpha: -0.50)
   // overflow: hidden
   width: 122px
   height: 122px
@@ -120,9 +119,9 @@
   aspect-ratio: 1 / 1
 
 .card
-  border-radius: Variables.$border-radius
-  border-width: Variables.$border-width
-  border-color: Variables.$border-color
+  border-radius: Variables.$borders-cards-radius
+  border-width: Variables.$borders-cards-width
+  border-color: Variables.$borders-cards-color
   padding: 24px
   max-width: 850px
   background-color: Variables.$card-color
@@ -210,13 +209,13 @@
     width: 100%
 
   .card
-    border-radius: Variables.$border-radius
-    border-width: Variables.$border-width
-    border-color: Variables.$border-color
+    border-radius: Variables.$borders-cards-radius
+    border-width: Variables.$borders-cards-width
+    border-color: Variables.$borders-cards-color
     padding: 24px 24px
     /* max-width: 850px; */
     /* flex: 9; */
-    background-color: Variables.$background-color
+    background-color: Variables.$card-color
     display: flex
     flex-direction: column
     width: -webkit-fill-available
@@ -228,7 +227,7 @@
   .logoContainer
     border-width: 0px
     border-color: Variables.$secondary-color
-    border-radius: Variables.$border-width
+    border-radius: Variables.$borders-cards-radius
     background-color: white
     overflow: hidden
     width: 154px

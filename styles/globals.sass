@@ -4,15 +4,13 @@
 @tailwind components
 @tailwind utilities
 
-// @import "../config.json";
+@font-face
+  font-family: "Regular"
+  src: url(Variables.$font-src-regular)
 
 @font-face
-  font-family: "Avenir Next"
-  src: url("/fonts/AvenirNext-Regular.ttf")
-
-@font-face
-  font-family: "Avenir Next DemiBold"
-  src: url("/fonts/AvenirNext-DemiBold.ttf")
+  font-family: "DemiBold"
+  src: url(Variables.$font-src-demibold)
 
 .page
   display: flex
@@ -52,7 +50,7 @@ body
   font-size: 36px
 
 .h1
-  font-family: "Avenir Next DemiBold"
+  font-family: "DemiBold"
   font-size: 28px
   font-weight: 600
   line-height: 38px
@@ -73,15 +71,15 @@ body
   color: adjust-color(Variables.$main-color, $lightness: -30%)
 
 .body18
-  font-family: "Avenir Next"
+  font-family: "Regular"
   font-size: 18px
-  font-weight: 400
+  font-weight: 600
   line-height: 25px
   letter-spacing: -0.015em
   color: Variables.$text-color-dark
 
   &Bold
-    font-family: "Avenir Next DemiBold"
+    font-family: "DemiBold"
     font-size: 18px
     font-weight: 600
     line-height: 25px
@@ -89,7 +87,7 @@ body
     color: Variables.$text-color-dark
 
 .body16
-  font-family: "Avenir Next"
+  font-family: "Regular"
   font-size: 16px
   font-weight: 400
   line-height: 22px
@@ -97,7 +95,7 @@ body
   color: Variables.$text-color-dark
 
   &Bold
-    font-family: "Avenir Next DemiBold"
+    font-family: "DemiBold"
     font-size: 16px
     font-weight: 800
     line-height: 22px
@@ -105,7 +103,7 @@ body
     color: Variables.$text-color-dark
 
 .body14
-  font-family: "Avenir Next"
+  font-family: "Regular"
   font-size: 14px
   font-weight: 400
   line-height: 19px
@@ -113,7 +111,7 @@ body
   color: Variables.$text-color-light
 
   &Bold
-    font-family: "Avenir Next DemiBold"
+    font-family: "DemiBold"
     font-size: 14px
     font-weight: 600
     line-height: 19px
@@ -121,7 +119,7 @@ body
     color: Variables.$text-color-dark
 
 .chapeau
-  font-family: "Avenir Next DemiBold"
+  font-family: "DemiBold"
   font-weight: 600
   font-size: 12px
   color: Variables.$text-color-light
@@ -130,7 +128,7 @@ body
   text-transform: uppercase
 
   &Dark
-    font-family: "Avenir Next DemiBold"
+    font-family: "DemiBold"
     font-weight: 600
     font-size: 12px
     color: Variables.$text-color-dark
@@ -227,3 +225,41 @@ body
   color: Variables.$text-color-light
 .text_dark
   color: Variables.$text-color-dark
+
+// [type="checkbox"] + label
+//   position: absolute
+
+.Input
+  background-color: red
+  color: green
+
+[type="checkbox"]
+  color: green
+  background-color: yellow
+  &:checked
+    color: red
+    background-color: green
+    &::before
+      color: red
+      background-color: green
+
+.checkbox:checked:before
+  color: red
+  background-color: green
+
+  // position: relative
+  // left: 15px
+  // top: -4px
+  // z-index: 0
+  // -webkit-appearance: none
+
+// [type="checkbox"] + label::before
+//   width: 15px
+//   height: 15px
+//   background-color: #ad0a0a
+//   display: block
+//   content: ""
+//   float: left
+//   margin-right: 5px
+//   z-index: 5
+//   position: relative
