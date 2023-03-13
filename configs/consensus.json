@@ -40,8 +40,8 @@
     "subtitle": "The best opportunities in web3",
     "referred_by": "1677242159986x468907182827297700",
     "branding": {
-        "logo": "https://d2pasa6bkzkrjd.cloudfront.net/site/consensus2023/images/userfiles/logo-2.svg",
-        "banner": "/background_eth_3.jpg",
+        "logo": "/consensus.png",
+        "banner": "/consensus_banner.jpeg",
         "favicon": "/favicon.ico"
     },
     "socials": {

@@ -133,7 +133,7 @@ export default function Home(data: Props) {
   const [showEditRole, setShowEditRole] = useState<boolean>(false);
   const [editRole, setEditRole] = useState<Role | null>(null);
   const [showLogin, setShowLogin] = useState<boolean>(false);
-  const [adminMode, setAdminMode] = useState<boolean>(true);
+  const [adminMode, setAdminMode] = useState<boolean>(false);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
 
   const [variableRoles, setVariableRoles] = useState<Role[]>(data.sortedRoles);
@@ -320,23 +320,23 @@ export default function Home(data: Props) {
                     width="14"
                     height="10"
                     viewBox="0 0 14 10"
-                    fill="none"
+                    fill={customer_config.colors.text.dark}
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M1 2H13"
-                      stroke="#1F2534"
+                      stroke={customer_config.colors.text.dark}
                       stroke-width="1.5"
                       stroke-linecap="round"
                     />
-                    <circle cx="2" cy="2" r="2" fill="#1F2534" />
+                    <circle cx="2" cy="2" r="2" fill={customer_config.colors.text.dark} />
                     <path
                       d="M1 8H13"
-                      stroke="#1F2534"
+                      stroke={customer_config.colors.text.dark}
                       stroke-width="1.5"
                       stroke-linecap="round"
                     />
-                    <circle cx="12" cy="8" r="2" fill="#1F2534" />
+                    <circle cx="12" cy="8" r="2" fill={customer_config.colors.text.dark} />
                   </svg>
                   Add Filter
                 </button>

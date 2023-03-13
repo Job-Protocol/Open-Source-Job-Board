@@ -1,3 +1,5 @@
+@use 'Variables'
+
 .filtersContainerMobileOpen
   // /* Only relevant on mobile */
   z-index: 10
@@ -22,6 +24,7 @@
   flex-direction: row
   flex: 1
   gap: 24px
+  // background-color: Variables.$card-color
 
 .roleFilterContainer
   display: flex
@@ -89,7 +92,7 @@
     position: absolute
     bottom: 0
     width: 100%
-    background-color: white
+    background-color: Variables.$card-color
     min-height: 70%
 
     border-top-right-radius: 16px
@@ -129,7 +132,7 @@
     align-items: flex-start
     // /* width: 100%;
     flex: 1
-    align-items: center//; */
+    align-items: left//; */
 
   .locationInputsContainer
     display: flex
@@ -137,4 +140,3 @@
     align-items: center
     gap: 16px
     width: 100%
-    color: #ff0000
