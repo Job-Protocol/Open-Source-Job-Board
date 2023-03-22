@@ -1,5 +1,6 @@
 # LimeAcademy Jobboard
 
+
 The jobboard is powered by [JobProtocol](https://www.jobprotocol.com).  
 
 Job Protocol lets companies list open roles with a referral bounty on the blockchain, incentivizing their community and our ecosystem of talent partners - recruiters, communities, agencies, networkers - to help hire top talent faster and cheaper.
