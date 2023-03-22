@@ -51,7 +51,7 @@ export async function getStaticProps(context: any) {
   return {
     // Passed to the page component as props
     props: { role: role },
-    revalidate: 60 * 30, // In seconds
+    revalidate: 60 * 60 * 24, // In seconds
   };
 }
 
