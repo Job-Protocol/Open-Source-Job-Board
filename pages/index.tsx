@@ -80,35 +80,35 @@ function sort2companies(a: Company, b: Company): 0 | 1 | -1 {
   return a.priority < b.priority ? 1 : -1;
 }
 
-// This function gets called at build time on server-side.
-// It may be called again, on a serverless function, if
-// revalidation is enabled and a new request comes in
-export async function getStaticProps() {
-  const res = await GetAllIDs();
-  const companyIDs = res[0];
-  const roleIDs = res[1];
+// // This function gets called at build time on server-side.
+// // It may be called again, on a serverless function, if
+// // revalidation is enabled and a new request comes in
+// export async function getStaticProps() {
+//   const res = await GetAllIDs();
+//   const companyIDs = res[0];
+//   const roleIDs = res[1];
 
-  const sortedRoles = await GetRolesByRoleIDs(roleIDs).then((res) => {
-    const aaa = res.sort((a, b) => sort2companies(a.company, b.company));
-    return aaa;
-  });
-  const filteredRoles = sortedRoles;
+//   const sortedRoles = await GetRolesByRoleIDs(roleIDs).then((res) => {
+//     const aaa = res.sort((a, b) => sort2companies(a.company, b.company));
+//     return aaa;
+//   });
+//   const filteredRoles = sortedRoles;
 
-  const companies = await GetCompaniesByCompanyIDs(companyIDs);
-  const sortedCompanies: Company[] = companies.sort((a, b) => sort2companies(a, b));
+//   const companies = await GetCompaniesByCompanyIDs(companyIDs);
+//   const sortedCompanies: Company[] = companies.sort((a, b) => sort2companies(a, b));
 
 
-  return {
-    props: {
-      sortedRoles,
-      sortedCompanies,
-    },
-    // Next.js will attempt to re-generate the page:
-    // - When a request comes in
-    // - At most once every 10 seconds
-    revalidate: 60 * 60 * 24, // In seconds
-  };
-}
+//   return {
+//     props: {
+//       sortedRoles,
+//       sortedCompanies,
+//     },
+//     // Next.js will attempt to re-generate the page:
+//     // - When a request comes in
+//     // - At most once every 10 seconds
+//     revalidate: 60 * 60 * 24, // In seconds
+//   };
+// }
 
 export default function Home(data: Props) {
   // const sortedRoles = data.sortedRoles;
