@@ -31,29 +31,29 @@ export interface Props {
   role: Role;
 }
 
-export async function getStaticPaths() {
-  const allIDs = await GetAllIDs();
-  const roleIDS = allIDs[1];
+// export async function getStaticPaths() {
+//   const allIDs = await GetAllIDs();
+//   const roleIDS = allIDs[1];
 
-  const roles = await GetRolesByRoleIDs(roleIDS);
-  const slugs = roles.map((role) => role.slug);
-  const paths = slugs.map((slug) => ({ params: { id: slug } }));
+//   const roles = await GetRolesByRoleIDs(roleIDS);
+//   const slugs = roles.map((role) => role.slug);
+//   const paths = slugs.map((slug) => ({ params: { id: slug } }));
 
-  return {
-    paths: paths,
-    fallback: true, // can also be true or 'blocking'
-  };
-}
+//   return {
+//     paths: paths,
+//     fallback: true, // can also be true or 'blocking'
+//   };
+// }
 
-// `getStaticPaths` requires using `getStaticProps`
-export async function getStaticProps(context: any) {
-  const role = await getRoleData(context.params.id);
-  return {
-    // Passed to the page component as props
-    props: { role: role },
-    revalidate: 60 * 60 * 24, // In seconds
-  };
-}
+// // `getStaticPaths` requires using `getStaticProps`
+// export async function getStaticProps(context: any) {
+//   const role = await getRoleData(context.params.id);
+//   return {
+//     // Passed to the page component as props
+//     props: { role: role },
+//     revalidate: 60 * 60 * 24, // In seconds
+//   };
+// }
 
 export default function Home(props: Props) {
   //Check for fallback

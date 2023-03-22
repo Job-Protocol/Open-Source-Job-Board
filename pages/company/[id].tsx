@@ -39,36 +39,36 @@ export interface Props {
   companyroles: Role[];
 }
 
-export async function getStaticPaths() {
-  const allIDs = await GetAllIDs();
-  const companyIDS = allIDs[0];
+// export async function getStaticPaths() {
+//   const allIDs = await GetAllIDs();
+//   const companyIDS = allIDs[0];
 
-  const companies: Company[] = await GetCompaniesByCompanyIDs(companyIDS);
-  const slugs = companies.map((company) => company.slug);
-  const paths = slugs.map((slug) => ({ params: { id: slug } }));
+//   const companies: Company[] = await GetCompaniesByCompanyIDs(companyIDS);
+//   const slugs = companies.map((company) => company.slug);
+//   const paths = slugs.map((slug) => ({ params: { id: slug } }));
 
-  return {
-    paths: paths,
-    fallback: false, // can also be true or 'blocking'
-  };
-}
+//   return {
+//     paths: paths,
+//     fallback: false, // can also be true or 'blocking'
+//   };
+// }
 
-// `getStaticPaths` requires using `getStaticProps`
-export async function getStaticProps(context: any) {
-  const company = await getCompanyData(context.params.id);
-  const allIDs = await GetAllIDs(); //TODO(scheuclu) URGENT. Replace this with more efficient query. E.g. query bubble to only return roles for this company.
-  const roleIDs = allIDs[1];
-  const allRoles = await GetRolesByRoleIDs(roleIDs);
-  const companyroles = allRoles.filter(
-    (role) => role.company.id === company.id
-  );
+// // `getStaticPaths` requires using `getStaticProps`
+// export async function getStaticProps(context: any) {
+//   const company = await getCompanyData(context.params.id);
+//   const allIDs = await GetAllIDs(); //TODO(scheuclu) URGENT. Replace this with more efficient query. E.g. query bubble to only return roles for this company.
+//   const roleIDs = allIDs[1];
+//   const allRoles = await GetRolesByRoleIDs(roleIDs);
+//   const companyroles = allRoles.filter(
+//     (role) => role.company.id === company.id
+//   );
 
-  return {
-    // Passed to the page component as props
-    props: { company: company, companyroles: companyroles },
-    revalidate: 60 * 60 * 24 //In seconds
-  };
-}
+//   return {
+//     // Passed to the page component as props
+//     props: { company: company, companyroles: companyroles },
+//     revalidate: 60 * 60 * 24 //In seconds
+//   };
+// }
 
 export default function Home(props: Props) {
   const company: Company = props.company;
