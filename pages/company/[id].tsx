@@ -44,7 +44,7 @@ export async function getStaticProps(context: any) {
   return {
     // Passed to the page component as props
     props: { company: this_company, companyroles: this_company_roles },
-    revalidate: 60 * 30, // In seconds
+    revalidate: 60 * 60 * 24, // In seconds
   }
 }
 
