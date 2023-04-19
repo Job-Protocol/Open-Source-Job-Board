@@ -1,0 +1,56 @@
+{
+    "jobprotocol_key": "Launchy",
+    "fancy": false,
+    "bubble_user_email": "launchy@jobprotocol.co",
+    "bubble_user_id": {
+        "dev": "1677242159986x468907182827297700",
+        "production": "1677866183565x802757657419803000"
+    },
+    "colors": {
+        "main": "#EA3323",
+        "secondary": "#D74532",
+        "background": "#FFFFFF",
+        "cards": "#e5e7eb",
+        "text": {
+            "dark": "#000000",
+            "light": "#777780"
+        }
+    },
+    "borders": {
+        "controls": {
+            "width": "2px",
+            "radius": "12px",
+            "color": "#354A67"
+        },
+        "cards": {
+            "width": "1px",
+            "radius": "4px",
+            "color": "#354A67"
+        }
+    },
+    "banner": {
+        "background": "#e5e7eb",
+        "background_background": "#ffffff"
+    },
+    "fonts": {
+        "regular": "/fonts/AvenirNext-Regular.ttf",
+        "demibold": "/fonts/AvenirNext-DemiBold.ttf"
+    },
+    "title": "Chain Catalyst by Launchy",
+    "subtitle": "Subtitle: Discover the latest web3 products, strategies, and trends",
+    "referred_by": "1677242159986x468907182827297700",
+    "branding": {
+        "logo": "/launchy_logo.png",
+        "banner": "/launchy_banner.png",
+        "favicon": "/launchy_favicon.png"
+    },
+    "socials": {
+        "linkedin": "www.linkedin.com/company/limeacademy",
+        "website": "www.linkedin.com/company/TODO",
+        "twitter": "www.linkedin.com/company/TODO",
+        "discord": "www.linkedin.com/company/TODO",
+        "youtube": "www.linkedin.com/company/TODO",
+        "instagram": "www.linkedin.com/company/TODO",
+        "facebook": "www.linkedin.com/company/TODO"
+    }
+}
