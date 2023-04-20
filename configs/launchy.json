@@ -10,7 +10,7 @@
         "main": "#EA3323",
         "secondary": "#D74532",
         "background": "#FFFFFF",
-        "cards": "#e5e7eb",
+        "cards": "#ffffff",
         "text": {
             "dark": "#000000",
             "light": "#777780"
@@ -20,12 +20,12 @@
         "controls": {
             "width": "2px",
             "radius": "12px",
-            "color": "#354A67"
+            "color": "#e2e2e2"
         },
         "cards": {
             "width": "1px",
             "radius": "4px",
-            "color": "#354A67"
+            "color": "#e2e2e2"
         }
     },
     "banner": {
