@@ -11,11 +11,6 @@ Job Protocol lets companies list open roles with a referral bounty on the blockc
 
 ![](https://uploads-ssl.webflow.com/624328d75b9d60a4652c67d5/624328d75b9d605b1c2c68f5_Group%2520228-p-500.png)
 
-## Deployments
-
-Live-data: [frontend-zeta-henna.vercel.app](https://frontend-zeta-henna.vercel.app)  
-Test-data: [frontend-test-beta.vercel.app](https://frontend-test-beta.vercel.app)
-
 ## Usage
 
 ### Environment variables
