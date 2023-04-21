@@ -25,6 +25,7 @@ d = {
     'BORDERS_CONTROLS_RADIUS': conf['borders']['controls']['radius'],
     'BORDERS_CONTROLS_WIDTH': conf['borders']['controls']['width'],
     'BORDERS_CONTROLS_COLOR': conf['borders']['controls']['color'],
+    'SOCIAL_ICON_COLOR': conf['colors']['social_icons'],
 
 
 }
