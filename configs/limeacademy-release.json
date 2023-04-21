@@ -1,5 +1,6 @@
 {
     "jobprotocol_key": "Limeacademy",
+    "fancy": false,
     "bubble_user_email": "limeacademy@jobprotocol.co",
     "bubble_user_id": {
         "dev": "1677242159986x468907182827297700",
@@ -9,16 +10,34 @@
         "main": "#F67637",
         "secondary": "#393939",
         "background": "#ffffff",
-        "border": "#393939",
+        "cards": "#f2f2f292",
         "text": {
             "dark": "#1f2534",
             "light": "#1f2534cc"
         }
     },
-    "border_width": "2px",
-    "border_radius": "12px",
-    "title": "Limeacademy Job Board",
-    "subtitle": "The best opportunities in crypto",
+    "borders": {
+        "controls": {
+            "width": "2px",
+            "radius": "12px",
+            "color": "#393939"
+        },
+        "cards": {
+            "width": "2px",
+            "radius": "12px",
+            "color": "#393939"
+        }
+    },
+    "banner": {
+        "background": "#393939",
+        "background_background": "linear-gradient(to bottom, adjust-color(#393939, $alpha: -0.50), #ffffff)"
+    },
+    "fonts": {
+        "regular": "/fonts/AvenirNext-Regular.ttf",
+        "demibold": "/fonts/AvenirNext-DemiBold.ttf"
+    },
+    "title": "Limeacademy Jobs",
+    "subtitle": "The best opportunities in web3",
     "referred_by": "1677242159986x468907182827297700",
     "branding": {
         "logo": "https://open-source-job-board.vercel.app/_next/image?url=%2Flimeacademy_lime_only.png&w=3840&q=75",

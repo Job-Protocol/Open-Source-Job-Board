@@ -56,7 +56,7 @@ function content(data: JobCardProps) {
         <div className={styles.roleInfoText}>
           <div className={styles.roleInfoCompanyAndRoleTitleContainer}>
             <p className={"chapeau"}> {role.company.name} </p>
-            <h2 className={"body18Bold"}>{role.title}</h2>
+            <h2 className={customer_config.fancy == true ? " body18Bold" : "body18Bold"}>{role.title}</h2>
           </div>
 
           <div

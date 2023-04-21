@@ -14,9 +14,20 @@ d = {
     'TEXT_COLOR_LIGHT': conf['colors']['text']['light'],
     'TEXT_COLOR_DARK': conf['colors']['text']['dark'],
     'BACKGROUND_COLOR': conf['colors']['background'],
-    'BORDER_COLOR': conf['colors']['border'],
-    'BORDER_WIDTH': conf['border_width'],
-    'BORDER_RADIUS': conf['border_radius']
+    'CARD_COLOR': conf['colors']['cards'],
+    'FONT_REGULAR': conf['fonts']['regular'],
+    'FONT_DEMIBOLD': conf['fonts']['demibold'],
+    'BANNER_BACKGROUND_BACKGROUND': conf['banner']['background_background'],
+    'BANNER_BACKGROUND': conf['banner']['background'],
+    'BORDERS_CARDS_RADIUS': conf['borders']['cards']['radius'],
+    'BORDERS_CARDS_WIDTH': conf['borders']['cards']['width'],
+    'BORDERS_CARDS_COLOR': conf['borders']['cards']['color'],
+    'BORDERS_CONTROLS_RADIUS': conf['borders']['controls']['radius'],
+    'BORDERS_CONTROLS_WIDTH': conf['borders']['controls']['width'],
+    'BORDERS_CONTROLS_COLOR': conf['borders']['controls']['color'],
+    'SOCIAL_ICON_COLOR': conf['colors']['social_icons'],
+
+
 }
 
 with open('./styles/Variables_template.sass') as f:

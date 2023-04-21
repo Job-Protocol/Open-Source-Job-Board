@@ -7,6 +7,8 @@
   position: relative
   overflow: hidden
   border: none
+  // background: linear-gradient(0deg, rgba(50, 50, 50, 0.4), rgba(50, 50, 50, 0.4)), linear-gradient(270.03deg, #00C7F8 0.05%, #7C00DB 50.03%, #FF008E 100%)
+  // border-radius: 8px
 
 .headerContainer
   display: flex
@@ -25,10 +27,10 @@
   height: 154px
   position: relative
   overflow: hidden
-  background-color: white
+  background-color: Variables.$card-color
   border-radius: 8px
-  border-color: Variables.$border-color
-  border-width: Variables.$border-width
+  border-color: Variables.$borders-cards-color
+  border-width: Variables.$borders-cards-width
 
 .headerTextContainer
   align-self: flex-end
@@ -110,6 +112,7 @@
   bottom: 0px
   left: 0px
   padding-left: 16px
+  fill: Variables.$borders-controls-color
 
 .input
   flex: 1
@@ -119,9 +122,10 @@
   padding-left: 40px
   padding-top: 8px
   padding-bottom: 8px
-  border-width: Variables.$border-width
-  border-color: Variables.$border-color
-  border-radius: Variables.$border-radius
+  background-color: #00000000
+  border-width: Variables.$borders-controls-width
+  border-color: Variables.$borders-controls-color
+  border-radius: Variables.$borders-controls-radius
   min-height: 36px
 
   &:hover
@@ -178,9 +182,9 @@
     height: 100px
     position: relative
     overflow: hidden
-    background-color: white
+    background-color: #000000a8
     border-radius: 8px
-    border-color: Variables.$border-color
+    border-color: Variables.$borders-cards-color
     border-width: 1px
 
   .h1
@@ -193,10 +197,10 @@
     left: 50%
     transform: translate(-50%, -0%)
     overflow: hidden
-    background-color: white
+    background-color: Variables.$background-color
     border-radius: 8px
-    border-color: Variables.$border-color
-    border-width: 1px
+    border-color: Variables.$borders-cards-color
+    border-width: 0px
 
   .headerTextContainer
     align-self: center
@@ -223,6 +227,7 @@
     gap: 16px
     align-content: center
     justify-content: center
+    color: red
 
   .sliderAndSearch
     display: flex

@@ -4,20 +4,20 @@
   display: flex
   flex-direction: row
   padding: 16px
-  background-color: white
-  border-color: Variables.$border-color
-  border-width: Variables.$border-width
-  border-radius: Variables.$border-radius
+  background-color: Variables.$card-color
+  border-color: Variables.$borders-cards-color
+  border-width: Variables.$borders-cards-width
+  border-radius: Variables.$borders-cards-radius
 
 .buttonContainer
   display: flex
   align-items: center
 
 .card:hover
-  background-image: linear-gradient(to right,#ffffff00,Variables.$main-color-15pct-transparency)
+  background-image: linear-gradient(to right,#ffffff00,Variables.$main-color-30pct-transparency)
 
 .logo
-  border-radius: Variables.$border-radius
+  border-radius: Variables.$borders-cards-radius
   object-fit: fill
   // /* width: 100px;
   height: 100px
@@ -56,8 +56,8 @@
 
 .applyButton
   border-color: Variables.$main-color
-  border-width: Variables.$border-width
-  border-radius: Variables.$border-radius
+  border-width: Variables.$borders-controls-width
+  border-radius: Variables.$borders-controls-radius
   padding-top: 12px
   padding-bottom: 12px
   padding-left: 16px
@@ -65,7 +65,7 @@
   width: 100px
   &:hover
     background-color: Variables.$main-color
-    color: white
+    color: Variables.$background-color
 
 .roleConditionsMobile
   display: none
@@ -93,8 +93,8 @@
   .applyButton
     /* align-self: flex-end; */
     border-color: Variables.$main-color
-    border-width: Variables.$border-width
-    border-radius: Variables.$border-radius
+    border-width: Variables.$borders-controls-width
+    border-radius: Variables.$borders-controls-radius
     padding-top: 12px
     padding-bottom: 12px
     padding-left: 16px
@@ -115,10 +115,10 @@
     display: flex
     flex-direction: column
     padding: 16px
-    background-color: white
-    border-color: Variables.$border-color
+    background-color: Variables.$card-color
+    border-color: Variables.$borders-cards-color
     border-width: 1px
-    border-radius: Variables.$border-radius
+    border-radius: Variables.$borders-cards-radius
 
   .roleInfoImage
     // /* background-color: green; */

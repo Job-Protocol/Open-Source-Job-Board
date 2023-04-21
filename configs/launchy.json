@@ -1,0 +1,53 @@
+{
+    "jobprotocol_key": "Launchy",
+    "fancy": false,
+    "bubble_user_email": "launchy@jobprotocol.co",
+    "bubble_user_id": {
+        "dev": "1682067562202x865834596172813800",
+        "production": "1682067608311x424132626402490940"
+    },
+    "colors": {
+        "main": "#EA3323",
+        "secondary": "#D74532",
+        "background": "#FFFFFF",
+        "cards": "#ffffff",
+        "text": {
+            "dark": "#000000",
+            "light": "#777780"
+        },
+        "social_icons": "#777780"
+    },
+    "borders": {
+        "controls": {
+            "width": "1px",
+            "radius": "12px",
+            "color": "#e2e2e2"
+        },
+        "cards": {
+            "width": "1px",
+            "radius": "4px",
+            "color": "#e2e2e2"
+        }
+    },
+    "banner": {
+        "background": "#e5e7eb",
+        "background_background": "#ffffff"
+    },
+    "fonts": {
+        "regular": "/fonts/AvenirNext-Regular.ttf",
+        "demibold": "/fonts/AvenirNext-DemiBold.ttf"
+    },
+    "title": "Chain Catalyst by Launchy",
+    "subtitle": "Discover the latest web3 products, strategies, and trends",
+    "referred_by": "1682067608311x424132626402490940",
+    "branding": {
+        "logo": "/launchy_logo.png",
+        "banner": "/launchy_banner.png",
+        "favicon": "/launchy_favicon.png"
+    },
+    "socials": {
+        "linkedin": "https://www.linkedin.com/company/launch-y/",
+        "website": "https://www.launchy.app",
+        "twitter": "https://twitter.com/launchy_"
+    }
+}
