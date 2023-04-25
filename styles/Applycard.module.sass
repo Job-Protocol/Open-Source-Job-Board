@@ -1,0 +1,120 @@
+@use 'Variables'
+
+.card
+  display: flex
+  flex-direction: column
+
+  border-radius: 8px
+  border-width: 1px
+  border-color: Variables.$borders-controls-color
+  padding: 24px
+
+  max-width: 850px
+
+  margin-top: 24px
+
+  gap: 24px
+
+  background-color: white
+
+.formContainer
+  display: flex
+  flex-direction: column
+  gap: 40px
+  margin-top: 24px
+
+.formItemGroup
+  display: flex
+  flex-direction: column
+  gap: 12px
+
+  &Title
+    margin-bottom: 4px
+
+.formItem
+  display: flex
+  flex-direction: row
+  align-items: center
+
+.formLabel
+  display: flex
+  flex-direction: row
+  align-items: center
+  gap: 8px
+
+  min-width: 200px
+
+.uploadButtonLabel
+  display: flex
+  flex-direction: row
+  gap: 4px
+
+  max-width: 200px
+  /* width: 100%; */
+  height: 48px
+  min-height: 36px
+
+  align-items: center
+
+  padding-left: 16px
+  padding-right: 16px
+
+  border-color: Variables.$borders-controls-color
+  border-width: 1px
+  border-radius: 8px
+
+  white-space: nowrap
+  flex-shrink: 0
+
+  cursor: pointer
+
+.uploadButton
+  display: none
+  height: 48px
+
+.fullwidth
+  width: 100%
+
+@media only screen and (max-width: 1000px)
+  .formItemGroup
+    display: flex
+    flex-direction: column
+    gap: 12px
+
+  .formItem
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    width: 100%
+    float: left
+    /* min-height: 56px; */
+
+  .formLabel
+    display: flex
+    flex-direction: row
+    align-items: center
+    gap: 8px
+
+    min-width: 200px
+
+  .uploadButtonLabel
+    display: flex
+    flex-direction: row
+    gap: 4px
+
+    max-width: 100%
+    /* width: 100%; */
+    min-width: 200px
+    height: 48px
+    min-height: 36px
+
+    align-items: center
+
+    padding-left: 16px
+    padding-right: 16px
+
+    border-color: Variables.$main-color
+    border-width: 1px
+    border-radius: 8px
+
+    cursor: pointer

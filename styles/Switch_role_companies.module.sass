@@ -1,0 +1,29 @@
+@use 'Variables'
+
+.toggleButton
+  display: flex
+  flex-direction: row
+  height: 48px
+  border: Variables.$borders-controls-width solid Variables.$borders-controls-color
+  border-radius: Variables.$borders-controls-radius
+  cursor: pointer
+
+.toggleOn
+  display: flex
+  align-items: center
+  background-color: Variables.$main-color
+  padding-left: 12px
+  padding-right: 12px
+  border: Variables.$borders-controls-width solid Variables.$main-color
+  border-radius: Variables.$borders-controls-radius
+  margin-top: - Variables.$borders-controls-width
+  margin-left: - Variables.$borders-controls-width
+  margin-right: - Variables.$borders-controls-width
+  margin-bottom: - Variables.$borders-controls-width
+  color: Variables.$text-color-dark
+
+.toggleOff
+  display: flex
+  align-items: center
+  padding-left: 12px
+  padding-right: 12px

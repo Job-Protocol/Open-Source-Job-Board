@@ -1,10 +1,12 @@
 import React from "react";
-import styles from "@/styles/Companycard.module.css";
+import styles from "@/styles/Companycard.module.sass";
 import { Company } from "@/bubble_types";
 import Image from "next/image";
 // import RoleConditions from "./detail/roleconditions";
 
 import Link from "next/link";
+
+import customer_config from "@/customer_config.json";
 
 export interface JobCardProps {
   company: Company;
@@ -31,8 +33,8 @@ export default function CompanyCard(data: JobCardProps) {
           </div>
 
           <div id="content" className={styles.cardContents}>
-            <h2 className="body18Bold"> {company.name} </h2>
-            <div className={styles.cardMainContents}>
+            <h2 className={"body18Bold"}> {company.name} </h2>
+            <div className={styles.cardMainTagline}>
               <p className="body16"> {company.tagline}</p>
             </div>
           </div>

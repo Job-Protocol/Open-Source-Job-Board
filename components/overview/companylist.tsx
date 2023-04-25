@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 
-import styles from "@/styles/Companylist.module.css";
+import styles from "@/styles/Companylist.module.sass";
 import CompanyCard from "../company/companycard";
 
 // import config from "../../config.json";
@@ -14,19 +14,8 @@ import { Company, Role } from "@/bubble_types";
 
 import Loading from "@/components/loading"
 
-async function GetCompanyData(): Promise<Company[]> {
-  const results = getConfig()["company-ids"].map(async (companyid: string) => {
-    const result = await fetch("api/company/" + companyid);
-    const parsed = await result.json();
-    return parsed;
-  });
-  const role_data = await Promise.all(results);
-
-  return role_data;
-}
-
 export interface Props {
-  companies: Company[] | undefined;
+  companies: Company[] | null;
 }
 
 export default function Companylist(data: Props) {

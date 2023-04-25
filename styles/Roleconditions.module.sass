@@ -1,0 +1,22 @@
+@use 'Variables'
+
+.roleConditionsContainer
+  display: flex
+  flex-direction: row
+  gap: 4px
+  margin-top: 0.5rem
+  white-space: nowrap
+  flex-wrap: wrap
+  // max-width: 300px
+  overflow: hidden
+
+.inverted
+  color: Variables.$text-color-light
+
+@media only screen and (max-width: 800px)
+  .roleConditionsContainer
+    display: flex
+    flex-direction: row
+    gap: 4px
+    font-size: 12px
+    margin-top: 0.25rem

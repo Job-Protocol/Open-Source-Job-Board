@@ -1,4 +1,4 @@
-import styles from "@/styles/Roleconditions.module.css";
+import styles from "@/styles/Roleconditions.module.sass";
 import { Company, Role } from "@/bubble_types";
 import { rolelocation_to_string } from "@/utils";
 import {
@@ -23,14 +23,15 @@ export interface Props {
 function nb_company_socials(company: Company) {
   let nb_socials = 0;
 
-  if (company.socials?.github) {
-    nb_socials += 1;
-  } else if (company.socials?.linkedin) {
-    nb_socials += 1;
-  } else if (company.socials?.twitter) {
-    nb_socials += 1;
-  } else if (company.socials?.website) {
-    nb_socials += 1;
+  if (company.socials != null) {
+
+    if (company.socials.linkedin != null) {
+      nb_socials += 1;
+    } else if (company.socials.twitter != null) {
+      nb_socials += 1;
+    } else if (company.socials.website != null) {
+      nb_socials += 1;
+    }
   }
 
   return nb_socials;
@@ -75,7 +76,7 @@ export default function CompanyConditions(data: Props) {
           <FaTwitter />
         </Link>
       )}
-      {data.company.socials && data.company.socials.github && (
+      {/* {data.company.socials && data.company.socials.github && (
         <Link
           href={data.company.socials.github}
           rel="noopener noreferrer"
@@ -83,7 +84,7 @@ export default function CompanyConditions(data: Props) {
         >
           <FaGithub />
         </Link>
-      )}
+      )} */}
       {data.company.socials && data.company.socials.linkedin && (
         <Link
           href={data.company.socials.linkedin}

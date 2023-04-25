@@ -1,9 +1,9 @@
 export default function Loading() {
-    return <>
-        <style jsx>{`
+  return <>
+    {/* <style jsx>{`
           .loader {
             border: 16px solid #eeeeee; 
-            border-top: 16px solid #f9548e;
+            border-top: 16px solid #ff0000;;
             border-radius: 50%;
             width: 120px;
             height: 120px;
@@ -15,7 +15,7 @@ export default function Loading() {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
           }
-      `}</style>
-        <div className="loader"></div>
-    </>
+      `}</style> */}
+    <div className="loader"></div>
+  </>
 }
