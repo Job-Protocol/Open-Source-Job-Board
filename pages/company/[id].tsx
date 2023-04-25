@@ -52,6 +52,7 @@ export async function getStaticProps(context: any) {
     props: { company: this_company, companyroles: this_company_roles },
     revalidate: 60 * 60 * 24, // In seconds
   }
+  
 }
 
 
