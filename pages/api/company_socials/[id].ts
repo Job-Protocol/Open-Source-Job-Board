@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import config from "../../../config.json";
 import { getConfig } from "@/utils";
 import { postMessage } from "@/utils";
 
@@ -30,7 +29,7 @@ export async function fetch_by_id(
 
   const res: CompanySocials = getDefaultCompanySocials();
   res.id = result.response._id;
-  res.github = result.response.github;
+  // res.github = result.response.github;
   return res;
 }
 

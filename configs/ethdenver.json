@@ -1,0 +1,37 @@
+{
+    "jobprotocol_key": "ETHDenver",
+    "bubble_user_email": "lukas@jobprotocol.co",
+    "bubble_user_id": {
+        "dev": "1677242159986x468907182827297700",
+        "production": "1677866183565x802757657419803000"
+    },
+    "colors": {
+        "main": "#F67637",
+        "secondary": "#393939",
+        "background": "#ffffff",
+        "border": "#393939",
+        "text": {
+            "dark": "#1f2534",
+            "light": "#1f2534cc"
+        }
+    },
+    "border_width": "2px",
+    "border_radius": "12px",
+    "title": "Limeacademy Job Board",
+    "subtitle": "The best opportunities in crypto",
+    "referred_by": "1677242159986x468907182827297700",
+    "branding": {
+        "logo": "https://open-source-job-board.vercel.app/_next/image?url=%2Flimeacademy_lime_only.png&w=3840&q=75",
+        "banner": "https://open-source-job-board.vercel.app/_next/image?url=%2Flimeacademy_banner.png&w=3840&q=75",
+        "favicon": "/favicon.ico"
+    },
+    "socials": {
+        "linkedin": "www.linkedin.com/company/limeacademy",
+        "website": "www.limeacademy.tech",
+        "twitter": "twitter.com/LimeAcademyHQ",
+        "discord": "discord.com/invite/HqXqUcVrhq",
+        "youtube": "www.youtube.com/channel/UCw0EmZNAMyXeyROyOx1KKyg",
+        "instagram": "instagram.com/limeacademyhq",
+        "facebook": "www.facebook.com/limeacademy"
+    }
+}

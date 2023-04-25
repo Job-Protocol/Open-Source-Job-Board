@@ -1,0 +1,56 @@
+{
+    "jobprotocol_key": "Limeacademy",
+    "fancy": true,
+    "bubble_user_email": "limeacademy@jobprotocol.co",
+    "bubble_user_id": {
+        "dev": "1677242159986x468907182827297700",
+        "production": "1677866183565x802757657419803000"
+    },
+    "colors": {
+        "main": "#FF008D",
+        "secondary": "#00c7f8",
+        "background": "#020A0A",
+        "cards": "#2B2B30",
+        "text": {
+            "dark": "#ffffff",
+            "light": "#ffffff"
+        }
+    },
+    "borders": {
+        "controls": {
+            "width": "2px",
+            "radius": "12px",
+            "color": "#354A67"
+        },
+        "cards": {
+            "width": "0px",
+            "radius": "0px",
+            "color": "#354A67"
+        }
+    },
+    "banner": {
+        "background": "#2B2B30",
+        "background_background": "linear-gradient(to bottom, adjust-color($secondary-color, $alpha: -0.50), $background-color)"
+    },
+    "fonts": {
+        "regular": "/fonts/AvenirNext-Regular.ttf",
+        "demibold": "/fonts/AvenirNext-DemiBold.ttf"
+    },
+    "title": "Consensus Jobs",
+    "subtitle": "The best opportunities in web3",
+    "referred_by": "1677242159986x468907182827297700",
+    "branding": {
+        "logo": "/consensus.png",
+        "banner": "/consensus_banner.jpeg",
+        "favicon": "/favicon.ico"
+    },
+    "socials": {
+        "linkedin": "www.linkedin.com/company/limeacademy",
+        "website": "www.limeacademy.tech",
+        "twitter": "twitter.com/LimeAcademyHQ",
+        "discord": "discord.com/invite/HqXqUcVrhq",
+        "youtube": "www.youtube.com/channel/UCw0EmZNAMyXeyROyOx1KKyg",
+        "instagram": "instagram.com/limeacademyhq",
+        "facebook": "www.facebook.com/limeacademy"
+    }
+}

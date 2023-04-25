@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import styles from "@/styles/Requirements.module.css";
-import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.css";
+import styles from "@/styles/Requirements.module.sass";
+import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.sass";
 import { Role, Requirement } from "@/bubble_types";
 // import Requirement from "./detail/roleconditions";
 

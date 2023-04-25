@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@/styles/Switch_role_companies.module.css";
+import styles from "@/styles/Switch_role_companies.module.sass";
 
 import { useState, useEffect } from "react";
 

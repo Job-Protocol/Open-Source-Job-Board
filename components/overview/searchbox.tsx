@@ -1,10 +1,12 @@
 import React from "react";
-import styles from "@/styles/Searchbox.module.css";
+import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.sass";
 import { useState, useEffect } from "react";
 
 import Select from "react-select";
 
 import { selectStyles } from "./selectStyles";
+
+import customer_config from "@/customer_config.json";
 
 async function getOptions(s: string) {
   const url: string = "../api/complete?s=" + s;
@@ -43,52 +45,52 @@ export default function SearchBox(data: Props) {
   }
 
   return (
-    // <div className={stylesGlobalFormElements.input}>
-    <Select
-      // className="basic-single"
-      // classNamePrefix="select"
-      id={data.id}
-      components={{
-        DropdownIndicator: () => null,
-        IndicatorSeparator: () => null,
-      }}
-      styles={{
-        ...selectStyles,
-        control: (baseStyles, state) => ({
-          ...selectStyles.control(baseStyles, state),
-          cursor: "text",
-          minWidth: "300px",
-          ...customHeightStyle,
-        }),
-      }}
-      classNames={{
-        placeholder: (state) => "body16",
-        option: (state) => "body16",
-      }}
-      placeholder="Enter a location..."
-      defaultValue="blue"
-      isDisabled={data.disabled}
-      isLoading={false}
-      isClearable={true}
-      isRtl={false}
-      isSearchable={true}
-      value={selectedValue}
-      options={options}
-      onChange={(value) => {
-        data.handleChange(!value ? "" : (value as string));
-        setSelectedValue(value as string);
-      }} //actually make selection
-      onFocus={() => {
-        setSelectedValue("");
-        data.handleChange("");
-      }}
-      onInputChange={(value) => {
-        setTimeout(function () {
-          setUserInput(value);
-        }, 1000);
-      }}
-    />
-    // </div>
+    <div>
+      <Select
+        // className="basic-single"
+        // classNamePrefix={stylesGlobalFormElements.input}
+        id={data.id}
+        components={{
+          DropdownIndicator: () => null,
+          IndicatorSeparator: () => null,
+        }}
+        styles={{
+          ...selectStyles,
+          control: (baseStyles, state) => ({
+            ...selectStyles.control(baseStyles, state),
+            cursor: "text",
+            minWidth: "300px",
+            ...customHeightStyle,
+          }),
+        }}
+        classNames={{
+          placeholder: (state) => "body16",
+          option: (state) => "body16",
+        }}
+        placeholder="Enter a location..."
+        defaultValue="blue"
+        isDisabled={data.disabled}
+        isLoading={false}
+        isClearable={true}
+        isRtl={false}
+        isSearchable={true}
+        value={selectedValue}
+        options={options}
+        onChange={(value) => {
+          data.handleChange(!value ? "" : (value as string));
+          setSelectedValue(value as string);
+        }} //actually make selection
+        onFocus={() => {
+          setSelectedValue("");
+          data.handleChange("");
+        }}
+        onInputChange={(value) => {
+          setTimeout(function () {
+            setUserInput(value);
+          }, 1000);
+        }}
+      />
+    </div>
   );
 }
 

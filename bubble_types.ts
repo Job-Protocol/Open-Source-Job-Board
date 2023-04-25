@@ -1,20 +1,20 @@
 export interface GeographicAddress {
-  address: string | undefined;
-  lat: number | undefined;
-  lng: number | undefined;
-  country: string | undefined;
-  city: string | undefined;
-  utc_offset: number | undefined;
+  address: string | null;
+  lat: number | null;
+  lng: number | null;
+  country: string | null;
+  city: string | null;
+  utc_offset: number | null;
   // {address: 'Montreal, QC, Canada', lat: 45.5018869, lng: -73.5673919}
 }
 export function getDefaultGeographicAddress(): GeographicAddress {
   return {
-    address: undefined,
-    lat: undefined,
-    lng: undefined,
-    country: undefined,
-    city: undefined,
-    utc_offset: undefined,
+    address: null,
+    lat: null,
+    lng: null,
+    country: null,
+    city: null,
+    utc_offset: null,
   };
 }
 
@@ -66,16 +66,16 @@ export enum RoleLocationType {
 }
 export interface RoleLocation {
   id: string;
-  location_type: RoleLocationType | undefined;
-  location_list: GeographicAddress[] | undefined;
-  timezone_range: TimezoneRange | undefined;
+  location_type: RoleLocationType | null;
+  location_list: GeographicAddress[] | null;
+  timezone_range: TimezoneRange | null;
 }
 export function getDefaultRoleLocation(): RoleLocation {
   return {
     id: "",
-    location_type: undefined,
-    location_list: undefined,
-    timezone_range: undefined,
+    location_type: null,
+    location_list: null,
+    timezone_range: null,
   };
 }
 
@@ -83,18 +83,16 @@ export function getDefaultRoleLocation(): RoleLocation {
 
 export interface CompanySocials {
   id: string;
-  twitter: string | undefined;
-  linkedin: string | undefined;
-  github: string | undefined;
-  website: string | undefined;
+  twitter: string | null;
+  linkedin: string | null;
+  website: string | null;
 }
 export function getDefaultCompanySocials(): CompanySocials {
   return {
     id: "",
-    twitter: undefined,
-    linkedin: undefined,
-    github: undefined,
-    website: undefined,
+    twitter: null,
+    linkedin: null,
+    website: null,
   };
 }
 
@@ -111,31 +109,31 @@ export interface Company {
   name: string;
   logo: string;
   tagline: string;
-  mission: string | undefined;
+  mission: string | null;
   num_employees: number;
   headquarters: string;
-  socials: CompanySocials | undefined;
-  press_article_links: NamedLink[] | undefined;
-  founding_year: number | undefined;
-  slug: string | undefined;
-  priority: number | undefined;
-  keywords: string[] | undefined;
+  socials: CompanySocials | null;
+  press_article_links: NamedLink[] | null;
+  founding_year: number | null;
+  slug: string | null;
+  priority: number | null;
+  keywords: string[] | null;
 }
 export function getDefaultCompany(): Company {
   return {
     id: "",
     name: "",
-    logo: "",
+    logo: "https://static.thenounproject.com/png/88781-200.png",
     tagline: "",
-    mission: undefined,
+    mission: null,
     num_employees: 0,
     headquarters: "",
     socials: getDefaultCompanySocials(),
-    press_article_links: undefined,
-    founding_year: undefined,
-    slug: undefined,
-    priority: undefined,
-    keywords: undefined
+    press_article_links: null,
+    founding_year: null,
+    slug: null,
+    priority: null,
+    keywords: null
   };
 }
 
@@ -150,16 +148,18 @@ export interface Role {
   title: string;
   company: Company;
   desc: string;
-  location: RoleLocation | undefined;
-  salary_min: number | undefined;
-  salary_max: number | undefined;
-  equity_pct_min: number | undefined;
-  equity_pct_max: number | undefined;
-  requirements: Requirement[] | undefined;
+  location: RoleLocation | null;
+  salary_min: number | null;
+  salary_max: number | null;
+  equity_pct_min: number | null;
+  equity_pct_max: number | null;
+  bounty: number | null;
+  requirements: Requirement[] | null;
   state: RoleState;
-  type: RoleType | undefined;
-  keywords: string[] | undefined;
-  slug: string | undefined;
+  type: RoleType | null;
+  keywords: string[] | null;
+  private_owner: string | null;
+  slug: string | null;
 }
 export function getDefaultRole(): Role {
   return {
@@ -167,15 +167,17 @@ export function getDefaultRole(): Role {
     title: "",
     company: getDefaultCompany(),
     desc: "",
-    location: undefined,
-    salary_min: undefined,
-    salary_max: undefined,
-    equity_pct_min: undefined,
-    equity_pct_max: undefined,
-    requirements: undefined,
+    location: null,
+    salary_min: null,
+    salary_max: null,
+    equity_pct_min: null,
+    equity_pct_max: null,
+    bounty: null,
+    requirements: null,
     state: RoleState.Hidden,
-    type: undefined,
-    keywords: undefined,
-    slug: undefined,
+    type: null,
+    keywords: null,
+    private_owner: null,
+    slug: null,
   };
 }

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 
-import styles from "@/styles/Jobfilters.module.css";
-import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.css";
+import styles from "@/styles/Jobfilters.module.sass";
+import stylesGlobalFormElements from "@/styles/GlobalFormElements.module.sass";
 import { selectStyles } from "./selectStyles";
+//import selectStyles from "@/styles/SelectStyles.module.sass";
 
 import SearchBox from "@/components/overview/searchbox";
 import { GeographicAddress, RoleType } from "@/bubble_types";
@@ -23,10 +24,10 @@ export default function JobFilters({
   closeModalHandler,
 }: {
   handleChange: (
-    userAddress: GeographicAddress | undefined,
-    remoteOnly: boolean | undefined,
-    roleType: RoleType | undefined,
-    searchterm: string | undefined
+    userAddress: GeographicAddress | null,
+    remoteOnly: boolean | null,
+    roleType: RoleType | null,
+    searchterm: string | null
   ) => void;
   isModalOpen: boolean;
   closeModalHandler: () => void;
@@ -34,11 +35,11 @@ export default function JobFilters({
   // const [openModal, setOpenModal] = useState<boolean>(false);
   const [remoteOnly, setRemoteOnly] = useState<boolean>(false);
   const [userLocation, setUserLocation] = useState<string>("");
-  const [roleType, setRoleType] = useState<RoleType | undefined>(undefined);
-  const [userAddress, setUserAddress] = useState<GeographicAddress | undefined>(
-    undefined
+  const [roleType, setRoleType] = useState<RoleType | null>(null);
+  const [userAddress, setUserAddress] = useState<GeographicAddress | null>(
+    null
   );
-  const [searchterm, setSearchterm] = useState<string | undefined>(undefined);
+  const [searchterm, setSearchterm] = useState<string | null>(null);
 
   useEffect(() => {
     if (userLocation) {
@@ -46,7 +47,7 @@ export default function JobFilters({
         setUserAddress(res);
       });
     } else {
-      setUserAddress(undefined);
+      setUserAddress(null);
     }
   }, [userLocation]);
 
@@ -71,7 +72,7 @@ export default function JobFilters({
             Role
             <Select
               options={[
-                { value: undefined, label: "All" },
+                { value: null, label: "All" },
                 { value: RoleType.Design, label: "Design" },
                 { value: RoleType.Engineering, label: "Engineering" },
                 { value: RoleType.Marketing, label: "Marketing" },

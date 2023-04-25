@@ -79,15 +79,16 @@ export function postMessage(msg: string) {
     redirect: "follow",
   };
 
-  const URL: string = config["dev"]["endpoint"] +
-    "/wf/slack_message_forward"
-  fetch(
-    URL,
-    requestOptions
-  )
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
+  //TODO(scheuclu) Reenable this.
+  // const URL: string = config["dev"]["endpoint"] +
+  //   "/wf/slack_message_forward"
+  // fetch(
+  //   URL,
+  //   requestOptions
+  // )
+  //   .then((response) => response.text())
+  //   .then((result) => console.log(result))
+  //   .catch((error) => console.log("error", error));
 }
 
 export const validateEmail = (email: string): boolean => {
@@ -106,3 +107,63 @@ export const validateEmail = (email: string): boolean => {
 export function extractKeywordsFromRole(role: Role): string[] {
   return [role.title, role.company.name];
 }
+
+
+
+export async function revalidate_page(page: string): Promise<boolean> {
+
+  // Role curation was successfull, so now, revalidate the page.
+  const url_revlidate: string = `/api/revalidate?path=${page}`;
+  try {
+    console.log("Revalidating index page: ", url_revlidate);
+    const success_re: any = await fetch(url_revlidate);
+    if (success_re.status != 200) {
+      throw new Error(`API rejected with status ${success_re.status}`)
+    }
+  } catch (e) {
+    console.log("Revalidation failed with error", e);
+    return false
+  }
+
+  return true;
+}
+
+
+export async function paginated_fetch(url: string, requestOptions: any): Promise<any[]> {
+  let finals: any[] = [];
+  let finished: boolean = false;
+  let cursor = 0;
+
+  // Add cursor
+  let updated_url = new URL(url);
+  let search_params = updated_url.searchParams;
+  if (!search_params.has("cursor")) {
+    search_params.set("cursor", "0");
+    updated_url.search = search_params.toString();
+  }
+
+  while (!finished) {
+    const response = await fetch(updated_url.toString(), requestOptions);
+    if (response.status != 200) {
+      postMessage(
+        "URGENT: 'fetch_pageinated_bubble' failed with status code " +
+        response.status.toString()
+      );
+    }
+    const result = await response.json();
+    finals = finals.concat(result.response.results);
+
+    const bubble_count = result.response.count;
+    const bubble_remaining = result.response.remaining;
+
+    finished = bubble_remaining === 0 || cursor === 1000;
+    cursor = cursor + bubble_count;
+
+    let search_params = updated_url.searchParams;
+    search_params.set("cursor", cursor.toString());
+    updated_url.search = search_params.toString();
+  }
+  return finals;
+
+}
+

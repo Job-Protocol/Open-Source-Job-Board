@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-// import config from "../../../config.json";
 import { getConfig } from "@/utils";
 
 export default async function handler(

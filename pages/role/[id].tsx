@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styles from "@/styles/Roledetailpage.module.css";
+import styles from "@/styles/Roledetailpage.module.sass";
 import JdCard from "@/components/role/detail/jobdesc";
 import ApplyCard from "@/components/role/apply";
 import CompanyCard from "@/components/role/detail/companyinfo";
@@ -7,8 +7,9 @@ import Footer from "@/components/overview/footer";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import customer_config from "@/customer_config.json";
 
-import { Role, Requirement } from "@/bubble_types";
+import { Role } from "@/bubble_types";
 import RoleConditions from "@/components/role/detail/roleconditions";
 
 import FourOhFour from "@/pages/404";
@@ -19,11 +20,12 @@ import Image from "next/image";
 import "reactjs-popup/dist/index.css";
 import { FastAverageColor } from "fast-average-color";
 
-import { GetAllIDs, GetCompaniesByCompanyIDs, GetRolesByRoleIDs } from "..";
+import { GetAllRelevantRoles } from "..";
+
+import { fetch_role_by_id_or_slug } from "@/pages/api/role/[id]"
 
 async function getRoleData(roleid: string): Promise<Role> {
-  const result = await fetch(`${process.env.BASE_URL}/api/role/` + roleid);
-  const parsed = await result.json();
+  const parsed = fetch_role_by_id_or_slug(roleid, process.env.BUBBLE_API_PRIVATE_KEY as string);
   return parsed;
 }
 
@@ -31,18 +33,18 @@ export interface Props {
   role: Role;
 }
 
-export async function getStaticPaths() {
-  const allIDs = await GetAllIDs();
-  const roleIDS = allIDs[1];
+// export async function getStaticPaths() {
+//   const allIDs = await GetAllIDs();
+//   const roleIDS = allIDs[1];
 
-  const roles = await GetRolesByRoleIDs(roleIDS);
-  const slugs = roles.map((role) => role.slug);
-  const paths = slugs.map((slug) => ({ params: { id: slug } }));
+  const roles = await GetAllRelevantRoles();
+  const slugs = roles.map(role => role.slug);
+  const paths = slugs.map(slug => ({ params: { id: slug } }));
 
   return {
     paths: paths,
     fallback: true, // can also be true or 'blocking'
-  };
+  }
 }
 
 // `getStaticPaths` requires using `getStaticProps`
@@ -52,7 +54,7 @@ export async function getStaticProps(context: any) {
     // Passed to the page component as props
     props: { role: role },
     revalidate: 60 * 60 * 24, // In seconds
-  };
+  }
 }
 
 export default function Home(props: Props) {
@@ -110,7 +112,6 @@ export default function Home(props: Props) {
           content={role.company.name + " - " + role.title}
         ></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/ethdenver-spork-logo-pink2.png" />
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
@@ -175,33 +176,20 @@ export default function Home(props: Props) {
                 styles.desktopOnly
               }
             >
-              ETHDENVER Job Board
+              {customer_config.title}
             </div>
           </div>
 
           <div className={styles.roleDetailHeaderContainer}>
             <div className={styles.roleInfo}>
-              {logoDark && (
-                <div className={styles.logoContainer}>
-                  <Image
-                    // className={styles.logoContainer}
-                    src={role?.company?.logo.replace("//s3", "https://s3")}
-                    alt="Logo"
-                    fill={true}
-                  // width={122}
-                  // height={122}
-                  />
-                </div>
-              )}
-              {!logoDark && (
+              <div className={styles.logoContainer}>
                 <Image
-                  className={styles.logoContainer}
                   src={role?.company?.logo.replace("//s3", "https://s3")}
                   alt="Logo"
-                  width={122}
-                  height={122}
+                  fill={true}
                 />
-              )}
+              </div>
+
               <div className={styles.roleInfoText}>
                 <p className={"chapeau " + styles.companyText}>
                   {" "}
@@ -213,7 +201,7 @@ export default function Home(props: Props) {
                     {role?.company.tagline}
                   </p>
 
-                  <RoleConditions role={role} isInverted={true} />
+                  <RoleConditions role={role} showBounty={false} isInverted={true} />
                 </div>
               </div>
             </div>
@@ -221,80 +209,8 @@ export default function Home(props: Props) {
               <p className={"body18 " + styles.companyTagLine}>
                 {role?.company.tagline}
               </p>
-              <RoleConditions role={role} isInverted={false} />
+              <RoleConditions role={role} showBounty={false} isInverted={false} />
             </div>
-            {/* TODO(scheuclu) Role options are disabled until we have the data */}
-            {/* <div className={styles.roleOptionsContainer}>
-              <div className={styles.roleOptionContainer}>
-                <div className={styles.roleOptionIconContainer}>
-                  <Image
-                    src={"/building.svg"}
-                    alt="BuildingIcon"
-                    width={20}
-                    height={20}
-                  />
-                </div>
-                <div
-                  className={
-                    "body14Bold " + styles.roleOptionTextAndInfoContainer
-                  }
-                >
-                  Hybrid work environment
-                  <Image
-                    src={"/info.svg"}
-                    alt="InfoIcon"
-                    width={13}
-                    height={13}
-                  />
-                </div>
-              </div>
-              <div className={styles.roleOptionContainer}>
-                <div className={styles.roleOptionIconContainer}>
-                  <Image
-                    src={"/building.svg"}
-                    alt="BuildingIcon"
-                    width={20}
-                    height={20}
-                  />
-                </div>
-                <div
-                  className={
-                    "body14Bold " + styles.roleOptionTextAndInfoContainer
-                  }
-                >
-                  Hybrid work environment
-                  <Image
-                    src={"/info.svg"}
-                    alt="InfoIcon"
-                    width={13}
-                    height={13}
-                  />
-                </div>
-              </div>
-              <div className={styles.roleOptionContainer}>
-                <div className={styles.roleOptionIconContainer}>
-                  <Image
-                    src={"/building.svg"}
-                    alt="BuildingIcon"
-                    width={20}
-                    height={20}
-                  />
-                </div>
-                <div
-                  className={
-                    "body14Bold " + styles.roleOptionTextAndInfoContainer
-                  }
-                >
-                  Hybrid work environment
-                  <Image
-                    src={"/info.svg"}
-                    alt="InfoIcon"
-                    width={13}
-                    height={13}
-                  />
-                </div>
-              </div>
-            </div> */}
           </div>
           <div className={styles.JDAndCompanyCardContainer}>
             <JdCard desc={role?.desc as string} />
