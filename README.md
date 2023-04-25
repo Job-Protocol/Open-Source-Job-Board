@@ -1,4 +1,4 @@
-# LimeAcademy Jobboard
+# Open Source Job Board
 
 
 The jobboard is powered by [JobProtocol](https://www.jobprotocol.com).  
