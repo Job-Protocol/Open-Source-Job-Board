@@ -17,10 +17,11 @@ In order to run this app, you need to set a few environment variables.
 - `BUBBLE_API_PRIVATE_KEY`: Private key for jobprotocol API access on bubble
 - `CONFIG_VERSION`: Can be `["dev", "production"]`. If unset or incorrect, defaults to `"dev"`. Determines whether the page connects to the "test" or the "live" version of Bubble database.
 - `CONFIG_FILE`: Particular jobboard config. E.g. `./configs/launchy.json`.
+- `PASSWORD`: Used to access the admin menu.
 
 You can set variable wit `export VARIABLE="value"` or put the same command into your .bashrc to load it automatically when you start a terminal.
 
-### Run page
+### Run dev
 
 Use `npm run dev` for development purposes.  
 
@@ -31,5 +32,13 @@ npm run build
 npm run start
 ```
 
-TODO
+## Spin up a new board
+ - Create a new config file. Use launchy as reference
+ - In Vercel, create a new deployment of the release branch, just like the launch one. The only difference is the Environment varible specifiyin which JSON file to read
+ 
+## Work left
+- Read JSON file direcltly in SASS file, such that the preprocess.py step becomes unneccessary.
+- Clean up the SASS. SASS can use variables and snippets. Take advantage and reduce boilerplate
+- Move all the responsive design directly into the SASS class.
+ -
 

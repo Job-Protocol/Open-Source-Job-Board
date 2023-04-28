@@ -33,9 +33,9 @@ export interface Props {
   role: Role;
 }
 
-// export async function getStaticPaths() {
-//   const allIDs = await GetAllIDs();
-//   const roleIDS = allIDs[1];
+export async function getStaticPaths() {
+  // const allIDs = await GetAllIDs();
+  // const roleIDS = allIDs[1];
 
   const roles = await GetAllRelevantRoles();
   const slugs = roles.map(role => role.slug);
