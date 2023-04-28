@@ -13,6 +13,7 @@ d = {
     'SECONDARY_COLOR': conf['colors']['secondary'],
     'TEXT_COLOR_LIGHT': conf['colors']['text']['light'],
     'TEXT_COLOR_DARK': conf['colors']['text']['dark'],
+    'TEXT_COLOR_BANNER': conf['colors']['text']['banner'],
     'BACKGROUND_COLOR': conf['colors']['background'],
     'CARD_COLOR': conf['colors']['cards'],
     'FONT_REGULAR': conf['fonts']['regular'],

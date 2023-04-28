@@ -13,7 +13,8 @@
         "cards": "#ffffff",
         "text": {
             "dark": "#000000",
-            "light": "#777780"
+            "light": "#777780",
+            "banner": "#777780"
         },
         "social_icons": "#777780"
     },
