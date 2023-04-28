@@ -20,7 +20,7 @@ export interface Props {
   companyroles: Role[];
 }
 
-// export async function getStaticPaths() {
+export async function getStaticPaths() {
 //   const allIDs = await GetAllIDs();
 //   const companyIDS = allIDs[0];
 
@@ -29,16 +29,12 @@ export interface Props {
   const companies: Company[] = roles.map(role => role.company);
   const slugs = companies.map(company => company.slug);
   const paths = slugs.map(slug => ({ params: { id: slug } }));
+  return {
+    paths: paths,
+    fallback: false, // can also be true or 'blocking'
+  }
 
-// // `getStaticPaths` requires using `getStaticProps`
-// export async function getStaticProps(context: any) {
-//   const company = await getCompanyData(context.params.id);
-//   const allIDs = await GetAllIDs(); //TODO(scheuclu) URGENT. Replace this with more efficient query. E.g. query bubble to only return roles for this company.
-//   const roleIDs = allIDs[1];
-//   const allRoles = await GetRolesByRoleIDs(roleIDs);
-//   const companyroles = allRoles.filter(
-//     (role) => role.company.id === company.id
-//   );
+}
 
 // `getStaticPaths` requires using `getStaticProps`
 export async function getStaticProps(context: any) {
