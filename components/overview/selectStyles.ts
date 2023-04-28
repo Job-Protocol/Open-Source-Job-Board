@@ -11,7 +11,7 @@ const selectStyles = {
     borderRadius: "8px",
     boxShadow: "none",
     outline: "none",
-    backgroundColor: "000000ff",
+    backgroundColor: customer_config.colors.cards,
     color: customer_config.colors.main,
     "&:hover": {
       borderColor: customer_config.borders.controls.color
