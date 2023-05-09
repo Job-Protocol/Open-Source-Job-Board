@@ -14,7 +14,8 @@
         "text": {
             "dark": "#1E2F69",
             "light": "#6F8EF6",
-            "banner": "#6F8EF6"
+            "banner": "#6F8EF6",
+            "primary_button": "#1E2F69"
         },
         "social_icons": "#6F8EF6"
     },
