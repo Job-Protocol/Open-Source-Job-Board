@@ -1,10 +1,10 @@
 {
     "jobprotocol_key": "Metana",
     "fancy": false,
-    "bubble_user_email": "metana@jobprotocol.co",
+    "bubble_user_email": "khan@metana.io",
     "bubble_user_id": {
         "dev": "1682067562202x865834596172813800",
-        "production": "1683634168382x247581710493384600"
+        "production": "1683634602142x269864486634651600"
     },
     "colors": {
         "main": "#D0FC00",
@@ -41,7 +41,7 @@
     },
     "title": "Metana Job board",
     "subtitle": "Unleash Your Potential and Gain a competitive edge",
-    "referred_by": "1683634168382x247581710493384600",
+    "referred_by": "1683634602142x269864486634651600",
     "branding": {
         "logo": "/metana_logo.png",
         "banner": "/metana_banner.png",
