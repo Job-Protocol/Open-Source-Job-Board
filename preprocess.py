@@ -14,6 +14,7 @@ d = {
     'TEXT_COLOR_LIGHT': conf['colors']['text']['light'],
     'TEXT_COLOR_DARK': conf['colors']['text']['dark'],
     'TEXT_COLOR_BANNER': conf['colors']['text']['banner'],
+    'TEXT_COLOR_PRIMARY_BUTTON': conf['colors']['text']['primary_button'],
     'BACKGROUND_COLOR': conf['colors']['background'],
     'CARD_COLOR': conf['colors']['cards'],
     'FONT_REGULAR': conf['fonts']['regular'],
@@ -27,8 +28,6 @@ d = {
     'BORDERS_CONTROLS_WIDTH': conf['borders']['controls']['width'],
     'BORDERS_CONTROLS_COLOR': conf['borders']['controls']['color'],
     'SOCIAL_ICON_COLOR': conf['colors']['social_icons'],
-
-
 }
 
 with open('./styles/Variables_template.sass') as f:
