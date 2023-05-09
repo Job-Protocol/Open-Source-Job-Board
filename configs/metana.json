@@ -1,0 +1,54 @@
+{
+    "jobprotocol_key": "Launchy",
+    "fancy": false,
+    "bubble_user_email": "metana@jobprotocol.co",
+    "bubble_user_id": {
+        "dev": "1682067562202x865834596172813800",
+        "production": "1683634168382x247581710493384600"
+    },
+    "colors": {
+        "main": "#D0FC00",
+        "secondary": "#0B0332",
+        "background": "#FFFFFF",
+        "cards": "#ffffff",
+        "text": {
+            "dark": "#1E2F69",
+            "light": "#6F8EF6",
+            "banner": "#6F8EF6"
+        },
+        "social_icons": "#6F8EF6"
+    },
+    "borders": {
+        "controls": {
+            "width": "1px",
+            "radius": "12px",
+            "color": "#65B8DF"
+        },
+        "cards": {
+            "width": "1px",
+            "radius": "4px",
+            "color": "#65B8DF"
+        }
+    },
+    "banner": {
+        "background": "#FFFFFF",
+        "background_background": "#ffffff"
+    },
+    "fonts": {
+        "regular": "/fonts/AvenirNext-Regular.ttf",
+        "demibold": "/fonts/AvenirNext-DemiBold.ttf"
+    },
+    "title": "Metana Job board",
+    "subtitle": "Unleash Your Potential and Gain a competitive edge",
+    "referred_by": "1683634168382x247581710493384600",
+    "branding": {
+        "logo": "/metana_logo.png",
+        "banner": "/metana_banner.png",
+        "favicon": "/metana_favicon.png"
+    },
+    "socials": {
+        "linkedin": "www.linkedin.com/school/metana",
+        "website": "metana.io",
+        "twitter": "twitter.com/MetanaHQ"
+    }
+}
